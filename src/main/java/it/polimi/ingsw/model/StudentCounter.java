@@ -24,7 +24,9 @@ public class StudentCounter {
     }
 
     // TODO: create custom exception?
-    public PawnColor moveRandomFrom(StudentCounter other) throws IllegalArgumentException {
+    // TODO: javadoc
+    // moves random pawn between two StudentCounters
+    public PawnColor movePawnFrom(StudentCounter other) throws IllegalArgumentException {
         ArrayList<PawnColor> movableColors = new ArrayList<>();
         for(PawnColor color : PawnColor.values()){
             if(other.map.get(color) > 0){
@@ -36,11 +38,12 @@ public class StudentCounter {
         Random rand = new Random();
         int i = rand.nextInt(movableColors.size());
         PawnColor c = PawnColor.values()[i];
-        moveColorFrom(other, c);
+        movePawnFrom(other, c);
         return c;
     }
 
-    public void moveColorFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
+    // moves pawn of a selected PawnColor between two StudentCounters
+    public void movePawnFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
         if(other.map.get(color) <= 0) throw new IllegalArgumentException();
         other.map.put(color, other.map.get(color) - 1);
         map.put(color, map.get(color) + 1);
@@ -50,5 +53,12 @@ public class StudentCounter {
         return map.get(color);
     }
 
-    // TODO: create tests for the class
+    public int count(){
+        int sum = 0;
+        for(PawnColor c : PawnColor.values()){
+            sum += map.get(c);
+        }
+        return sum;
+    }
+
 }
