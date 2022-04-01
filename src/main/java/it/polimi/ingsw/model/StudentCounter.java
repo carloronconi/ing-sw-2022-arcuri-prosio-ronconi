@@ -35,7 +35,6 @@ public class StudentCounter {
     }
 
     // TODO: create custom exception?
-    // TODO: javadoc
 
     /**
      * Moves one student of random color pawn (among those with value > 0) from other studentCounter to this
