@@ -12,7 +12,6 @@ public class IslandTile extends StudentCounter{
     boolean isConnectNext;
     boolean isConnectPrev;
     //TODO: Player owner;
-    Entrance entrance;
 
     /**
      * constructor initializes with no connections to neighbor tiles
@@ -22,7 +21,7 @@ public class IslandTile extends StudentCounter{
         super();
         this.isConnectNext = false;
         this.isConnectPrev = false;
-        this.entrance = entrance;
+
     }
 
     /**
@@ -51,11 +50,11 @@ public class IslandTile extends StudentCounter{
         return isConnectPrev;
     }
 
-
+    //TODO: actually can't have same entrance from which to fill each time because the island could change owner, need to extract entrance from owner and pass it to movePawFrom in this method
     public void fill(PawnColor color){
-        movePawnFrom(entrance,color);
+        //movePawnFrom(player.entrance,color);
     }
 
     //TODO: getter and setter for owner
-    //TODO: all methods should throw exception if dindn't set up nextTile and prevTile yet?
+    //TODO: all methods should throw exception if didn't set up nextTile and prevTile yet?
 }

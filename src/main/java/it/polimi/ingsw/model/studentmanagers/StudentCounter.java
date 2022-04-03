@@ -51,7 +51,7 @@ public abstract class StudentCounter {
 
         Random rand = new Random();
         int i = rand.nextInt(movableColors.size());
-        PawnColor c = PawnColor.values()[i];
+        PawnColor c = movableColors.get(i);
         movePawnFrom(other, c);
         return c;
     }

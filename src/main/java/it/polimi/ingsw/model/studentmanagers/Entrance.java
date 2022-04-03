@@ -17,7 +17,7 @@ public class Entrance extends StudentCounter {
     public Entrance(Bag bag, List<Cloud> clouds) {
         super();
         this.clouds = clouds;
-        IntStream.range(0,6).forEach(i -> movePawnFrom(bag));
+        IntStream.range(0,7).forEach(i -> movePawnFrom(bag));
     }
 
     /**
@@ -25,6 +25,7 @@ public class Entrance extends StudentCounter {
      * @param fromCloud to select the cloud from which to fill the Entrance
      */
     public void fill(int fromCloud){
-        IntStream.range(0, clouds.get(fromCloud).count()).forEach(i -> movePawnFrom(clouds.get(fromCloud)));
+
+        IntStream.range(0, clouds.get(fromCloud).count()).forEach(i -> movePawnFrom(clouds.get(fromCloud) ));
     }
 }
