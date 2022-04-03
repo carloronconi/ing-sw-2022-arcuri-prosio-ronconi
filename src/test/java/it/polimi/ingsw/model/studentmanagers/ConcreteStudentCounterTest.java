@@ -1,21 +1,21 @@
 package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.studentmanagers.StudentCounter;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StudentCounterTest {
+class ConcreteStudentCounterTest extends StudentCounter {
 
     private StudentCounter scFull;
     private StudentCounter scEmpty;
 
     @BeforeEach
     void setUp() {
-        scEmpty = new StudentCounter();
-        scFull = new StudentCounter(26);
+        scEmpty = new ConcreteStudentCounter();
+        scFull = new ConcreteStudentCounter(26);
         for(PawnColor c : PawnColor.values()){
             assertEquals(26, scFull.count(c), "Each color should have 26 pawns");
             assertEquals(0,scEmpty.count(c), "Each color should have 0 pawns");
@@ -42,8 +42,8 @@ class StudentCounterTest {
     void movePawnFrom_RandomColor() {
         int totalBeforeFull = scFull.count();
         int totalBeforeEmpty = scEmpty.count();
-        StudentCounter scFullBefore = new StudentCounter(26);
-        StudentCounter scEmptyBefore = new StudentCounter();
+        StudentCounter scFullBefore = new ConcreteStudentCounter(26);
+        StudentCounter scEmptyBefore = new ConcreteStudentCounter();
         try{
             PawnColor c = scEmpty.movePawnFrom(scFull);
             assertEquals(scFullBefore.count(c) - 1, scFull.count(c), "Should have increased number of pawns of random color by one");
@@ -56,8 +56,5 @@ class StudentCounterTest {
 
     }
 
-    // TODO: useless because already tested w/ the previous tests?
-    @Test
-    void count() {
-    }
+    // TODO: useless to test count methods because already tested w/ the previous tests?
 }
