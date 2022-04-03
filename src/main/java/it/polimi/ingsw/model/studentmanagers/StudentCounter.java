@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.studentmanagers;
+
+import it.polimi.ingsw.model.PawnColor;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -14,35 +16,30 @@ public class StudentCounter {
      * Constructor to create studentCounter with 0 pawns for each color
      */
     public StudentCounter() {
-        this(false);
+        this(0);
     }
 
     /**
      * Constructor to create studentCounter with 26 pawns for each color
-     * @param full indicates if to initialize the studentCounter with 130 students (26 of each color) or with 0 students
+     * @param n indicates the number of students of each color to initialise the counter
      */
-    public StudentCounter(boolean full) {
+    public StudentCounter(int n) {
         map = new EnumMap<>(PawnColor.class);
-        if(!full) { // initialize map with zero students
-            for(PawnColor color : PawnColor.values()){
-                map.put(color, 0);
-            }
-        } else { // initialise map with 26 students per color
-            for(PawnColor color : PawnColor.values()){
-                map.put(color, 26);
-            }
+        for(PawnColor color : PawnColor.values()){
+            map.put(color, n);
         }
     }
 
     // TODO: create custom exception?
 
     /**
-     * Moves one student of random color pawn (among those with value > 0) from other studentCounter to this
+     * Moves one student of random color pawn (among those with value > 0) from other studentCounter to this, protected to only allow
+     * its subclasses in the package to access it
      * @param other studentCounter to take one student pawn from
      * @return random color of the moved student
      * @throws IllegalArgumentException if no color of the other studentCounter has number > 0, would be impossible to move a pawn
      */
-    public PawnColor movePawnFrom(StudentCounter other) throws IllegalArgumentException {
+    protected PawnColor movePawnFrom(StudentCounter other) throws IllegalArgumentException {
         ArrayList<PawnColor> movableColors = new ArrayList<>();
         for(PawnColor color : PawnColor.values()){
             if(other.map.get(color) > 0){
@@ -59,12 +56,13 @@ public class StudentCounter {
     }
 
     /**
-     * Moves one student of chosen color pawn (among those with value > 0) from other studentCounter to this
+     * Moves one student of chosen color pawn (among those with value > 0) from other studentCounter to this, protected to only allow
+     *      * its subclasses in the package to access it
      * @param other studentCounter to take one student pawn from
      * @param color chosen color of the student pawn to be moved
      * @throws IllegalArgumentException if no student of the chosen color is available in other studentCounter to be moved
      */
-    public void movePawnFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
+    protected void movePawnFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
         if(other.map.get(color) <= 0) throw new IllegalArgumentException();
         other.map.put(color, other.map.get(color) - 1);
         map.put(color, map.get(color) + 1);

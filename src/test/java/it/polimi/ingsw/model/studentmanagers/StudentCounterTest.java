@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.studentmanagers;
 
-import org.junit.jupiter.api.AfterEach;
+import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.studentmanagers.StudentCounter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class StudentCounterTest {
     @BeforeEach
     void setUp() {
         scEmpty = new StudentCounter();
-        scFull = new StudentCounter(true);
+        scFull = new StudentCounter(26);
         for(PawnColor c : PawnColor.values()){
             assertEquals(26, scFull.count(c), "Each color should have 26 pawns");
             assertEquals(0,scEmpty.count(c), "Each color should have 0 pawns");
@@ -41,7 +42,7 @@ class StudentCounterTest {
     void movePawnFrom_RandomColor() {
         int totalBeforeFull = scFull.count();
         int totalBeforeEmpty = scEmpty.count();
-        StudentCounter scFullBefore = new StudentCounter(true);
+        StudentCounter scFullBefore = new StudentCounter(26);
         StudentCounter scEmptyBefore = new StudentCounter();
         try{
             PawnColor c = scEmpty.movePawnFrom(scFull);
