@@ -15,9 +15,8 @@ public class IslandTile extends StudentCounter{
 
     /**
      * constructor initializes with no connections to neighbor tiles
-     * @param entrance needed to move students
      */
-    public IslandTile(Entrance entrance) {
+    public IslandTile() {
         super();
         this.isConnectNext = false;
         this.isConnectPrev = false;
@@ -50,9 +49,8 @@ public class IslandTile extends StudentCounter{
         return isConnectPrev;
     }
 
-    //TODO: actually can't have same entrance from which to fill each time because the island could change owner, need to extract entrance from owner and pass it to movePawFrom in this method
-    public void fill(PawnColor color){
-        //movePawnFrom(player.entrance,color);
+    public void fill(Entrance entrance, PawnColor color){
+        movePawnFrom(entrance, color);
     }
 
     //TODO: getter and setter for owner

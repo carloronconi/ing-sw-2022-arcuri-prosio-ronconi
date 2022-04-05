@@ -23,9 +23,9 @@ class IslandTileTest extends StudentCounter {
         clouds = new ArrayList<>();
         IntStream.range(0,3).forEach(i -> clouds.add(new Cloud(bag)));
         entrance = new Entrance(bag,clouds);
-        curr = new IslandTile(entrance);
-        next = new IslandTile(entrance);
-        prev = new IslandTile(entrance);
+        curr = new IslandTile();
+        next = new IslandTile();
+        prev = new IslandTile();
     }
 
     //TODO: implement tests when IslandTile class completed
