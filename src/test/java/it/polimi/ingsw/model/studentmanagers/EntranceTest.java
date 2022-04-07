@@ -37,7 +37,7 @@ class EntranceTest extends StudentCounter {
             if (removed == 3) break;
         }
         assertEquals(4, entrance.count());
-        clouds.get(1).fill();
+        clouds.get(1).fill(3);
         assertEquals(3, clouds.get(1).count());
         entrance.fill(1);
         assertEquals(0, clouds.get(1).count());

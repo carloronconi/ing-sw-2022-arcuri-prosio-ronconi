@@ -13,9 +13,10 @@ public class Cloud extends StudentCounter {
     }
 
     /**
-     * move 3 random pawns from the bag
+     * move random pawns from the bag
+     * @param howManyPawns depending on the rules of the game (number of players)
      */
-    public void fill(){
-        IntStream.range(0,3).forEach(i -> movePawnFrom(bag));
+    public void fill(int howManyPawns){
+        IntStream.range(0,howManyPawns).forEach(i -> movePawnFrom(bag));
     }
 }

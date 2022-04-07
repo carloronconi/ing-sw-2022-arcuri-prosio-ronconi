@@ -13,7 +13,7 @@ class CloudTest extends StudentCounter {
         Cloud cloud = new Cloud(bag);
         int pawnsInBagBefore = bag.count();
         int pawnsInCloudBefore = cloud.count();
-        cloud.fill();
+        cloud.fill(3);
         assertEquals(pawnsInBagBefore - 3, bag.count());
         assertEquals(pawnsInCloudBefore + 3, cloud.count());
     }
