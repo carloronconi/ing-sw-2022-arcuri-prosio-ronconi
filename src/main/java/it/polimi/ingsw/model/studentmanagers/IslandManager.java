@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.Archipelago;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
@@ -47,6 +48,12 @@ public class IslandManager extends StudentCounter {
             archipelagos.get(first).add(i);
         }
         archipelagos.remove(second);
+    }
+
+    public void moveStudentToArchipelago(PawnColor color, int archipelago, Player player){
+    //TODO: can either implement by calling (creating) a method in Archipelago that adds students to the first island of the archipelago
+        // or change the structure of islands/archipelagos: when islands are merged one is deleted and its stuff is moved to the map of the other island
+        // because the only other attributes of an island are already stored in archipelago (owner)
     }
 
     //TODO: testing

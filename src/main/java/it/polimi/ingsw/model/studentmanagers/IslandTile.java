@@ -8,8 +8,6 @@ import it.polimi.ingsw.model.PawnColor;
  */
 public class IslandTile extends StudentCounter{
 
-    //TODO: Player owner; with getter and setter
-
     /**
      * initializes with 0 students
      */
@@ -25,11 +23,6 @@ public class IslandTile extends StudentCounter{
         super();
         movePawnFrom(manager);
         movePawnFrom(manager);
-    }
-
-
-    public void fill(Entrance entrance, PawnColor color){
-        movePawnFrom(entrance, color);
     }
 
 }

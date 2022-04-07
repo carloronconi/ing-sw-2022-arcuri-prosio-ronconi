@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Archipelago {
     private final ArrayList<IslandTile> islands;
+    private Player owner;
 
     public Archipelago(IslandTile firstIsland) {
         islands = new ArrayList<>();
@@ -26,4 +27,9 @@ public class Archipelago {
     }
 
     //TODO: similar getters to Island, develop iterating over all the islands and calling those getters, then returning the sum
+
+    public Player getOwner() {
+        return owner;
+    }
+
 }
