@@ -29,8 +29,12 @@ public class IslandManager extends StudentCounter {
         archipelagos = new ArrayList<>();
         islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            IslandTile it = new IslandTile();
-            if (i % 6 != 0) it.movePawnFrom(this);
+            IslandTile it;
+            if(i % 6 == 0){
+                it = new IslandTile();
+            } else {
+                it = new IslandTile(this);
+            }
             islands.add(it);
             Archipelago archipelago = new Archipelago(it);
             archipelagos.add(archipelago);

@@ -28,28 +28,6 @@ class IslandTileTest extends StudentCounter {
         prev = new IslandTile();
     }
 
-    //TODO: implement tests when IslandTile class completed
-    @Test
-    void link() {
-    }
+    //TODO: implement tests for all methods when IslandTile class completed
 
-    @Test
-    void connectNext() {
-    }
-
-    @Test
-    void connectPrev() {
-    }
-
-    @Test
-    void isConnectNext() {
-    }
-
-    @Test
-    void isConnectPrev() {
-    }
-
-    @Test
-    void fill() {
-    }
 }
