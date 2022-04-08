@@ -1,18 +1,15 @@
 package it.polimi.ingsw.model.studentmanagers;
 
-import it.polimi.ingsw.model.Archipelago;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 /**
  * Class used to manage islands and the merging of islands in archipelagos
  */
 public class IslandManager extends StudentCounter {
     private final ArrayList<IslandTile> islands;
-    private final ArrayList<Archipelago> archipelagos;
     private int motherNaturePosition;
 
     /**
@@ -27,34 +24,37 @@ public class IslandManager extends StudentCounter {
             movePawnFrom(bag, c);
             movePawnFrom(bag, c);
         }
-        archipelagos = new ArrayList<>();
+
         islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             IslandTile it;
             if(i % 6 == 0){
                 it = new IslandTile();
             } else {
-                it = new IslandTile(this);
+                it = new IslandTile(this, 2);
             }
             islands.add(it);
-            Archipelago archipelago = new Archipelago(it);
-            archipelagos.add(archipelago);
         }
     }
 
-    //TODO: separate method to check merge? or merge automatically when two neighbor islands have same owner?
-    public void mergeArchipelagos(int first, int second) {
-        for (IslandTile i : archipelagos.get(second).getIslands()){
-            archipelagos.get(first).add(i);
-        }
-        archipelagos.remove(second);
+    public void mergeIslands(int first, int second) throws IllegalArgumentException{
+        IslandTile firstIsland = islands.get(first);
+        IslandTile secondIsland = islands.get(second);
+        if (firstIsland.getOwner() != secondIsland.getOwner()) throw new IllegalArgumentException();
+
+        firstIsland.moveAllPawnsFrom(secondIsland);
+        islands.remove(second);
     }
 
-    public void moveStudentToArchipelago(PawnColor color, int archipelago, Player player){
-    //TODO: can either implement by calling (creating) a method in Archipelago that adds students to the first island of the archipelago
-        // or change the structure of islands/archipelagos: when islands are merged one is deleted and its stuff is moved to the map of the other island
-        // because the only other attributes of an island are already stored in archipelago (owner)
+    //TODO: separate method to change owner? or merge automatically when two neighbor islands have same owner?
+
+
+    public void moveStudentToIsland(PawnColor color, int islandIndex, Player player){
+        IslandTile island = islands.get(islandIndex);
+        island.movePawnFrom(player.getEntrance(), color);
     }
+
+    //TODO: check influence: change owner directly if needed, call mergeIslands (and make it private)
 
     //TODO: testing
     //TODO: other methods

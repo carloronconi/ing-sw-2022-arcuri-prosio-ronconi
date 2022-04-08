@@ -14,8 +14,8 @@ public class GameModel {
 
     }
 
-    public void moveStudentToArchipelago(PawnColor color, int archipelago){
-        islandManager.moveStudentToArchipelago(color, archipelago, players.get(currentPlayer));
+    public void moveStudentToIsland(PawnColor color, int islandIndex){
+        islandManager.moveStudentToIsland(color,islandIndex, players.get(currentPlayer));
     }
 
     public int getCurrentPlayer() {
