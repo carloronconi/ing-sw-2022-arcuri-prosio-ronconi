@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.ProfessorManager;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class IslandManager extends StudentCounter {
     public IslandManager(Bag bag) {
         super();
         motherNaturePosition = 0;
+
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
             movePawnFrom(bag, c);
@@ -37,7 +39,14 @@ public class IslandManager extends StudentCounter {
         }
     }
 
-    public void mergeIslands(int first, int second) throws IllegalArgumentException{
+
+    public void moveStudentToIsland(PawnColor color, int islandIndex, Player player){
+        IslandTile island = islands.get(islandIndex);
+        island.movePawnFrom(player.getEntrance(), color);
+    }
+
+    //TODO: separate method to change owner? or merge automatically when two neighbor islands have same owner?
+    private void mergeIslands(int first, int second) throws IllegalArgumentException{
         IslandTile firstIsland = islands.get(first);
         IslandTile secondIsland = islands.get(second);
         if (firstIsland.getOwner() != secondIsland.getOwner()) throw new IllegalArgumentException();
@@ -46,15 +55,16 @@ public class IslandManager extends StudentCounter {
         islands.remove(second);
     }
 
-    //TODO: separate method to change owner? or merge automatically when two neighbor islands have same owner?
 
 
-    public void moveStudentToIsland(PawnColor color, int islandIndex, Player player){
+
+    public void changeIslandOwner(int islandIndex, Player newOwner, ProfessorManager professorManager) throws IllegalArgumentException {
         IslandTile island = islands.get(islandIndex);
-        island.movePawnFrom(player.getEntrance(), color);
+        if (island.getOwner() == newOwner) throw new IllegalArgumentException();
+        // check influence
+        // change owner
+        // if needed, mergeIslands
     }
-
-    //TODO: check influence: change owner directly if needed, call mergeIslands (and make it private)
 
     //TODO: testing
     //TODO: other methods
