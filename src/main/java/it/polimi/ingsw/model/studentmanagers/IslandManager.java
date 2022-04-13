@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * Class used to manage islands and the merging of islands in archipelagos
  */
 public class IslandManager extends StudentCounter {
-    private final Bag bag;
     private final ArrayList<IslandTile> islands;
     private int motherNaturePosition;
 
@@ -23,8 +22,7 @@ public class IslandManager extends StudentCounter {
      */
     public IslandManager(Bag bag) {
         super();
-        this.bag=bag; //is it correct?
-        motherNaturePosition = 0;
+        this.motherNaturePosition = 0;
 
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
@@ -34,11 +32,13 @@ public class IslandManager extends StudentCounter {
         islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             IslandTile it;
+
             if(i == 0 || i == 5){
                 it = new IslandTile();
             } else {
                 it = new IslandTile(this, 1);
             }
+
             islands.add(it);
         }
     }
@@ -72,4 +72,6 @@ public class IslandManager extends StudentCounter {
 
     //TODO: testing
     //TODO: other methods
+
+
 }
