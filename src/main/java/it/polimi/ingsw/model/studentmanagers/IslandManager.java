@@ -10,16 +10,20 @@ import java.util.ArrayList;
  * Class used to manage islands and the merging of islands in archipelagos
  */
 public class IslandManager extends StudentCounter {
+    private final Bag bag;
     private final ArrayList<IslandTile> islands;
     private int motherNaturePosition;
 
+
+
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
-     * islands 2 random student pawns, then creates one archipelago for each island and adds it to archipelagos
+     * islands 1 random student pawns
      * @param bag needed to draw the 10 students to initialize the islands
      */
     public IslandManager(Bag bag) {
         super();
+        this.bag=bag; //is it correct?
         motherNaturePosition = 0;
 
         for (PawnColor c: PawnColor.values()) {
@@ -30,10 +34,10 @@ public class IslandManager extends StudentCounter {
         islands = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             IslandTile it;
-            if(i % 6 == 0){
+            if(i == 0 || i == 5){
                 it = new IslandTile();
             } else {
-                it = new IslandTile(this, 2);
+                it = new IslandTile(this, 1);
             }
             islands.add(it);
         }
