@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.charactercards;
 
 import java.util.UUID;
 

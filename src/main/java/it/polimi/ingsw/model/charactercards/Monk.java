@@ -1,5 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.CharacterStudentCounter;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
