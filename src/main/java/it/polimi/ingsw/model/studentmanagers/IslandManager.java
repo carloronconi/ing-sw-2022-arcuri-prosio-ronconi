@@ -5,13 +5,14 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Class used to manage islands and the merging of islands in archipelagos
  */
 public class IslandManager extends StudentCounter {
     private final ArrayList<IslandTile> islands;
-    private int motherNaturePosition;
+    private UUID motherNaturePosition;
 
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
@@ -20,7 +21,7 @@ public class IslandManager extends StudentCounter {
      */
     public IslandManager(Bag bag) {
         super();
-        motherNaturePosition = 0;
+        //motherNaturePosition = 0;
 
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
@@ -40,9 +41,9 @@ public class IslandManager extends StudentCounter {
     }
 
 
-    public void moveStudentToIsland(PawnColor color, int islandIndex, Player player){
-        IslandTile island = islands.get(islandIndex);
-        island.movePawnFrom(player.getEntrance(), color);
+    public void moveStudentToIsland(PawnColor color, UUID islandId, StudentCounter studentCounter){
+        //IslandTile island = islands.get(islandIndex);
+        //island.movePawnFrom(player.getEntrance(), color);
     }
 
     //TODO: separate method to change owner? or merge automatically when two neighbor islands have same owner?
