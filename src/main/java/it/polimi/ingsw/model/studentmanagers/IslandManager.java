@@ -67,6 +67,11 @@ public class IslandManager extends StudentCounter {
         // if needed, mergeIslands
     }
 
+    public void flagBearerEffect(UUID island) {
+        //call checkNewOwner on island
+        //if new owner != old owner call mergeIslands
+    }
+
     //TODO: testing
     //TODO: other methods
 }
