@@ -4,16 +4,16 @@ import java.util.EnumMap;
 
 public class ProfessorManager {
     private final EnumMap<PawnColor, Player> map;
+    private boolean cheeseMerchantEffect;
 
     public ProfessorManager(){
         map = new EnumMap<>(PawnColor.class);
+        cheeseMerchantEffect = false;
     }
 
-    public void setProfessorOwner(PawnColor color, Player owner){
-        map.put(color, owner);
-    }
 
-    public Player getProfessorOwner(PawnColor color){
-        return map.get(color);
+
+    public void assertCheeseMerchantEffect() {
+        cheeseMerchantEffect = true;
     }
 }
