@@ -31,7 +31,8 @@ public class Player {
     public Player(Entrance entrance, DiningRoom diningRoom) {
         this.entrance = entrance;
         this.diningRoom = diningRoom;
-        this.id=UUID.randomUUID();
+        id=UUID.randomUUID();
+        coins=0;
     }
 
     public Entrance getEntrance() {
@@ -56,6 +57,26 @@ public class Player {
     public void playAssistantCard(int cardNumber){
 
         assistantDeck.remove(cardNumber);
+    }
+
+    /**
+     * this method moves a student from the entrance to the dining room on a player's board.
+     * If the value of the boolean is true and if the number of students of the color passed in is
+     * a multiple of 3, then it increases the coins owned by a player by one.
+     * @param pawnColor is the student's color that needs to be moved from the entrance to the diningRoom
+     * @param moneyBank indicates whether the general bank has coins that can be withdrawn
+     * @return true if the amount of coins owned by a player increases, otherwise it returns false
+     */
+    public boolean moveStudentToDining(PawnColor pawnColor, boolean moneyBank){
+
+        diningRoom.fill(pawnColor);
+
+        if(moneyBank==true && diningRoom.count(pawnColor)%3==0){
+            coins++;
+            return true;
+        }
+
+        return false;
     }
 
 
