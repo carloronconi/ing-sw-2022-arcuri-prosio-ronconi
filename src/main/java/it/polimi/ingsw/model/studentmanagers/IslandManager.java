@@ -139,27 +139,31 @@ public class IslandManager extends StudentCounter {
     }
 
 
+    /**
+     * this method moves a student from the entrance of a student's board to an island
+     * @param color indicates the color of the piece to be moved
+     * @param island indicates the island on which to move the piece
+     * @param player it is passed as an input so as to have an entry reference of the player
+     *               from which to take the piece
+     */
+    public void moveStudentToIsland(PawnColor color, UUID island, Player player){
 
+        int islandIndex=idToIndex(island);
 
-
-
-
-    public void moveStudentToIsland(PawnColor color, int islandIndex, Player player){
-        IslandTile island = islands.get(islandIndex);
-        island.movePawnFrom(player.getEntrance(), color);
+        islands.get(islandIndex).movePawnFrom(player.getEntrance(), color);
     }
 
 
-    public void changeIslandOwner(int islandIndex, Player newOwner, ProfessorManager professorManager) throws IllegalArgumentException {
-        IslandTile island = islands.get(islandIndex);
-        if (island.getOwner() == newOwner) throw new IllegalArgumentException();
-        // check influence
-        // change owner
-        // if needed, mergeIslands
+    /**
+     * checks the number of islands (or groups of islands) present in the ArrayList islands
+     * so as to be able to end the game when it reaches 3
+     * @return he number of islands contained within the ArrayList islands
+     */
+    public int countIslands(){
+        return islands.size();
     }
 
-    //TODO: testing
-    //TODO: other methods
+
 
 
 }
