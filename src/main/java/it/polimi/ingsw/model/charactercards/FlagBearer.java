@@ -14,5 +14,6 @@ public class FlagBearer extends Character{
 
     public void useEffect(UUID island){
         islandManager.flagBearerEffect(island);
+        if(!isCostIncreased()) assertCostIncreased();
     }
 }
