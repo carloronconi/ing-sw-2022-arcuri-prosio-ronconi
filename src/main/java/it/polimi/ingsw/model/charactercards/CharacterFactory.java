@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
@@ -13,6 +14,7 @@ public class CharacterFactory {
     private final Bag bag;
     private final IslandManager islandManager;
     private final ProfessorManager professorManager;
+    private final GameModel gameModel;
 
     /**
      * creates new instance of class, creates new list uninstantiatedCharacters with all available characters only if no other instance of characterFactory ever created one
@@ -20,10 +22,11 @@ public class CharacterFactory {
      * @param islandManager to create characters that need it
      * @param professorManager to create characters that need it
      */
-    public CharacterFactory(Bag bag, IslandManager islandManager, ProfessorManager professorManager) {
+    public CharacterFactory(Bag bag, IslandManager islandManager, ProfessorManager professorManager, GameModel gameModel) {
         this.bag = bag;
         this.islandManager = islandManager;
         this.professorManager = professorManager;
+        this.gameModel = gameModel;
         if(uninstantiatedCharacters == null){
             uninstantiatedCharacters = new ArrayList<>();
             Collections.addAll(uninstantiatedCharacters, AvailableCharacter.values());
@@ -42,6 +45,8 @@ public class CharacterFactory {
             case MONK: return new Monk(bag,islandManager);
             case CHEESE_MERCHANT: return new CheeseMerchant(professorManager);
             case FLAG_BEARER: return new FlagBearer(islandManager);
+            case MESSENGER: return new Messenger(gameModel);
+            case WITCH: return new Witch(islandManager);
             //TODO: complete all cases from AvailableCharacter
             default: throw new EnumConstantNotPresentException(AvailableCharacter.class, "other");
         }
