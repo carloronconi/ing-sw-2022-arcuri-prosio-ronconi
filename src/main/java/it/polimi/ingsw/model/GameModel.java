@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public class GameModel {
     private ArrayList<Player> players;
-    private int currentPlayer;
     private IslandManager islandManager;
     private ProfessorManager professorManager;
 
@@ -20,11 +19,7 @@ public class GameModel {
         //islandManager.moveStudentToIsland(color, island, p.getEntrance());
     }
 
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void useMessengerEffect(){
+        //TODO: implementation
     }
 }

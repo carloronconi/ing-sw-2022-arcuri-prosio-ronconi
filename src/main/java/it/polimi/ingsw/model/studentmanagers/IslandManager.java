@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.studentmanagers;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
+import it.polimi.ingsw.model.charactercards.Witch;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import java.util.UUID;
 public class IslandManager extends StudentCounter {
     private final ArrayList<IslandTile> islands;
     private UUID motherNaturePosition;
+    private Witch witch;
 
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
@@ -68,10 +70,18 @@ public class IslandManager extends StudentCounter {
     }
 
     public void flagBearerEffect(UUID island) {
+        //TODO: implementation
         //call checkNewOwner on island
         //if new owner != old owner call mergeIslands
     }
 
-    //TODO: testing
-    //TODO: other methods
+    public void useWitchEffect(UUID island, Witch witch) {
+        //TODO: implementation
+        //use islandIdToIndex
+        //if island.ban = true throw new...
+        this.witch = witch;
+        //island.ban = true;
+    }
+
+
 }
