@@ -7,7 +7,7 @@ import java.util.UUID;
 public class FlagBearer extends Character{
     private final IslandManager islandManager;
 
-    public FlagBearer(IslandManager islandManager) {
+    protected FlagBearer(IslandManager islandManager) {
         super(3);
         this.islandManager = islandManager;
     }

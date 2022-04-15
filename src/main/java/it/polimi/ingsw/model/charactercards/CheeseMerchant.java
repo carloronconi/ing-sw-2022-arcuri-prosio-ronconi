@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.ProfessorManager;
 public class CheeseMerchant extends Character {
     private final ProfessorManager professorManager;
 
-    public CheeseMerchant(ProfessorManager professorManager) {
+    protected CheeseMerchant(ProfessorManager professorManager) {
         super(2);
         this.professorManager = professorManager;
     }

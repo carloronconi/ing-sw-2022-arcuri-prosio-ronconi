@@ -24,7 +24,7 @@ public class Monk extends Character{
      * @param bag bag of the game to draw students from each time students are taken by a player when using effect
      * @param islandManager needed to move student to island when effect is used
      */
-    public Monk(Bag bag, IslandManager islandManager) {
+    protected Monk(Bag bag, IslandManager islandManager) {
         super(1);
         this.bag = bag;
         this.islandManager = islandManager;
