@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.studentmanagers;
 
+import it.polimi.ingsw.model.PawnColor;
+
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -27,5 +29,18 @@ public class Entrance extends StudentCounter {
     public void fill(int fromCloud){
 
         IntStream.range(0, clouds.get(fromCloud).count()).forEach(i -> movePawnFrom(clouds.get(fromCloud) ));
+    }
+
+    /**
+     * method used by Juggler character card to exchange student with the entrance of a player
+     * @param fromStudentCounter StudentCounter of the Juggler
+     * @param given color of the student to be moved in the entrance
+     * @param taken color of the student to be moved in the Juggler
+     * @throws IllegalArgumentException one of the chosen colors is not available
+     */
+    public void swapStudent(StudentCounter fromStudentCounter, PawnColor given, PawnColor taken) throws IllegalArgumentException{
+        if (fromStudentCounter.count(taken)<1 || count(given)<1) throw new IllegalArgumentException();
+        fromStudentCounter.movePawnFrom(this,given);
+        movePawnFrom(fromStudentCounter, taken);
     }
 }
