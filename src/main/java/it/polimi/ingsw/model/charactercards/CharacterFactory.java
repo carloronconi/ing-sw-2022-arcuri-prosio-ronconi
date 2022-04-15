@@ -47,6 +47,7 @@ public class CharacterFactory {
             case FLAG_BEARER: return new FlagBearer(islandManager);
             case MESSENGER: return new Messenger(gameModel);
             case WITCH: return new Witch(islandManager);
+            case CENTAUR: return new Centaur(islandManager);
             //TODO: complete all cases from AvailableCharacter
             default: throw new EnumConstantNotPresentException(AvailableCharacter.class, "other");
         }

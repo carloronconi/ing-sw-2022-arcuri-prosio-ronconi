@@ -15,6 +15,7 @@ public class IslandManager extends StudentCounter {
     private final ArrayList<IslandTile> islands;
     private UUID motherNaturePosition;
     private Witch witch;
+    private boolean centaurEffect;
 
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
@@ -83,5 +84,7 @@ public class IslandManager extends StudentCounter {
         //island.ban = true;
     }
 
-
+    public void assertCentaurEffect(){
+        centaurEffect = true;
+    }
 }
