@@ -14,22 +14,34 @@ public class GameController {
     private GameMode gameMode;
     private RoundController round;
     private MessageHandler messageHandler;
+    private int numPlayers;
 
 
-    public int getNumOfPlayer(){
+    public int getNumOfPlayers(){
         //messageHandler is the link to the view package and returns number of players chosen by user
-        int numPlayers =0;
+        numPlayers = messageHandler.howManyMessage();
         return numPlayers;
     }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setupPlayers(){
+        messageHandler.setNickname();
+        int i;
+        ArrayList<Player> players = new ArrayList<Player>();
+        //TODO: link arrayList of players by nickname from messageHandler to GameModel
+
+        }
+
 
     public void setup(){
         //has numOfPlayers and gameMode - calls game model and island manager
 
+
     }
 
-    public void setupPlayers(String nickname, int playerID){
-        //calls messageHandler
-    }
 
     public void sendMessage(){
         //calls message handler
