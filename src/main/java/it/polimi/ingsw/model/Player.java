@@ -7,26 +7,16 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Player {
-    /*se metto final per Entrance e DiningRoom non posso usare il costruttore Player() in GameModel perché altrimenti
-    non potrei ppiù aggiungere player dopo ma dovrei inserirli direttamente quando chiamo il costruttore di GameModel
-    all'interno del quale dovrei chiamare il costruttore Player(Entrance, DiningRoom)*/
-    private Entrance entrance;
-    private DiningRoom diningRoom;
-    private UUID id;
+    private final Entrance entrance;
+    private final DiningRoom diningRoom;
+    private final UUID id;
     private String nickName;
-    //private Wizard wizard;
+    //TODO private Wizard wizard;
     private TowerColor towerColor;
     private ArrayList<Integer> assistantDeck;
     private int numOfCoins;
     private int coins;
 
-
-    //ho defintio questo costruttore perché altrimenti in checkNewOwner non avrei potuto definire
-    //la variabile supportPlayer d'appoggio. è giusto o sbagliato? se non l'avessi definito ci sarebbe stato un
-    //costruttore di default oppure no perché già definito quello per questa classe?
-    public Player(){
-        this.id=UUID.randomUUID();
-    }
 
     public Player(Entrance entrance, DiningRoom diningRoom) {
         this.entrance = entrance;
@@ -71,23 +61,13 @@ public class Player {
 
         diningRoom.fill(pawnColor);
 
-        if(moneyBank==true && diningRoom.count(pawnColor)%3==0){
+        if(moneyBank && diningRoom.count(pawnColor)%3==0){
             coins++;
             return true;
         }
 
         return false;
     }
-
-
-    /* da capire se questo metodo bisogna implementarlo in Player o in GameModel
-    public int getNumOfTowers(){
-
-    }
-    */
-
-
-
 
 
 

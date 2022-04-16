@@ -17,6 +17,8 @@ public class Cloud extends StudentCounter {
         this.id=UUID.randomUUID();
     }
 
+    public UUID getId(){ return id; }
+
     /**
      * move random pawns from the bag
      * @param howManyPawns depending on the rules of the game (number of players)

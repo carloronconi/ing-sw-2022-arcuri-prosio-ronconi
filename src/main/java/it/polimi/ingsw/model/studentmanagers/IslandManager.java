@@ -57,19 +57,19 @@ public class IslandManager extends StudentCounter {
 
         MNIslandNumber+=steps;
         int currentPositionMN;
-        if(MNIslandNumber>12){
-            currentPositionMN=MNIslandNumber-12;
+        if(MNIslandNumber>islands.size()){
+            currentPositionMN=MNIslandNumber-islands.size();
         }else{
             currentPositionMN=MNIslandNumber;
         }
 
         boolean checkUnification=false;
-        if(!islands.get(currentPositionMN).getOwner().equals(islands.get(currentPositionMN).checkNewOwner(professorManager))){
-            islands.get(currentPositionMN).setOwner(islands.get(currentPositionMN).checkNewOwner(professorManager));
-            checkUnification=true;
-        }
 
-        if(checkUnification){
+        Player previousOwner=islands.get(currentPositionMN).getOwner();
+        Player currentOwner=islands.get(currentPositionMN).checkNewOwner(professorManager);
+
+
+        if(previousOwner!=currentOwner){
             mergeIslands(currentPositionMN);
         }
 
@@ -87,25 +87,25 @@ public class IslandManager extends StudentCounter {
         int nextIsland;
         int prevIsland;
 
-        if(currentIsland==11){
+        if(currentIsland==islands.size()-1){
             nextIsland=0;
         }else{
             nextIsland=currentIsland+1;
         }
 
         if(currentIsland==0){
-            prevIsland=11;
+            prevIsland=islands.size()-1;
         }else{
             prevIsland=currentIsland-1;
         }
 
 
-        if(islands.get(currentIsland).getOwner().equals(islands.get(nextIsland).getOwner())){
+        if(islands.get(currentIsland).getOwner()==islands.get(nextIsland).getOwner()){
             islands.get(currentIsland).moveAllPawnsFrom(islands.get(nextIsland));
             islands.remove(nextIsland);
         }
 
-        if(islands.get(currentIsland).getOwner().equals(islands.get(prevIsland).getOwner())){
+        if(islands.get(currentIsland).getOwner()==islands.get(prevIsland).getOwner()){
             islands.get(currentIsland).moveAllPawnsFrom(islands.get(prevIsland));
             islands.remove(prevIsland);
         }
@@ -118,14 +118,17 @@ public class IslandManager extends StudentCounter {
      * @param id is the id of the island whose index you want to know within the ArrayList
      * @return the island index within the ArrayList or -1 if the island is not present
      */
-    private int idToIndex(UUID id){
+    private int idToIndex(UUID id) throws IllegalArgumentException{
 
         for(int i=0; i<islands.size(); i++){
             if(id.equals(islands.get(i).getId())){
                 return i;
             }
         }
-        return -1;
+
+        throw new IllegalArgumentException("ID does not correspond to any island");
+
+
     }
 
     /**
@@ -134,6 +137,8 @@ public class IslandManager extends StudentCounter {
      * @return the corresponding island id
      */
     private UUID indexToId(int positionIsland){
+
+        if(positionIsland<0 || positionIsland>islands.size()) throw new IllegalArgumentException("position does not correspond to any ID");
 
         return islands.get(positionIsland).getId();
     }

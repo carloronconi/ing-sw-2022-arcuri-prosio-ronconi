@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public class GameModel {
     private ArrayList<Player> players;
-    private int currentPlayer;
     private final IslandManager islandManager;
     private final ProfessorManager professorManager;
     private final Bag bag;
@@ -20,26 +19,15 @@ public class GameModel {
     //creare altri costruttori in base alle differenti modalità del gioco oppure modificare quello esistente
 
     public GameModel(){
-        this.players=new ArrayList<>();
-        this.bag=new Bag();
-        this.islandManager=new IslandManager(bag);
-        this.professorManager=new ProfessorManager();
+        players=new ArrayList<>();
+        bag=new Bag();
+        islandManager=new IslandManager(bag);
+        professorManager=new ProfessorManager();
+        clouds=new ArrayList<>();
     }
 
+    //TODO when all players are added create method to inizialize clouds
 
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    /*
-    public void moveStudentToIsland(PawnColor color, int islandIndex){
-        islandManager.moveStudentToIsland(color,islandIndex, players.get(currentPlayer));
-    }
-     */
 
 
     /**
@@ -54,7 +42,8 @@ public class GameModel {
                 return i;
             }
         }
-        return -1;
+
+        throw new IllegalArgumentException("ID does not correspond to any player");
     }
 
     /**
@@ -63,6 +52,8 @@ public class GameModel {
      * @return the corresponding player id
      */
     private UUID playerIndexToId(int positionPlayer){
+
+        if(positionPlayer<0 || positionPlayer>players.size()) throw new IllegalArgumentException("position does not correspond to any ID");
 
         return players.get(positionPlayer).getId();
     }
@@ -80,14 +71,8 @@ public class GameModel {
 
         int playerIndex=playerIdToIndex(playerId);
 
-        boolean enoughMoney=false;
-        if(bank>0){
-            enoughMoney=true;
-            if(players.get(playerIndex).moveStudentToDining(pawnColor,enoughMoney)){
-                bank--;
-            }
-        }else{
-            players.get(playerIndex).moveStudentToDining(pawnColor,enoughMoney);
+        if(players.get(playerIndex).moveStudentToDining(pawnColor,bank>0)){
+            bank--;
         }
 
         updateProfessorManager();
@@ -100,15 +85,15 @@ public class GameModel {
      */
     private void updateProfessorManager(){
 
-        Player supportPlayer =new Player();
+        Player supportPlayer =null;
 
         for(PawnColor pawnColor : PawnColor.values()){
 
-            /**
-             * this is the case where the value associated with a color has a value that is defined by a player.
-             * This player is taken as a support player for the comparison so as to be replaced in case there is
-             * another player with a greater number of students of the same color or remain in case he is the one
-             * with the greater number
+            /*
+              this is the case where the value associated with a color has a value that is defined by a player.
+              This player is taken as a support player for the comparison so as to be replaced in case there is
+              another player with a greater number of students of the same color or remain in case he is the one
+              with the greater number
              */
             if(professorManager.getProfessorOwner(pawnColor)!=null){
                 supportPlayer=professorManager.getProfessorOwner(pawnColor);
@@ -122,17 +107,17 @@ public class GameModel {
                 professorManager.setProfessorOwner(pawnColor, supportPlayer);
             }else{
 
-                /**
-                 * this is the case when there is no player associated with the color under consideration.
-                 * What you do is set a negative value as the number of students.
-                 * Then you iterate over all the players and the previously set value allows you to choose
-                 * the first player as a support player for the comparison, so at the first iteration
-                 * you enter the first branch. For the other iterations, if the player has a higher number of students
-                 * then he substitutes himself, instead if the player has a lower number of students
-                 * the substitution does not take place. If the player has an even number of students,
-                 * it means that neither of them will own the professor; however, the number of students will be saved
-                 * because if there is a third player with a higher number of students than the previous ones,
-                 * then he will own the professor.
+                /*
+                  this is the case when there is no player associated with the color under consideration.
+                  What you do is set a negative value as the number of students.
+                  Then you iterate over all the players and the previously set value allows you to choose
+                  the first player as a support player for the comparison, so at the first iteration
+                  you enter the first branch. For the other iterations, if the player has a higher number of students
+                  then he substitutes himself, instead if the player has a lower number of students
+                  the substitution does not take place. If the player has an even number of students,
+                  it means that neither of them will own the professor; however, the number of students will be saved
+                  because if there is a third player with a higher number of students than the previous ones,
+                  then he will own the professor.
                  */
                 int studentsNumber=-1;
 
@@ -150,6 +135,92 @@ public class GameModel {
 
         }
 
+    }
+
+
+    public void moveCloudToEntrance(UUID whichCloud, UUID idPlayer){
+
+        int playerIndex=playerIdToIndex(idPlayer);
+
+        players.get(playerIndex).getEntrance().fill(whichCloud);
+
+    }
+
+
+    public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException {
+
+
+        for (Integer playedCard : playedCards) {
+            if (playedCard.equals(cardNumber)) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        int playerIndex=playerIdToIndex(idPlayer);
+
+        players.get(playerIndex).playAssistantCard(cardNumber);
+
+        playedCards.add(cardNumber);
+
+    }
+
+
+    public int getNumOfTowers(UUID idPlayer){
+
+        int howManyPlayers=0;
+
+        for(Player player : players){
+            if(player.getId().equals(idPlayer)){
+                howManyPlayers++;
+            }
+        }
+
+        if(players.size()==3){
+            return 6-howManyPlayers;
+        }else
+            return 8-howManyPlayers;
+
+
+    }
+
+
+    public void moveStudentToIsland(PawnColor pawnColor, UUID idPlayer, UUID island) {
+
+        int playerIndex=playerIdToIndex(idPlayer);
+
+        islandManager.moveStudentToIsland(pawnColor, island, players.get(playerIndex));
+
+    }
+
+
+
+    public void fillAllClouds(){
+
+        for(Cloud cloud : clouds){
+            if(players.size()==2){
+                cloud.fill(3);
+            }else if(players.size()==3){
+                cloud.fill(4);
+            }
+        }
+
+    }
+
+    public int countIslands(){
+        return islandManager.countIslands();
+    }
+
+
+    public int getDeckSize(UUID player){
+
+        int playerIndex=playerIdToIndex(player);
+
+        return players.get(playerIndex).getDeckSize();
+    }
+
+    public int countStudentsInBag(){
+
+        return bag.count();
     }
 
 
