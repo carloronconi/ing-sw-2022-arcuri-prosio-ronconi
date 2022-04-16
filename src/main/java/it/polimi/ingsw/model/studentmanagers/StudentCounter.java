@@ -42,7 +42,7 @@ public abstract class StudentCounter {
      */
     protected PawnColor movePawnFrom(StudentCounter other) throws IllegalArgumentException {
         ArrayList<PawnColor> movableColors = new ArrayList<>();
-        for(PawnColor color : PawnColor.values()){
+        for(PawnColor color : PawnColor.values()){  //da cambiare forsa il metodo values con il metodo keySet perché values prende i valori mentre color sono le key
             if(other.map.get(color) > 0){
                 movableColors.add(color);
             }

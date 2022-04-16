@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.studentmanagers;
 import it.polimi.ingsw.model.PawnColor;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 /**
@@ -24,11 +25,27 @@ public class Entrance extends StudentCounter {
 
     /**
      * way to fill the Entrance from one of the clouds in the game
-     * @param fromCloud to select the cloud from which to fill the Entrance
+     * @param whichCloud to select the cloud from which to fill the Entrance
+     * @throws IllegalArgumentException if the cloud is not found in the list
      */
-    public void fill(int fromCloud){
+    public void fill(UUID whichCloud) throws IllegalArgumentException {
 
-        IntStream.range(0, clouds.get(fromCloud).count()).forEach(i -> movePawnFrom(clouds.get(fromCloud) ));
+        int cloudIndex=-1;
+        boolean cloudFound=false;
+        for(int i=0; i<clouds.size(); i++){
+            if(clouds.get(i).getId().equals(whichCloud)){
+                cloudIndex=i;
+                cloudFound=true;
+            }
+        }
+
+        if(!cloudFound) throw new IllegalArgumentException();
+
+        for(int i=0; i<clouds.get(cloudIndex).count(); i++){
+            movePawnFrom(clouds.get(cloudIndex));
+
+        }
+
     }
 
     /**
