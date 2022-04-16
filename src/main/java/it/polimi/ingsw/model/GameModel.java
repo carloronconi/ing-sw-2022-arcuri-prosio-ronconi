@@ -22,4 +22,14 @@ public class GameModel {
     public void useMessengerEffect(){
         //TODO: implementation
     }
+
+    /**
+     * needed by Juggler class to be able to access a player's entrance
+     * @param player UUID
+     * @return reference to player
+     */
+    public Player getPlayerById(UUID player) {
+        //TODO: implementation or maybe better to create a PlayerManager
+        return null;
+    }
 }
