@@ -75,8 +75,8 @@ public class IslandManager extends StudentCounter {
             mergeIslands(currentPositionMN);
         }
 
-
-        return indexToId(currentPositionMN);
+        motherNaturePosition = indexToId(currentPositionMN);
+        return motherNaturePosition;
     }
 
 
@@ -149,14 +149,14 @@ public class IslandManager extends StudentCounter {
      * this method moves a student from the entrance of a student's board to an island
      * @param color indicates the color of the piece to be moved
      * @param island indicates the island on which to move the piece
-     * @param player it is passed as an input so as to have an entry reference of the player
+     * @param studentCounter it is passed as an input so as to have an entry reference of the studentCounter
      *               from which to take the piece
      */
-    public void moveStudentToIsland(PawnColor color, UUID island, Player player){
+    public void moveStudentToIsland(PawnColor color, UUID island, StudentCounter studentCounter){
 
         int islandIndex=idToIndex(island);
 
-        islands.get(islandIndex).movePawnFrom(player.getEntrance(), color);
+        islands.get(islandIndex).movePawnFrom(studentCounter, color);
     }
 
 

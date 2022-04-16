@@ -162,7 +162,7 @@ public class GameModel {
      * It is verified that the chosen card has not already been played and therefore placed in the discard pile
      * @param idPlayer id of the player who will have to play the considered card
      * @param cardNumber number of the card to be played
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if card already played by someone else in current turn
      */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException {
 
@@ -215,7 +215,7 @@ public class GameModel {
 
         int playerIndex=playerIdToIndex(idPlayer);
 
-        islandManager.moveStudentToIsland(pawnColor, island, players.get(playerIndex));
+        islandManager.moveStudentToIsland(pawnColor, island, players.get(playerIndex).getEntrance());
 
     }
 
