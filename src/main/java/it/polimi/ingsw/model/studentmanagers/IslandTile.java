@@ -47,7 +47,11 @@ public class IslandTile extends StudentCounter{
     public UUID getId(){ return id; }
 
 
-
+    /**
+     * it is called when unification between two islands is required and transfers all students
+     * from the past island as input to the island calling this method
+     * @param otherIsland is the island from which students are transferred
+     */
     public void moveAllPawnsFrom(IslandTile otherIsland){
         size++;
         for (PawnColor c: PawnColor.values()) {

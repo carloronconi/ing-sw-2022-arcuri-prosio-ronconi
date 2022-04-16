@@ -137,7 +137,12 @@ public class GameModel {
 
     }
 
-
+    /**
+     * this method considers a player and an island and transfers all students from the cloud in question
+     * to the player's entrance
+     * @param whichCloud cloud from which students are transferred
+     * @param idPlayer player who receives students
+     */
     public void moveCloudToEntrance(UUID whichCloud, UUID idPlayer){
 
         int playerIndex=playerIdToIndex(idPlayer);
@@ -146,7 +151,13 @@ public class GameModel {
 
     }
 
-
+    /**
+     * this method allows the player to play the card identified by the number passed in entry.
+     * It is verified that the chosen card has not already been played and therefore placed in the discard pile
+     * @param idPlayer id of the player who will have to play the considered card
+     * @param cardNumber number of the card to be played
+     * @throws IllegalArgumentException
+     */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException {
 
 
@@ -164,7 +175,11 @@ public class GameModel {
 
     }
 
-
+    /**
+     * returns the number of towers owned by the player passed in as input
+     * @param idPlayer id of the player on which the number of towers will be checked
+     * @return number of towers remaining
+     */
     public int getNumOfTowers(UUID idPlayer){
 
         int howManyPlayers=0;
@@ -183,7 +198,13 @@ public class GameModel {
 
     }
 
-
+    /**
+     * moves a student of the color passed into the entrance from the entrance of the considered player
+     * to the chosen island
+     * @param pawnColor color of the student to be transferred
+     * @param idPlayer id of the player from which the student will be transferred
+     * @param island island to which the student will be transferred
+     */
     public void moveStudentToIsland(PawnColor pawnColor, UUID idPlayer, UUID island) {
 
         int playerIndex=playerIdToIndex(idPlayer);
@@ -193,7 +214,10 @@ public class GameModel {
     }
 
 
-
+    /**
+     * transfers a number of students, chosen on the basis of the number of players in the game,
+     * from the bag to the clouds
+     */
     public void fillAllClouds(){
 
         for(Cloud cloud : clouds){
@@ -206,11 +230,20 @@ public class GameModel {
 
     }
 
+    /**
+     * this method counts the number of islands or groups of islands in the game
+     * @return the number of islands
+     */
     public int countIslands(){
         return islandManager.countIslands();
     }
 
 
+    /**
+     * counts the number of cards remaining in the player's deck that is passed into the entrance
+     * @param player id of the player on whom the check of the number of cards left in his deck is made
+     * @return returns the number of cards in the player's deck
+     */
     public int getDeckSize(UUID player){
 
         int playerIndex=playerIdToIndex(player);
@@ -218,6 +251,10 @@ public class GameModel {
         return players.get(playerIndex).getDeckSize();
     }
 
+    /**
+     * counts the number of students left on the bag
+     * @return the number of remaining students
+     */
     public int countStudentsInBag(){
 
         return bag.count();
