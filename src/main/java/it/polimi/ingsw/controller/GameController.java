@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.studentmanagers.Bag;
+// import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class GameController {
     private GameModel gameModel;         //everything
     private IslandManager islandManager; //island tiles
     //private GameMode gameMode;         //INSTEAD OF ENUM IN MESSAGE HANDLER INT (0: EASY, 1: EXPERT)
-    private RoundController round;
+    private RoundController round = new RoundController();
     private MessageHandler messageHandler;
     private int numPlayers;
 
