@@ -1,21 +1,17 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.Player;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 
 public class MessageHandler {
     //an attribute refers to the view - player nickname so that I have a getter
     private int numOfPlayer;
-    private int gameMode; //maybe not necessary to have an Enum for the gameMode
+    // private int gameMode; maybe not necessary to have an Enum for the gameMode
     Scanner s = new Scanner(System.in);
     private String name;
+    private int gameMode; //0 easy 1 expert
 
 
 
@@ -46,7 +42,7 @@ public class MessageHandler {
                 System.out.println("Write your nickname: ");
                 InputStreamReader isr = new InputStreamReader(System.in);
                 BufferedReader br = new BufferedReader(isr);
-                String name = br.readLine();
+                name = br.readLine();
 
             } catch (IOException ioe) {
                 System.out.println("IO exception raised\n");
