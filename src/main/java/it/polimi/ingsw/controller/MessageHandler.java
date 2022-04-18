@@ -19,10 +19,8 @@ public class MessageHandler {
 
 
 
-    public void getCurrentPlayerID() {
-    }
-
-    public void sendMessage( /*message, player*/) {
+    public int getNumOfPlayers(){
+        return numOfPlayer;
     }
 
     public int howManyMessage() {
@@ -73,8 +71,15 @@ public class MessageHandler {
             return 1;
         }
 
-
     }
+
+    public int playAssistantCard(){
+        int assistantCardValue;
+        System.out.println("Choose the Assistant Card you want to play: number from 1 to 12");
+        assistantCardValue = s.nextInt();
+        return assistantCardValue;
+    }
+
 
 
 }
