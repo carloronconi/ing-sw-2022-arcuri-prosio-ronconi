@@ -203,7 +203,26 @@ public class GameModel {
      */
     public int countStudentsInBag(){ return bag.count();}
 
+    /**
+     * player chooses to get a certain character to use its special effect and pays with its coins
+     * @param player who wants to purchase a character effect
+     * @param character chosen by the player
+     * @return character from which you can .useEffect()
+     * @throws IllegalArgumentException if the player doesn't have enough coins to pay for the character
+     * @throws NoSuchFieldException if the player or character id don't exist among the players/characters in the match
+     */
+    public Character payAndGetCharacter(UUID player, UUID character) throws IllegalArgumentException, NoSuchFieldException {
+        int playerIndex = ConverterUtility.idToIndex(player, players);
+        Player p = players.get(playerIndex);
+        int characterIndex = ConverterUtility.idToIndex(character, characters);
+        Character c = characters.get(characterIndex);
 
+        if (p.getNumOfCoins()<c.getCost()) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
+        p.payCoins(c.getCost());
+        bank+=c.getCost();
+
+        return c;
+    }
 
     /**
      * needed by Juggler class to be able to access a player's entrance
