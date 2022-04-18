@@ -11,7 +11,7 @@ import java.util.List;
 public class GameController {
     private GameModel gameModel;         //everything
     private IslandManager islandManager; //island tiles
-    private GameMode gameMode;
+    //private GameMode gameMode;         //INSTEAD OF ENUM IN MESSAGE HANDLER INT (0: EASY, 1: EXPERT)
     private RoundController round;
     private MessageHandler messageHandler;
     private int numPlayers;
@@ -23,8 +23,16 @@ public class GameController {
         return numPlayers;
     }
 
-    public GameMode getGameMode() {
-        return gameMode;
+    public void whichGameMode() {
+       if(messageHandler.whichGameMode() == 0){
+                    //initialisation gameModel bank : 0 - else 20
+                    //build this init in GameModel so that GameController can call it
+                    //gameModel.
+       }else{
+           //initialisation to 20
+       }
+
+
     }
 
     public void setupPlayers(){
@@ -38,20 +46,17 @@ public class GameController {
 
     public void setup(){
         //has numOfPlayers and gameMode - calls game model and island manager
-
-
-    }
-
-
-    public void sendMessage(){
-        //calls message handler
+        /*gameModel.init(numPlayers) - in gameModel method with init for number of clouds, players, island tiles and MN and so on
+        that has variation for 2 or 3 players
+         */
     }
 
     public void start() {
-        //first: randomly choose one of the players as the one to start getrandom which
+        //first: randomly choose one of the players as the one to start getRandom which
         //returns the randomly selected player
         //calls round: smt like round.firstRound(playerRandomlyChosen)
         }
+
     public void endGame(){
 
     }

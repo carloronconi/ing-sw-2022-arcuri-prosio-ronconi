@@ -13,6 +13,8 @@ import java.util.List;
 public class MessageHandler {
     //an attribute refers to the view - player nickname so that I have a getter
     private int numOfPlayer;
+    private int gameMode; //maybe not necessary to have an Enum for the gameMode
+    Scanner s = new Scanner(System.in);
 
 
 
@@ -23,7 +25,6 @@ public class MessageHandler {
     }
 
     public int howManyMessage() {
-        int numOfPlayer = 0;
         System.out.println("How many players?");
         Scanner s = new Scanner(System.in);
         numOfPlayer = s.nextInt();
@@ -37,6 +38,22 @@ public class MessageHandler {
         System.out.println("Chosen game mode with number of players: " + numOfPlayer);
 
         return numOfPlayer;
+    }
+
+    public int whichGameMode(){
+        System.out.println("Which game mode do you want to play with?\n State 0 for easy, 1 for expert");
+        gameMode = s.nextInt();
+        //exception if number the user inputted is nor 0 or 1;
+        //do it later
+        if(gameMode == 0){
+            System.out.println("Chosen EASY game mode");
+            return 0;
+        }else{
+            System.out.println("Chosen EXPERT game mode");
+            return 1;
+        }
+
+
     }
 
     public void setNickname() {
