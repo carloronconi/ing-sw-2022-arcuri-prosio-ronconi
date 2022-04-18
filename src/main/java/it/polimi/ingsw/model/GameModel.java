@@ -57,6 +57,7 @@ public class GameModel {
      * Updates the correspondence between teachers and players in professorManager
      */
     private void updateProfessorManager(){
+        //TODO: different behaviour for when cheeseMerchantEffect is true
         Player supportPlayer =null;
         for(PawnColor pawnColor : PawnColor.values()){
             /*this is the case where the value associated with a color has a value that is defined by a player.
@@ -98,7 +99,7 @@ public class GameModel {
             }
 
         }
-
+        if (cheeseMerchantEffect) cheeseMerchantEffect = false;
     }
 
     public void useMessengerEffect(){
