@@ -58,14 +58,11 @@ public class Player implements Identifiable{
      * @return true if the amount of coins owned by a player increases, otherwise it returns false
      */
     public boolean moveStudentToDining(PawnColor pawnColor, boolean moneyBank){
-
         diningRoom.fill(pawnColor);
-
         if(moneyBank && diningRoom.count(pawnColor)%3==0){
             coins++;
             return true;
         }
-
         return false;
     }
 
@@ -75,5 +72,13 @@ public class Player implements Identifiable{
      */
     public int getNumOfCoins() {
         return numOfCoins;
+    }
+
+    /**
+     * reduces number of coins owned by the player
+     * @param howMany coins to be paid
+     */
+    public void payCoins(int howMany){
+        coins -= howMany;
     }
 }
