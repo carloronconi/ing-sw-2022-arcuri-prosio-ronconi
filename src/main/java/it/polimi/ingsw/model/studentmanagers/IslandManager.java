@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.studentmanagers;
 
+import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
@@ -53,9 +54,10 @@ public class IslandManager extends StudentCounter {
      * @param steps are the steps that mother nature will have to take
      * @return the id of the island mother nature is on
      */
-    public UUID moveMotherNature(int steps){
+    public UUID moveMotherNature(int steps) throws NoSuchFieldException {
 
-        int MNIslandNumber=idToIndex(motherNaturePosition);
+        int MNIslandNumber = ConverterUtility.idToIndex(motherNaturePosition, islands);
+
 
         MNIslandNumber+=steps;
         int currentPositionMN;
@@ -64,18 +66,15 @@ public class IslandManager extends StudentCounter {
         }else{
             currentPositionMN=MNIslandNumber;
         }
-
         boolean checkUnification=false;
 
         Player previousOwner=islands.get(currentPositionMN).getOwner();
         Player currentOwner=islands.get(currentPositionMN).checkNewOwner(professorManager);
 
-
         if(previousOwner!=currentOwner){
             mergeIslands(currentPositionMN);
         }
-
-        motherNaturePosition = indexToId(currentPositionMN);
+        motherNaturePosition = ConverterUtility.indexToId(currentPositionMN,islands);
         return motherNaturePosition;
     }
 
@@ -114,37 +113,6 @@ public class IslandManager extends StudentCounter {
 
     }
 
-
-    /**
-     * converts the id of an island to its corresponding index within the island ArrayList
-     * @param id is the id of the island whose index you want to know within the ArrayList
-     * @return the island index within the ArrayList or -1 if the island is not present
-     */
-    private int idToIndex(UUID id) throws IllegalArgumentException{
-
-        for(int i=0; i<islands.size(); i++){
-            if(id.equals(islands.get(i).getId())){
-                return i;
-            }
-        }
-
-        throw new IllegalArgumentException("ID does not correspond to any island");
-    }
-
-
-    /**
-     * converts the index of an island present in the ArrayList to its corresponding id
-     * @param positionIsland is the index of the island within the ArrayList whose id you want to know
-     * @return the corresponding island id
-     */
-    private UUID indexToId(int positionIsland){
-
-        if(positionIsland<0 || positionIsland>islands.size()) throw new IllegalArgumentException("position does not correspond to any ID");
-
-        return islands.get(positionIsland).getId();
-    }
-
-
     /**
      * this method moves a student from the entrance of a student's board to an island
      * @param color indicates the color of the piece to be moved
@@ -152,9 +120,9 @@ public class IslandManager extends StudentCounter {
      * @param studentCounter it is passed as an input so as to have an entry reference of the studentCounter
      *               from which to take the piece
      */
-    public void moveStudentToIsland(PawnColor color, UUID island, StudentCounter studentCounter){
+    public void moveStudentToIsland(PawnColor color, UUID island, StudentCounter studentCounter) throws NoSuchFieldException {
 
-        int islandIndex=idToIndex(island);
+        int islandIndex=ConverterUtility.idToIndex(island, islands);
 
         islands.get(islandIndex).movePawnFrom(studentCounter, color);
     }
