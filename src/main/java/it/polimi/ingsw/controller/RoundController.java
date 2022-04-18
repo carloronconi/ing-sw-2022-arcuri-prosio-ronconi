@@ -2,9 +2,12 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import java.lang.reflect.Array;
-import java.rmi.server.UID;
+
 
 public class RoundController {
     private GameModel gameModel;
@@ -16,6 +19,8 @@ public class RoundController {
     int currPlayerPlayedCard;
     int arrayOfPlayedCards[];
     int arrayOfOrderedPlayers[];
+    int arrayOfNewOrderedPlayers[];
+    int arrayOfMotherNatureStepsForPlayer[];
 
 
     public RoundController() {
@@ -42,7 +47,52 @@ public class RoundController {
         for(int i=0; i<size; i++){
             arrayOfPlayedCards[i] = messageHandler.playAssistantCard();
             //TODO: check that currPlayedCard is different from prev
+            //TODO: GameModel should have a method to call the removeCard method in player (I can only access GameModel)
         }
+
+        int min = arrayOfPlayedCards[0];
+        int positionOfMin =0;
+        for(int i=0; i<size; i++){
+            if(arrayOfPlayedCards[i]<min){
+                min = arrayOfPlayedCards[i];
+                positionOfMin = i;
+            }
+        }
+
+        int firstActionPlayerIndex = positionOfMin;
+
+        //reorder array of players:
+        arrayOfNewOrderedPlayers = new int[size];
+        arrayOfNewOrderedPlayers[0] = arrayOfOrderedPlayers[positionOfMin];
+        for(int i=1; i<size;i++){
+            arrayOfNewOrderedPlayers[i] = arrayOfOrderedPlayers[positionOfMin+i];
+            if(positionOfMin +i == size){
+                arrayOfNewOrderedPlayers[i]=0;
+            }else if(positionOfMin+1 > size){
+                arrayOfNewOrderedPlayers[i]=1;
+            }
+        }
+
+        //now I have reordered players and array of card numbers
+        //since I know the order in which the players are going to play,
+        //I don't really need the played card - only the MN steps
+        //another array with mother nature steps - same index as corresponding player we put MN steps - half the number rounded up
+
+        arrayOfMotherNatureStepsForPlayer = new int[size];
+        for(int i=0; i<size; i++){
+            arrayOfMotherNatureStepsForPlayer[i] = arrayOfPlayedCards[positionOfMin+i];
+            if(positionOfMin+i == size){
+                arrayOfNewOrderedPlayers[i] = arrayOfPlayedCards[0];
+            }else if(positionOfMin+i>size){
+                arrayOfMotherNatureStepsForPlayer[i] = arrayOfPlayedCards[1];
+            }
+        }
+
+
+
+
+
+
 
         /* prevPlayerPlayedCard = messageHandler.playAssistantCard();
         for(int i = 0; i<size-1; i++){
