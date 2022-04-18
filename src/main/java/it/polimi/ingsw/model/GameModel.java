@@ -35,21 +35,17 @@ public class GameModel {
 
     //TODO when all players are added create method to initialize clouds
 
-
-
     /**
      * converts a player's id to its corresponding index within the players ArrayList
      * @param id is the id of the player whose index you want to know within the ArrayList
      * @return the player's index within the ArrayList or -1 if the player is not present
      */
     private int playerIdToIndex(UUID id){
-
         for(int i=0; i<players.size(); i++){
             if(id.equals(players.get(i).getId())){
                 return i;
             }
         }
-
         throw new IllegalArgumentException("ID does not correspond to any player");
     }
 
@@ -59,15 +55,13 @@ public class GameModel {
      * @return the corresponding player id
      */
     private UUID playerIndexToId(int positionPlayer){
-
         if(positionPlayer<0 || positionPlayer>players.size()) throw new IllegalArgumentException("position does not correspond to any ID");
-
         return players.get(positionPlayer).getId();
     }
 
 
     /**
-     * transerts a student of a certain color from a player's entrance to the corresponding diningRoom.
+     * transfers a student of a certain color from a player's entrance to the corresponding diningRoom.
      * If the bank has a number of coins greater than 0 and the number of students of that color is multiples of 3,
      * then one coin from the bank is transferred to the player. Subsequently, the correspondence between professors
      * and players in professorManager is updated
@@ -75,33 +69,23 @@ public class GameModel {
      * @param playerId player from whom the student will be transferred
      */
     public void moveStudentToDining(PawnColor pawnColor, UUID playerId){
-
         int playerIndex=playerIdToIndex(playerId);
-
         if(players.get(playerIndex).moveStudentToDining(pawnColor,bank>0)){
             bank--;
         }
-
         updateProfessorManager();
-
     }
-
 
     /**
      * Updates the correspondence between teachers and players in professorManager
      */
     private void updateProfessorManager(){
-
         Player supportPlayer =null;
-
         for(PawnColor pawnColor : PawnColor.values()){
-
-            /*
-              this is the case where the value associated with a color has a value that is defined by a player.
+            /*this is the case where the value associated with a color has a value that is defined by a player.
               This player is taken as a support player for the comparison so as to be replaced in case there is
               another player with a greater number of students of the same color or remain in case he is the one
-              with the greater number
-             */
+              with the greater number */
             if(professorManager.getProfessorOwner(pawnColor)!=null){
                 supportPlayer=professorManager.getProfessorOwner(pawnColor);
 
@@ -110,12 +94,9 @@ public class GameModel {
                         supportPlayer=player;
                     }
                 }
-
                 professorManager.setProfessorOwner(pawnColor, supportPlayer);
             }else{
-
-                /*
-                  this is the case when there is no player associated with the color under consideration.
+                /*this is the case when there is no player associated with the color under consideration.
                   What you do is set a negative value as the number of students.
                   Then you iterate over all the players and the previously set value allows you to choose
                   the first player as a support player for the comparison, so at the first iteration
@@ -136,7 +117,6 @@ public class GameModel {
                         supportPlayer=null;
                     }
                 }
-
                 professorManager.setProfessorOwner(pawnColor, supportPlayer);
             }
 
@@ -148,8 +128,6 @@ public class GameModel {
         //TODO: implementation
     }
 
-
-
     /**
      * this method considers a player and an island and transfers all students from the cloud in question
      * to the player's entrance
@@ -157,11 +135,8 @@ public class GameModel {
      * @param idPlayer player who receives students
      */
     public void moveCloudToEntrance(UUID whichCloud, UUID idPlayer){
-
         int playerIndex=playerIdToIndex(idPlayer);
-
         players.get(playerIndex).getEntrance().fill(whichCloud);
-
     }
 
     /**
@@ -172,20 +147,14 @@ public class GameModel {
      * @throws IllegalArgumentException if card already played by someone else in current turn
      */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException {
-
-
         for (Integer playedCard : playedCards) {
             if (playedCard.equals(cardNumber)) {
                 throw new IllegalArgumentException();
             }
         }
-
         int playerIndex=playerIdToIndex(idPlayer);
-
         players.get(playerIndex).playAssistantCard(cardNumber);
-
         playedCards.add(cardNumber);
-
     }
 
     /**
@@ -194,15 +163,12 @@ public class GameModel {
      * @return number of towers remaining
      */
     public int getNumOfTowers(UUID idPlayer){
-
         int howManyPlayers=0;
-
         for(Player player : players){
             if(player.getId().equals(idPlayer)){
                 howManyPlayers++;
             }
         }
-
         if(players.size()==3){
             return 6-howManyPlayers;
         }else
@@ -219,20 +185,15 @@ public class GameModel {
      * @param island island to which the student will be transferred
      */
     public void moveStudentToIsland(PawnColor pawnColor, UUID idPlayer, UUID island) {
-
         int playerIndex=playerIdToIndex(idPlayer);
-
         islandManager.moveStudentToIsland(pawnColor, island, players.get(playerIndex).getEntrance());
-
     }
-
 
     /**
      * transfers a number of students, chosen on the basis of the number of players in the game,
      * from the bag to the clouds
      */
     public void fillAllClouds(){
-
         for(Cloud cloud : clouds){
             if(players.size()==2){
                 cloud.fill(3);
@@ -251,16 +212,13 @@ public class GameModel {
         return islandManager.countIslands();
     }
 
-
     /**
      * counts the number of cards remaining in the player's deck that is passed into the entrance
      * @param player id of the player on whom the check of the number of cards left in his deck is made
      * @return returns the number of cards in the player's deck
      */
     public int getDeckSize(UUID player){
-
         int playerIndex=playerIdToIndex(player);
-
         return players.get(playerIndex).getDeckSize();
     }
 
@@ -268,13 +226,7 @@ public class GameModel {
      * counts the number of students left on the bag
      * @return the number of remaining students
      */
-    public int countStudentsInBag(){
-
-        return bag.count();
-    }
-
-
-
+    public int countStudentsInBag(){ return bag.count();}
 
     /**
      * needed by Juggler class to be able to access a player's entrance
