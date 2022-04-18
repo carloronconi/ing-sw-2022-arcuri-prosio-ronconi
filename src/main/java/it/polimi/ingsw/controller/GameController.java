@@ -15,7 +15,9 @@ public class GameController {
     private RoundController round;
     private MessageHandler messageHandler;
     private int numPlayers;
+
     private String playerNickname;
+    private List<String> listOfPlayers;
 
 
 
@@ -38,10 +40,11 @@ public class GameController {
     }
 
     public void setupPlayers(){
-
         int i;
+        List<String > listOfPlayers = new ArrayList<>();
+
         for(i=0; i<numPlayers;i++){
-            List<String> listOfPlayers = new ArrayList<>();
+
             playerNickname = messageHandler.setNickname();
             listOfPlayers.add(i, playerNickname);
 
@@ -60,7 +63,7 @@ public class GameController {
     }
 
     public void start() {
-        //first: randomly choose one of the players as the one to start getRandom which
+
         //returns the randomly selected player
         //calls round: smt like round.firstRound(playerRandomlyChosen)
         }
