@@ -15,6 +15,7 @@ public class MessageHandler {
     private int numOfPlayer;
     private int gameMode; //maybe not necessary to have an Enum for the gameMode
     Scanner s = new Scanner(System.in);
+    private String name;
 
 
 
@@ -40,6 +41,25 @@ public class MessageHandler {
         return numOfPlayer;
     }
 
+
+
+    public String setNickname() {
+            try {
+                System.out.println("Write your nickname: ");
+                InputStreamReader isr = new InputStreamReader(System.in);
+                BufferedReader br = new BufferedReader(isr);
+                String name = br.readLine();
+                System.out.format("Player " +i+ ": %s", name);
+            } catch (IOException ioe) {
+                System.out.println("IO exception raised\n");
+            }
+
+            return name;
+
+        }
+
+
+
     public int whichGameMode(){
         System.out.println("Which game mode do you want to play with?\n State 0 for easy, 1 for expert");
         gameMode = s.nextInt();
@@ -53,27 +73,6 @@ public class MessageHandler {
             return 1;
         }
 
-
-    }
-
-    public void setNickname() {
-        int i= 0;
-        List<String> listOfPlayers = new ArrayList<>();
-        while(i < numOfPlayer) {
-            try {
-                System.out.println("Write your nickname: ");
-                InputStreamReader isr = new InputStreamReader(System.in);
-                BufferedReader br = new BufferedReader(isr);
-                String name = br.readLine();
-                System.out.format("Player " +i+ ": %s", name);
-                listOfPlayers.add(i, name);
-
-            } catch (IOException ioe) {
-                System.out.println("IO exception raised\n");
-            }
-
-            i++;
-        }
 
     }
 
