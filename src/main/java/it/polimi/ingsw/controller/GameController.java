@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.studentmanagers.IslandManager;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 
 public class GameController {
     private GameModel gameModel;         //everything
@@ -18,6 +20,7 @@ public class GameController {
 
     private String playerNickname;
     private List<String> listOfPlayers;
+    int indexPlayer;
 
 
 
@@ -53,6 +56,11 @@ public class GameController {
 
         }
 
+        public int getPlayerIndex(){
+        indexPlayer = listOfPlayers.indexOf(playerNickname);
+        return indexPlayer;
+     }
+
 
     public void setup(){
         //has numOfPlayers and gameMode - calls game model and island manager
@@ -63,6 +71,12 @@ public class GameController {
     }
 
     public void start() {
+
+        Random rnd = new Random();
+        int randomFirstPlayer = rnd.nextInt(numPlayers-1);
+        round.startRound(randomFirstPlayer);
+
+
 
         //returns the randomly selected player
         //calls round: smt like round.firstRound(playerRandomlyChosen)
