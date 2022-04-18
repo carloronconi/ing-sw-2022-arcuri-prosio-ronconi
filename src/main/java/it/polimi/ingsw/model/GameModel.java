@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.charactercards.Character;
+import it.polimi.ingsw.model.charactercards.CharacterFactory;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
@@ -8,13 +10,14 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class GameModel {
-    private ArrayList<Player> players;
+    private final ArrayList<Player> players;
     private final IslandManager islandManager;
     private final ProfessorManager professorManager;
     private final Bag bag;
-    private ArrayList<Cloud> clouds;
+    private final ArrayList<Cloud> clouds;
     private ArrayList<Integer> playedCards;
     private int bank;
+    private final ArrayList<Character> characters;
 
     //creare altri costruttori in base alle differenti modalità del gioco oppure modificare quello esistente
 
@@ -24,6 +27,11 @@ public class GameModel {
         islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
         clouds=new ArrayList<>();
+        CharacterFactory factory = new CharacterFactory(bag, islandManager, professorManager, this);
+        characters = new ArrayList<>();
+        for (int i = 0; i<3; i++){
+            characters.add(factory.createUninstantiatedCharacter());
+        }
     }
 
     //TODO when all players are added create method to inizialize clouds
