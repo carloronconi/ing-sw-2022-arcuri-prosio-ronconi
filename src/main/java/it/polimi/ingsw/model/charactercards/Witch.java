@@ -30,7 +30,7 @@ public class Witch extends Character{
         if(availableBans < 1) throw new IllegalStateException();
         islandManager.useWitchEffect(island, this);
         availableBans--;
-        if(!isCostIncreased()) assertCostIncreased();
+        if(!isCostIncreased()) increaseCost();
     }
 
     /**

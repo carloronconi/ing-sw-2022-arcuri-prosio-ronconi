@@ -69,7 +69,11 @@ public class Player implements Identifiable{
         return false;
     }
 
-
-
-
+    /**
+     * get the number of coins of a player
+     * @return number of coins owned by player
+     */
+    public int getNumOfCoins() {
+        return numOfCoins;
+    }
 }

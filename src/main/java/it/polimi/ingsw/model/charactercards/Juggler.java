@@ -71,5 +71,6 @@ public class Juggler extends Character {
         if(colorSwaps.isEmpty()) throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");
         Entrance entrance = gameModel.getPlayerById(player).getEntrance();
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());
+        if (!isCostIncreased()) increaseCost();
     }
 }

@@ -19,6 +19,6 @@ public class Messenger extends Character {
      */
     public void useEffect(){
         gameModel.useMessengerEffect();
-        if(!isCostIncreased()) assertCostIncreased();
+        if(!isCostIncreased()) increaseCost();
     }
 }

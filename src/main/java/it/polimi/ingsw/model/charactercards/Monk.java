@@ -39,7 +39,7 @@ public class Monk extends Character{
      */
     public void useEffect(PawnColor color, UUID island){
         islandManager.moveStudentToIsland(color, island, studentCounter);
-        if (!isCostIncreased()) assertCostIncreased();
+        if (!isCostIncreased()) increaseCost();
         studentCounter.takeStudentFrom(bag);
     }
 }

@@ -19,6 +19,6 @@ public class CheeseMerchant extends Character {
      */
     public void useEffect(){
         professorManager.assertCheeseMerchantEffect();
-        if(!isCostIncreased()) assertCostIncreased();
+        if (!isCostIncreased()) increaseCost();
     }
 }
