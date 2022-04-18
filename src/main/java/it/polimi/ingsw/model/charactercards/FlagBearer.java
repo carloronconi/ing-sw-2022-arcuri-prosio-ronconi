@@ -20,8 +20,8 @@ public class FlagBearer extends Character{
      * calls method on islandManager to tell it to perform checkNewOwner and mergeIslands on an island even if mother nature is not there
      * @param island where to perform checkNewOwner and mergeIslands
      */
-    public void useEffect(UUID island){
-        islandManager.flagBearerEffect(island);
+    public void useEffect(UUID island) throws NoSuchFieldException {
+        islandManager.useFlagBearerEffect(island);
         if (!isCostIncreased()) increaseCost();
     }
 }

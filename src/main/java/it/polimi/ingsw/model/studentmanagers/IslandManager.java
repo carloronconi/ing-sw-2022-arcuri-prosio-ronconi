@@ -26,7 +26,7 @@ public class IslandManager extends StudentCounter {
      */
     public IslandManager(Bag bag) {
         super();
-
+        centaurEffect = false;
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
             movePawnFrom(bag, c);
@@ -72,7 +72,8 @@ public class IslandManager extends StudentCounter {
         Player currentOwner=islands.get(currentPositionMN).checkNewOwner(professorManager);
 
         if(previousOwner!=currentOwner){
-            mergeIslands(currentPositionMN);
+
+            mergeIslands(ConverterUtility.indexToId(currentPositionMN, islands));
         }
         motherNaturePosition = ConverterUtility.indexToId(currentPositionMN,islands);
         return motherNaturePosition;
@@ -81,10 +82,11 @@ public class IslandManager extends StudentCounter {
 
     /**
      * this method will handle the unification of the considered island with the next and the previous one
-     * @param currentIsland is the island where mother nature is located
+     * @param currentIslandId is the island where mother nature is located
      */
-    private void mergeIslands(int currentIsland){
+    private void mergeIslands(UUID currentIslandId) throws NoSuchFieldException {
 
+        int currentIsland = ConverterUtility.idToIndex(currentIslandId, islands);
         int nextIsland;
         int prevIsland;
 
@@ -121,9 +123,7 @@ public class IslandManager extends StudentCounter {
      *               from which to take the piece
      */
     public void moveStudentToIsland(PawnColor color, UUID island, StudentCounter studentCounter) throws NoSuchFieldException {
-
         int islandIndex=ConverterUtility.idToIndex(island, islands);
-
         islands.get(islandIndex).movePawnFrom(studentCounter, color);
     }
 
@@ -137,13 +137,12 @@ public class IslandManager extends StudentCounter {
         return islands.size();
     }
 
+    public void useFlagBearerEffect(UUID island) throws NoSuchFieldException {
+        IslandTile islandTile = ConverterUtility.idToElement(island, islands);
+        Player previousOwner = islandTile.getOwner();
+        Player newOwner = islandTile.checkNewOwner(professorManager);
+        if(newOwner!=previousOwner) mergeIslands(island);
 
-
-
-    public void flagBearerEffect(UUID island) {
-        //TODO: implementation
-        //call checkNewOwner on island
-        //if new owner != old owner call mergeIslands
     }
 
     public void useWitchEffect(UUID island, Witch witch) {
