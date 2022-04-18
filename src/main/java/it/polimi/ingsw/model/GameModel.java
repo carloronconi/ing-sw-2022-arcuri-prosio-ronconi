@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 
 public class GameModel {
@@ -16,7 +17,7 @@ public class GameModel {
     private final ProfessorManager professorManager;
     private final Bag bag;
     private final ArrayList<Cloud> clouds;
-    private ArrayList<Integer> playedCards;
+    private Map<Player, Integer> playedCards;
     private int bank;
     private final ArrayList<Character> characters;
     private boolean cheeseMerchantEffect;
@@ -38,7 +39,7 @@ public class GameModel {
         }
     }
 
-    //TODO when all players are added create method to initialize clouds
+    //TODO when all players are added create method to initialize clouds and initialize playedCards map
 
     /**
      * transfers a student of a certain color from a player's entrance to the corresponding diningRoom.
@@ -140,14 +141,15 @@ public class GameModel {
      * @throws IllegalArgumentException if card already played by someone else in current turn
      */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException, NoSuchFieldException {
-        for (Integer playedCard : playedCards) {
+        for (Integer playedCard : playedCards.values()) {
             if (playedCard.equals(cardNumber)) {
                 throw new IllegalArgumentException();
             }
         }
-        int playerIndex=ConverterUtility.idToIndex(idPlayer, players);
-        players.get(playerIndex).playAssistantCard(cardNumber);
-        playedCards.add(cardNumber);
+
+        Player player = ConverterUtility.idToElement(idPlayer, players);
+        player.playAssistantCard(cardNumber);
+        playedCards.put(player, cardNumber);
     }
 
     /**
@@ -254,5 +256,12 @@ public class GameModel {
     public Player getPlayerById(UUID player) {
         //TODO: implementation or maybe better to create a PlayerManager
         return null;
+    }
+
+    public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
+        Player player = ConverterUtility.idToElement(playerId,players);
+        if (playedCards.get(player) + messengerEffect < steps) throw new IllegalArgumentException("Not enough steps in the card played");
+        islandManager.moveMotherNature(steps);
+        messengerEffect = 0;
     }
 }
