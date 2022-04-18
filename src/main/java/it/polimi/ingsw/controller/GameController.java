@@ -1,10 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
-
-import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,6 +19,14 @@ public class GameController {
     private String playerNickname;
     private List<String> listOfPlayers;
     int indexPlayer;
+
+   /* public GameController(){
+        gameModel = new GameModel();
+        islandManager = new IslandManager(bag); problem with bag instance
+    }
+
+    */
+
 
 
 
