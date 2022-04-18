@@ -37,4 +37,14 @@ public final class ConverterUtility {
         return list.get(index).getId();
     }
 
+    /**
+     * converts the id of an element to the element itself from a list of objects that offer the getId method to its index
+     * @param uuid id of element to be obtained
+     * @param list of objects that implement Identifiable
+     * @return the element with the id passed as a parameter
+     * @throws NoSuchFieldException if no element in the list has the provided id
+     */
+    public static <T extends Identifiable> T idToElement(UUID uuid, List<T> list) throws NoSuchFieldException {
+        return list.get(idToIndex(uuid, list));
+    }
 }
