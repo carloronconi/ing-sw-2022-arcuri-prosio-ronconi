@@ -15,6 +15,8 @@ public class GameController {
     private RoundController round;
     private MessageHandler messageHandler;
     private int numPlayers;
+    private String playerNickname;
+
 
 
     public int getNumOfPlayers(){
@@ -36,18 +38,24 @@ public class GameController {
     }
 
     public void setupPlayers(){
-        messageHandler.setNickname();
+
         int i;
-        ArrayList<Player> players = new ArrayList<Player>();
-        //TODO: link arrayList of players by nickname from messageHandler to GameModel
+        for(i=0; i<numPlayers;i++){
+            List<String> listOfPlayers = new ArrayList<>();
+            playerNickname = messageHandler.setNickname();
+            listOfPlayers.add(i, playerNickname);
+
+            //gameModel.initPlayer() - playerNickname is Player nickname
+        }
 
         }
 
 
     public void setup(){
         //has numOfPlayers and gameMode - calls game model and island manager
-        /*gameModel.init(numPlayers) - in gameModel method with init for number of clouds, players, island tiles and MN and so on
+        /*gameModel.init(numPlayers) - in gameModel method with init for number of clouds, players and so on
         that has variation for 2 or 3 players
+        islandManager.init() - not necessary number of players as a parameter
          */
     }
 
