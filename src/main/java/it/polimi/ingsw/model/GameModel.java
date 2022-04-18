@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.charactercards.Character;
 import it.polimi.ingsw.model.charactercards.CharacterFactory;
+import it.polimi.ingsw.model.charactercards.Messenger;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
@@ -19,6 +20,7 @@ public class GameModel {
     private int bank;
     private final ArrayList<Character> characters;
     private boolean cheeseMerchantEffect;
+    private int messengerEffect;
 
     public GameModel(boolean expertMode){
         players=new ArrayList<>();
@@ -27,6 +29,7 @@ public class GameModel {
         professorManager=new ProfessorManager();
         clouds=new ArrayList<>();
         cheeseMerchantEffect = false;
+        messengerEffect = 0;
         bank = expertMode? 20 : 0;
         CharacterFactory factory = new CharacterFactory(bag, islandManager, professorManager, this);
         characters = new ArrayList<>();
@@ -102,8 +105,20 @@ public class GameModel {
         if (cheeseMerchantEffect) cheeseMerchantEffect = false;
     }
 
+    /**
+     * updates messengerEffect to be active for the next turn
+     */
     public void useMessengerEffect(){
-        //TODO: implementation
+
+        boolean found = false;
+        for (Character c : characters){
+            if (c instanceof Messenger) {
+                found = true;
+                break;
+            }
+        }
+        if(found) messengerEffect = 2;
+        else throw new IllegalStateException("There is no messenger in the characters of this match");
     }
 
     /**
