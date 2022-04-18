@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.studentmanagers.Entrance;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Player {
+public class Player implements Identifiable{
     private final Entrance entrance;
     private final DiningRoom diningRoom;
     private final UUID id;

@@ -36,31 +36,6 @@ public class GameModel {
     //TODO when all players are added create method to initialize clouds
 
     /**
-     * converts a player's id to its corresponding index within the players ArrayList
-     * @param id is the id of the player whose index you want to know within the ArrayList
-     * @return the player's index within the ArrayList or -1 if the player is not present
-     */
-    private int playerIdToIndex(UUID id){
-        for(int i=0; i<players.size(); i++){
-            if(id.equals(players.get(i).getId())){
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("ID does not correspond to any player");
-    }
-
-    /**
-     * converts the index of a player contained in the ArrayList to its corresponding ID
-     * @param positionPlayer is the index of the player within the ArrayList whose id you want to know
-     * @return the corresponding player id
-     */
-    private UUID playerIndexToId(int positionPlayer){
-        if(positionPlayer<0 || positionPlayer>players.size()) throw new IllegalArgumentException("position does not correspond to any ID");
-        return players.get(positionPlayer).getId();
-    }
-
-
-    /**
      * transfers a student of a certain color from a player's entrance to the corresponding diningRoom.
      * If the bank has a number of coins greater than 0 and the number of students of that color is multiples of 3,
      * then one coin from the bank is transferred to the player. Subsequently, the correspondence between professors
@@ -68,8 +43,8 @@ public class GameModel {
      * @param pawnColor color of the student that will be transferred from the entrance to the dining room
      * @param playerId player from whom the student will be transferred
      */
-    public void moveStudentToDining(PawnColor pawnColor, UUID playerId){
-        int playerIndex=playerIdToIndex(playerId);
+    public void moveStudentToDining(PawnColor pawnColor, UUID playerId) throws NoSuchFieldException {
+        int playerIndex=ConverterUtility.idToIndex(playerId, players);
         if(players.get(playerIndex).moveStudentToDining(pawnColor,bank>0)){
             bank--;
         }
@@ -134,8 +109,8 @@ public class GameModel {
      * @param whichCloud cloud from which students are transferred
      * @param idPlayer player who receives students
      */
-    public void moveCloudToEntrance(UUID whichCloud, UUID idPlayer){
-        int playerIndex=playerIdToIndex(idPlayer);
+    public void moveCloudToEntrance(UUID whichCloud, UUID idPlayer) throws NoSuchFieldException {
+        int playerIndex=ConverterUtility.idToIndex(idPlayer, players);
         players.get(playerIndex).getEntrance().fill(whichCloud);
     }
 
@@ -146,13 +121,13 @@ public class GameModel {
      * @param cardNumber number of the card to be played
      * @throws IllegalArgumentException if card already played by someone else in current turn
      */
-    public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException {
+    public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException, NoSuchFieldException {
         for (Integer playedCard : playedCards) {
             if (playedCard.equals(cardNumber)) {
                 throw new IllegalArgumentException();
             }
         }
-        int playerIndex=playerIdToIndex(idPlayer);
+        int playerIndex=ConverterUtility.idToIndex(idPlayer, players);
         players.get(playerIndex).playAssistantCard(cardNumber);
         playedCards.add(cardNumber);
     }
@@ -184,8 +159,8 @@ public class GameModel {
      * @param idPlayer id of the player from which the student will be transferred
      * @param island island to which the student will be transferred
      */
-    public void moveStudentToIsland(PawnColor pawnColor, UUID idPlayer, UUID island) {
-        int playerIndex=playerIdToIndex(idPlayer);
+    public void moveStudentToIsland(PawnColor pawnColor, UUID idPlayer, UUID island) throws NoSuchFieldException {
+        int playerIndex=ConverterUtility.idToIndex(idPlayer,players);
         islandManager.moveStudentToIsland(pawnColor, island, players.get(playerIndex).getEntrance());
     }
 
@@ -217,8 +192,8 @@ public class GameModel {
      * @param player id of the player on whom the check of the number of cards left in his deck is made
      * @return returns the number of cards in the player's deck
      */
-    public int getDeckSize(UUID player){
-        int playerIndex=playerIdToIndex(player);
+    public int getDeckSize(UUID player) throws NoSuchFieldException {
+        int playerIndex=ConverterUtility.idToIndex(player, players);
         return players.get(playerIndex).getDeckSize();
     }
 
@@ -227,6 +202,8 @@ public class GameModel {
      * @return the number of remaining students
      */
     public int countStudentsInBag(){ return bag.count();}
+
+
 
     /**
      * needed by Juggler class to be able to access a player's entrance
