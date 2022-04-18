@@ -19,14 +19,13 @@ public class GameModel {
     private int bank;
     private final ArrayList<Character> characters;
 
-    //creare altri costruttori in base alle differenti modalità del gioco oppure modificare quello esistente
-
-    public GameModel(){
+    public GameModel(boolean expertMode){
         players=new ArrayList<>();
         bag=new Bag();
         islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
         clouds=new ArrayList<>();
+        bank = expertMode? 20 : 0;
         CharacterFactory factory = new CharacterFactory(bag, islandManager, professorManager, this);
         characters = new ArrayList<>();
         for (int i = 0; i<3; i++){
@@ -34,7 +33,7 @@ public class GameModel {
         }
     }
 
-    //TODO when all players are added create method to inizialize clouds
+    //TODO when all players are added create method to initialize clouds
 
 
 
