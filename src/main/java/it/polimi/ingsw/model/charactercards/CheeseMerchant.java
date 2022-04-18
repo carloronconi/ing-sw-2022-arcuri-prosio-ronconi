@@ -1,24 +1,24 @@
 package it.polimi.ingsw.model.charactercards;
 
-import it.polimi.ingsw.model.ProfessorManager;
+import it.polimi.ingsw.model.GameModel;
 
 public class CheeseMerchant extends Character {
-    private final ProfessorManager professorManager;
+    private final GameModel gameModel;
 
     /**
      * creates cheeseMerchant with cost of 2
-     * @param professorManager needed for the special effect
+     * @param gameModel needed for the special effect
      */
-    protected CheeseMerchant(ProfessorManager professorManager) {
+    protected CheeseMerchant(GameModel gameModel) {
         super(2);
-        this.professorManager = professorManager;
+        this.gameModel = gameModel;
     }
 
     /**
      * calls method on professorManager to make sure it performs the comparison of number of students in the special way
      */
     public void useEffect(){
-        professorManager.assertCheeseMerchantEffect();
+        gameModel.assertCheeseMerchantEffect();
         if (!isCostIncreased()) increaseCost();
     }
 }

@@ -18,6 +18,7 @@ public class GameModel {
     private ArrayList<Integer> playedCards;
     private int bank;
     private final ArrayList<Character> characters;
+    private boolean cheeseMerchantEffect;
 
     public GameModel(boolean expertMode){
         players=new ArrayList<>();
@@ -25,6 +26,7 @@ public class GameModel {
         islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
         clouds=new ArrayList<>();
+        cheeseMerchantEffect = false;
         bank = expertMode? 20 : 0;
         CharacterFactory factory = new CharacterFactory(bag, islandManager, professorManager, this);
         characters = new ArrayList<>();
@@ -58,7 +60,7 @@ public class GameModel {
         Player supportPlayer =null;
         for(PawnColor pawnColor : PawnColor.values()){
             /*this is the case where the value associated with a color has a value that is defined by a player.
-              This player is taken as a support player for the comparison so as to be replaced in case there is
+              This player is taken as a support player for the comparison so has to be replaced in case there is
               another player with a greater number of students of the same color or remain in case he is the one
               with the greater number */
             if(professorManager.getProfessorOwner(pawnColor)!=null){
@@ -222,6 +224,10 @@ public class GameModel {
         bank+=c.getCost();
 
         return c;
+    }
+
+    public void assertCheeseMerchantEffect() {
+        cheeseMerchantEffect = true;
     }
 
     /**
