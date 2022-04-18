@@ -49,7 +49,7 @@ public class MessageHandler {
                 InputStreamReader isr = new InputStreamReader(System.in);
                 BufferedReader br = new BufferedReader(isr);
                 String name = br.readLine();
-                System.out.format("Player " +i+ ": %s", name);
+
             } catch (IOException ioe) {
                 System.out.println("IO exception raised\n");
             }
