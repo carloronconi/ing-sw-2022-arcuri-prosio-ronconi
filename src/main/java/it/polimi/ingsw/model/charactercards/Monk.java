@@ -37,7 +37,7 @@ public class Monk extends Character{
      * @param color to choose the student from the monk
      * @param island destination of the student that will be moved
      */
-    public void useEffect(PawnColor color, UUID island){
+    public void useEffect(PawnColor color, UUID island) throws NoSuchFieldException {
         islandManager.moveStudentToIsland(color, island, studentCounter);
         if (!isCostIncreased()) increaseCost();
         studentCounter.takeStudentFrom(bag);
