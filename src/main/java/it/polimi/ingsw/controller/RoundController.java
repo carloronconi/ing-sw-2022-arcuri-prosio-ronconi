@@ -88,6 +88,17 @@ public class RoundController {
             }
         }
 
+        /*
+
+        ACTION: from player with lower ID in order of increasing value
+        messageHandler.sendMessage(player) - has to choose how to move 3 students to isleTiles or diningRoom
+        then modify GameBoard , professor check
+        second message about moving motherNature returns int -- check island owner
+        second player again with all checks
+
+        end of first round, returns player with lower ID - is the one that is going to start in next round
+         */
+
 
 
 
@@ -118,16 +129,8 @@ public class RoundController {
 
         if(player1.cardID bigger than player2.cardID)  player1 = first player
         else player2
-        else equal error
+        else equal error */
 
-        ACTION: from player with lower ID in order of increasing value
-        messageHandler.sendMessage(player) - has to choose how to move 3 students to isleTiles or diningRoom
-        then modify GameBoard , professor check
-        second message about moving motherNature returns int -- check island owner
-        second player again with all checks
-
-        end of first round, returns player with lower ID - is the one that is going to start in next round
-         */
     }
     public void endRound() {
     }
