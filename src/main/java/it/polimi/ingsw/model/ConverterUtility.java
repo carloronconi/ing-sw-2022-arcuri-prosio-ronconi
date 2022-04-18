@@ -19,7 +19,7 @@ public final class ConverterUtility {
      * @return index of the element
      * @throws NoSuchFieldException if no element in the list has the provided id
      */
-    static int idToIndex(UUID uuid, List<Identifiable> list) throws NoSuchFieldException {
+    static <T extends Identifiable> int idToIndex(UUID uuid, List<T> list) throws NoSuchFieldException {
         for (int i = 0; i < list.size(); i++) {
             UUID elementId = list.get(i).getId();
             if (elementId.equals(uuid)) return i;
@@ -33,7 +33,7 @@ public final class ConverterUtility {
      * @param list of objects that implement the Identifiable interface
      * @return id of the element
      */
-    static UUID indexToId(int index, List<Identifiable> list) {
+    static <T extends Identifiable> UUID indexToId(int index, List<T> list) {
         return list.get(index).getId();
     }
 
