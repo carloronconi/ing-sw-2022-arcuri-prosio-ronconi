@@ -2,11 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-
-import java.lang.reflect.Array;
 
 
 public class RoundController {
@@ -15,12 +10,12 @@ public class RoundController {
     private IslandManager islandManager;
     private MessageHandler messageHandler;
     int size;
-    int prevPlayerPlayedCard;
-    int currPlayerPlayedCard;
-    int arrayOfPlayedCards[];
-    int arrayOfOrderedPlayers[];
-    int arrayOfNewOrderedPlayers[];
-    int arrayOfMotherNatureStepsForPlayer[];
+   // int prevPlayerPlayedCard;
+   // int currPlayerPlayedCard;
+    int[] arrayOfPlayedCards;
+    int[] arrayOfOrderedPlayers;
+    int[] arrayOfNewOrderedPlayers;
+    int[] arrayOfMotherNatureStepsForPlayer;
 
 
     public RoundController() {
@@ -59,7 +54,6 @@ public class RoundController {
             }
         }
 
-        int firstActionPlayerIndex = positionOfMin;
 
         //reorder array of players:
         arrayOfNewOrderedPlayers = new int[size];
