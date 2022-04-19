@@ -12,5 +12,6 @@ public class Centaur extends Character{
 
     public void useEffect(){
         islandManager.assertCentaurEffect();
+        if (!isCostIncreased()) increaseCost();
     }
 }

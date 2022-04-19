@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.studentmanagers;
 
+import it.polimi.ingsw.model.Identifiable;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
@@ -13,7 +14,7 @@ import java.util.UUID;
  * subclass of StudentCounter that has attributes to reach the two neighbor tiles and attributes to
  * know if it is connected to those neighbor tiles or not
  */
-public class IslandTile extends StudentCounter{
+public class IslandTile extends StudentCounter implements Identifiable {
     private Player owner;
     private int size;
     private final UUID id;

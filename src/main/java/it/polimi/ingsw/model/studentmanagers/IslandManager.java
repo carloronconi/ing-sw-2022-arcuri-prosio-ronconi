@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.studentmanagers;
 
+import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
@@ -25,7 +26,7 @@ public class IslandManager extends StudentCounter {
      */
     public IslandManager(Bag bag) {
         super();
-
+        centaurEffect = false;
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
             movePawnFrom(bag, c);
@@ -53,9 +54,10 @@ public class IslandManager extends StudentCounter {
      * @param steps are the steps that mother nature will have to take
      * @return the id of the island mother nature is on
      */
-    public UUID moveMotherNature(int steps){
+    public UUID moveMotherNature(int steps) throws NoSuchFieldException {
 
-        int MNIslandNumber=idToIndex(motherNaturePosition);
+        int MNIslandNumber = ConverterUtility.idToIndex(motherNaturePosition, islands);
+
 
         MNIslandNumber+=steps;
         int currentPositionMN;
@@ -64,28 +66,27 @@ public class IslandManager extends StudentCounter {
         }else{
             currentPositionMN=MNIslandNumber;
         }
-
         boolean checkUnification=false;
 
         Player previousOwner=islands.get(currentPositionMN).getOwner();
         Player currentOwner=islands.get(currentPositionMN).checkNewOwner(professorManager);
 
-
         if(previousOwner!=currentOwner){
-            mergeIslands(currentPositionMN);
-        }
 
-        motherNaturePosition = indexToId(currentPositionMN);
+            mergeIslands(ConverterUtility.indexToId(currentPositionMN, islands));
+        }
+        motherNaturePosition = ConverterUtility.indexToId(currentPositionMN,islands);
         return motherNaturePosition;
     }
 
 
     /**
      * this method will handle the unification of the considered island with the next and the previous one
-     * @param currentIsland is the island where mother nature is located
+     * @param currentIslandId is the island where mother nature is located
      */
-    private void mergeIslands(int currentIsland){
+    private void mergeIslands(UUID currentIslandId) throws NoSuchFieldException {
 
+        int currentIsland = ConverterUtility.idToIndex(currentIslandId, islands);
         int nextIsland;
         int prevIsland;
 
@@ -114,37 +115,6 @@ public class IslandManager extends StudentCounter {
 
     }
 
-
-    /**
-     * converts the id of an island to its corresponding index within the island ArrayList
-     * @param id is the id of the island whose index you want to know within the ArrayList
-     * @return the island index within the ArrayList or -1 if the island is not present
-     */
-    private int idToIndex(UUID id) throws IllegalArgumentException{
-
-        for(int i=0; i<islands.size(); i++){
-            if(id.equals(islands.get(i).getId())){
-                return i;
-            }
-        }
-
-        throw new IllegalArgumentException("ID does not correspond to any island");
-    }
-
-
-    /**
-     * converts the index of an island present in the ArrayList to its corresponding id
-     * @param positionIsland is the index of the island within the ArrayList whose id you want to know
-     * @return the corresponding island id
-     */
-    private UUID indexToId(int positionIsland){
-
-        if(positionIsland<0 || positionIsland>islands.size()) throw new IllegalArgumentException("position does not correspond to any ID");
-
-        return islands.get(positionIsland).getId();
-    }
-
-
     /**
      * this method moves a student from the entrance of a student's board to an island
      * @param color indicates the color of the piece to be moved
@@ -152,10 +122,8 @@ public class IslandManager extends StudentCounter {
      * @param studentCounter it is passed as an input so as to have an entry reference of the studentCounter
      *               from which to take the piece
      */
-    public void moveStudentToIsland(PawnColor color, UUID island, StudentCounter studentCounter){
-
-        int islandIndex=idToIndex(island);
-
+    public void moveStudentToIsland(PawnColor color, UUID island, StudentCounter studentCounter) throws NoSuchFieldException {
+        int islandIndex=ConverterUtility.idToIndex(island, islands);
         islands.get(islandIndex).movePawnFrom(studentCounter, color);
     }
 
@@ -169,13 +137,12 @@ public class IslandManager extends StudentCounter {
         return islands.size();
     }
 
+    public void useFlagBearerEffect(UUID island) throws NoSuchFieldException {
+        IslandTile islandTile = ConverterUtility.idToElement(island, islands);
+        Player previousOwner = islandTile.getOwner();
+        Player newOwner = islandTile.checkNewOwner(professorManager);
+        if(newOwner!=previousOwner) mergeIslands(island);
 
-
-
-    public void flagBearerEffect(UUID island) {
-        //TODO: implementation
-        //call checkNewOwner on island
-        //if new owner != old owner call mergeIslands
     }
 
     public void useWitchEffect(UUID island, Witch witch) {
