@@ -82,6 +82,11 @@ public class RoundController {
             }
         }
 
+        //ACTION
+        int first;
+        first = arrayOfNewOrderedPlayers[0];
+        messageHandler.doYourMove(first);
+
         /*
 
         ACTION: from player with lower ID in order of increasing value

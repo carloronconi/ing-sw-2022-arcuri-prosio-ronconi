@@ -76,6 +76,10 @@ public class MessageHandler {
         return assistantCardValue;
     }
 
+    public int doYourMove(int player){
+
+    }
+
 
 
 }
