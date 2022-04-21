@@ -1,19 +1,22 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.GameModel;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
 import it.polimi.ingsw.model.studentmanagers.Entrance;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Musician extends SwapperCharacter{
 
     /**
      * initialises super with 2 maximum color swaps
-     * @param gameModel needed for special effect
+     * @param players needed for special effect
      */
-    public Musician(GameModel gameModel) {
-        super(1, gameModel, 2);
+    public Musician(List<Player> players) {
+        super(1, players, 2);
     }
 
     /**
@@ -26,8 +29,8 @@ public class Musician extends SwapperCharacter{
     @Override
     public void useEffect(UUID player) throws NoSuchFieldException, IllegalStateException {
         if(colorSwaps.isEmpty()) throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");
-        Entrance entrance = gameModel.getPlayerById(player).getEntrance();
-        DiningRoom diningRoom = gameModel.getPlayerById(player).getDiningRoom();
+        Entrance entrance = ConverterUtility.idToElement(player, players).getEntrance();
+        DiningRoom diningRoom = ConverterUtility.idToElement(player, players).getDiningRoom();
 
         for(ColorSwap cs: colorSwaps) entrance.swapStudent(diningRoom, cs.getGive(), cs.getTake());
         if(!isCostIncreased()) increaseCost();

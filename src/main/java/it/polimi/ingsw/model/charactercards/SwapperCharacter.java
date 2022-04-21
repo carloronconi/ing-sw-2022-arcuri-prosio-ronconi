@@ -2,15 +2,17 @@ package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * abstract class used to avoid code duplication for the two similar classes Juggler and Musician
  */
 public abstract class SwapperCharacter extends Character {
-    protected final GameModel gameModel;
+    protected final List<Player> players;
     protected final ArrayList<ColorSwap> colorSwaps;
     private final int maxColorSwaps;
 
@@ -35,9 +37,9 @@ public abstract class SwapperCharacter extends Character {
         }
     }
 
-    public SwapperCharacter(int cost, GameModel gameModel, int maxColorSwaps) {
+    public SwapperCharacter(int cost, List<Player> players, int maxColorSwaps) {
         super(cost);
-        this.gameModel = gameModel;
+        this.players = players;
         this.maxColorSwaps = maxColorSwaps;
         colorSwaps = new ArrayList<>();
     }

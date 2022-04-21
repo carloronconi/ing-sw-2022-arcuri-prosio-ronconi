@@ -15,15 +15,13 @@ import java.util.stream.IntStream;
 
 public class Juggler extends SwapperCharacter {
     private final CharacterStudentCounter studentCounter;
-    private final List<Player> players;
     /**
      * initialises parameters needed for effect, draws 6 students from the bag and initialises super with 3 maximum color swaps
-     * @param gameModel needed for special effect
+     * @param players needed for special effect
      * @param bag needed to draw students
      */
-    public Juggler(GameModel gameModel, Bag bag, List<Player> players) {
-        super(1, gameModel, 3);
-        this.players = players;
+    public Juggler(Bag bag, List<Player> players) {
+        super(1, players, 3);
         studentCounter = new CharacterStudentCounter();
         IntStream.range(0,6).forEach(i -> studentCounter.takeStudentFrom(bag));
     }
