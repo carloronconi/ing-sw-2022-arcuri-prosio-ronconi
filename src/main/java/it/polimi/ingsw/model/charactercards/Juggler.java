@@ -67,7 +67,7 @@ public class Juggler extends Character {
      * @param player the player asking for the swap to happen
      * @throws IllegalStateException when never called setupColorSwap
      */
-    public void useEffect(UUID player) throws IllegalStateException {
+    public void useEffect(UUID player) throws IllegalStateException, NoSuchFieldException {
         if(colorSwaps.isEmpty()) throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");
         Entrance entrance = gameModel.getPlayerById(player).getEntrance();
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());

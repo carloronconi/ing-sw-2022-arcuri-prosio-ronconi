@@ -253,9 +253,8 @@ public class GameModel {
      * @param player UUID
      * @return reference to player
      */
-    public Player getPlayerById(UUID player) {
-        //TODO: implementation or maybe better to create a PlayerManager
-        return null;
+    public Player getPlayerById(UUID player) throws NoSuchFieldException {
+        return ConverterUtility.idToElement(player, players);
     }
 
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
