@@ -52,7 +52,9 @@ public class CharacterFactory {
             case JUGGLER: return new Juggler(bag, players);
             case KNIGHT: return new Knight(islandManager);
             case MUSHROOM_MERCHANT: return new MushroomMerchant(islandManager);
-            //TODO: complete all cases from AvailableCharacter
+            case MUSICIAN: return new Musician(players);
+            case PRINCESS: return new Princess(bag, players);
+            case USURER: return new Usurer(players, bag);
             default: throw new EnumConstantNotPresentException(AvailableCharacter.class, "other");
         }
     }
