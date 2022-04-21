@@ -148,12 +148,12 @@ public class IslandManager extends StudentCounter {
 
     }
 
-    public void useWitchEffect(UUID island, Witch witch) {
-        //TODO: implementation
-        //use islandIdToIndex
-        //if island.ban = true throw new...
+    public void useWitchEffect(UUID island, Witch witch) throws NoSuchFieldException {
+        IslandTile islandToBan = ConverterUtility.idToElement(island,islands);
+        if(islandToBan.ban) throw new IllegalStateException("island already has an active ban");
+
         this.witch = witch;
-        //island.ban = true;
+        islandToBan.ban = true;
     }
 
     public void assertCentaurEffect(){

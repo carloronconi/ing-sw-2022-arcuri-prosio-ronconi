@@ -26,7 +26,7 @@ public class Witch extends Character{
      * @param island to be banned from evaluation in the next turn
      * @throws IllegalStateException if no more available bans
      */
-    public void useEffect(UUID island) throws IllegalStateException {
+    public void useEffect(UUID island) throws IllegalStateException, NoSuchFieldException {
         if(availableBans < 1) throw new IllegalStateException();
         islandManager.useWitchEffect(island, this);
         availableBans--;
