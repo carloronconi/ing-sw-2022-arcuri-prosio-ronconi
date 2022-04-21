@@ -70,7 +70,8 @@ public class IslandManager extends StudentCounter {
         if(!island.ban){
             //check if owner has changed
             Player previousOwner=island.getOwner();
-            Player currentOwner=island.checkNewOwner(professorManager);
+            Player currentOwner=island.checkNewOwner(professorManager, centaurEffect);
+            centaurEffect = false;
             //if owner has changed try to merge the islands
             if(previousOwner!=currentOwner){
                 mergeIslands(motherNaturePosition);
@@ -143,7 +144,7 @@ public class IslandManager extends StudentCounter {
     public void useFlagBearerEffect(UUID island) throws NoSuchFieldException {
         IslandTile islandTile = ConverterUtility.idToElement(island, islands);
         Player previousOwner = islandTile.getOwner();
-        Player newOwner = islandTile.checkNewOwner(professorManager);
+        Player newOwner = islandTile.checkNewOwner(professorManager, centaurEffect);
         if(newOwner!=previousOwner) mergeIslands(island);
 
     }

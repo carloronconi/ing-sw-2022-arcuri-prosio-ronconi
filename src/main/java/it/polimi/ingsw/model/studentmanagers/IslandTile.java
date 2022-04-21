@@ -72,7 +72,7 @@ public class IslandTile extends StudentCounter implements Identifiable {
      *                         their players who own them
      * @return the player who has the most influence on that island
      */
-    public Player checkNewOwner(ProfessorManager professorManager){
+    public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect){
 
         /*
           this method is called by an island and is used to control its new owner.
