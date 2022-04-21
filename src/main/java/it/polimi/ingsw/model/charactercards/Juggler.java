@@ -14,12 +14,12 @@ public class Juggler extends SwapperCharacter {
     private final CharacterStudentCounter studentCounter;
 
     /**
-     * initialises parameters needed for effect and draws 6 students from the bag
+     * initialises parameters needed for effect, draws 6 students from the bag and initialises super with 3 maximum color swaps
      * @param gameModel needed for special effect
      * @param bag needed to draw students
      */
     public Juggler(GameModel gameModel, Bag bag) {
-        super(1, gameModel);
+        super(1, gameModel, 3);
         studentCounter = new CharacterStudentCounter();
         IntStream.range(0,6).forEach(i -> studentCounter.takeStudentFrom(bag));
     }

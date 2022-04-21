@@ -12,6 +12,7 @@ import java.util.UUID;
 public abstract class SwapperCharacter extends Character {
     protected final GameModel gameModel;
     protected final ArrayList<ColorSwap> colorSwaps;
+    private final int maxColorSwaps;
 
     /**
      * inner class used to create a more convenient data structure for colorSwaps
@@ -34,9 +35,10 @@ public abstract class SwapperCharacter extends Character {
         }
     }
 
-    public SwapperCharacter(int cost, GameModel gameModel) {
+    public SwapperCharacter(int cost, GameModel gameModel, int maxColorSwaps) {
         super(cost);
         this.gameModel = gameModel;
+        this.maxColorSwaps = maxColorSwaps;
         colorSwaps = new ArrayList<>();
     }
 
@@ -48,7 +50,7 @@ public abstract class SwapperCharacter extends Character {
      * @throws IllegalStateException if exceeded maximum number of swaps (three)
      */
     public void setupColorSwaps(PawnColor give, PawnColor take) throws IllegalStateException {
-        if (colorSwaps.size()>2) throw new IllegalStateException("already set up maximum number of students to be swapped");
+        if (colorSwaps.size()>maxColorSwaps-1) throw new IllegalStateException("already set up maximum number of students to be swapped");
         colorSwaps.add(new ColorSwap(give, take));
     }
 
