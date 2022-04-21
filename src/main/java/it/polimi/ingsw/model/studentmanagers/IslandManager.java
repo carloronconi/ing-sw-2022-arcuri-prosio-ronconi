@@ -52,31 +52,34 @@ public class IslandManager extends StudentCounter {
      * islands (next and previous) are of the same player (the color of the towers is the same), it will transfer
      * the students to the island where mother nature is located and the others will eliminate them
      * @param steps are the steps that mother nature will have to take
-     * @return the id of the island mother nature is on
      */
-    public UUID moveMotherNature(int steps) throws NoSuchFieldException {
+    public void moveMotherNature(int steps) throws NoSuchFieldException {
 
-        int MNIslandNumber = ConverterUtility.idToIndex(motherNaturePosition, islands);
-
-
-        MNIslandNumber+=steps;
-        int currentPositionMN;
-        if(MNIslandNumber>islands.size()){
-            currentPositionMN=MNIslandNumber-islands.size();
-        }else{
-            currentPositionMN=MNIslandNumber;
+        //update mother nature position (id) using the index
+        int motherNatureIndex = ConverterUtility.idToIndex(motherNaturePosition, islands);
+        if (motherNatureIndex + steps > islands.size()){
+            motherNatureIndex = motherNatureIndex + steps - islands.size();
+        } else {
+            motherNatureIndex += steps;
         }
-        boolean checkUnification=false;
+        motherNaturePosition = ConverterUtility.indexToId(motherNatureIndex, islands);
 
-        Player previousOwner=islands.get(currentPositionMN).getOwner();
-        Player currentOwner=islands.get(currentPositionMN).checkNewOwner(professorManager);
+        IslandTile island = ConverterUtility.idToElement(motherNaturePosition, islands);
 
-        if(previousOwner!=currentOwner){
-
-            mergeIslands(ConverterUtility.indexToId(currentPositionMN, islands));
+        //check if island has a ban from witch
+        if(!island.ban){
+            //check if owner has changed
+            Player previousOwner=island.getOwner();
+            Player currentOwner=island.checkNewOwner(professorManager);
+            //if owner has changed try to merge the islands
+            if(previousOwner!=currentOwner){
+                mergeIslands(motherNaturePosition);
+            }
+        } else {
+            island.ban = false;
+            witch.increaseAvailableBans(this);
         }
-        motherNaturePosition = ConverterUtility.indexToId(currentPositionMN,islands);
-        return motherNaturePosition;
+
     }
 
 

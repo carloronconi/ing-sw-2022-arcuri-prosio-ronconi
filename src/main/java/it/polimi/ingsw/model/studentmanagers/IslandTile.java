@@ -18,12 +18,14 @@ public class IslandTile extends StudentCounter implements Identifiable {
     private Player owner;
     private int size;
     private final UUID id;
+    public boolean ban;
 
     /**
      * initializes with 0 students
      */
     public IslandTile() {
         super();
+        ban = false;
         size = 1;
         this.id=UUID.randomUUID();
     }
