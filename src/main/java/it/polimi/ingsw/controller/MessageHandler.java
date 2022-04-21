@@ -77,7 +77,7 @@ public class MessageHandler {
     }
 
     public int doYourMove(int player){
-
+        return 0;
     }
 
 
