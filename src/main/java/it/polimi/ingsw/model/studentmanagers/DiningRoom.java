@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.Princess;
 
 /**
  * subclass of StudentCounter that can just be filled from the entrance
@@ -19,5 +20,9 @@ public class DiningRoom extends StudentCounter {
      */
     public void fill(PawnColor color){
         movePawnFrom(entrance,color);
+    }
+
+    public void moveStudentFromPrincess(PawnColor color, CharacterStudentCounter princessStudentCounter){
+        movePawnFrom(princessStudentCounter, color);
     }
 }
