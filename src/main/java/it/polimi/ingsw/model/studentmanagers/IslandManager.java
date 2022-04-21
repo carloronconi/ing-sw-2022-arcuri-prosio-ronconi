@@ -18,6 +18,8 @@ public class IslandManager extends StudentCounter {
     private ProfessorManager professorManager;
     private Witch witch;
     private boolean centaurEffect;
+    private boolean knightEffect;
+    private PawnColor mushroomMerchantEffect;
 
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
@@ -27,6 +29,7 @@ public class IslandManager extends StudentCounter {
     public IslandManager(Bag bag) {
         super();
         centaurEffect = false;
+        knightEffect = false;
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
             movePawnFrom(bag, c);
@@ -70,7 +73,7 @@ public class IslandManager extends StudentCounter {
         if(!island.ban){
             //check if owner has changed
             Player previousOwner=island.getOwner();
-            Player currentOwner=island.checkNewOwner(professorManager, centaurEffect);
+            Player currentOwner=island.checkNewOwner(professorManager, centaurEffect, knightEffect, mushroomMerchantEffect);
             centaurEffect = false;
             //if owner has changed try to merge the islands
             if(previousOwner!=currentOwner){
@@ -144,7 +147,7 @@ public class IslandManager extends StudentCounter {
     public void useFlagBearerEffect(UUID island) throws NoSuchFieldException {
         IslandTile islandTile = ConverterUtility.idToElement(island, islands);
         Player previousOwner = islandTile.getOwner();
-        Player newOwner = islandTile.checkNewOwner(professorManager, centaurEffect);
+        Player newOwner = islandTile.checkNewOwner(professorManager, centaurEffect, knightEffect, mushroomMerchantEffect);
         if(newOwner!=previousOwner) mergeIslands(island);
 
     }
@@ -159,5 +162,11 @@ public class IslandManager extends StudentCounter {
 
     public void assertCentaurEffect(){
         centaurEffect = true;
+    }
+
+    public void assertKnightEffect() { knightEffect = true; }
+
+    public void setMushroomMerchantEffect(PawnColor mushroomMerchantEffect) {
+        this.mushroomMerchantEffect = mushroomMerchantEffect;
     }
 }

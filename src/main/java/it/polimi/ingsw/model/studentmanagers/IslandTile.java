@@ -64,6 +64,10 @@ public class IslandTile extends StudentCounter implements Identifiable {
         }
     }
 
+    //public Player checkNewOwner(ProfessorManager professorManager){
+    //    return checkNewOwner(professorManager, false, false, null);
+    //}
+
 
     /**
      * is called by the island on which mother nature arrives and makes a check among the various players
@@ -72,8 +76,8 @@ public class IslandTile extends StudentCounter implements Identifiable {
      *                         their players who own them
      * @return the player who has the most influence on that island
      */
-    public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect){
-
+    public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect, boolean knightEffect, PawnColor mushroomMerchantEffect){
+        //TODO: add support for centaurEffect, knightEffect, mushroomMerchantEffect
         /*
           this method is called by an island and is used to control its new owner.
           A Player-integer table is created. You iterate over all the players by setting a number of students
