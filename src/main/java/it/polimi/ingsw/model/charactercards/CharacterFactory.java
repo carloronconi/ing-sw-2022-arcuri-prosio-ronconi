@@ -49,6 +49,8 @@ public class CharacterFactory {
             case WITCH: return new Witch(islandManager);
             case CENTAUR: return new Centaur(islandManager);
             case JUGGLER: return new Juggler(gameModel, bag);
+            case KNIGHT: return new Knight(islandManager);
+            case MUSHROOM_MERCHANT: return new MushroomMerchant(islandManager);
             //TODO: complete all cases from AvailableCharacter
             default: throw new EnumConstantNotPresentException(AvailableCharacter.class, "other");
         }
