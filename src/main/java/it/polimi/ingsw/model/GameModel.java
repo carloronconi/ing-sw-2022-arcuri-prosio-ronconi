@@ -32,7 +32,7 @@ public class GameModel {
         cheeseMerchantEffect = false;
         messengerEffect = 0;
         bank = expertMode? 20 : 0;
-        CharacterFactory factory = new CharacterFactory(bag, islandManager, professorManager, this);
+        CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
         characters = new ArrayList<>();
         for (int i = 0; i<3; i++){
             characters.add(factory.createUninstantiatedCharacter());
@@ -246,15 +246,6 @@ public class GameModel {
 
     public void assertCheeseMerchantEffect() {
         cheeseMerchantEffect = true;
-    }
-
-    /**
-     * needed by Juggler class to be able to access a player's entrance
-     * @param player UUID
-     * @return reference to player
-     */
-    public Player getPlayerById(UUID player) throws NoSuchFieldException {
-        return ConverterUtility.idToElement(player, players);
     }
 
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
