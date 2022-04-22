@@ -83,6 +83,7 @@ public class IslandManager extends StudentCounter {
             witch.increaseAvailableBans(this);
         }
         knightEffectPlayer = null;
+        mushroomMerchantEffect = null;
     }
 
 

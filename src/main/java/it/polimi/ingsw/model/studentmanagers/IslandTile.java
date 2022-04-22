@@ -85,7 +85,10 @@ public class IslandTile extends StudentCounter implements Identifiable {
         HashMap<Player, Integer> playerPointsMap = new HashMap<>();
         for(Player player : professorManager.playersContained()){
             int numStudents=0;
-            for(PawnColor pawnColor : professorManager.colorsAssociateToPlayer(player)){
+            ArrayList<PawnColor> colors = professorManager.colorsAssociateToPlayer(player);
+            colors.remove(mushroomMerchantEffect); // in this turn the color is not considered in the evaluation
+
+            for(PawnColor pawnColor : colors){
                 numStudents += this.count(pawnColor);
             }
 
