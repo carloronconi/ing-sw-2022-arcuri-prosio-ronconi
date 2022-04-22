@@ -20,7 +20,7 @@ public class GameModel {
     private Map<Player, Integer> playedCards;
     private int bank;
     private final ArrayList<Character> characters;
-    private boolean cheeseMerchantEffect;
+    private Player cheeseMerchantEffectPlayer;
     private int messengerEffect;
 
     public GameModel(boolean expertMode){
@@ -29,7 +29,6 @@ public class GameModel {
         islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
         clouds=new ArrayList<>();
-        cheeseMerchantEffect = false;
         messengerEffect = 0;
         bank = expertMode? 20 : 0;
         CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
@@ -61,7 +60,7 @@ public class GameModel {
      * Updates the correspondence between teachers and players in professorManager
      */
     private void updateProfessorManager(){
-        //TODO: different behaviour for when cheeseMerchantEffect is true
+
         Player supportPlayer =null;
         for(PawnColor pawnColor : PawnColor.values()){
             /*this is the case where the value associated with a color has a value that is defined by a player.
@@ -72,7 +71,9 @@ public class GameModel {
                 supportPlayer=professorManager.getProfessorOwner(pawnColor);
 
                 for(Player player : players){
-                    if(player.getDiningRoom().count(pawnColor)>supportPlayer.getDiningRoom().count(pawnColor)){
+                    int cheeseMerchantBonus = (player == cheeseMerchantEffectPlayer)? 1: 0;
+
+                    if(player.getDiningRoom().count(pawnColor) + cheeseMerchantBonus>supportPlayer.getDiningRoom().count(pawnColor)){
                         supportPlayer=player;
                     }
                 }
@@ -103,7 +104,7 @@ public class GameModel {
             }
 
         }
-        if (cheeseMerchantEffect) cheeseMerchantEffect = false;
+        cheeseMerchantEffectPlayer = null;
     }
 
     /**
@@ -244,8 +245,8 @@ public class GameModel {
         return c;
     }
 
-    public void assertCheeseMerchantEffect() {
-        cheeseMerchantEffect = true;
+    public void assertCheeseMerchantEffect(UUID player) throws NoSuchFieldException {
+        cheeseMerchantEffectPlayer = ConverterUtility.idToElement(player, players);
     }
 
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
