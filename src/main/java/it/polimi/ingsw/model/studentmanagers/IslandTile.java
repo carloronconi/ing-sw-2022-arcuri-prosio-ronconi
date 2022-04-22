@@ -71,7 +71,7 @@ public class IslandTile extends StudentCounter implements Identifiable {
      *                         their players who own them
      * @return the player who has the most influence on that island
      */
-    public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect, boolean knightEffect, PawnColor mushroomMerchantEffect){
+    public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect, Player knightEffectOwner, PawnColor mushroomMerchantEffect){
         //TODO: add support for knightEffect, mushroomMerchantEffect
         /*
           this method is called by an island and is used to control its new owner.
@@ -92,6 +92,8 @@ public class IslandTile extends StudentCounter implements Identifiable {
             if(player==owner && !centaurEffect){
                 numStudents+= size;
             }
+
+            if(player==knightEffectOwner) numStudents+=2;
 
             playerPointsMap.put(player, numStudents);
         }

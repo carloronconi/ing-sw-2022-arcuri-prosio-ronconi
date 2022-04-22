@@ -18,7 +18,7 @@ public class IslandManager extends StudentCounter {
     private ProfessorManager professorManager;
     private Witch witch;
     private boolean centaurEffect;
-    private boolean knightEffect;
+    private Player knightEffectPlayer;
     private PawnColor mushroomMerchantEffect;
 
     /**
@@ -29,7 +29,6 @@ public class IslandManager extends StudentCounter {
     public IslandManager(Bag bag) {
         super();
         centaurEffect = false;
-        knightEffect = false;
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
             movePawnFrom(bag, c);
@@ -73,7 +72,7 @@ public class IslandManager extends StudentCounter {
         if(!island.ban){
             //check if owner has changed
             Player previousOwner=island.getOwner();
-            Player currentOwner=island.checkNewOwner(professorManager, centaurEffect, knightEffect, mushroomMerchantEffect);
+            Player currentOwner=island.checkNewOwner(professorManager, centaurEffect, knightEffectPlayer, mushroomMerchantEffect);
             centaurEffect = false;
             //if owner has changed try to merge the islands
             if(previousOwner!=currentOwner){
@@ -83,7 +82,7 @@ public class IslandManager extends StudentCounter {
             island.ban = false;
             witch.increaseAvailableBans(this);
         }
-
+        knightEffectPlayer = null;
     }
 
 
@@ -147,7 +146,7 @@ public class IslandManager extends StudentCounter {
     public void useFlagBearerEffect(UUID island) throws NoSuchFieldException {
         IslandTile islandTile = ConverterUtility.idToElement(island, islands);
         Player previousOwner = islandTile.getOwner();
-        Player newOwner = islandTile.checkNewOwner(professorManager, centaurEffect, knightEffect, mushroomMerchantEffect);
+        Player newOwner = islandTile.checkNewOwner(professorManager, centaurEffect, knightEffectPlayer, mushroomMerchantEffect);
         if(newOwner!=previousOwner) mergeIslands(island);
 
     }
@@ -164,7 +163,7 @@ public class IslandManager extends StudentCounter {
         centaurEffect = true;
     }
 
-    public void assertKnightEffect() { knightEffect = true; }
+    public void assertKnightEffect(Player player) { knightEffectPlayer = player; }
 
     public void setMushroomMerchantEffect(PawnColor mushroomMerchantEffect) {
         this.mushroomMerchantEffect = mushroomMerchantEffect;
