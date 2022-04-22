@@ -72,7 +72,6 @@ public class IslandTile extends StudentCounter implements Identifiable {
      * @return the player who has the most influence on that island
      */
     public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect, Player knightEffectOwner, PawnColor mushroomMerchantEffect){
-        //TODO: add support for knightEffect, mushroomMerchantEffect
         /*
           this method is called by an island and is used to control its new owner.
           A Player-integer table is created. You iterate over all the players by setting a number of students
