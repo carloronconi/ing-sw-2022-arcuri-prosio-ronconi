@@ -45,7 +45,6 @@ public class FlagBearerTest {
 
         UUID MNPositioon = islandManager.moveMotherNature(0);
         assertSame(MNPositioon, islandManager.getIsland(0).getId());
-        //assertEquals(MNPositioon, islandManager.getIsland(0).getId()); da capire se va Same o Equals
 
     }
 
@@ -57,6 +56,7 @@ public class FlagBearerTest {
         assertEquals(12, islandManager.countIslands());
         assertTrue(flagBearer.isCostIncreased());
         assertEquals(4, flagBearer.getCost());
+
 
 
         UUID MNPosition = islandManager.moveMotherNature(2);

@@ -32,8 +32,8 @@ public class MonkTest {
 
     @Test
     public void useEffect() throws NoSuchFieldException {
-        islandTile =  new IslandTile();
-        islandTile = islandManager.getIsland(1);
+
+        IslandTile islandTile = islandManager.getIsland(1);
 
         int numStudents=islandTile.count(PawnColor.RED);
 
