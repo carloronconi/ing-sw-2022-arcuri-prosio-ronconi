@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class GameModel {
     private final ProfessorManager professorManager;
     private final Bag bag;
     private final ArrayList<Cloud> clouds;
-    private Map<Player, Integer> playedCards;
+    private final Map<Player, Integer> playedCards;
     private int bank;
     private final ArrayList<Character> characters;
     private Player cheeseMerchantEffectPlayer;
@@ -29,6 +30,7 @@ public class GameModel {
         islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
         clouds=new ArrayList<>();
+        playedCards = new HashMap<>();
         messengerEffect = 0;
         bank = expertMode? 20 : 0;
         CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
