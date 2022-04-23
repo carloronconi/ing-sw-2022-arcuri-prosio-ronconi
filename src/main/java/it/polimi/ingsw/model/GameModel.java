@@ -27,8 +27,8 @@ public class GameModel {
     public GameModel(boolean expertMode){
         players=new ArrayList<>();
         bag=new Bag();
-        islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
+        islandManager=new IslandManager(bag, professorManager);
         clouds=new ArrayList<>();
         playedCards = new HashMap<>();
         messengerEffect = 0;

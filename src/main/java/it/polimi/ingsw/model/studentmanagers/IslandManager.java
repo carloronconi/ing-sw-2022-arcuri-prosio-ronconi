@@ -26,8 +26,9 @@ public class IslandManager extends StudentCounter {
      * islands 1 random student pawn
      * @param bag needed to draw the 10 students to initialize the islands
      */
-    public IslandManager(Bag bag) {
+    public IslandManager(Bag bag, ProfessorManager professorManager) {
         super();
+        this.professorManager = professorManager;
         centaurEffect = false;
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);
@@ -48,6 +49,20 @@ public class IslandManager extends StudentCounter {
 
         motherNaturePosition=islands.get(0).getId();
     }
+
+    /**
+     * this method returns a single island that is contained within the ArrayList and
+     * that is the one at the position passed as a parameter
+     * @param islandPosition island index contained within the ArrayList
+     * @return the island contained in the ArrayList Islands to the position passed as a parameter
+     * @throws IllegalArgumentException if the index is negative or greater than the number of islands contained
+     *                                  in the ArrayList
+     */
+    public IslandTile getIsland(int islandPosition) throws IllegalArgumentException {
+        if(islandPosition<0 || islandPosition>countIslands()) throw new IllegalArgumentException();
+        return islands.get(islandPosition);
+    }
+
 
     /**
      * Allows mother nature to move by the number of steps given in input and, if the adjacent
