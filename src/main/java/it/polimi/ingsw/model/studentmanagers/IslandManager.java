@@ -24,8 +24,9 @@ public class IslandManager extends StudentCounter {
      * islands 1 random student pawn
      * @param bag needed to draw the 10 students to initialize the islands
      */
-    public IslandManager(Bag bag) {
+    public IslandManager(Bag bag, ProfessorManager professorManager) {
         super();
+        this.professorManager = professorManager;
         centaurEffect = false;
         for (PawnColor c: PawnColor.values()) {
             movePawnFrom(bag, c);

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
 import java.util.UUID;
