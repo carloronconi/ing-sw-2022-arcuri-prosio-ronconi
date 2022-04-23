@@ -15,13 +15,12 @@ public class MonkTest {
     private Bag bag;
     private IslandManager islandManager;
     private Monk monk;
-    private ProfessorManager professorManager;
-    IslandTile islandTile;
+
 
     @Before
     public void setUp(){
         bag = new Bag();
-        professorManager = new ProfessorManager();
+        ProfessorManager professorManager = new ProfessorManager();
         islandManager = new IslandManager(bag, professorManager);
         monk = new Monk(bag, islandManager);
 
@@ -32,8 +31,8 @@ public class MonkTest {
 
     @Test
     public void useEffect() throws NoSuchFieldException {
-        islandTile =  new IslandTile();
-        islandTile = islandManager.getIsland(1);
+
+        IslandTile islandTile = islandManager.getIsland(1);
 
         int numStudents=islandTile.count(PawnColor.RED);
 
