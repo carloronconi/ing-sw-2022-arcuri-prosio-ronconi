@@ -50,7 +50,7 @@ public class CharacterFactory {
             case WITCH: return new Witch(islandManager);
             case CENTAUR: return new Centaur(islandManager);
             case JUGGLER: return new Juggler(bag, players);
-            case KNIGHT: return new Knight(islandManager);
+            case KNIGHT: return new Knight(islandManager, players);
             case MUSHROOM_MERCHANT: return new MushroomMerchant(islandManager);
             case MUSICIAN: return new Musician(players);
             case PRINCESS: return new Princess(bag, players);
