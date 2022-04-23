@@ -15,7 +15,7 @@ import java.util.UUID;
 public class IslandManager extends StudentCounter {
     private final ArrayList<IslandTile> islands;
     private UUID motherNaturePosition;
-    private ProfessorManager professorManager;
+    private final ProfessorManager professorManager;
     private Witch witch;
     private boolean centaurEffect;
     private Player knightEffectPlayer;
@@ -157,6 +157,10 @@ public class IslandManager extends StudentCounter {
      */
     public int countIslands(){
         return islands.size();
+    }
+
+    public UUID getMotherNaturePosition() {
+        return motherNaturePosition;
     }
 
     public void useFlagBearerEffect(UUID island) throws NoSuchFieldException {

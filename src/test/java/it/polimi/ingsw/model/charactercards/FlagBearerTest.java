@@ -15,22 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FlagBearerTest {
     private IslandManager islandManager;
-    private Bag bag;
     private FlagBearer flagBearer;
-    private ProfessorManager professorManager;
     private Player player;
-    private Entrance entrance;
-    private DiningRoom diningRoom;
     private final ArrayList<Cloud> clouds = new ArrayList<>();
 
     @Before
-    public void setUp() throws NoSuchFieldException {
-        bag = new Bag();
-        professorManager = new ProfessorManager();
+    public void setUp() {
+        Bag bag = new Bag();
+        ProfessorManager professorManager = new ProfessorManager();
         islandManager = new IslandManager(bag, professorManager);
         flagBearer = new FlagBearer(islandManager);
-        entrance = new Entrance(bag, clouds);
-        diningRoom = new DiningRoom(entrance);
+        Entrance entrance = new Entrance(bag, clouds);
+        DiningRoom diningRoom = new DiningRoom(entrance);
         player = new Player(entrance, diningRoom);
 
 
@@ -42,9 +38,9 @@ public class FlagBearerTest {
         for(PawnColor color : PawnColor.values()){
             professorManager.setProfessorOwner(color, player);
         }
-
-        UUID MNPositioon = islandManager.moveMotherNature(0);
-        assertSame(MNPositioon, islandManager.getIsland(0).getId());
+        UUID MNPosition = islandManager.getMotherNaturePosition();
+        assertSame(MNPosition, islandManager.getIsland(0).getId());
+        //assertEquals(MNPosition, islandManager.getIsland(0).getId()); da capire se va Same o Equals
 
     }
 
@@ -57,9 +53,8 @@ public class FlagBearerTest {
         assertTrue(flagBearer.isCostIncreased());
         assertEquals(4, flagBearer.getCost());
 
-
-
-        UUID MNPosition = islandManager.moveMotherNature(2);
+        islandManager.moveMotherNature(2);
+        UUID MNPosition = islandManager.getMotherNaturePosition();
         assertSame(MNPosition, islandManager.getIsland(2).getId());
 
     }
