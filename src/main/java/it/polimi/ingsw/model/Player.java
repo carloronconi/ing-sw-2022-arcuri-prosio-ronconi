@@ -10,7 +10,7 @@ public class Player implements Identifiable{
     private final Entrance entrance;
     private final DiningRoom diningRoom;
     private final UUID id;
-    private String nickName;
+    private final String nickname;
     //TODO private Wizard wizard;
     private TowerColor towerColor;
     private ArrayList<Integer> assistantDeck;
@@ -18,9 +18,10 @@ public class Player implements Identifiable{
     private int coins;
 
 
-    public Player(Entrance entrance, DiningRoom diningRoom) {
+    public Player(Entrance entrance, DiningRoom diningRoom, String nickname) {
         this.entrance = entrance;
         this.diningRoom = diningRoom;
+        this.nickname = nickname;
         id=UUID.randomUUID();
         coins=0;
     }
@@ -34,6 +35,10 @@ public class Player implements Identifiable{
     }
 
     public UUID getId(){ return id; }
+
+    public String getNickname() {
+        return nickname;
+    }
 
     public int getDeckSize(){
         return assistantDeck.size();
