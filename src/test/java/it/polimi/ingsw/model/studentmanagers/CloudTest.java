@@ -1,11 +1,17 @@
 package it.polimi.ingsw.model.studentmanagers;
 
+import it.polimi.ingsw.model.Identifiable;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CloudTest extends StudentCounter {
+class CloudTest extends StudentCounter implements Identifiable {
 
+    UUID cloudId;
+
+    public UUID getId() {return cloudId;}
 
     @Test
     void fill() {
