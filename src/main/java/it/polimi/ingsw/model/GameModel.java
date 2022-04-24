@@ -3,14 +3,10 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.charactercards.Character;
 import it.polimi.ingsw.model.charactercards.CharacterFactory;
 import it.polimi.ingsw.model.charactercards.Messenger;
-import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.Cloud;
-import it.polimi.ingsw.model.studentmanagers.IslandManager;
+import it.polimi.ingsw.model.studentmanagers.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class GameModel {
     private final ArrayList<Player> players;
@@ -24,7 +20,9 @@ public class GameModel {
     private Player cheeseMerchantEffectPlayer;
     private int messengerEffect;
 
-    public GameModel(boolean expertMode){
+    public GameModel(boolean expertMode, List<String> playerNicknames){
+        if (playerNicknames.size() < 2 || playerNicknames.size() > 3) throw new IllegalArgumentException("Number of players not supported");
+
         players=new ArrayList<>();
         bag=new Bag();
         professorManager=new ProfessorManager();
@@ -38,9 +36,27 @@ public class GameModel {
         for (int i = 0; i<3; i++){
             characters.add(factory.createUninstantiatedCharacter());
         }
-    }
 
-    //TODO when all players are added create method to initialize clouds and initialize playedCards map
+        //initialize clouds in a number according to the number of players
+        int numOfClouds = 0;
+        if (playerNicknames.size()==2) numOfClouds = 2;
+        else if (playerNicknames.size() == 3) numOfClouds = 3;
+        for (int i = 0; i < numOfClouds; i++) {
+            Cloud cloud = new Cloud(bag);
+            clouds.add(cloud);
+        }
+
+        //initialize players and their entrance and diningRoom
+        int numOfStudents = 0;
+        if (playerNicknames.size()==2) numOfStudents = 7;
+        else if (playerNicknames.size() == 3) numOfStudents = 9;
+        for (String nickname : playerNicknames){
+            Entrance entrance = new Entrance(bag,clouds,numOfStudents);
+            DiningRoom diningRoom = new DiningRoom(entrance);
+            Player player = new Player(entrance, diningRoom, nickname);
+            players.add(player);
+        }
+    }
 
     /**
      * transfers a student of a certain color from a player's entrance to the corresponding diningRoom.
