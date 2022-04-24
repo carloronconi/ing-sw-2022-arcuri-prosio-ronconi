@@ -18,12 +18,14 @@ public class IslandTile extends StudentCounter implements Identifiable {
     private Player owner;
     private int size;
     private final UUID id;
+    public boolean ban;
 
     /**
      * initializes with 0 students
      */
     public IslandTile() {
         super();
+        ban = false;
         size = 1;
         this.id=UUID.randomUUID();
     }
@@ -62,7 +64,6 @@ public class IslandTile extends StudentCounter implements Identifiable {
         }
     }
 
-
     /**
      * is called by the island on which mother nature arrives and makes a check among the various players
      * in order to find the one that has the greatest influence on the island itself
@@ -70,8 +71,7 @@ public class IslandTile extends StudentCounter implements Identifiable {
      *                         their players who own them
      * @return the player who has the most influence on that island
      */
-    public Player checkNewOwner(ProfessorManager professorManager){
-
+    public Player checkNewOwner(ProfessorManager professorManager, boolean centaurEffect, Player knightEffectOwner, PawnColor mushroomMerchantEffect){
         /*
           this method is called by an island and is used to control its new owner.
           A Player-integer table is created. You iterate over all the players by setting a number of students
@@ -81,18 +81,23 @@ public class IslandTile extends StudentCounter implements Identifiable {
           If the player was already the owner of this island, then the influence increases by one.
           The Player-Integer pair is inserted into another supporting table.
          */
-        HashMap<Player, Integer> supportNewOwner = new HashMap<>();
+        HashMap<Player, Integer> playerPointsMap = new HashMap<>();
         for(Player player : professorManager.playersContained()){
             int numStudents=0;
-            for(PawnColor pawnColor : professorManager.colorsAssociateToPlayer(player)){
+            ArrayList<PawnColor> colors = professorManager.colorsAssociateToPlayer(player);
+            colors.remove(mushroomMerchantEffect); // in this turn the color is not considered in the evaluation
+
+            for(PawnColor pawnColor : colors){
                 numStudents += this.count(pawnColor);
             }
 
-            if(player==owner){
+            if(player==owner && !centaurEffect){
                 numStudents+= size;
             }
 
-            supportNewOwner.put(player, numStudents);
+            if(player==knightEffectOwner) numStudents+=2;
+
+            playerPointsMap.put(player, numStudents);
         }
 
         /*
@@ -109,17 +114,18 @@ public class IslandTile extends StudentCounter implements Identifiable {
          */
         Player supportPlayer = null;
         int numInfluenceStudents=-1;
-        for(Player player : supportNewOwner.keySet()){
-            if(supportNewOwner.get(player)>numInfluenceStudents){
-                numInfluenceStudents=supportNewOwner.get(player);
+        for(Player player : playerPointsMap.keySet()){
+            if(playerPointsMap.get(player)>numInfluenceStudents){
+                numInfluenceStudents=playerPointsMap.get(player);
                 supportPlayer=player;
-            }else if(supportNewOwner.get(player)==numInfluenceStudents){
+
+            }else if(playerPointsMap.get(player)==numInfluenceStudents){
                 supportPlayer=null;
             }
         }
 
-        owner=supportPlayer;
-        
+        if (supportPlayer!= owner && supportPlayer!= null) owner=supportPlayer;
+
         return owner;
     }
 

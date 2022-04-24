@@ -15,7 +15,6 @@ public class MessageHandler {
 
 
 
-
     public int getNumOfPlayers(){
         return numOfPlayer;
     }
@@ -77,8 +76,8 @@ public class MessageHandler {
         return assistantCardValue;
     }
 
-    public void doYourMove(int player){
-
+    public int doYourMove(int player){
+        return 0;
     }
 
 

@@ -1,32 +1,33 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class CharacterFactory {
     private static ArrayList<AvailableCharacter> uninstantiatedCharacters;
     private final Bag bag;
     private final IslandManager islandManager;
-    private final ProfessorManager professorManager;
     private final GameModel gameModel;
+    private final List<Player> players;
 
     /**
      * creates new instance of class, creates new list uninstantiatedCharacters with all available characters only if no other instance of characterFactory ever created one
      * @param bag to create characters that need it
      * @param islandManager to create characters that need it
-     * @param professorManager to create characters that need it
      */
-    public CharacterFactory(Bag bag, IslandManager islandManager, ProfessorManager professorManager, GameModel gameModel) {
+    public CharacterFactory(Bag bag, IslandManager islandManager, GameModel gameModel, List<Player> players) {
         this.bag = bag;
         this.islandManager = islandManager;
-        this.professorManager = professorManager;
         this.gameModel = gameModel;
+        this.players = players;
         if(uninstantiatedCharacters == null){
             uninstantiatedCharacters = new ArrayList<>();
             Collections.addAll(uninstantiatedCharacters, AvailableCharacter.values());
@@ -48,8 +49,12 @@ public class CharacterFactory {
             case MESSENGER: return new Messenger(gameModel);
             case WITCH: return new Witch(islandManager);
             case CENTAUR: return new Centaur(islandManager);
-            case JUGGLER: return new Juggler(gameModel, bag);
-            //TODO: complete all cases from AvailableCharacter
+            case JUGGLER: return new Juggler(bag, players);
+            case KNIGHT: return new Knight(islandManager, players);
+            case MUSHROOM_MERCHANT: return new MushroomMerchant(islandManager);
+            case MUSICIAN: return new Musician(players);
+            case PRINCESS: return new Princess(bag, players);
+            case USURER: return new Usurer(players, bag);
             default: throw new EnumConstantNotPresentException(AvailableCharacter.class, "other");
         }
     }

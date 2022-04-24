@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,22 +18,22 @@ public class GameModel {
     private final ProfessorManager professorManager;
     private final Bag bag;
     private final ArrayList<Cloud> clouds;
-    private Map<Player, Integer> playedCards;
+    private final Map<Player, Integer> playedCards;
     private int bank;
     private final ArrayList<Character> characters;
-    private boolean cheeseMerchantEffect;
+    private Player cheeseMerchantEffectPlayer;
     private int messengerEffect;
 
     public GameModel(boolean expertMode){
         players=new ArrayList<>();
         bag=new Bag();
-        islandManager=new IslandManager(bag);
         professorManager=new ProfessorManager();
+        islandManager=new IslandManager(bag, professorManager);
         clouds=new ArrayList<>();
-        cheeseMerchantEffect = false;
+        playedCards = new HashMap<>();
         messengerEffect = 0;
         bank = expertMode? 20 : 0;
-        CharacterFactory factory = new CharacterFactory(bag, islandManager, professorManager, this);
+        CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
         characters = new ArrayList<>();
         for (int i = 0; i<3; i++){
             characters.add(factory.createUninstantiatedCharacter());
@@ -61,7 +62,7 @@ public class GameModel {
      * Updates the correspondence between teachers and players in professorManager
      */
     private void updateProfessorManager(){
-        //TODO: different behaviour for when cheeseMerchantEffect is true
+
         Player supportPlayer =null;
         for(PawnColor pawnColor : PawnColor.values()){
             /*this is the case where the value associated with a color has a value that is defined by a player.
@@ -72,7 +73,9 @@ public class GameModel {
                 supportPlayer=professorManager.getProfessorOwner(pawnColor);
 
                 for(Player player : players){
-                    if(player.getDiningRoom().count(pawnColor)>supportPlayer.getDiningRoom().count(pawnColor)){
+                    int cheeseMerchantBonus = (player == cheeseMerchantEffectPlayer)? 1: 0;
+
+                    if(player.getDiningRoom().count(pawnColor) + cheeseMerchantBonus>supportPlayer.getDiningRoom().count(pawnColor)){
                         supportPlayer=player;
                     }
                 }
@@ -103,7 +106,7 @@ public class GameModel {
             }
 
         }
-        if (cheeseMerchantEffect) cheeseMerchantEffect = false;
+        cheeseMerchantEffectPlayer = null;
     }
 
     /**
@@ -244,18 +247,8 @@ public class GameModel {
         return c;
     }
 
-    public void assertCheeseMerchantEffect() {
-        cheeseMerchantEffect = true;
-    }
-
-    /**
-     * needed by Juggler class to be able to access a player's entrance
-     * @param player UUID
-     * @return reference to player
-     */
-    public Player getPlayerById(UUID player) {
-        //TODO: implementation or maybe better to create a PlayerManager
-        return null;
+    public void assertCheeseMerchantEffect(UUID player) throws NoSuchFieldException {
+        cheeseMerchantEffectPlayer = ConverterUtility.idToElement(player, players);
     }
 
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {

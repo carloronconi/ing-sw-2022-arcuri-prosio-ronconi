@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
 
+import java.util.UUID;
+
 public class CheeseMerchant extends Character {
     private final GameModel gameModel;
 
@@ -17,8 +19,8 @@ public class CheeseMerchant extends Character {
     /**
      * calls method on professorManager to make sure it performs the comparison of number of students in the special way
      */
-    public void useEffect(){
-        gameModel.assertCheeseMerchantEffect();
+    public void useEffect(UUID player) throws NoSuchFieldException {
+        gameModel.assertCheeseMerchantEffect(player);
         if (!isCostIncreased()) increaseCost();
     }
 }
