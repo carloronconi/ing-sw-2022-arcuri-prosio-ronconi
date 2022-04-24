@@ -1,16 +1,13 @@
 package it.polimi.ingsw;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class EventManager {
+public class EventManager<EventType extends Enum> {
     private final Map<EventType, List<EventListener>> listeners;
 
-    public EventManager(){
+    public EventManager(Class<EventType> eventTypeClass){
         listeners = new HashMap<>();
-        for (EventType eventType : EventType.values()){
+        for (EventType eventType : eventTypeClass.getEnumConstants()){
             listeners.put(eventType, new ArrayList<>());
         }
     }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-public enum EventType {
+public enum ControllerEventType {
     CHOSE_GAME_MODE,
     CHOSE_NUM_OF_PLAYERS,
     CHOSE_NICKNAME,
