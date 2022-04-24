@@ -34,21 +34,22 @@ class EntranceTest extends StudentCounter {
     @Test
     void fill() {
 
-        for (int removed = 0; removed <= 3; removed++) {
+        assertEquals(7, entrance.count());
+        for (int removed = 0; removed <3; removed++) {
             for (PawnColor c : PawnColor.values()) {
                 if (entrance.count(c) > 0) {
                     diningRoom.fill(c);
                     removed++;
                 }
             }
-            if (removed == 3) break;
+            //if (removed == 2) break;
         }
         assertEquals(4, entrance.count());
-
+        assertEquals(3, diningRoom.count());
         int cloudIndex = 1;
 
 
-        for (int i = 0; i < clouds.get(cloudIndex).count(); i++) {
+        for (int i = 0; i <= clouds.get(cloudIndex).count(); i++) {
             movePawnFrom(clouds.get(cloudIndex));
 
         }
