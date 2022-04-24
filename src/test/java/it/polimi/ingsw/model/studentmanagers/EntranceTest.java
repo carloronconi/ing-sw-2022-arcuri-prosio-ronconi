@@ -21,13 +21,13 @@ class EntranceTest extends StudentCounter {
         clouds = new ArrayList<>();
         IntStream.range(0,3).forEach(i -> clouds.add(new Cloud(bag)));
 
-        entrance = new Entrance(bag,clouds);
+        entrance = new Entrance(bag,clouds, 7);
         assertEquals(7, entrance.count());
         diningRoom = new DiningRoom(entrance);
     }
 
     @Test
-    void fill() {
+    void fill() throws NoSuchFieldException {
         int removed = 0;
         for (PawnColor c: PawnColor.values()) {
             if (entrance.count(c) > 0){
