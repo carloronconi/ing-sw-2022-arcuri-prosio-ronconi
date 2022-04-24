@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.studentmanagers;
 
+import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.PawnColor;
 
 import java.util.List;
@@ -17,10 +18,10 @@ public class Entrance extends StudentCounter {
      * @param bag from which it takes the first 7 pawns
      * @param clouds from which it will be filled
      */
-    public Entrance(Bag bag, List<Cloud> clouds) {
+    public Entrance(Bag bag, List<Cloud> clouds, int numOfStudents) {
         super();
         this.clouds = clouds;
-        IntStream.range(0,7).forEach(i -> movePawnFrom(bag));
+        IntStream.range(0,numOfStudents).forEach(i -> movePawnFrom(bag));
     }
 
     /**
@@ -28,18 +29,9 @@ public class Entrance extends StudentCounter {
      * @param whichCloud to select the cloud from which to fill the Entrance
      * @throws IllegalArgumentException if the cloud is not found in the list
      */
-    public void fill(UUID whichCloud) throws IllegalArgumentException {
+    public void fill(UUID whichCloud) throws NoSuchFieldException {
 
-        int cloudIndex=-1;
-        boolean cloudFound=false;
-        for(int i=0; i<clouds.size(); i++){
-            if(clouds.get(i).getId().equals(whichCloud)){
-                cloudIndex=i;
-                cloudFound=true;
-            }
-        }
-
-        if(!cloudFound) throw new IllegalArgumentException();
+        int cloudIndex= ConverterUtility.idToIndex(whichCloud, clouds);
 
         for(int i=0; i<clouds.get(cloudIndex).count(); i++){
             movePawnFrom(clouds.get(cloudIndex));
