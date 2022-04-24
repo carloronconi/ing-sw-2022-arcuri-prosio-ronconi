@@ -45,7 +45,7 @@ public abstract class StudentCounter {
         for(PawnColor color : PawnColor.values()){
             if(other.map.get(color) > 0){
                 movableColors.add(color);
-                other.map.put(color, other.map.get(color)-1); //IMP ADDED TO REMOVE ELEMENT
+
             }
         }
         if(movableColors.size() == 0) throw new IllegalArgumentException();
@@ -65,7 +65,9 @@ public abstract class StudentCounter {
      * @throws IllegalArgumentException if no student of the chosen color is available in other studentCounter to be moved
      */
     protected void movePawnFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
-        if(other.map.get(color) <= 0) throw new IllegalArgumentException();
+        if(other.map.get(color) <= 0) {
+            throw new IllegalArgumentException();
+        }
         other.map.put(color, other.map.get(color) - 1);
         map.put(color, map.get(color) + 1);
     }
