@@ -14,13 +14,12 @@ public class GameController implements EventListener {
     private GameMode gameMode;
     private ControllerState controllerState;
     private int numOfPlayers;
-    //private final GameModel gameModel;
+    private GameModel gameModel = null;
     private final List<String> playerNicknames;
 
 
     public GameController(CliView view) {
         this.view = view;
-        //this.gameModel = gameModel;
         playerNicknames = new ArrayList<>();
         controllerState = ControllerState.INITIAL_SETUP;
     }
@@ -42,8 +41,8 @@ public class GameController implements EventListener {
             view.showMultipleChoicePrompt(choices, "Ready to start the game? If not, you will start over with setup", EventType.STARTED_GAME);
         }
 
-        //TODO: initialise gameModel accordingly
-
+        boolean expertMode = (gameMode == GameMode.HARD);
+        gameModel = new GameModel(expertMode, playerNicknames);
     }
 
     @Override
