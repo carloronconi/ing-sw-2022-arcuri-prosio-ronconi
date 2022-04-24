@@ -11,13 +11,14 @@ public class App
 {
     public static void main( String[] args )
     {
-        EventManager eventManager = new EventManager();
-        CliView cliView = new CliView(eventManager);
+        EventManager<ControllerEventType> cliEventManager = new EventManager<>(ControllerEventType.class);
+        CliView cliView = new CliView(cliEventManager);
         GameController gameController = new GameController(cliView);
         //for now game controller subscribes for all types of event
-        for (EventType e : EventType.values()){
-            eventManager.subscribe(e,gameController);
+        for (ControllerEventType e : ControllerEventType.values()){
+            cliEventManager.subscribe(e,gameController);
         }
+
 
         gameController.startSetup();
     }

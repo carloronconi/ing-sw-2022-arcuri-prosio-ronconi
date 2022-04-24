@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventListener;
-import it.polimi.ingsw.EventType;
+import it.polimi.ingsw.ControllerEventType;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.view.CliView;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameController implements EventListener {
+public class GameController implements EventListener<ControllerEventType> {
     private final CliView view;
     private GameMode gameMode;
     private ControllerState controllerState;
@@ -29,16 +29,16 @@ public class GameController implements EventListener {
         while (controllerState == ControllerState.INITIAL_SETUP){
             List<String> choices = new ArrayList<>();
             for (GameMode mode : GameMode.values()) choices.add(mode.name());
-            view.showMultipleChoicePrompt(choices, "Choose game mode", EventType.CHOSE_GAME_MODE);
+            view.showMultipleChoicePrompt(choices, "Choose game mode", ControllerEventType.CHOSE_GAME_MODE);
             choices = Arrays.asList("2", "3");
-            view.showMultipleChoicePrompt(choices, "Choose number of players", EventType.CHOSE_NUM_OF_PLAYERS);
+            view.showMultipleChoicePrompt(choices, "Choose number of players", ControllerEventType.CHOSE_NUM_OF_PLAYERS);
 
             for (int i = 0; i < numOfPlayers; i++) {
-                view.showTextInputPrompt("Choose nickname for player number " + i, EventType.CHOSE_NICKNAME);
+                view.showTextInputPrompt("Choose nickname for player number " + i, ControllerEventType.CHOSE_NICKNAME);
             }
 
             choices = Arrays.asList("YES", "NO");
-            view.showMultipleChoicePrompt(choices, "Ready to start the game? If not, you will start over with setup", EventType.STARTED_GAME);
+            view.showMultipleChoicePrompt(choices, "Ready to start the game? If not, you will start over with setup", ControllerEventType.STARTED_GAME);
         }
 
         boolean expertMode = (gameMode == GameMode.HARD);
@@ -46,8 +46,8 @@ public class GameController implements EventListener {
     }
 
     @Override
-    public void update(EventType eventType, String data) {
-        switch (eventType) {
+    public void update(ControllerEventType controllerEventType, String data) {
+        switch (controllerEventType) {
             case CHOSE_GAME_MODE: gameMode = GameMode.valueOf(data);
                 break;
             case CHOSE_NUM_OF_PLAYERS: numOfPlayers = Integer.parseInt(data);
@@ -58,4 +58,6 @@ public class GameController implements EventListener {
                 break;
         }
     }
+
+
 }
