@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
+import static junit.framework.TestCase.assertEquals;
+
 
 public class IslandManagerTest extends StudentCounter{
     private ArrayList<IslandTile> islands;
@@ -23,10 +25,10 @@ public class IslandManagerTest extends StudentCounter{
     }
 
     @Test
-    UUID moveMotherNature(int fixedSteps){
+    UUID moveMotherNature(){
 
         MNIslandNumber+=fixedSteps;
-       Assertions.assertEquals(5, MNIslandNumber);
+        assertEquals(5, MNIslandNumber);
 
 
         if(MNIslandNumber>islands.size()){
@@ -34,7 +36,7 @@ public class IslandManagerTest extends StudentCounter{
         }else{
             currentPositionMN=MNIslandNumber;
         }
-        Assertions.assertEquals(5, MNIslandNumber);
+        assertEquals(5, MNIslandNumber);
 
         return motherNaturePosition;
 
