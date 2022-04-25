@@ -64,15 +64,17 @@ public class GameController implements EventListener<ViewEventType> {
      * @throws InvalidObjectException if data is invalid
      */
     @Override
-    public void update(ViewEventType viewEventType, String data) throws InvalidObjectException {
+    public void update(ViewEventType viewEventType, Object data) throws InvalidObjectException {
+        if(data.getClass() != String.class) throw new InvalidObjectException("Data from the cli view needs to be String");
+        String textualData = data.toString();
         switch (viewEventType) {
-            case CHOSE_GAME_MODE: gameMode = GameMode.valueOf(data);
+            case CHOSE_GAME_MODE: gameMode = GameMode.valueOf(textualData);
                 break;
-            case CHOSE_NUM_OF_PLAYERS: numOfPlayers = Integer.parseInt(data);
+            case CHOSE_NUM_OF_PLAYERS: numOfPlayers = Integer.parseInt(textualData);
                 break;
             case CHOSE_NICKNAME:
                 if (playerNicknames.contains(data)) throw new InvalidObjectException("Nickname already used by other player");
-                playerNicknames.add(data);
+                playerNicknames.add(textualData);
                 break;
             case STARTED_GAME: if (data.equals("YES")) controllerState = ControllerState.PLAYING_GAME;
                 break;

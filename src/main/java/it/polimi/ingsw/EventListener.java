@@ -13,5 +13,5 @@ public interface EventListener<EventType extends Enum<EventType>> {
      * @param data relative to the event
      * @throws InvalidObjectException if the data of the event is invalid
      */
-    void update(EventType eventType, String data) throws InvalidObjectException;
+    void update(EventType eventType, Object data) throws InvalidObjectException;
 }

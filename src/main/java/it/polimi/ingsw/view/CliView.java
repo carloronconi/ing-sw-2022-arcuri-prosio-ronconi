@@ -63,7 +63,7 @@ public class CliView implements EventListener<ModelEventType> {
      * to draw the main view of the model containing the board and the schools
      * @param data used to draw the view
      */
-    private void drawMainView(String data){
+    private void drawMainView(Object data){
         //TODO: should draw the main view of the model using getters to see its state
         System.out.println(data);
     }
@@ -74,7 +74,7 @@ public class CliView implements EventListener<ModelEventType> {
      * @param data relative to the event
      */
     @Override
-    public void update(ModelEventType modelEventType, String data) {
+    public void update(ModelEventType modelEventType, Object data) {
         switch (modelEventType) {
             case INITIATED_MODEL: drawMainView(data);
                 break;
