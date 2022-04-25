@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * controller listens to view events according to the MVC pattern
+ */
 public class GameController implements EventListener<ViewEventType> {
     private final CliView view;
     private GameMode gameMode;
@@ -27,6 +30,10 @@ public class GameController implements EventListener<ViewEventType> {
         controllerState = ControllerState.INITIAL_SETUP;
     }
 
+    /**
+     * call to start the game
+     * @param modelEventManager with subscribers already initialized
+     */
     public void startSetup(EventManager<ModelEventType> modelEventManager){
 
         while (controllerState == ControllerState.INITIAL_SETUP){
@@ -50,6 +57,12 @@ public class GameController implements EventListener<ViewEventType> {
         gameModel = new GameModel(expertMode, playerNicknames, modelEventManager);
     }
 
+    /**
+     * method to react to all the view events
+     * @param viewEventType specific view event that the controller has to react to
+     * @param data relative to the event
+     * @throws InvalidObjectException if data is invalid
+     */
     @Override
     public void update(ViewEventType viewEventType, String data) throws InvalidObjectException {
         switch (viewEventType) {

@@ -8,6 +8,9 @@ import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * first implementation of CLI view
+ */
 public class CliView implements EventListener<ModelEventType> {
     private final EventManager<ViewEventType> eventManager;
 
@@ -15,6 +18,12 @@ public class CliView implements EventListener<ModelEventType> {
         this.eventManager = eventManager;
     }
 
+    /**
+     * shows a multiple choice prompt in system out
+     * @param choices among which the user chooses one
+     * @param promptMessage to direct the user in the choice
+     * @param viewEventType to notify the listeners of a certain type of view events
+     */
     public void showMultipleChoicePrompt(List<String> choices, String promptMessage, ViewEventType viewEventType){
         System.out.println(promptMessage + " (Choices: " + choices + ")");
         Scanner s = new Scanner(System.in);
@@ -30,6 +39,12 @@ public class CliView implements EventListener<ModelEventType> {
         }
     }
 
+    /**
+     * dhows a text input prompt in system out
+     * @param promptMessage to direct the user in the choice
+     * @param viewEventType to notify the listeners of a certain type of view events
+     * @param parser lambda expression string->string to parse the user text input
+     */
     public void showTextInputPrompt(String promptMessage, ViewEventType viewEventType, Parsable parser){
         System.out.println(promptMessage + ":");
         Scanner s = new Scanner(System.in);
@@ -44,11 +59,20 @@ public class CliView implements EventListener<ModelEventType> {
         }
     }
 
+    /**
+     * to draw the main view of the model containing the board and the schools
+     * @param data used to draw the view
+     */
     private void drawMainView(String data){
         //TODO: should draw the main view of the model using getters to see its state
         System.out.println(data);
     }
 
+    /**
+     * called by publishers to update the view
+     * @param modelEventType type of model change event to react to
+     * @param data relative to the event
+     */
     @Override
     public void update(ModelEventType modelEventType, String data) {
         switch (modelEventType) {
