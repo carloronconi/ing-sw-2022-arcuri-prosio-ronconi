@@ -61,7 +61,7 @@ public class GameModel {
             players.add(player);
         }
         try {
-            eventManager.notify(ModelEventType.INITIATED_MODEL, "data about initiated model");
+            eventManager.notify(ModelEventType.INITIATED_MODEL, this.toString());
         } catch (InvalidObjectException e) {
             e.printStackTrace();
         }
@@ -281,5 +281,29 @@ public class GameModel {
         if (playedCards.get(player) + messengerEffect < steps) throw new IllegalArgumentException("Not enough steps in the card played");
         islandManager.moveMotherNature(steps);
         messengerEffect = 0;
+    }
+
+    public String toString(){
+        String string = "";
+        string += "Players: ";
+        for (Player p : players){
+            string+= p.getNickname() + "; ";
+        }
+        string += "\n" + bag;
+        string += "\n" + professorManager;
+        string += "\nClouds:\n    ";
+        int i = 1;
+        for (Cloud c : clouds){
+            string += "[" + i + "] ";
+            string += c + "\n    ";
+            i++;
+        }
+        string += "\n" + islandManager;
+        for (Player p : players){
+            string += "\n" + p;
+        }
+
+
+        return string;
     }
 }

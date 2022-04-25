@@ -90,6 +90,14 @@ public abstract class StudentCounter {
         return sum;
     }
 
+    @Override
+    public String toString() {
+        String s = "";
+        for (PawnColor c : PawnColor.values()){
+            s+= c.name() + " = " + count(c) + "; ";
+        }
+        return s;
+    }
 }
 
 
