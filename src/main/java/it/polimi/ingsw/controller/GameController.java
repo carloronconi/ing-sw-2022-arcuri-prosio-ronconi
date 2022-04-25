@@ -30,6 +30,7 @@ public class GameController implements EventListener<ViewEventType> {
     public void startSetup(EventManager<ModelEventType> modelEventManager){
 
         while (controllerState == ControllerState.INITIAL_SETUP){
+            playerNicknames.clear();
             List<String> choices = new ArrayList<>();
             for (GameMode mode : GameMode.values()) choices.add(mode.name());
             view.showMultipleChoicePrompt(choices, "Choose game mode", ViewEventType.CHOSE_GAME_MODE);
@@ -37,7 +38,8 @@ public class GameController implements EventListener<ViewEventType> {
             view.showMultipleChoicePrompt(choices, "Choose number of players", ViewEventType.CHOSE_NUM_OF_PLAYERS);
 
             for (int i = 0; i < numOfPlayers; i++) {
-                view.showTextInputPrompt("Choose nickname for player number " + i, ViewEventType.CHOSE_NICKNAME);
+                int j = i+1;
+                view.showTextInputPrompt("Choose nickname for player number " + j, ViewEventType.CHOSE_NICKNAME);
             }
 
             choices = Arrays.asList("YES", "NO");
