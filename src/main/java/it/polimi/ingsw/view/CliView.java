@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ViewEventType;
 
 import java.util.List;
 import java.util.Scanner;

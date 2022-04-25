@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventListener;
-import it.polimi.ingsw.ViewEventType;
+import it.polimi.ingsw.view.ViewEventType;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.view.CliView;
 

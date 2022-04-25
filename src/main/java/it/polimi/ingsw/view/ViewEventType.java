@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.view;
 
 public enum ViewEventType {
     CHOSE_GAME_MODE,

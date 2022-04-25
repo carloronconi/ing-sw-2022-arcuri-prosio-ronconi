@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ViewEventType;
+import it.polimi.ingsw.view.ViewEventType;
 import it.polimi.ingsw.view.CliView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

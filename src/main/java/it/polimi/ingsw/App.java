@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.view.CliView;
+import it.polimi.ingsw.view.ViewEventType;
 
 /**
  * Hello world!
