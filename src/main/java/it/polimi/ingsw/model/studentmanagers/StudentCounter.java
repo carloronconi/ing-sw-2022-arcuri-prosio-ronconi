@@ -42,9 +42,10 @@ public abstract class StudentCounter {
      */
     protected PawnColor movePawnFrom(StudentCounter other) throws IllegalArgumentException {
         ArrayList<PawnColor> movableColors = new ArrayList<>();
-        for(PawnColor color : PawnColor.values()){  //da cambiare forsa il metodo values con il metodo keySet perché values prende i valori mentre color sono le key
+        for(PawnColor color : PawnColor.values()){
             if(other.map.get(color) > 0){
                 movableColors.add(color);
+
             }
         }
         if(movableColors.size() == 0) throw new IllegalArgumentException();
@@ -64,7 +65,9 @@ public abstract class StudentCounter {
      * @throws IllegalArgumentException if no student of the chosen color is available in other studentCounter to be moved
      */
     protected void movePawnFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
-        if(other.map.get(color) <= 0) throw new IllegalArgumentException();
+        if(other.map.get(color) <= 0) {
+            throw new IllegalArgumentException();
+        }
         other.map.put(color, other.map.get(color) - 1);
         map.put(color, map.get(color) + 1);
     }
