@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.ConverterUtility;
-import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.studentmanagers.Bag;
@@ -30,5 +29,15 @@ public class Princess extends Character {
         diningRoom.moveStudentFromPrincess(color, studentCounter);
         if(!isCostIncreased()) increaseCost();
         studentCounter.takeStudentFrom(bag);
+    }
+
+
+    /**
+     * this method returns true if the input color is contained by the princess
+     * @param color is the color of the student we want to know if it is contained
+     * @return true if the input color is contained by the princess otherwise returns false
+     */
+    public boolean isColorContained(PawnColor color){
+        return studentCounter.count(color) > 0;
     }
 }
