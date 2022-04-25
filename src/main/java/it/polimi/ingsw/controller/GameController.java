@@ -34,7 +34,7 @@ public class GameController implements EventListener<ViewEventType> {
      * call to start the game
      * @param modelEventManager with subscribers already initialized
      */
-    public void startSetup(EventManager<ModelEventType> modelEventManager){
+    public void startGame(EventManager<ModelEventType> modelEventManager){
 
         while (controllerState == ControllerState.INITIAL_SETUP){
             playerNicknames.clear();

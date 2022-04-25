@@ -24,6 +24,6 @@ public class App
         for (ModelEventType e : ModelEventType.values()){
             modelEventManager.subscribe(e,cliView);
         }
-        gameController.startSetup(modelEventManager);
+        gameController.startGame(modelEventManager);
     }
 }

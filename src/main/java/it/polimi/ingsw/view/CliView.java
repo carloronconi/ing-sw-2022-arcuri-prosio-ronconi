@@ -69,7 +69,7 @@ public class CliView implements EventListener<ModelEventType> {
     }
 
     /**
-     * called by publishers to update the view
+     * called by publisher (model) to update the view
      * @param modelEventType type of model change event to react to
      * @param data relative to the event
      */
