@@ -1,9 +1,10 @@
 package it.polimi.ingsw;
 
+import java.io.InvalidObjectException;
 import java.util.*;
 
-public class EventManager<EventType extends Enum> {
-    private final Map<EventType, List<EventListener>> listeners;
+public class EventManager<EventType extends Enum<EventType>> {
+    private final Map<EventType, List<EventListener<EventType>>> listeners;
 
     public EventManager(Class<EventType> eventTypeClass){
         listeners = new HashMap<>();
@@ -12,19 +13,19 @@ public class EventManager<EventType extends Enum> {
         }
     }
 
-    public void subscribe(EventType type, EventListener listener){
-        List<EventListener> subscribers = listeners.get(type);
+    public void subscribe(EventType type, EventListener<EventType> listener){
+        List<EventListener<EventType>> subscribers = listeners.get(type);
         subscribers.add(listener);
     }
 
-    public void unsubscribe(EventType type, EventListener listener){
-        List<EventListener> subscribers = listeners.get(type);
+    public void unsubscribe(EventType type, EventListener<EventType> listener){
+        List<EventListener<EventType>> subscribers = listeners.get(type);
         subscribers.remove(listener);
     }
 
-    public void notify(EventType type, String data){
-        List<EventListener> subscribers = listeners.get(type);
-        for (EventListener s : subscribers){
+    public void notify(EventType type, String data) throws InvalidObjectException {
+        List<EventListener<EventType>> subscribers = listeners.get(type);
+        for (EventListener<EventType> s : subscribers){
             s.update(type, data);
         }
     }

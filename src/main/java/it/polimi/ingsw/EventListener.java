@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
 
-public interface EventListener<EventType extends Enum> {
-    void update(EventType eventType, String data);
+import java.io.InvalidObjectException;
+
+public interface EventListener<EventType extends Enum<EventType>> {
+    void update(EventType eventType, String data) throws InvalidObjectException;
 }

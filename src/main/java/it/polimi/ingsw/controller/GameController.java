@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.ViewEventType;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.view.CliView;
 
+import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,13 +49,15 @@ public class GameController implements EventListener<ViewEventType> {
     }
 
     @Override
-    public void update(ViewEventType viewEventType, String data) {
+    public void update(ViewEventType viewEventType, String data) throws InvalidObjectException {
         switch (viewEventType) {
             case CHOSE_GAME_MODE: gameMode = GameMode.valueOf(data);
                 break;
             case CHOSE_NUM_OF_PLAYERS: numOfPlayers = Integer.parseInt(data);
                 break;
-            case CHOSE_NICKNAME: playerNicknames.add(data);
+            case CHOSE_NICKNAME:
+                if (playerNicknames.contains(data)) throw new InvalidObjectException("Nickname already used by other player");
+                playerNicknames.add(data);
                 break;
             case STARTED_GAME: if (data.equals("YES")) controllerState = ControllerState.PLAYING_GAME;
                 break;

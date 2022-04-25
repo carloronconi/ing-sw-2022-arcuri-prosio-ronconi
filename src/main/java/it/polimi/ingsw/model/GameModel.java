@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.charactercards.CharacterFactory;
 import it.polimi.ingsw.model.charactercards.Messenger;
 import it.polimi.ingsw.model.studentmanagers.*;
 
+import java.io.InvalidObjectException;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -59,7 +60,11 @@ public class GameModel {
             Player player = new Player(entrance, diningRoom, nickname);
             players.add(player);
         }
-        eventManager.notify(ModelEventType.INITIATED_MODEL, "data about initiated model");
+        try {
+            eventManager.notify(ModelEventType.INITIATED_MODEL, "data about initiated model");
+        } catch (InvalidObjectException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
