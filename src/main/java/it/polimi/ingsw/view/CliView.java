@@ -16,7 +16,7 @@ public class CliView implements EventListener<ModelEventType> {
     }
 
     public void showMultipleChoicePrompt(List<String> choices, String promptMessage, ViewEventType viewEventType){
-        System.out.println(promptMessage + "(Choices: " + choices + ")");
+        System.out.println(promptMessage + " (Choices: " + choices + ")");
         Scanner s = new Scanner(System.in);
         String choice = s.nextLine();
         while (!choices.contains(choice)){
@@ -30,15 +30,17 @@ public class CliView implements EventListener<ModelEventType> {
         }
     }
 
-    public void showTextInputPrompt(String promptMessage, ViewEventType viewEventType){
+    public void showTextInputPrompt(String promptMessage, ViewEventType viewEventType, Parsable parser){
         System.out.println(promptMessage + ":");
         Scanner s = new Scanner(System.in);
         String text = s.nextLine();
+        text = parser.parse(text);
         try {
             eventManager.notify(viewEventType, text);
+            System.out.println("Your nickname is: "+text);
         } catch (InvalidObjectException e) {
             System.out.println("Nickname already used by other player, use a different one:");
-            showTextInputPrompt(promptMessage, viewEventType);
+            showTextInputPrompt(promptMessage, viewEventType, parser);
         }
     }
 

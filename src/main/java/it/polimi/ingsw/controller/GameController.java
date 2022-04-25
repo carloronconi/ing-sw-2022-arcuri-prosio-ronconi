@@ -39,7 +39,7 @@ public class GameController implements EventListener<ViewEventType> {
 
             for (int i = 0; i < numOfPlayers; i++) {
                 int j = i+1;
-                view.showTextInputPrompt("Choose nickname for player number " + j, ViewEventType.CHOSE_NICKNAME);
+                view.showTextInputPrompt("Choose nickname for player number " + j, ViewEventType.CHOSE_NICKNAME, s-> s.replaceAll("\\s",""));
             }
 
             choices = Arrays.asList("YES", "NO");
