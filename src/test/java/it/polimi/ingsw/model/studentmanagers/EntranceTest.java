@@ -17,15 +17,15 @@ class EntranceTest extends StudentCounter {
     private Bag bag;
     private Entrance entrance;
     private DiningRoom diningRoom;
+    private Cloud cloud;
 
     @BeforeEach
     void setUp() {
         bag = new Bag();
         clouds = new ArrayList<>();
-
-        IntStream.range(0, 3).forEach(i -> clouds.add(new Cloud(bag)));
-
-
+        cloud = new Cloud(bag);
+        clouds.add(cloud);
+        cloud.fill(3);
         entrance = new Entrance(bag, clouds);
         assertEquals(7, entrance.count());
         diningRoom = new DiningRoom(entrance);
@@ -34,37 +34,24 @@ class EntranceTest extends StudentCounter {
     @Test
     void fill() {
 
-        assertEquals(7, entrance.count());
-        for (int removed = 0; removed <3; removed++) {
-            for (PawnColor c : PawnColor.values()) {
-                if (entrance.count(c) > 0) {
-                    diningRoom.fill(c);
-                    removed++;
-                }
-            }
-            //if (removed == 2) break;
-        }
-        assertEquals(4, entrance.count());
-        assertEquals(3, diningRoom.count());
-        int cloudIndex = 1;
+        try {
+            diningRoom.fill(PawnColor.BLUE);
 
-
-        for (int i = 0; i <= clouds.get(cloudIndex).count(); i++) {
-            movePawnFrom(clouds.get(cloudIndex));
-
+        } catch (IllegalArgumentException e) {
+            fail();
         }
 
 
-        assertEquals(4, entrance.count());
-        clouds.get(1).fill(3);
-        assertEquals(3, clouds.get(1).count());
-        UUID cloudId;
-        cloudId = ConverterUtility.indexToId(1, clouds);
-        entrance.fill(cloudId);
-        assertEquals(0, clouds.get(1).count());
+        assertEquals(6, entrance.count());
+        assertEquals(1, diningRoom.count());
+
+        entrance.movePawnFrom(clouds.get(0));
+
         assertEquals(7, entrance.count());
+        assertEquals(2, clouds.get(0).count());
 
     }
+
 }
 
 
