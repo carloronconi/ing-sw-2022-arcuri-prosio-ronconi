@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.model.charactercards.Character;
 import it.polimi.ingsw.model.charactercards.CharacterFactory;
 import it.polimi.ingsw.model.charactercards.Messenger;
@@ -19,8 +20,9 @@ public class GameModel {
     private final ArrayList<Character> characters;
     private Player cheeseMerchantEffectPlayer;
     private int messengerEffect;
+    private final EventManager<ModelEventType> eventManager;
 
-    public GameModel(boolean expertMode, List<String> playerNicknames){
+    public GameModel(boolean expertMode, List<String> playerNicknames, EventManager<ModelEventType> eventManager){
         if (playerNicknames.size() < 2 || playerNicknames.size() > 3) throw new IllegalArgumentException("Number of players not supported");
 
         players=new ArrayList<>();
@@ -29,6 +31,7 @@ public class GameModel {
         islandManager=new IslandManager(bag, professorManager);
         clouds=new ArrayList<>();
         playedCards = new HashMap<>();
+        this.eventManager = eventManager; //eventManager should already have subscribers
         messengerEffect = 0;
         bank = expertMode? 20 : 0;
         CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
@@ -56,6 +59,7 @@ public class GameModel {
             Player player = new Player(entrance, diningRoom, nickname);
             players.add(player);
         }
+        eventManager.notify(ModelEventType.INITIATED_MODEL, "data about initiated model");
     }
 
     /**
