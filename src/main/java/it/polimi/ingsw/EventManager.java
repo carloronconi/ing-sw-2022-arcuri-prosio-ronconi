@@ -50,7 +50,7 @@ public class EventManager<EventType extends Enum<EventType>> {
      * @param data relative to the event that happened
      * @throws InvalidObjectException if the data of the event is invalid
      */
-    public void notify(EventType type, String data) throws InvalidObjectException {
+    public void notify(EventType type, Object data) throws InvalidObjectException {
         List<EventListener<EventType>> subscribers = listeners.get(type);
         for (EventListener<EventType> s : subscribers){
             s.update(type, data);
