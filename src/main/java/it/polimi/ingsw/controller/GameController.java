@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventListener;
+import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.model.ModelEventType;
 import it.polimi.ingsw.view.ViewEventType;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.view.CliView;
@@ -24,7 +26,7 @@ public class GameController implements EventListener<ViewEventType> {
         controllerState = ControllerState.INITIAL_SETUP;
     }
 
-    public void startSetup(){
+    public void startSetup(EventManager<ModelEventType> modelEventManager){
 
         while (controllerState == ControllerState.INITIAL_SETUP){
             List<String> choices = new ArrayList<>();
@@ -42,7 +44,7 @@ public class GameController implements EventListener<ViewEventType> {
         }
 
         boolean expertMode = (gameMode == GameMode.HARD);
-        gameModel = new GameModel(expertMode, playerNicknames);
+        gameModel = new GameModel(expertMode, playerNicknames, modelEventManager);
     }
 
     @Override
