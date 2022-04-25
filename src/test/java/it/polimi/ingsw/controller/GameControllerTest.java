@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ControllerEventType;
+import it.polimi.ingsw.ViewEventType;
 import it.polimi.ingsw.view.CliView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,11 +11,11 @@ class GameControllerTest {
 
     @BeforeEach
     void setUp() {
-        EventManager<ControllerEventType> cliEventManager = new EventManager<>(ControllerEventType.class);
+        EventManager<ViewEventType> cliEventManager = new EventManager<>(ViewEventType.class);
         CliView cliView = new CliView(cliEventManager);
         gameController = new GameController(cliView);
         //for now game controller subscribes for all types of event
-        for (ControllerEventType e : ControllerEventType.values()){
+        for (ViewEventType e : ViewEventType.values()){
             cliEventManager.subscribe(e,gameController);
         }
 
