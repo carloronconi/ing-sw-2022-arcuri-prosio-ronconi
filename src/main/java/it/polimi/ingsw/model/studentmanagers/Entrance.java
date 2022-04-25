@@ -41,7 +41,8 @@ public class Entrance extends StudentCounter {
 
         if(!cloudFound) throw new IllegalArgumentException();
 
-        for(int i=0; i<clouds.get(cloudIndex).count(); i++){
+        int max = clouds.get(cloudIndex).count();
+        for(int i=0; i<max; i++){
             movePawnFrom(clouds.get(cloudIndex));
 
         }
