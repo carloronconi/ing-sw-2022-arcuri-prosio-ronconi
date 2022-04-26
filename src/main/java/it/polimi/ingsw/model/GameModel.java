@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.studentmanagers.*;
 
 import java.io.InvalidObjectException;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class GameModel {
     private final ArrayList<Player> players;
@@ -21,9 +20,9 @@ public class GameModel {
     private final ArrayList<Character> characters;
     private Player cheeseMerchantEffectPlayer;
     private int messengerEffect;
-    private final EventManager<ModelEventType> eventManager;
+    private final EventManager<ModelEvent> eventManager;
 
-    public GameModel(boolean expertMode, List<String> playerNicknames, EventManager<ModelEventType> eventManager){
+    public GameModel(boolean expertMode, List<String> playerNicknames, EventManager<ModelEvent> eventManager){
         if (playerNicknames.size() < 2 || playerNicknames.size() > 3) throw new IllegalArgumentException("Number of players not supported");
 
         players=new ArrayList<>();
@@ -61,7 +60,7 @@ public class GameModel {
             players.add(player);
         }
         try {
-            eventManager.notify(ModelEventType.INITIATED_MODEL, this.toString());
+            eventManager.notify(ModelEvent.INITIATED_MODEL, this.toString());
         } catch (InvalidObjectException e) {
             e.printStackTrace();
         }

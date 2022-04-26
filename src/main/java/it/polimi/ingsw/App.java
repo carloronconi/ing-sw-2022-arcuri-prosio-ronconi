@@ -1,9 +1,9 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.ModelEventType;
+import it.polimi.ingsw.model.ModelEvent;
 import it.polimi.ingsw.view.CliView;
-import it.polimi.ingsw.view.ViewEventType;
+import it.polimi.ingsw.view.ViewGameInitializationEvent;
 
 /**
  * Hello world!
@@ -13,15 +13,15 @@ public class App
 {
     public static void main( String[] args )
     {
-        EventManager<ViewEventType> viewEventManager = new EventManager<>(ViewEventType.class);
+        EventManager<ViewGameInitializationEvent> viewEventManager = new EventManager<>(ViewGameInitializationEvent.class);
         CliView cliView = new CliView(viewEventManager);
         GameController gameController = new GameController(cliView);
         //for now game controller subscribes for all types of event
-        for (ViewEventType e : ViewEventType.values()){
+        for (ViewGameInitializationEvent e : ViewGameInitializationEvent.values()){
             viewEventManager.subscribe(e,gameController);
         }
-        EventManager<ModelEventType> modelEventManager = new EventManager<>(ModelEventType.class);
-        for (ModelEventType e : ModelEventType.values()){
+        EventManager<ModelEvent> modelEventManager = new EventManager<>(ModelEvent.class);
+        for (ModelEvent e : ModelEvent.values()){
             modelEventManager.subscribe(e,cliView);
         }
         gameController.startGame(modelEventManager);
