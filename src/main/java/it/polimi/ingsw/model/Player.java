@@ -48,6 +48,10 @@ public class Player implements Identifiable{
         return assistantDeck.size();
     }
 
+    public ArrayList<Integer> getDeck(){
+        return (ArrayList<Integer>) assistantDeck.clone();
+    }
+
     /**
      * this method removes from the deck of available cards the card chosen by the player
      * and played in planning stages

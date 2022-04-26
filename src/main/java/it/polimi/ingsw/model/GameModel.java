@@ -244,6 +244,10 @@ public class GameModel {
         return players.get(playerIndex).getDeckSize();
     }
 
+    public ArrayList<Integer> getDeck(UUID player) throws NoSuchFieldException{
+        return ConverterUtility.idToElement(player, players).getDeck();
+    }
+
     /**
      * counts the number of students left on the bag
      * @return the number of remaining students
@@ -282,6 +286,7 @@ public class GameModel {
         messengerEffect = 0;
     }
 
+
     public String toString(){
         String string = "";
         string += "Players: ";
@@ -304,5 +309,14 @@ public class GameModel {
 
 
         return string;
+    }
+
+    public ArrayList<UUID> getPlayerIds(){
+        ArrayList<UUID> list = new ArrayList<>();
+        for (Player p : players){
+            list.add(p.getId());
+        }
+
+        return list;
     }
 }

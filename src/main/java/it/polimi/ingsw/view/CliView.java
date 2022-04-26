@@ -12,10 +12,11 @@ import java.util.Scanner;
  * first implementation of CLI view
  */
 public class CliView implements EventListener<ModelEvent> {
-    private final EventManager<ViewGameInitializationEvent> eventManager;
+    private final EventManager<ViewGameInitializationEvent> initializationEventManager;
+    //private final EventManager<ViewInGameEvent> gameEventManager;
 
     public CliView(EventManager<ViewGameInitializationEvent> eventManager) {
-        this.eventManager = eventManager;
+        this.initializationEventManager = eventManager;
     }
 
     /**
@@ -33,7 +34,7 @@ public class CliView implements EventListener<ModelEvent> {
             choice = s.nextLine();
         }
         try {
-            eventManager.notify(viewGameInitializationEvent, choice);
+            initializationEventManager.notify(viewGameInitializationEvent, choice);
         } catch (InvalidObjectException e) {
             e.printStackTrace();
         }
@@ -51,7 +52,7 @@ public class CliView implements EventListener<ModelEvent> {
         String text = s.nextLine();
         text = parser.parse(text);
         try {
-            eventManager.notify(viewGameInitializationEvent, text);
+            initializationEventManager.notify(viewGameInitializationEvent, text);
             System.out.println("Your nickname is: "+text);
         } catch (InvalidObjectException e) {
             System.out.println("Nickname already used by other player, use a different one:");
