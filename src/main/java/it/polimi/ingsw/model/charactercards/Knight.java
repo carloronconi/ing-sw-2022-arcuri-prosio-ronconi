@@ -20,5 +20,6 @@ public class Knight extends Character {
     public void useEffect(UUID player) throws NoSuchFieldException {
         Player p = ConverterUtility.idToElement(player, players);
         islandManager.assertKnightEffect(p);
+        if (!isCostIncreased()) increaseCost();
     }
 }

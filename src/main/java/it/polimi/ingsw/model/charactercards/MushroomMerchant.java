@@ -13,5 +13,6 @@ public class MushroomMerchant extends Character {
 
     public void useEffect(PawnColor color){
         islandManager.setMushroomMerchantEffect(color);
+        if (!isCostIncreased()) increaseCost();
     }
 }

@@ -42,4 +42,13 @@ public class Monk extends Character{
         if (!isCostIncreased()) increaseCost();
         studentCounter.takeStudentFrom(bag);
     }
+
+    /**
+     * this method returns true if the input color is contained by the monk
+     * @param color is the color of the student we want to know if it is contained
+     * @return true if the input color is contained by the monk otherwise returns false
+     */
+    public boolean isColorContained(PawnColor color){
+        return studentCounter.count(color) > 0;
+    }
 }
