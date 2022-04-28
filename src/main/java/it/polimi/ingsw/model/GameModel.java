@@ -248,6 +248,14 @@ public class GameModel {
         return ConverterUtility.idToElement(player, players).getDeck();
     }
 
+    public HashMap<UUID, ArrayList<Integer>> getDecks() {
+        HashMap<UUID, ArrayList<Integer>> map = new HashMap<>();
+        for (Player p : players){
+            map.put(p.getId(), p.getDeck());
+        }
+        return map;
+    }
+
     /**
      * counts the number of students left on the bag
      * @return the number of remaining students
@@ -290,6 +298,56 @@ public class GameModel {
         playedCards.clear();
     }
 
+    public EnumMap<PawnColor, UUID> getProfessorOwners(){
+        EnumMap<PawnColor, UUID> map = new EnumMap<>(PawnColor.class);
+        for (PawnColor c : PawnColor.values()){
+            map.put(c, professorManager.getProfessorOwner(c).getId());
+        }
+        return map;
+    }
+
+    public ArrayList<EnumMap<PawnColor, Integer>> getClouds(){
+        return getStudentCounterList(clouds);
+    }
+
+    public ArrayList<EnumMap<PawnColor, Integer>> getIslands(){
+        return getStudentCounterList(islandManager.getIslands());
+    }
+
+    private ArrayList<EnumMap<PawnColor, Integer>> getStudentCounterList(ArrayList<? extends StudentCounter> studentCounterList) throws IllegalArgumentException {
+        if (studentCounterList != clouds && studentCounterList!= islandManager.getIslands()) throw new IllegalArgumentException("Argument has to be either clouds or islands");
+        ArrayList<EnumMap<PawnColor, Integer>> list = new ArrayList<>();
+        for (StudentCounter sc : studentCounterList){
+            EnumMap<PawnColor, Integer> map = new EnumMap<>(PawnColor.class);
+            for (PawnColor color : PawnColor.values()){
+                map.put(color, sc.count(color));
+            }
+            list.add(map);
+        }
+        return list;
+    }
+
+    public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances(){
+        return getStudentCounterMap(Entrance.class);
+    }
+
+    public HashMap<UUID, EnumMap<PawnColor, Integer>> getDiningRooms(){
+        return getStudentCounterMap(DiningRoom.class);
+    }
+
+    private <T extends StudentCounter> HashMap<UUID, EnumMap<PawnColor, Integer>> getStudentCounterMap(Class<T> c) throws IllegalArgumentException{
+        if (Entrance.class != c && DiningRoom.class != c) throw new IllegalArgumentException("Class either has to be Entrance or DiningRoom");
+        HashMap<UUID, EnumMap<PawnColor, Integer>> playersMap = new HashMap<>();
+        for (Player p : players){
+            EnumMap<PawnColor, Integer>  colorsMap = new EnumMap<>(PawnColor.class);
+            StudentCounter studentCounter = (Entrance.class == c)? p.getEntrance() : p.getDiningRoom();
+            for (PawnColor color: PawnColor.values()){
+                colorsMap.put(color, studentCounter.count(color));
+            }
+            playersMap.put(p.getId(), colorsMap);
+        }
+        return playersMap;
+    }
 
     public String toString(){
         String string = "";
