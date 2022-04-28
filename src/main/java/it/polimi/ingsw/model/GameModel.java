@@ -286,6 +286,10 @@ public class GameModel {
         messengerEffect = 0;
     }
 
+    public void clearPlayedAssistantCards(){
+        playedCards.clear();
+    }
+
 
     public String toString(){
         String string = "";
