@@ -1,22 +1,27 @@
 package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.Identifiable;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CloudTest extends StudentCounter implements Identifiable {
+class CloudTest extends StudentCounter {
 
-    UUID cloudId;
+    private Bag bag;
+    private Cloud cloud;
 
-    public UUID getId() {return cloudId;}
+    @BeforeEach
+    void setup(){
+        bag = new Bag();
+        cloud = new Cloud(bag);
+
+    }
 
     @Test
     void fill() {
-        Bag bag = new Bag();
-        Cloud cloud = new Cloud(bag);
         int pawnsInBagBefore = bag.count();
         int pawnsInCloudBefore = cloud.count();
         cloud.fill(3);

@@ -17,54 +17,64 @@ class EntranceTest extends StudentCounter {
     private Bag bag;
     private Entrance entrance;
     private DiningRoom diningRoom;
+    private Cloud cloud;
+    int green;
+    int red;
+    int blue;
+    int yellow;
+    int purple;
 
     @BeforeEach
     void setUp() {
         bag = new Bag();
         clouds = new ArrayList<>();
-
-        IntStream.range(0, 3).forEach(i -> clouds.add(new Cloud(bag)));
-
-
+        cloud = new Cloud(bag);
+        clouds.add(cloud);
+        int arraySize = clouds.size();
+        assertEquals(1, arraySize);
+        cloud.fill(3);
         entrance = new Entrance(bag, clouds);
         assertEquals(7, entrance.count());
+        green = entrance.count(PawnColor.GREEN);
+        red = entrance.count(PawnColor.RED);
+        blue = entrance.count(PawnColor.BLUE);
+        yellow = entrance.count(PawnColor.YELLOW);
+        purple = entrance.count(PawnColor.PURPLE);
         diningRoom = new DiningRoom(entrance);
     }
 
     @Test
     void fill() {
 
-        assertEquals(7, entrance.count());
-        for (int removed = 0; removed <3; removed++) {
-            for (PawnColor c : PawnColor.values()) {
-                if (entrance.count(c) > 0) {
-                    diningRoom.fill(c);
-                    removed++;
-                }
-            }
-            //if (removed == 2) break;
-        }
+        assertEquals(7, yellow+green+purple+red+blue);
+
+        diningRoom.fill(PawnColor.RED);
+        diningRoom.fill(PawnColor.PURPLE);
+        diningRoom.fill(PawnColor.BLUE);
+
         assertEquals(4, entrance.count());
         assertEquals(3, diningRoom.count());
-        int cloudIndex = 1;
+
+            UUID cloudId = clouds.get(0).getId();
+            UUID cloudId2 = cloud.getId();
+
+            assertEquals(cloudId, cloudId2);
+            int pawnCloud = cloud.count();
+            int pawnCloud2 = clouds.get(0).count();
+
+            assertEquals(3, pawnCloud);
+            assertEquals(3, pawnCloud2);
+            assertEquals(pawnCloud, pawnCloud2);
+
+            entrance.fill(clouds.get(0).getId());
 
 
-        for (int i = 0; i <= clouds.get(cloudIndex).count(); i++) {
-            movePawnFrom(clouds.get(cloudIndex));
+          assertEquals(7, entrance.count());
+          assertEquals(0, cloud.count());
 
         }
 
-
-        assertEquals(4, entrance.count());
-        clouds.get(1).fill(3);
-        assertEquals(3, clouds.get(1).count());
-        UUID cloudId;
-        cloudId = ConverterUtility.indexToId(1, clouds);
-        entrance.fill(cloudId);
-        assertEquals(0, clouds.get(1).count());
-        assertEquals(7, entrance.count());
-
     }
-}
+
 
 
