@@ -35,23 +35,6 @@ public class PlayerTest {
 
     @Test
     void getDeckSize(){
-        //size = this.player.getDeckSize();
-       // assertEquals(10, size);
     }
 
-  /*  @Test
-   public void playAssistantCard(){
-
-        int firstSize = assistantDeck.size;
-        assertEquals(10, firstSize );
-
-
-        int firstCard = assistantDeck.get(0);
-        assertEquals(1, firstCard);
-
-        int playedCard = 5;
-        player.playAssistantCard(playedCard);
-        //int size = assistantDeck.size();
-        //assertEquals(9, size);
-    } */
 }
