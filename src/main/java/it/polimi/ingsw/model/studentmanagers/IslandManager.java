@@ -206,4 +206,8 @@ public class IslandManager extends StudentCounter {
         }
         return s;
     }
+
+    public ArrayList<IslandTile> getIslands() {
+        return (ArrayList<IslandTile>) islands.clone();
+    }
 }
