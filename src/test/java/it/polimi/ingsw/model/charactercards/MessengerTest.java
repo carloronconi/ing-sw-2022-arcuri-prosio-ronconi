@@ -12,7 +12,7 @@ public class MessengerTest {
 
     @Before
     public void setUp() {
-        GameModel gameModel = new GameModel(true);
+        GameModel gameModel = null;
         messenger = new Messenger(gameModel);
 
         assertEquals(1, messenger.getCost());

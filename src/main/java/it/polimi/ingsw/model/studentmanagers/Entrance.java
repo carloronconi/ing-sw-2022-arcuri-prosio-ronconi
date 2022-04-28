@@ -14,7 +14,8 @@ public class Entrance extends StudentCounter {
     private final List<Cloud> clouds;
 
     /**
-     * constructor to create Entrance filling it with 7 pawns from the bag
+     * constructor to create Entrance filling it with numOfStudents
+     * pawns from the bag: 7 if 2 players, 9 if 3 players
      * @param bag from which it takes the first 7 pawns
      * @param clouds from which it will be filled
      */

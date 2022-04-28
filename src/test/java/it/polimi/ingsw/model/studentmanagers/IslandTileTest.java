@@ -40,7 +40,7 @@ class IslandTileTest extends StudentCounter {
         clouds = new ArrayList<>();
         IntStream.range(0,3).forEach(i -> clouds.add(new Cloud(bag)));
 
-        entrance = new Entrance(bag,clouds);
+        entrance = new Entrance(bag,clouds, 7);
         curr = new IslandTile();
         next = new IslandTile();
         pawnCurr = curr.count();
@@ -48,13 +48,13 @@ class IslandTileTest extends StudentCounter {
 
         //checkNewOwner setup
         diningRoom = new DiningRoom(entrance);
-        owner = new Player(entrance, diningRoom);
-        otherPlayer = new Player(entrance, diningRoom);
+        owner = new Player(entrance, diningRoom, "testname1");
+        otherPlayer = new Player(entrance, diningRoom, "testname2");
         professorManager = new ProfessorManager();
         professorManager.setProfessorOwner(BLUE, owner);
         professorManager.setProfessorOwner(RED, owner);
         professorManager.setProfessorOwner(PawnColor.GREEN, otherPlayer);
-        newOwner = new Player(entrance, diningRoom);
+
     }
 
     //TODO: implement tests for all methods when IslandTile class completed

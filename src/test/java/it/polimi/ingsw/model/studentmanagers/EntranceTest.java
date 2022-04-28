@@ -33,7 +33,7 @@ class EntranceTest extends StudentCounter {
         int arraySize = clouds.size();
         assertEquals(1, arraySize);
         cloud.fill(3);
-        entrance = new Entrance(bag, clouds);
+        entrance = new Entrance(bag, clouds, 7);
         assertEquals(7, entrance.count());
         green = entrance.count(PawnColor.GREEN);
         red = entrance.count(PawnColor.RED);
@@ -66,10 +66,14 @@ class EntranceTest extends StudentCounter {
             assertEquals(3, pawnCloud2);
             assertEquals(pawnCloud, pawnCloud2);
 
+        try {
             entrance.fill(clouds.get(0).getId());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
 
 
-          assertEquals(7, entrance.count());
+        assertEquals(7, entrance.count());
           assertEquals(0, cloud.count());
 
         }

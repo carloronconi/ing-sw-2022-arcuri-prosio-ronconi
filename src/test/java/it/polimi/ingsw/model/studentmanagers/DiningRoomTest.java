@@ -21,7 +21,7 @@ public class DiningRoomTest extends StudentCounter{
         bag = new Bag();
         clouds = new ArrayList<>();
         IntStream.range(0, 3).forEach(i -> clouds.add(new Cloud(bag)));
-        entrance = new Entrance(bag, clouds);
+        entrance = new Entrance(bag, clouds, 7);
         diningRoom = new DiningRoom(entrance);
 
         for(PawnColor c : PawnColor.values()) {

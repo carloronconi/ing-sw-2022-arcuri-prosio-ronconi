@@ -32,14 +32,14 @@ public class UsurerTest {
         Bag bag = new Bag();
 
 
-        entrance1 = new Entrance(bag, clouds);
+        entrance1 = new Entrance(bag, clouds, 7);
         diningRoom1 = new DiningRoom(entrance1);
-        Player player1 = new Player(entrance1, diningRoom1);
+        Player player1 = new Player(entrance1, diningRoom1, "testname");
         players.add(player1);
 
-        entrance2 = new Entrance(bag, clouds);
+        entrance2 = new Entrance(bag, clouds, 7);
         diningRoom2 = new DiningRoom(entrance2);
-        Player player2 = new Player(entrance2, diningRoom2);
+        Player player2 = new Player(entrance2, diningRoom2, "testname2");
         players.add(player2);
 
         usurer = new Usurer(players, bag);

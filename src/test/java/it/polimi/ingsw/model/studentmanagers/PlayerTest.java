@@ -22,9 +22,9 @@ public class PlayerTest {
     @BeforeEach
     void setup(){
         bag = new Bag();
-        entrance = new Entrance(bag,clouds);
+        entrance = new Entrance(bag,clouds, 7);
         diningRoom = new DiningRoom(entrance);
-        player = new Player(entrance, diningRoom);
+        player = new Player(entrance, diningRoom, "testname");
         this.assistantDeck = new ArrayList<>();
         for(int i =0; i<10; i++){
             this.assistantDeck.add(i+1);

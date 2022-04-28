@@ -24,9 +24,9 @@ public class MusicianTest {
     public void setUp(){
         Bag bag = new Bag();
         List<Cloud> clouds = new ArrayList<>();
-        entrance = new Entrance(bag, clouds);
+        entrance = new Entrance(bag, clouds, 7);
         diningRoom = new DiningRoom(entrance);
-        Player player = new Player(entrance, diningRoom);
+        Player player = new Player(entrance, diningRoom, "testname");
         List<Player> players = new ArrayList<>();
 
         players.add(player);

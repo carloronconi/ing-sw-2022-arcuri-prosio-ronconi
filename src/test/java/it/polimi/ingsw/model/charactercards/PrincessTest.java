@@ -24,9 +24,9 @@ public class PrincessTest {
         bag = new Bag();
         List<Player> players = new ArrayList<>();
         List<Cloud> clouds = new ArrayList<>();
-        Entrance entrance = new Entrance(bag, clouds);
+        Entrance entrance = new Entrance(bag, clouds, 7);
         DiningRoom diningRoom = new DiningRoom(entrance);
-        player = new Player(entrance, diningRoom);
+        player = new Player(entrance, diningRoom, "testname");
         players.add(player);
         princess = new Princess(bag, players);
 
