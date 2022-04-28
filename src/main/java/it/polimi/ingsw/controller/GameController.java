@@ -1,98 +1,85 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.EventListener;
+import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.model.ModelEvent;
+import it.polimi.ingsw.view.ViewGameInitializationEvent;
 import it.polimi.ingsw.model.GameModel;
-// import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.IslandManager;
+import it.polimi.ingsw.view.CliView;
+
+import java.io.InvalidObjectException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+
+/**
+ * controller listens to view events according to the MVC pattern
+ */
+public class GameController implements EventListener<ViewGameInitializationEvent> {
+    private final CliView view;
+    private GameMode gameMode;
+    private ControllerState controllerState;
+    private int numOfPlayers;
+    private GameModel gameModel = null;
+    private final List<String> playerNicknames;
 
 
-public class GameController {
-    private GameModel gameModel;         //everything
-    private IslandManager islandManager; //island tiles
-    //private GameMode gameMode;         //INSTEAD OF ENUM IN MESSAGE HANDLER INT (0: EASY, 1: EXPERT)
-    private RoundController round = new RoundController();
-    private MessageHandler messageHandler;
-    private int numPlayers;
-
-    private String playerNickname;
-    private List<String> listOfPlayers;
-    int indexPlayer;
-
-   /* public GameController(){
-        gameModel = new GameModel();
-        islandManager = new IslandManager(bag); problem with bag instance
+    public GameController(CliView view) {
+        this.view = view;
+        playerNicknames = new ArrayList<>();
+        controllerState = ControllerState.INITIAL_SETUP;
     }
 
-    */
+    /**
+     * call to start the game
+     * @param modelEventManager with subscribers already initialized
+     */
+    public void startGame(EventManager<ModelEvent> modelEventManager){
 
+        while (controllerState == ControllerState.INITIAL_SETUP){
+            playerNicknames.clear();
+            List<String> choices = new ArrayList<>();
+            for (GameMode mode : GameMode.values()) choices.add(mode.name());
+            view.showMultipleChoicePrompt(choices, "Choose game mode", ViewGameInitializationEvent.CHOSE_GAME_MODE);
+            choices = Arrays.asList("2", "3");
+            view.showMultipleChoicePrompt(choices, "Choose number of players", ViewGameInitializationEvent.CHOSE_NUM_OF_PLAYERS);
 
+            for (int i = 0; i < numOfPlayers; i++) {
+                int j = i+1;
+                view.showTextInputPrompt("Choose nickname for player number " + j, ViewGameInitializationEvent.CHOSE_NICKNAME, s-> s.replaceAll("\\s",""));
+            }
 
-
-    public int getNumOfPlayers(){
-        //messageHandler is the link to the view package and returns number of players chosen by user
-        numPlayers = messageHandler.howManyMessage();
-        return numPlayers;
-    }
-
-    public void whichGameMode() {
-       if(messageHandler.whichGameMode() == 0){
-                    //initialisation gameModel bank : 0 - else 20
-                    //build this init in GameModel so that GameController can call it
-                    //gameModel.
-       }else{
-           //initialisation to 20
-       }
-
-
-    }
-
-    public void setupPlayers(){
-        int i;
-        List<String > listOfPlayers = new ArrayList<>();
-
-        for(i=0; i<numPlayers;i++){
-
-            playerNickname = messageHandler.setNickname();
-            listOfPlayers.add(i, playerNickname);
-
-            //gameModel.initPlayer() - playerNickname is Player nickname
+            choices = Arrays.asList("YES", "NO");
+            view.showMultipleChoicePrompt(choices, "Ready to start the game? If not, you will start over with setup", ViewGameInitializationEvent.STARTED_GAME);
         }
 
+        boolean expertMode = (gameMode == GameMode.HARD);
+        gameModel = new GameModel(expertMode, playerNicknames, modelEventManager);
+    }
+
+    /**
+     * method to react to all the view events
+     * @param viewGameInitializationEvent specific view event that the controller has to react to
+     * @param data relative to the event
+     * @throws InvalidObjectException if data is invalid
+     */
+    @Override
+    public void update(ViewGameInitializationEvent viewGameInitializationEvent, Object data) throws InvalidObjectException {
+        if(data.getClass() != String.class) throw new InvalidObjectException("Data from the cli view needs to be String");
+        String textualData = data.toString();
+        switch (viewGameInitializationEvent) {
+            case CHOSE_GAME_MODE: gameMode = GameMode.valueOf(textualData);
+                break;
+            case CHOSE_NUM_OF_PLAYERS: numOfPlayers = Integer.parseInt(textualData);
+                break;
+            case CHOSE_NICKNAME:
+                if (playerNicknames.contains(data)) throw new InvalidObjectException("Nickname already used by other player");
+                playerNicknames.add(textualData);
+                break;
+            case STARTED_GAME: if (data.equals("YES")) controllerState = ControllerState.PLAYING_GAME;
+                break;
         }
-
-        public int getPlayerIndex(){
-        indexPlayer = listOfPlayers.indexOf(playerNickname);
-        return indexPlayer;
-     }
-
-
-    public void setup(){
-        //has numOfPlayers and gameMode - calls game model and island manager
-        /*gameModel.init(numPlayers) - in gameModel method with init for number of clouds, players and so on
-        that has variation for 2 or 3 players
-        islandManager.init() - not necessary number of players as a parameter
-         */
-    }
-
-    public void start() {
-
-        Random rnd = new Random();
-        int randomFirstPlayer = rnd.nextInt(numPlayers-1);
-        round.startRound(randomFirstPlayer);
-
-
-
-        //returns the randomly selected player
-        //calls round: smt like round.firstRound(playerRandomlyChosen)
-        }
-
-    public void endGame(){
-
     }
 
 
-    }
-
-
+}

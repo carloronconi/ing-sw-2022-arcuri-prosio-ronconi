@@ -25,9 +25,9 @@ public class FlagBearerTest {
         ProfessorManager professorManager = new ProfessorManager();
         islandManager = new IslandManager(bag, professorManager);
         flagBearer = new FlagBearer(islandManager);
-        Entrance entrance = new Entrance(bag, clouds);
+        Entrance entrance = new Entrance(bag, clouds, 7);
         DiningRoom diningRoom = new DiningRoom(entrance);
-        player = new Player(entrance, diningRoom);
+        player = new Player(entrance, diningRoom, "testNickname");
 
 
 

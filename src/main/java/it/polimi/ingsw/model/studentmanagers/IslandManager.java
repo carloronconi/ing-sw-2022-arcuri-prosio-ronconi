@@ -188,4 +188,22 @@ public class IslandManager extends StudentCounter {
     public void setMushroomMerchantEffect(PawnColor mushroomMerchantEffect) {
         this.mushroomMerchantEffect = mushroomMerchantEffect;
     }
+
+    @Override
+    public String toString() {
+        String s = "Islands:\n    ";
+        int i = 0;
+        for (IslandTile island : islands){
+            int j = i+1;
+            s += "[" + j + "] "+ island;
+            try {
+                if (i==ConverterUtility.idToIndex(motherNaturePosition, islands)) s+= "<- Mother Nature";
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            s+= "\n    ";
+            i++;
+        }
+        return s;
+    }
 }

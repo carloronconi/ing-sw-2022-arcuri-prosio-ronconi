@@ -57,6 +57,13 @@ public class ProfessorManager {
         return player;
     }
 
-
-
+    @Override
+    public String toString() {
+        String s = "Professors: ";
+        for (PawnColor c : PawnColor.values()){
+            String nickname = (getProfessorOwner(c)== null)? "still available" : getProfessorOwner(c).getNickname();
+            s+= c.name() + " = " + nickname + "; ";
+        }
+        return s;
+    }
 }

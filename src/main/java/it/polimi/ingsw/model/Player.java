@@ -4,25 +4,30 @@ import it.polimi.ingsw.model.studentmanagers.DiningRoom;
 import it.polimi.ingsw.model.studentmanagers.Entrance;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class Player implements Identifiable{
     private final Entrance entrance;
     private final DiningRoom diningRoom;
     private final UUID id;
-    private String nickName;
+    private final String nickname;
     //TODO private Wizard wizard;
     private TowerColor towerColor;
     private ArrayList<Integer> assistantDeck;
-    private int numOfCoins;
     private int coins;
 
 
-    public Player(Entrance entrance, DiningRoom diningRoom) {
+    public Player(Entrance entrance, DiningRoom diningRoom, String nickname) {
         this.entrance = entrance;
         this.diningRoom = diningRoom;
+        this.nickname = nickname;
         id=UUID.randomUUID();
         coins=0;
+        assistantDeck = new ArrayList<>();
+        for (int i = 1; i < 11; i++) {
+            assistantDeck.add(i);
+        }
     }
 
     public Entrance getEntrance() {
@@ -35,8 +40,16 @@ public class Player implements Identifiable{
 
     public UUID getId(){ return id; }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public int getDeckSize(){
         return assistantDeck.size();
+    }
+
+    public ArrayList<Integer> getDeck(){
+        return (ArrayList<Integer>) assistantDeck.clone();
     }
 
     /**
@@ -71,7 +84,7 @@ public class Player implements Identifiable{
      * @return number of coins owned by player
      */
     public int getNumOfCoins() {
-        return numOfCoins;
+        return coins;
     }
 
     /**
@@ -80,5 +93,16 @@ public class Player implements Identifiable{
      */
     public void payCoins(int howMany){
         coins -= howMany;
+    }
+
+    @Override
+    public String toString() {
+        String s = nickname + "'s school:\n    " +
+                "Entrance: " + entrance + "\n    " +
+                "Dining room: " + diningRoom + "\n    "+
+                "Tower color:" + "empty\n    " +
+                "Assistant deck: " + assistantDeck + "\n    "+
+                "Coins: " + coins;
+        return s;
     }
 }

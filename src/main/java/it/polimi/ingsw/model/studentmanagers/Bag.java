@@ -17,4 +17,10 @@ public class Bag extends StudentCounter {
     public void movePawnFromDiningRoom(PawnColor color, DiningRoom diningRoom){
         movePawnFrom(diningRoom, color);
     }
+
+    @Override
+    public String toString() {
+        String s = "Bag: " + super.toString();
+        return s;
+    }
 }
