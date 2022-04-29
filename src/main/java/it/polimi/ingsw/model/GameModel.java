@@ -287,6 +287,12 @@ public class GameModel {
         cheeseMerchantEffectPlayer = ConverterUtility.idToElement(player, players);
     }
 
+    /**
+     * called when a player wants to move mother nature of a certain number of steps
+     * @param steps number of steps of mother nature on islands
+     * @param playerId player who moves mother nature
+     * @throws NoSuchFieldException if the player hasn't played a card with enough steps
+     */
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
         Player player = ConverterUtility.idToElement(playerId,players);
         if (playedCards.get(player) + messengerEffect < steps) throw new IllegalArgumentException("Not enough steps in the card played");
