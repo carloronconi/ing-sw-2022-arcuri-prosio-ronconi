@@ -2,7 +2,7 @@ package it.polimi.ingsw.networkmessages;
 
 import java.io.Serializable;
 
-public class MovedMotherNature implements Serializable {
+public class MovedMotherNature implements Serializable, ViewEvent {
     private final int motherNatureSteps;
 
     public MovedMotherNature(int motherNatureSteps){

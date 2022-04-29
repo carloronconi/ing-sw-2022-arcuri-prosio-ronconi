@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class ChosenCharacter implements Serializable {
+public class ChosenCharacter implements Serializable, ViewEvent {
     private final UUID chosenCharacter;
 
     public ChosenCharacter(UUID chosenCharacter){

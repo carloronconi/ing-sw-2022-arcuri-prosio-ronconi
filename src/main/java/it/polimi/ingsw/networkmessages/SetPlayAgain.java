@@ -2,7 +2,7 @@ package it.polimi.ingsw.networkmessages;
 
 import java.io.Serializable;
 
-public class SetPlayAgain implements Serializable {
+public class SetPlayAgain implements Serializable, ViewEvent {
         private final boolean playAgain;
 
         public SetPlayAgain(boolean playAgain){

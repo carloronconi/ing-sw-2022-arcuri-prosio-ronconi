@@ -2,7 +2,7 @@ package it.polimi.ingsw.networkmessages;
 
 import java.io.Serializable;
 
-public class SetNickname implements Serializable {
+public class SetNickname implements Serializable, ViewEvent {
     private final String nickname;
 
     public SetNickname(String nickname) {

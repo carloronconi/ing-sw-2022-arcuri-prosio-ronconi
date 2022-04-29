@@ -2,9 +2,10 @@ package it.polimi.ingsw.networkmessages;
 
 import it.polimi.ingsw.model.PawnColor;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class MovedStudent {
+public class MovedStudent implements Serializable, ViewEvent {
     private final PawnColor color;
     private final UUID islandId;
 

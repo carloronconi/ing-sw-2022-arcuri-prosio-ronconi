@@ -1,6 +1,8 @@
 package it.polimi.ingsw.networkmessages;
 
-public class SetAssistantCard {
+import java.io.Serializable;
+
+public class SetAssistantCard implements Serializable, ViewEvent {
     private final Integer numCard;
 
     public SetAssistantCard(Integer numCard){

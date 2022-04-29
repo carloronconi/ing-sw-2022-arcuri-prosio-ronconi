@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.studentmanagers.Cloud;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class ChosenCloud implements Serializable {
+public class ChosenCloud implements Serializable, ViewEvent {
     private final UUID cloud;
 
     public ChosenCloud(UUID cloud){
