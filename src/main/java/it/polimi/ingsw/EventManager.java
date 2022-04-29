@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.networkmessages.GenericEvent;
+
 import java.io.InvalidObjectException;
 import java.util.*;
 
@@ -7,7 +9,7 @@ import java.util.*;
  * Use to create an eventManager to implement the observable-observer design pattern
  * @param <EventType> enum of types of event that the event manager will handòe
  */
-public class EventManager<EventType extends Enum<EventType>> {
+public class EventManager<EventType extends GenericEvent> {
     /**
      * maps listeners of each event type
      */
@@ -15,13 +17,9 @@ public class EventManager<EventType extends Enum<EventType>> {
 
     /**
      * creates event manager for the given event type enum
-     * @param eventTypeClass enum required to build the event manager
      */
-    public EventManager(Class<EventType> eventTypeClass){
+    public EventManager(){
         listeners = new HashMap<>();
-        for (EventType eventType : eventTypeClass.getEnumConstants()){
-            listeners.put(eventType, new ArrayList<>());
-        }
     }
 
     /**
@@ -47,13 +45,12 @@ public class EventManager<EventType extends Enum<EventType>> {
     /**
      * to notify the subscriber of a certain type of event that a change has happened in the class containing the event manager
      * @param type of event that happened
-     * @param data relative to the event that happened
      * @throws InvalidObjectException if the data of the event is invalid
      */
-    public void notify(EventType type, Object data) throws InvalidObjectException {
+    public void notify(EventType type) throws InvalidObjectException {
         List<EventListener<EventType>> subscribers = listeners.get(type);
         for (EventListener<EventType> s : subscribers){
-            s.update(type, data);
+            s.update(type);
         }
     }
 
