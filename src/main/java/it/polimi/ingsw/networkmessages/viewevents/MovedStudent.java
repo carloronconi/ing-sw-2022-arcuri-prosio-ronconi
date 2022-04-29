@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networkmessages;
+package it.polimi.ingsw.networkmessages.viewevents;
 
 import it.polimi.ingsw.model.PawnColor;
 

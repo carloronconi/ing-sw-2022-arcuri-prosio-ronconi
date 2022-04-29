@@ -1,6 +1,4 @@
-package it.polimi.ingsw.networkmessages;
-
-import it.polimi.ingsw.model.studentmanagers.Cloud;
+package it.polimi.ingsw.networkmessages.viewevents;
 
 import java.io.Serializable;
 import java.util.UUID;

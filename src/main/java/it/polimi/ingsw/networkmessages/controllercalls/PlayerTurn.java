@@ -1,8 +1,10 @@
-package it.polimi.ingsw.networkmessages;
+package it.polimi.ingsw.networkmessages.controllercalls;
 
 import it.polimi.ingsw.model.Player;
 
-public class PlayerTurn {
+import java.io.Serializable;
+
+public class PlayerTurn implements Serializable, RemoteMethodCall {
     private final String nickname;
 
     public PlayerTurn(Player player){

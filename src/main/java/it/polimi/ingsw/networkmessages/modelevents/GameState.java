@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networkmessages;
+package it.polimi.ingsw.networkmessages.modelevents;
 
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandTile;
+import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class GameState implements Serializable {
+public class GameState implements Serializable, ViewEvent {
     private final int bag;
     private final EnumMap<PawnColor, UUID> professorOwners;
     private final ArrayList<HashMap<UUID, ArrayList<PawnColor>>> clouds;
