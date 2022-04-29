@@ -1,4 +1,6 @@
 package it.polimi.ingsw.networkmessages.modelevents;
 
-public interface ModelEvent {
+import it.polimi.ingsw.networkmessages.GenericEvent;
+
+public interface ModelEvent extends GenericEvent {
 }
