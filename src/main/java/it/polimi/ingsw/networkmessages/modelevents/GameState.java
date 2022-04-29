@@ -14,7 +14,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class GameState implements Serializable, ViewEvent {
+public class GameState implements Serializable, ModelEvent {
     private final int bag;
     private final EnumMap<PawnColor, UUID> professorOwners;
     private final ArrayList<HashMap<UUID, ArrayList<PawnColor>>> clouds;
