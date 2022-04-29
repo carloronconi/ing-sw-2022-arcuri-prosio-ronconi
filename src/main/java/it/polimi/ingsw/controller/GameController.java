@@ -2,10 +2,16 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.model.ModelEvent;
-import it.polimi.ingsw.view.ViewGameInitializationEvent;
+import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
+import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.Handshake;
+import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
+import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
+import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
+import it.polimi.ingsw.server.VirtualView;
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.view.CliView;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
@@ -15,71 +21,46 @@ import java.util.List;
 /**
  * controller listens to view events according to the MVC pattern
  */
-public class GameController implements EventListener<ViewGameInitializationEvent> {
-    private final CliView view;
+public class GameController implements EventListener<ViewEvent> {
     private GameMode gameMode;
     private ControllerState controllerState;
     private int numOfPlayers;
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
+    private final VirtualView virtualView;
+    private final EventManager<ModelEvent> modelEventEventManager;
 
-
-    public GameController(CliView view) {
-        this.view = view;
+    public GameController(VirtualView virtualView, EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
         controllerState = ControllerState.INITIAL_SETUP;
+        this.virtualView = virtualView;
+        this.modelEventEventManager = modelEventEventManager;
     }
 
     /**
      * call to start the game
-     * @param modelEventManager with subscribers already initialized
      */
-    public void startGame(EventManager<ModelEvent> modelEventManager){
+    public void startGame(){
 
-        while (controllerState == ControllerState.INITIAL_SETUP){
-            playerNicknames.clear();
-            List<String> choices = new ArrayList<>();
-            for (GameMode mode : GameMode.values()) choices.add(mode.name());
-            view.showMultipleChoicePrompt(choices, "Choose game mode", ViewGameInitializationEvent.CHOSE_GAME_MODE);
-            choices = Arrays.asList("2", "3");
-            view.showMultipleChoicePrompt(choices, "Choose number of players", ViewGameInitializationEvent.CHOSE_NUM_OF_PLAYERS);
 
-            for (int i = 0; i < numOfPlayers; i++) {
-                int j = i+1;
-                view.showTextInputPrompt("Choose nickname for player number " + j, ViewGameInitializationEvent.CHOSE_NICKNAME, s-> s.replaceAll("\\s",""));
-            }
-
-            choices = Arrays.asList("YES", "NO");
-            view.showMultipleChoicePrompt(choices, "Ready to start the game? If not, you will start over with setup", ViewGameInitializationEvent.STARTED_GAME);
-        }
-
-        boolean expertMode = (gameMode == GameMode.HARD);
-        gameModel = new GameModel(expertMode, playerNicknames, modelEventManager);
     }
 
-    /**
-     * method to react to all the view events
-     * @param viewGameInitializationEvent specific view event that the controller has to react to
-     * @param data relative to the event
-     * @throws InvalidObjectException if data is invalid
-     */
+
     @Override
-    public void update(ViewGameInitializationEvent viewGameInitializationEvent, Object data) throws InvalidObjectException {
-        if(data.getClass() != String.class) throw new InvalidObjectException("Data from the cli view needs to be String");
-        String textualData = data.toString();
-        switch (viewGameInitializationEvent) {
-            case CHOSE_GAME_MODE: gameMode = GameMode.valueOf(textualData);
-                break;
-            case CHOSE_NUM_OF_PLAYERS: numOfPlayers = Integer.parseInt(textualData);
-                break;
-            case CHOSE_NICKNAME:
-                if (playerNicknames.contains(data)) throw new InvalidObjectException("Nickname already used by other player");
-                playerNicknames.add(textualData);
-                break;
-            case STARTED_GAME: if (data.equals("YES")) controllerState = ControllerState.PLAYING_GAME;
-                break;
+    public void update(ViewEvent viewEvent) throws InvalidObjectException {
+        if (viewEvent instanceof Handshake){
+            virtualView.sendAcknowledgement();
+        }else if (viewEvent instanceof SetPreferences){
+            numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
+            gameMode = ((SetPreferences) viewEvent).getGameMode();
+        } else if (viewEvent instanceof SetNickname){
+            String nickname = ((SetNickname) viewEvent).getNickname();
+            if (playerNicknames.contains(nickname)) virtualView.invalidNickname();
+            else playerNicknames.add(nickname);
+            if (playerNicknames.size()==numOfPlayers){
+                boolean expertMode = (gameMode == GameMode.HARD);
+                gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
+            }
         }
     }
-
-
 }
