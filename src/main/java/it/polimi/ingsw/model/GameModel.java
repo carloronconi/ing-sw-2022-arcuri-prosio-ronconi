@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.charactercards.Character;
 import it.polimi.ingsw.model.charactercards.CharacterFactory;
 import it.polimi.ingsw.model.charactercards.Messenger;
 import it.polimi.ingsw.model.studentmanagers.*;
+import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
 import java.io.InvalidObjectException;
 import java.util.*;
@@ -60,7 +62,7 @@ public class GameModel {
             players.add(player);
         }
         try {
-            eventManager.notify(ModelEvent.INITIATED_MODEL, this.toString());
+            eventManager.notify(new GameState(this));
         } catch (InvalidObjectException e) {
             e.printStackTrace();
         }
