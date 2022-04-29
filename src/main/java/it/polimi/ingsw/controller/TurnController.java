@@ -2,21 +2,18 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.view.CliView;
-import it.polimi.ingsw.view.ViewInGameEvent;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
 import java.io.InvalidObjectException;
 import java.util.*;
 
-public class TurnController implements EventListener<ViewInGameEvent> {
+public class TurnController implements EventListener<ModelEvent> {
     private List<UUID> playerIds;
-    private final CliView view;
     private final GameModel gameModel;
 
-    public TurnController(List<UUID> playerIds, CliView view, GameModel gameModel) {
+    public TurnController(List<UUID> playerIds, GameModel gameModel) {
         this.playerIds = playerIds;
         Collections.shuffle(playerIds);
-        this.view = view;
         this.gameModel = gameModel;
     }
 
@@ -42,8 +39,9 @@ public class TurnController implements EventListener<ViewInGameEvent> {
 
     }
 
+
     @Override
-    public void update(ViewInGameEvent viewInGameEvent, Object data) throws InvalidObjectException {
+    public void update(ModelEvent modelEvent) throws InvalidObjectException {
 
     }
 }
