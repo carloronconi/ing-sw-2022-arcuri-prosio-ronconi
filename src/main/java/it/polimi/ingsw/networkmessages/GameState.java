@@ -22,7 +22,7 @@ public class GameState implements Serializable {
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> diningRooms;
     private final HashMap<UUID, ArrayList<Integer>> assistantDecks;
     private final HashMap<UUID, Integer> coinsMap;
-    private final ArrayList<UUID> characterCards;
+    private final HashMap<UUID, Boolean> characterCards;
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
     private final HashMap<UUID, UUID> islandOwners;
@@ -76,7 +76,7 @@ public class GameState implements Serializable {
         return coinsMap;
     }
 
-    public ArrayList<UUID> getCharacterCards() {
+    public HashMap<UUID, Boolean> getCharacterCards() {
         return characterCards;
     }
 

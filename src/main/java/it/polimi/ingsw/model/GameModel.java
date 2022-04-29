@@ -382,12 +382,12 @@ public class GameModel {
         return map;
     }
 
-    public ArrayList<UUID> getAvailableCharacterCardIds(){
-        ArrayList<UUID> list = new ArrayList<>();
+    public HashMap<UUID, Boolean> getAvailableCharacterCardIds(){
+        HashMap<UUID, Boolean> map = new HashMap<>();
         for (Character c: characters){
-            list.add(c.getId());
+            map.put(c.getId(), c.isCostIncreased());
         }
-        return list;
+        return map;
     }
 
     public HashMap<UUID, Integer> getPlayedAssistantCards(){
