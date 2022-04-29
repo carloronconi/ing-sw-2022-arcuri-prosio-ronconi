@@ -29,6 +29,8 @@ public class Monk extends Character{
         this.bag = bag;
         this.islandManager = islandManager;
         studentCounter = new CharacterStudentCounter();
+        //PawnColor color = studentCounter.takeStudentFrom(bag);
+        IntStream.range(0,4).forEach(i -> studentCounter.takeStudentFrom(bag));
         IntStream.range(0,4).forEach(i -> studentCounter.takeStudentFrom(bag));
     }
 
