@@ -312,22 +312,41 @@ public class GameModel {
         return map;
     }
 
-    public ArrayList<EnumMap<PawnColor, Integer>> getClouds(){
-        return getStudentCounterList(clouds);
-    }
-
-    public ArrayList<EnumMap<PawnColor, Integer>> getIslands(){
-        return getStudentCounterList(islandManager.getIslands());
-    }
-
-    private ArrayList<EnumMap<PawnColor, Integer>> getStudentCounterList(ArrayList<? extends StudentCounter> studentCounterList) throws IllegalArgumentException {
-        if (studentCounterList != clouds && studentCounterList!= islandManager.getIslands()) throw new IllegalArgumentException("Argument has to be either clouds or islands");
-        ArrayList<EnumMap<PawnColor, Integer>> list = new ArrayList<>();
-        for (StudentCounter sc : studentCounterList){
-            EnumMap<PawnColor, Integer> map = new EnumMap<>(PawnColor.class);
-            for (PawnColor color : PawnColor.values()){
-                map.put(color, sc.count(color));
+    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getClouds(){
+        ArrayList<HashMap<UUID, ArrayList<PawnColor>>> list = new ArrayList<>();
+        for (Cloud cloud: clouds){
+            HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
+            ArrayList<PawnColor> colors = new ArrayList<>();
+            ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
+            for (PawnColor color: PawnColor.values()){
+                if (cloud.count(color)>0) colorsInCloud.add(color);
             }
+            for (PawnColor color: colorsInCloud){
+                for (int i = 0; i < cloud.count(color); i++) {
+                    colors.add(color);
+                }
+            }
+            map.put(cloud.getId(),colors);
+            list.add(map);
+        }
+        return list;
+    }
+
+    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getIslands(){
+        ArrayList<HashMap<UUID, ArrayList<PawnColor>>> list = new ArrayList<>();
+        for (IslandTile island: islandManager.getIslands()){
+            HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
+            ArrayList<PawnColor> colors = new ArrayList<>();
+            ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
+            for (PawnColor color: PawnColor.values()){
+                if (island.count(color)>0) colorsInCloud.add(color);
+            }
+            for (PawnColor color: colorsInCloud){
+                for (int i = 0; i < island.count(color); i++) {
+                    colors.add(color);
+                }
+            }
+            map.put(island.getId(),colors);
             list.add(map);
         }
         return list;
@@ -353,6 +372,50 @@ public class GameModel {
             playersMap.put(p.getId(), colorsMap);
         }
         return playersMap;
+    }
+
+    public HashMap<UUID, Integer> getCoinsMap(){
+        HashMap<UUID, Integer> map = new HashMap<>();
+        for (Player p : players){
+            map.put(p.getId(), p.getNumOfCoins());
+        }
+        return map;
+    }
+
+    public ArrayList<UUID> getAvailableCharacterCardIds(){
+        ArrayList<UUID> list = new ArrayList<>();
+        for (Character c: characters){
+            list.add(c.getId());
+        }
+        return list;
+    }
+
+    public HashMap<UUID, Integer> getPlayedAssistantCards(){
+        HashMap<UUID, Integer> map = new HashMap<>();
+        for (Player player : playedCards.keySet()){
+            map.put(player.getId(),playedCards.get(player));
+        }
+        return map;
+    }
+
+    public UUID getMotherNaturePosition(){
+        return islandManager.getMotherNaturePosition();
+    }
+
+    public HashMap<UUID, UUID> getIslandOwners(){
+        HashMap<UUID, UUID> map = new HashMap<>();
+        for (IslandTile island: islandManager.getIslands()){
+            map.put(island.getId(), island.getOwner().getId());
+        }
+        return map;
+    }
+
+    public ArrayList<String> getPlayerNicknames(){
+        ArrayList<String> list = new ArrayList<>();
+        for (Player p : players){
+            list.add(p.getNickname());
+        }
+        return list;
     }
 
     public String toString(){

@@ -16,8 +16,8 @@ import java.util.UUID;
 public class GameState implements Serializable {
     private final int bag;
     private final EnumMap<PawnColor, UUID> professorOwners;
-    private final ArrayList<EnumMap<PawnColor, Integer>> clouds;
-    private final ArrayList<EnumMap<PawnColor, Integer>> islands;
+    private final ArrayList<HashMap<UUID, ArrayList<PawnColor>>> clouds;
+    private final ArrayList<HashMap<UUID, ArrayList<PawnColor>>> islands;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> entrances;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> diningRooms;
     private final HashMap<UUID, ArrayList<Integer>> assistantDecks;
@@ -36,5 +36,63 @@ public class GameState implements Serializable {
         entrances = gameModel.getEntrances();
         diningRooms = gameModel.getDiningRooms();
         assistantDecks = gameModel.getDecks();
+        coinsMap = gameModel.getCoinsMap();
+        characterCards = gameModel.getAvailableCharacterCardIds();
+        playedAssistantCards = gameModel.getPlayedAssistantCards();
+        motherNaturePosition = gameModel.getMotherNaturePosition();
+        islandOwners = gameModel.getIslandOwners();
+        nicknames = gameModel.getPlayerNicknames();
+    }
+
+    public int getBag() {
+        return bag;
+    }
+
+    public EnumMap<PawnColor, UUID> getProfessorOwners() {
+        return professorOwners;
+    }
+
+    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getClouds() {
+        return clouds;
+    }
+
+    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getIslands() {
+        return islands;
+    }
+
+    public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances() {
+        return entrances;
+    }
+
+    public HashMap<UUID, EnumMap<PawnColor, Integer>> getDiningRooms() {
+        return diningRooms;
+    }
+
+    public HashMap<UUID, ArrayList<Integer>> getAssistantDecks() {
+        return assistantDecks;
+    }
+
+    public HashMap<UUID, Integer> getCoinsMap() {
+        return coinsMap;
+    }
+
+    public ArrayList<UUID> getCharacterCards() {
+        return characterCards;
+    }
+
+    public HashMap<UUID, Integer> getPlayedAssistantCards() {
+        return playedAssistantCards;
+    }
+
+    public UUID getMotherNaturePosition() {
+        return motherNaturePosition;
+    }
+
+    public HashMap<UUID, UUID> getIslandOwners() {
+        return islandOwners;
+    }
+
+    public ArrayList<String> getNicknames() {
+        return nicknames;
     }
 }
