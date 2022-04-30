@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,35 @@ class GameModelTest {
 
         gameModel = new GameModel(false, nicknames, modelEventManager);
         assertEquals(106, gameModel.countStudentsInBag());
+    }
+
+    @Test
+    void constructor_easyModeThreePlayers(){
+        List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
+        EventManager<ModelEvent> modelEventManager = new EventManager<>();
+        //create fake eventListener
+        EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
+        modelEventManager.subscribe(GameState.class, listener);
+
+        gameModel = new GameModel(false, nicknames, modelEventManager);
+        assertEquals(93, gameModel.countStudentsInBag());
+
+    }
+
+    @Test
+    void constructor_hardModeTwoPlayers(){
+        List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
+        EventManager<ModelEvent> modelEventManager = new EventManager<>();
+        //create fake eventListener
+        EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
+        modelEventManager.subscribe(GameState.class, listener);
+
+        gameModel = new GameModel(true, nicknames, modelEventManager);
+
+        System.out.println(gameModel.getAvailableCharacterCardIds());
+        //TODO: get instantiated characters and assert for different cases (some characters decrease by 4 or 6 the number of students in the bag)
+        assertEquals(106, gameModel.countStudentsInBag());
+
     }
 
     @Test
