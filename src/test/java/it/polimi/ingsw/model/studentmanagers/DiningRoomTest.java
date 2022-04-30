@@ -40,7 +40,7 @@ public class DiningRoomTest extends StudentCounter{
             diningRoom.fill(PawnColor.BLUE);
 
         } catch(IllegalArgumentException e) {
-            e.printStackTrace();
+            fail(e.getMessage());
         }
         int pawnsInEntranceAfterBLUE = entrance.count(PawnColor.BLUE);
         int pawnsInDiningAfterBLUE = diningRoom.count(PawnColor.BLUE);
