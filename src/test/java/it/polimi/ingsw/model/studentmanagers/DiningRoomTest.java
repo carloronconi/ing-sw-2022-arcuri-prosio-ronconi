@@ -33,21 +33,21 @@ public class DiningRoomTest extends StudentCounter{
     @Test
     void fill(){
 
-            int pawnsInEntranceBeforeBLUE = entrance.count(PawnColor.BLUE);
-            int pawnsInDiningBeforeBLUE = diningRoom.count(PawnColor.BLUE);
+        int pawnsInEntranceBeforeBLUE = entrance.count(PawnColor.BLUE);
+        int pawnsInDiningBeforeBLUE = diningRoom.count(PawnColor.BLUE);
 
         try {
-                diningRoom.fill(PawnColor.BLUE);
+            diningRoom.fill(PawnColor.BLUE);
 
-            }catch(IllegalArgumentException e){
-                fail();
-            }
-            int pawnsInEntranceAfterBLUE = entrance.count(PawnColor.BLUE);
-            int pawnsInDiningAfterBLUE = diningRoom.count(PawnColor.BLUE);
+        } catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        int pawnsInEntranceAfterBLUE = entrance.count(PawnColor.BLUE);
+        int pawnsInDiningAfterBLUE = diningRoom.count(PawnColor.BLUE);
 
 
         assertEquals(pawnsInEntranceBeforeBLUE - 1, pawnsInEntranceAfterBLUE);
-            assertEquals(pawnsInDiningBeforeBLUE + 1, pawnsInDiningAfterBLUE);
+        assertEquals(pawnsInDiningBeforeBLUE + 1, pawnsInDiningAfterBLUE);
 
         }
 
