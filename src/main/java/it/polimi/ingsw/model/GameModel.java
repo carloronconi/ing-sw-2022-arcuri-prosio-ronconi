@@ -19,7 +19,7 @@ public class GameModel {
     private final ArrayList<Cloud> clouds;
     private final Map<Player, Integer> playedCards;
     private int bank;
-    private final ArrayList<Character> characters;
+    private ArrayList<Character> characters = null;
     private Player cheeseMerchantEffectPlayer;
     private int messengerEffect;
     private final EventManager<ModelEvent> eventManager;
@@ -36,10 +36,12 @@ public class GameModel {
         this.eventManager = eventManager; //eventManager should already have subscribers
         messengerEffect = 0;
         bank = expertMode? 20 : 0;
-        CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
-        characters = new ArrayList<>();
-        for (int i = 0; i<3; i++){
-            characters.add(factory.createUninstantiatedCharacter());
+        if (expertMode){
+            CharacterFactory factory = new CharacterFactory(bag, islandManager, this, players);
+            characters = new ArrayList<>();
+            for (int i = 0; i<3; i++){
+                characters.add(factory.createUninstantiatedCharacter());
+            }
         }
 
         //initialize clouds in a number according to the number of players
@@ -309,7 +311,10 @@ public class GameModel {
     public EnumMap<PawnColor, UUID> getProfessorOwners(){
         EnumMap<PawnColor, UUID> map = new EnumMap<>(PawnColor.class);
         for (PawnColor c : PawnColor.values()){
-            map.put(c, professorManager.getProfessorOwner(c).getId());
+            Player owner = professorManager.getProfessorOwner(c);
+            UUID id = null;
+            if (owner!=null) id = owner.getId();
+            map.put(c, id);
         }
         return map;
     }
@@ -385,6 +390,7 @@ public class GameModel {
     }
 
     public HashMap<UUID, Boolean> getAvailableCharacterCardIds(){
+        if (characters==null) return null;
         HashMap<UUID, Boolean> map = new HashMap<>();
         for (Character c: characters){
             map.put(c.getId(), c.isCostIncreased());
@@ -407,7 +413,11 @@ public class GameModel {
     public HashMap<UUID, UUID> getIslandOwners(){
         HashMap<UUID, UUID> map = new HashMap<>();
         for (IslandTile island: islandManager.getIslands()){
-            map.put(island.getId(), island.getOwner().getId());
+            UUID id = null;
+            if (island.getOwner() != null) {
+                id = island.getOwner().getId();
+            }
+            map.put(island.getId(), id);
         }
         return map;
     }
