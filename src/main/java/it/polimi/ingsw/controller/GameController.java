@@ -14,6 +14,7 @@ import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * controller listens to view events according to the MVC pattern
@@ -27,6 +28,7 @@ public class GameController implements EventListener<SetupViewEvent> {
     private final VirtualView firstVirtualView;
     private ArrayList<VirtualView> virtualViews;
     private final EventManager<ModelEvent> modelEventEventManager;
+    private TurnController turnController;
 
     public GameController(EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
@@ -63,7 +65,9 @@ public class GameController implements EventListener<SetupViewEvent> {
             gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
         }
 
-
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        turnController = new TurnController(playerIds, gameModel);
+        controllerState = ControllerState.PLAYING_GAME;
 
     }
 
