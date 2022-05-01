@@ -3,11 +3,12 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.GameViewEvent;
 
 import java.io.InvalidObjectException;
 import java.util.*;
 
-public class TurnController implements EventListener<ModelEvent> {
+public class TurnController implements EventListener<GameViewEvent> {
     private List<UUID> playerIds;
     private final GameModel gameModel;
 
@@ -41,7 +42,7 @@ public class TurnController implements EventListener<ModelEvent> {
 
 
     @Override
-    public void update(ModelEvent modelEvent) throws InvalidObjectException {
+    public void update(GameViewEvent modelEvent) throws InvalidObjectException {
 
     }
 }
