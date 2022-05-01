@@ -11,10 +11,7 @@ import it.polimi.ingsw.server.VirtualView;
 import it.polimi.ingsw.model.GameModel;
 
 import java.io.InvalidObjectException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * controller listens to view events according to the MVC pattern
@@ -66,7 +63,13 @@ public class GameController implements EventListener<SetupViewEvent> {
         }
 
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        turnController = new TurnController(playerIds, gameModel);
+        HashMap<UUID, VirtualView> map = new HashMap<>();
+        int i = 0;
+        for (UUID id: playerIds){
+            map.put(id, virtualViews.get(i));
+            i++;
+        }
+        turnController = new TurnController(map, gameModel);
         controllerState = ControllerState.PLAYING_GAME;
 
     }
