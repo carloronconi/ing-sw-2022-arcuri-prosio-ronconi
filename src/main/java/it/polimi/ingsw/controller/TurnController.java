@@ -42,7 +42,7 @@ public class TurnController implements EventListener<GameViewEvent> {
 
 
     @Override
-    public void update(GameViewEvent modelEvent) throws InvalidObjectException {
+    public void update(GameViewEvent modelEvent)  {
 
     }
 }
