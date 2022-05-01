@@ -29,6 +29,12 @@ public class VirtualView implements ViewInterface {
     }
 
     @Override
+    public void invalidAssistantCard() {
+
+    }
+
+
+    @Override
     public void getNickname() {
 
     }

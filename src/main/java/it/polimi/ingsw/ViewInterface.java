@@ -12,6 +12,8 @@ public interface ViewInterface {
 
     void getAssistantCard();
 
+    void invalidAssistantCard();
+
     void getNickname();
 
     void getPreferences();
