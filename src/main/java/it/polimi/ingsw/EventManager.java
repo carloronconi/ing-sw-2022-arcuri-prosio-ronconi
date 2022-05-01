@@ -13,7 +13,7 @@ public class EventManager<EventType extends GenericEvent> {
     /**
      * maps listeners of each event type
      */
-    private final Map<EventType, List<EventListener<EventType>>> listeners;
+    private final Map<Class<? extends EventType>, List<EventListener<EventType>>> listeners;
 
     /**
      * creates event manager for the given event type enum
@@ -27,9 +27,11 @@ public class EventManager<EventType extends GenericEvent> {
      * @param type event to subscribe to
      * @param listener to be subscribed to the type
      */
-    public void subscribe(EventType type, EventListener<EventType> listener){
+    public void subscribe(Class<? extends EventType> type, EventListener<EventType> listener){
         List<EventListener<EventType>> subscribers = listeners.get(type);
+        if (subscribers==null) subscribers = new ArrayList<>();
         subscribers.add(listener);
+        listeners.put(type, subscribers);
     }
 
     /**
@@ -37,7 +39,7 @@ public class EventManager<EventType extends GenericEvent> {
      * @param type of event to unsubscribe from
      * @param listener to be unsubscribed from the type
      */
-    public void unsubscribe(EventType type, EventListener<EventType> listener){
+    public void unsubscribe(Class<? extends EventType> type, EventListener<EventType> listener){
         List<EventListener<EventType>> subscribers = listeners.get(type);
         subscribers.remove(listener);
     }
@@ -48,7 +50,7 @@ public class EventManager<EventType extends GenericEvent> {
      * @throws InvalidObjectException if the data of the event is invalid
      */
     public void notify(EventType type) throws InvalidObjectException {
-        List<EventListener<EventType>> subscribers = listeners.get(type);
+        List<EventListener<EventType>> subscribers = listeners.get(type.getClass());
         for (EventListener<EventType> s : subscribers){
             s.update(type);
         }
