@@ -4,7 +4,7 @@ import it.polimi.ingsw.controller.GameMode;
 
 import java.io.Serializable;
 
-public class SetPreferences implements Serializable, ViewEvent {
+public class SetPreferences implements Serializable, SetupViewEvent {
     private final int numOfPlayers;
     private final GameMode gameMode;
 
