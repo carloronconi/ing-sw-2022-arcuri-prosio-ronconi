@@ -26,6 +26,7 @@ public class GameController implements EventListener<SetupViewEvent> {
     private ArrayList<VirtualView> virtualViews;
     private final EventManager<ModelEvent> modelEventEventManager;
     private TurnController turnController;
+    private boolean playAgain = false;
 
     public GameController(EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
@@ -72,7 +73,22 @@ public class GameController implements EventListener<SetupViewEvent> {
         turnController = new TurnController(map, gameModel, gameMode);
         controllerState = ControllerState.PLAYING_GAME;
 
-        //TODO: start turn controller and manage end game
+        boolean gameIsOver = false;
+        while (!gameIsOver){
+            gameIsOver = turnController.startRound();
+        }
+        controllerState = ControllerState.GAME_OVER;
+
+        for (VirtualView view: virtualViews){
+            view.gameOver();
+            if (view == firstVirtualView) view.askPlayAgain();
+        }
+
+        if (playAgain){
+            controllerState = ControllerState.INITIAL_SETUP;
+            startGame();
+        }
+
     }
 
 
@@ -86,7 +102,8 @@ public class GameController implements EventListener<SetupViewEvent> {
         } else if (viewEvent instanceof SetNickname){
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
-
+        } else if (viewEvent instanceof SetPlayAgain){
+            playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
         }
     }
 }

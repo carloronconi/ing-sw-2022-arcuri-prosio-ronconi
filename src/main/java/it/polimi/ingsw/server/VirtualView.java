@@ -73,4 +73,9 @@ public class VirtualView implements ViewInterface {
     public void moveStudent() {
 
     }
+
+    @Override
+    public void gameOver() {
+
+    }
 }

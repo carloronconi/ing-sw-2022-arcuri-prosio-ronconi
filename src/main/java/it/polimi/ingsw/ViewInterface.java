@@ -30,4 +30,6 @@ public interface ViewInterface {
 
     void moveStudent();
 
+    void gameOver();
+
 }
