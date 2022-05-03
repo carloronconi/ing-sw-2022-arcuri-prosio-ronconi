@@ -47,9 +47,8 @@ public class EventManager<EventType extends GenericEvent> {
     /**
      * to notify the subscriber of a certain type of event that a change has happened in the class containing the event manager
      * @param type of event that happened
-     * @throws InvalidObjectException if the data of the event is invalid
      */
-    public void notify(EventType type) throws InvalidObjectException {
+    public void notify(EventType type) {
         List<EventListener<EventType>> subscribers = listeners.get(type.getClass());
         for (EventListener<EventType> s : subscribers){
             s.update(type);
