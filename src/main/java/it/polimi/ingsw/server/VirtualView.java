@@ -45,6 +45,11 @@ public class VirtualView implements ViewInterface {
     }
 
     @Override
+    public void playerTurn() {
+
+    }
+
+    @Override
     public void invalidCharacterChoice() {
 
     }

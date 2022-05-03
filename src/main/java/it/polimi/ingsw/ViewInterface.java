@@ -18,6 +18,8 @@ public interface ViewInterface {
 
     void getPreferences();
 
+    void playerTurn();
+
     void invalidCharacterChoice();
 
     void invalidMNMove();

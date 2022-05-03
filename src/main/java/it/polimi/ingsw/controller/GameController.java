@@ -69,9 +69,10 @@ public class GameController implements EventListener<SetupViewEvent> {
             map.put(id, virtualViews.get(i));
             i++;
         }
-        turnController = new TurnController(map, gameModel);
+        turnController = new TurnController(map, gameModel, gameMode);
         controllerState = ControllerState.PLAYING_GAME;
 
+        //TODO: start turn controller and manage end game
     }
 
 
