@@ -12,7 +12,6 @@ public interface EventListener<EventType extends GenericEvent> {
     /**
      * method called by the publisher, the listener implements the method to react to an event
      * @param eventType type of the event to react to
-     * @throws InvalidObjectException if the data of the event is invalid
      */
-    void update(EventType eventType) throws InvalidObjectException;
+    void update(EventType eventType);
 }

@@ -175,6 +175,7 @@ public class GameModel {
         for (Integer playedCard : playedCards.values()) {
             if (playedCard.equals(cardNumber)) {
                 throw new IllegalArgumentException();
+                //TODO: gestire caso in cui il giocatore non ha alternative
             }
         }
 

@@ -3,7 +3,7 @@ package it.polimi.ingsw.networkmessages.viewevents;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class ChosenCharacter implements Serializable, ViewEvent {
+public class ChosenCharacter implements Serializable, GameViewEvent {
     private final UUID chosenCharacter;
 
     public ChosenCharacter(UUID chosenCharacter){

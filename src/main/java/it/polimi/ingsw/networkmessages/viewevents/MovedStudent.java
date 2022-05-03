@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.PawnColor;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class MovedStudent implements Serializable, ViewEvent {
+public class MovedStudent implements Serializable, GameViewEvent {
     private final PawnColor color;
     private final UUID islandId;
 
