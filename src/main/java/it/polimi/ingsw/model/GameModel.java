@@ -63,11 +63,9 @@ public class GameModel {
             Player player = new Player(entrance, diningRoom, nickname);
             players.add(player);
         }
-        try {
-            eventManager.notify(new GameState(this));
-        } catch (InvalidObjectException e) {
-            e.printStackTrace();
-        }
+
+        eventManager.notify(new GameState(this));
+
     }
 
     /**
@@ -84,6 +82,7 @@ public class GameModel {
             bank--;
         }
         updateProfessorManager();
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -135,6 +134,7 @@ public class GameModel {
 
         }
         cheeseMerchantEffectPlayer = null;
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -151,6 +151,7 @@ public class GameModel {
         }
         if(found) messengerEffect = 2;
         else throw new IllegalStateException("There is no messenger in the characters of this match");
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -162,6 +163,7 @@ public class GameModel {
     public void moveCloudToEntrance(UUID whichCloud, UUID idPlayer) throws NoSuchFieldException {
         int playerIndex=ConverterUtility.idToIndex(idPlayer, players);
         players.get(playerIndex).getEntrance().fill(whichCloud);
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -182,6 +184,7 @@ public class GameModel {
         Player player = ConverterUtility.idToElement(idPlayer, players);
         player.playAssistantCard(cardNumber);
         playedCards.put(player, cardNumber);
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -198,9 +201,9 @@ public class GameModel {
         }
         if(players.size()==3){
             return 6-howManyPlayers;
-        }else
+        }else{
             return 8-howManyPlayers;
-
+        }
 
     }
 
@@ -214,6 +217,7 @@ public class GameModel {
     public void moveStudentToIsland(PawnColor pawnColor, UUID idPlayer, UUID island) throws NoSuchFieldException {
         int playerIndex=ConverterUtility.idToIndex(idPlayer,players);
         islandManager.moveStudentToIsland(pawnColor, island, players.get(playerIndex).getEntrance());
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -228,7 +232,7 @@ public class GameModel {
                 cloud.fill(4);
             }
         }
-
+        eventManager.notify(new GameState(this));
     }
 
     /**
@@ -284,10 +288,16 @@ public class GameModel {
         if (p.getNumOfCoins()<c.getCost()) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
         p.payCoins(c.getCost());
         bank+=c.getCost();
-
+        eventManager.notify(new GameState(this));
         return c;
+
     }
 
+    /**
+     * called only by cheese merchant card
+     * @param player owninng the merchant
+     * @throws NoSuchFieldException if the player does not exist
+     */
     public void assertCheeseMerchantEffect(UUID player) throws NoSuchFieldException {
         cheeseMerchantEffectPlayer = ConverterUtility.idToElement(player, players);
     }
@@ -303,6 +313,8 @@ public class GameModel {
         if (playedCards.get(player) + messengerEffect < steps) throw new IllegalArgumentException("Not enough steps in the card played");
         islandManager.moveMotherNature(steps);
         messengerEffect = 0;
+
+        eventManager.notify(new GameState(this));
     }
 
     public void clearPlayedAssistantCards(){
