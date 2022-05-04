@@ -43,7 +43,9 @@ public class PrincessTest {
         for(PawnColor color : PawnColor.values()){
             if(princess.isColorContained(color)){
                 int numStudents=player.getDiningRoom().count(color);
-                princess.useEffect(color, player.getId());
+                princess.setEffectColor(color);
+                princess.setEffectPlayer(player.getId());
+                princess.useEffect();
                 assertEquals(118, bag.count());
                 assertEquals(numStudents+1, player.getDiningRoom().count(color));
                 break;

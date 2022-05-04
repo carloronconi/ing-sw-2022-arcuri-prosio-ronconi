@@ -30,7 +30,8 @@ public class WitchTest {
 
     @Test
     public void useEffect() throws NoSuchFieldException {
-        witch.useEffect(islandManager.getIsland(2).getId());
+        witch.setEffectIsland(islandManager.getIsland(2).getId());
+        witch.useEffect();
         assertTrue(islandManager.getIsland(2).ban);
         assertTrue(witch.isCostIncreased());
         assertEquals(3, witch.getCost());
@@ -39,11 +40,16 @@ public class WitchTest {
 
     @Test (expected = IllegalStateException.class)
     public void useEffect2() throws NoSuchFieldException{
-        witch.useEffect(islandManager.getIsland(3).getId());
-        witch.useEffect(islandManager.getIsland(4).getId());
-        witch.useEffect(islandManager.getIsland(5).getId());
-        witch.useEffect(islandManager.getIsland(7).getId());
-        witch.useEffect(islandManager.getIsland(8).getId());
+        witch.setEffectIsland(islandManager.getIsland(3).getId());
+        witch.useEffect();
+        witch.setEffectIsland(islandManager.getIsland(4).getId());
+        witch.useEffect();
+        witch.setEffectIsland(islandManager.getIsland(5).getId());
+        witch.useEffect();
+        witch.setEffectIsland(islandManager.getIsland(7).getId());
+        witch.useEffect();
+        witch.setEffectIsland(islandManager.getIsland(8).getId());
+        witch.useEffect();
     }
 
 
