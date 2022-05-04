@@ -1,14 +1,17 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
 import java.util.UUID;
 /**
  * one of the concrete subclasses of character representing a specific character card
  */
-public class Witch extends Character{
+public class Witch extends Character implements EffectWithIsland {
     private int availableBans;
     private final IslandManager islandManager;
+    private UUID island;
 
     /**
      * creates a witch with cost of 2 and 4 available bans
@@ -23,14 +26,15 @@ public class Witch extends Character{
     /**
      * checks if there are any more available bans, calls method on islandManager,
      * then decreases the available bans and increases the cost of the character
-     * @param island to be banned from evaluation in the next turn
      * @throws IllegalStateException if no more available bans
      */
-    public void useEffect(UUID island) throws IllegalStateException, NoSuchFieldException {
+    public void useEffect() throws IllegalStateException, NoSuchFieldException {
+        if (island == null) throw new IllegalStateException();
         if(availableBans < 1) throw new IllegalStateException();
         islandManager.useWitchEffect(island, this);
         availableBans--;
         if(!isCostIncreased()) increaseCost();
+        island = null;
     }
 
     /**
@@ -42,5 +46,10 @@ public class Witch extends Character{
     public void increaseAvailableBans(IslandManager islandManager) throws IllegalArgumentException {
         if (this.islandManager != islandManager) throw new IllegalArgumentException();
         availableBans++;
+    }
+
+    @Override
+    public void setEffectIsland(UUID island) {
+        this.island = island;
     }
 }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.CharacterStudentCounter;
 import it.polimi.ingsw.model.studentmanagers.Entrance;
@@ -13,8 +14,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
-public class Juggler extends SwapperCharacter {
+public class Juggler extends SwapperCharacter implements EffectWithPlayer {
     private final CharacterStudentCounter studentCounter;
+    private UUID player;
+
     /**
      * initialises parameters needed for effect, draws 6 students from the bag and initialises super with 3 maximum color swaps
      * @param players needed for special effect
@@ -29,13 +32,19 @@ public class Juggler extends SwapperCharacter {
     /**
      * to be called after calling setupColorSwaps at least once and at most three times in order to make the
      * swap with the Juggler
-     * @param player the player asking for the swap to happen
      * @throws IllegalStateException when never called setupColorSwap
      */
-    public void useEffect(UUID player) throws IllegalStateException, NoSuchFieldException {
+    public void useEffect() throws IllegalStateException, NoSuchFieldException {
+        if (player == null) throw new IllegalStateException();
         if(colorSwaps.isEmpty()) throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");
         Entrance entrance = ConverterUtility.idToElement(player, players).getEntrance();
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());
         if (!isCostIncreased()) increaseCost();
+        player = null;
+    }
+
+    @Override
+    public void setEffectPlayer(UUID player) {
+        this.player = player;
     }
 }

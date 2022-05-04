@@ -2,16 +2,19 @@ package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
-public class Usurer extends Character{
+public class Usurer extends Character implements EffectWithColor {
     private final List<Player> players;
     private final Bag bag;
+    private PawnColor color;
 
     public Usurer(List<Player> players, Bag bag) {
         super(3);
@@ -21,9 +24,9 @@ public class Usurer extends Character{
 
     /**
      * take 3 students from each player's dining room and put it back in the bag
-     * @param color of the 3 students to be moved
      */
-    public void useEffect(PawnColor color){
+    public void useEffect(){
+        if (color==null) throw new IllegalStateException();
         for(Player p : players){
             for (int i = 0; i < 3; i++) {
                 try{
@@ -34,7 +37,12 @@ public class Usurer extends Character{
             }
 
         }
+        color = null;
 
+    }
 
+    @Override
+    public void setEffectColor(PawnColor color) {
+        this.color = color;
     }
 }
