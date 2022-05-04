@@ -32,4 +32,10 @@ public interface ViewInterface {
 
     void gameOver();
 
+    void getColorSwap();
+
+    void getColorChoice();
+
+    void getIslandChoice();
+
 }
