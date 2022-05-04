@@ -175,9 +175,16 @@ public class GameModel {
      */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException, NoSuchFieldException {
         for (Integer playedCard : playedCards.values()) {
-            if (playedCard.equals(cardNumber)) {
+            Player player = ConverterUtility.idToElement(idPlayer, players);
+            boolean noAlternative = true;
+            for (int card : player.getDeck()){
+                if (!playedCards.containsValue(card)) {
+                    noAlternative = false;
+                    break;
+                }
+            }
+            if (playedCard.equals(cardNumber) && noAlternative) {
                 throw new IllegalArgumentException();
-                //TODO: gestire caso in cui il giocatore non ha alternative
             }
         }
 
