@@ -30,4 +30,12 @@ public interface ViewInterface {
 
     void moveStudent();
 
+    void gameOver();
+
+    void getColorSwap();
+
+    void getColorChoice();
+
+    void getIslandChoice();
+
 }

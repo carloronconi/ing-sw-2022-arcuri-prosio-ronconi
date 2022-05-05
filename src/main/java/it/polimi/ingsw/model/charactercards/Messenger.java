@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
+import it.polimi.ingsw.model.PawnColor;
+
+import java.util.UUID;
 
 public class Messenger extends Character {
     private final GameModel gameModel;

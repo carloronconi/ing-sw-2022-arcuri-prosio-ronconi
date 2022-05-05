@@ -69,7 +69,8 @@ public class UsurerTest {
     @Test
     public void useEffect(){
 
-        usurer.useEffect(c);
+        usurer.setEffectColor(c);
+        usurer.useEffect();
 
         for(int i=0; i<numStudents.size(); i++){
             if(numStudents.get(i)>=3){

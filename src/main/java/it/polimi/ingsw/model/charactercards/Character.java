@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.Identifiable;
+import it.polimi.ingsw.model.PawnColor;
 
 import java.util.UUID;
 
@@ -46,4 +47,6 @@ public abstract class Character implements Identifiable {
     public UUID getId() {
         return id;
     }
+
+    public abstract void useEffect() throws IllegalStateException, NoSuchFieldException;
 }

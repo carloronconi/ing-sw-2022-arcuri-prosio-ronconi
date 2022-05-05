@@ -35,7 +35,8 @@ public class KnightTest {
 
     @Test
     public void useEffect() throws NoSuchFieldException {
-        knight.useEffect(player.getId());
+        knight.setEffectPlayer(player.getId());
+        knight.useEffect();
 
         assertTrue(knight.isCostIncreased());
     }

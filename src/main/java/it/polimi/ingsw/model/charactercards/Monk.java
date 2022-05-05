@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.CharacterStudentCounter;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
@@ -11,13 +13,15 @@ import java.util.stream.IntStream;
 /**
  * one of the concrete subclasses of character representing a specific character card
  */
-public class Monk extends Character{
+public class Monk extends Character implements EffectWithColor, EffectWithIsland {
     /**
      * has specific attributes needed to execute its special effect
      */
     private final CharacterStudentCounter studentCounter;
     private final Bag bag;
     private final IslandManager islandManager;
+    private PawnColor color;
+    private UUID island;
 
     /**
      * creates a monk with cost of 1, draws 4 students from the bag
@@ -36,13 +40,14 @@ public class Monk extends Character{
 
     /**
      * special effect with which a player can draw a chosen student from the character card and place it on any island
-     * @param color to choose the student from the monk
-     * @param island destination of the student that will be moved
      */
-    public void useEffect(PawnColor color, UUID island) throws NoSuchFieldException {
+    public void useEffect() throws NoSuchFieldException {
+        if (color==null || island==null) throw new IllegalStateException();
         islandManager.moveStudentToIsland(color, island, studentCounter);
         if (!isCostIncreased()) increaseCost();
         studentCounter.takeStudentFrom(bag);
+        color = null;
+        island = null;
     }
 
     /**
@@ -52,5 +57,15 @@ public class Monk extends Character{
      */
     public boolean isColorContained(PawnColor color){
         return studentCounter.count(color) > 0;
+    }
+
+    @Override
+    public void setEffectColor(PawnColor color) {
+        this.color = color;
+    }
+
+    @Override
+    public void setEffectIsland(UUID island) {
+        this.island = island;
     }
 }

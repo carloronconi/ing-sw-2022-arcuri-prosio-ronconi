@@ -56,6 +56,5 @@ public abstract class SwapperCharacter extends Character {
         colorSwaps.add(new ColorSwap(give, take));
     }
 
-    public abstract void useEffect(UUID player) throws NoSuchFieldException;
 
 }

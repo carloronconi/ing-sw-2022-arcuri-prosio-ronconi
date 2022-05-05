@@ -25,7 +25,8 @@ public class MushroomMerchantTest {
 
     @Test
     public void useEffect(){
-        mushroomMerchant.useEffect(PawnColor.RED);
+        mushroomMerchant.setEffectColor(PawnColor.RED);
+        mushroomMerchant.useEffect();
 
         assertTrue(mushroomMerchant.isCostIncreased());
     }

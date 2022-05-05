@@ -4,6 +4,11 @@ import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.Character;
+import it.polimi.ingsw.model.charactercards.SwapperCharacter;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import it.polimi.ingsw.server.VirtualView;
@@ -23,6 +28,10 @@ public class TurnController implements EventListener<GameViewEvent> {
     private UUID lastChosenIsland;
     private int lastMotherNatureSteps;
     private UUID lastChosenCloud;
+    private PawnColor lastGivenSwap;
+    private PawnColor lastTakenSwap;
+    private PawnColor lastChosenColor;
+    private UUID lastEffectChosenIsland;
 
     private final GameMode gameMode;
 
@@ -121,16 +130,34 @@ public class TurnController implements EventListener<GameViewEvent> {
             view.playerTurn();
             if (gameMode == GameMode.HARD){
                 view.chooseCharacter();
+
                 if (lastPlayedCharacter != null){
                     while (true){
                         try {
-                            gameModel.payAndGetCharacter(player, lastPlayedCharacter);
+                            Character character = gameModel.payAndGetCharacter(player, lastPlayedCharacter);
+                            if (character instanceof SwapperCharacter){
+                                view.getColorSwap();
+                                ((SwapperCharacter) character).setupColorSwaps(lastGivenSwap, lastTakenSwap);
+                            }
+                            if (character instanceof EffectWithColor){
+                                view.getColorChoice();
+                                ((EffectWithColor) character).setEffectColor(lastChosenColor);
+                            }
+                            if (character instanceof EffectWithIsland){
+                                view.getIslandChoice();
+                                ((EffectWithIsland) character).setEffectIsland(lastEffectChosenIsland);
+                            }
+                            if (character instanceof EffectWithPlayer){
+                                ((EffectWithPlayer) character).setEffectPlayer(player);
+                            }
+                            character.useEffect();
                             break;
                         } catch (NoSuchFieldException e) {
                             view.invalidCharacterChoice();
                         }
                     }
                 }
+
             }
             int times = (playerOrder.size() == 2)? 3: 4;
             for (int i = 0; i < times; i++) {
@@ -189,6 +216,13 @@ public class TurnController implements EventListener<GameViewEvent> {
             lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
         } else if (modelEvent instanceof  ChosenCloud){
             lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
+        } else if (modelEvent instanceof SetColorSwap){
+            lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
+            lastTakenSwap = ((SetColorSwap) modelEvent).getTake();
+        } else if (modelEvent instanceof SetColorChoice){
+            lastChosenColor = ((SetColorChoice) modelEvent).getColor();
+        } else if (modelEvent instanceof SetIslandChoice){
+            lastEffectChosenIsland = ((SetIslandChoice) modelEvent).getIsland();
         }
     }
 }

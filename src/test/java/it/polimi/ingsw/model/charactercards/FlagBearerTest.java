@@ -46,8 +46,9 @@ public class FlagBearerTest {
 
     @Test
     public void useEffect() throws NoSuchFieldException {
+        flagBearer.setEffectIsland(islandManager.getIsland(8).getId());
 
-        flagBearer.useEffect(islandManager.getIsland(8).getId());
+        flagBearer.useEffect();
         assertSame(player, islandManager.getIsland(8).getOwner());
         assertEquals(12, islandManager.countIslands());
         assertTrue(flagBearer.isCostIncreased());

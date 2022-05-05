@@ -37,7 +37,9 @@ public class MonkTest {
         for(PawnColor color : PawnColor.values()){
             if(monk.isColorContained(color)){
                 int numStudents=islandTile.count(color);
-                monk.useEffect(color, islandTile.getId());
+                monk.setEffectColor(color);
+                monk.setEffectIsland(islandTile.getId());
+                monk.useEffect();
                 assertEquals(115, bag.count());
                 assertEquals(numStudents+1, islandTile.count(color));
                 break;
