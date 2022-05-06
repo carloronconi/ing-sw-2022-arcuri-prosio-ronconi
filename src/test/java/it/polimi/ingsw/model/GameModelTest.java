@@ -51,9 +51,12 @@ class GameModelTest {
 
         gameModel = new GameModel(true, nicknames, modelEventManager);
 
-        System.out.println(gameModel.getAvailableCharacterCardIds());
-        //TODO: get instantiated characters and assert for different cases (some characters decrease by 4 or 6 the number of students in the bag)
-        assertEquals(106, gameModel.countStudentsInBag());
+        Set<AvailableCharacter> availableCharacters = gameModel.getAvailableCharacterCards().keySet();
+        int expected = 106;
+        if (availableCharacters.contains(AvailableCharacter.MONK)) expected-=4;
+        if (availableCharacters.contains(AvailableCharacter.JUGGLER)) expected-=6;
+        if (availableCharacters.contains(AvailableCharacter.PRINCESS)) expected-=4;
+        assertEquals(expected, gameModel.countStudentsInBag());
 
     }
 
