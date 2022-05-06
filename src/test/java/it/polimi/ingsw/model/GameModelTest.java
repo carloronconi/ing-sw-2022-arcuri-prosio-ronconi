@@ -61,6 +61,25 @@ class GameModelTest {
     }
 
     @Test
+    void constructor_hardModeThreePlayers(){
+        List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
+        EventManager<ModelEvent> modelEventManager = new EventManager<>();
+        //create fake eventListener
+        EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
+        modelEventManager.subscribe(GameState.class, listener);
+
+        gameModel = new GameModel(true, nicknames, modelEventManager);
+
+        Set<AvailableCharacter> availableCharacters = gameModel.getAvailableCharacterCards().keySet();
+        int expected = 93;
+        if (availableCharacters.contains(AvailableCharacter.MONK)) expected-=4;
+        if (availableCharacters.contains(AvailableCharacter.JUGGLER)) expected-=6;
+        if (availableCharacters.contains(AvailableCharacter.PRINCESS)) expected-=4;
+        assertEquals(expected, gameModel.countStudentsInBag());
+
+    }
+
+    @Test
     void moveStudentToDining() {
         UUID playerId = gameModel.getPlayerIds().get(0);
         EnumMap<PawnColor, Integer> colorsInEntrance = gameModel.getEntrances().get(playerId);
