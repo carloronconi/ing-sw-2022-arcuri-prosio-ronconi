@@ -2,14 +2,14 @@ package it.polimi.ingsw.model.charactercards;
 
 public enum AvailableCharacter {
     MONK,
-    CHEESE_MERCHANT,
-    FLAG_BEARER,
+    CHEESEMERCHANT,
+    FLAGBEARER,
     MESSENGER,
     WITCH,
     CENTAUR,
     JUGGLER,
     KNIGHT,
-    MUSHROOM_MERCHANT,
+    MUSHROOMMERCHANT,
     MUSICIAN,
     PRINCESS,
     USURER

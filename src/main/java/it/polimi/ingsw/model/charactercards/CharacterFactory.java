@@ -44,14 +44,14 @@ public class CharacterFactory {
     private Character create(AvailableCharacter character) throws EnumConstantNotPresentException{
         switch (character){
             case MONK: return new Monk(bag,islandManager);
-            case CHEESE_MERCHANT: return new CheeseMerchant(gameModel);
-            case FLAG_BEARER: return new FlagBearer(islandManager);
+            case CHEESEMERCHANT: return new CheeseMerchant(gameModel);
+            case FLAGBEARER: return new FlagBearer(islandManager);
             case MESSENGER: return new Messenger(gameModel);
             case WITCH: return new Witch(islandManager);
             case CENTAUR: return new Centaur(islandManager);
             case JUGGLER: return new Juggler(bag, players);
             case KNIGHT: return new Knight(islandManager, players);
-            case MUSHROOM_MERCHANT: return new MushroomMerchant(islandManager);
+            case MUSHROOMMERCHANT: return new MushroomMerchant(islandManager);
             case MUSICIAN: return new Musician(players);
             case PRINCESS: return new Princess(bag, players);
             case USURER: return new Usurer(players, bag);
