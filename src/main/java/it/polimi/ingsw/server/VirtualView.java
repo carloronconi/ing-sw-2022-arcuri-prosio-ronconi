@@ -1,8 +1,10 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
-public class VirtualView implements ViewInterface {
+public class VirtualView implements ViewInterface, EventListener<ModelEvent> {
     @Override
     public void sendAcknowledgement() {
 
@@ -92,5 +94,10 @@ public class VirtualView implements ViewInterface {
     @Override
     public void getIslandChoice() {
 
+    }
+
+    @Override
+    public void update(ModelEvent modelEvent) {
+        //forward the modelEvent through the socket
     }
 }
