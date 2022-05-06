@@ -109,6 +109,26 @@ class GameModelTest {
 
     @Test
     void moveCloudToEntrance() {
+        UUID cloud = gameModel.getClouds().get(0).keySet().stream().findFirst().get();
+        UUID player = gameModel.getPlayerIds().get(0);
+
+        int entranceBefore = 0;
+        EnumMap<PawnColor, Integer> entranceB = gameModel.getEntrances().get(player);
+        for (PawnColor c: PawnColor.values()){
+            entranceBefore += entranceB.get(c);
+        }
+        try {
+            gameModel.moveCloudToEntrance(cloud, player);
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
+        int entranceAfter = 0;
+        EnumMap<PawnColor, Integer> entranceA = gameModel.getEntrances().get(player);
+        for (PawnColor c: PawnColor.values()){
+            entranceAfter += entranceA.get(c);
+        }
+        //probaby the issue is that the entrance is already full?
+        assertEquals(entranceBefore + 3, entranceAfter);
     }
 
     @Test
