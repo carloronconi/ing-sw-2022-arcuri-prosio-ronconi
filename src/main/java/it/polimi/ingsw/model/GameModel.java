@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Character;
 import it.polimi.ingsw.model.charactercards.CharacterFactory;
 import it.polimi.ingsw.model.charactercards.Messenger;
@@ -8,7 +9,6 @@ import it.polimi.ingsw.model.studentmanagers.*;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
-import java.io.InvalidObjectException;
 import java.util.*;
 
 public class GameModel {
@@ -286,10 +286,15 @@ public class GameModel {
      * @throws IllegalArgumentException if the player doesn't have enough coins to pay for the character
      * @throws NoSuchFieldException if the player or character id don't exist among the players/characters in the match
      */
-    public Character payAndGetCharacter(UUID player, UUID character) throws IllegalArgumentException, NoSuchFieldException {
+    public Character payAndGetCharacter(UUID player, AvailableCharacter character) throws IllegalArgumentException, NoSuchFieldException {
         int playerIndex = ConverterUtility.idToIndex(player, players);
         Player p = players.get(playerIndex);
-        int characterIndex = ConverterUtility.idToIndex(character, characters);
+        int characterIndex = -1;
+        for (int i = 0; i<characters.size(); i++){
+            Character c = characters.get(i);
+            if (c.getValue() == character) characterIndex = i;
+        }
+        if (characterIndex == -1) throw new NoSuchFieldException();
         Character c = characters.get(characterIndex);
 
         if (p.getNumOfCoins()<c.getCost()) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
@@ -409,11 +414,11 @@ public class GameModel {
         return map;
     }
 
-    public HashMap<UUID, Boolean> getAvailableCharacterCardIds(){
+    public HashMap<AvailableCharacter, Boolean> getAvailableCharacterCards(){
         if (characters==null) return null;
-        HashMap<UUID, Boolean> map = new HashMap<>();
+        HashMap<AvailableCharacter, Boolean> map = new HashMap<>();
         for (Character c: characters){
-            map.put(c.getId(), c.isCostIncreased());
+            map.put(c.getValue(), c.isCostIncreased());
         }
         return map;
     }

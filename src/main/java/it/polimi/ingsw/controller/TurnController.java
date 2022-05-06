@@ -4,6 +4,7 @@ import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Character;
 import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
@@ -23,7 +24,7 @@ public class TurnController implements EventListener<GameViewEvent> {
     private final GameModel gameModel;
     private final HashMap<UUID, VirtualView> viewMap;
     private int lastPlayedAssistant;
-    private UUID lastPlayedCharacter;
+    private AvailableCharacter lastPlayedCharacter;
     private PawnColor lastChosenStudent;
     private UUID lastChosenIsland;
     private int lastMotherNatureSteps;

@@ -3,18 +3,19 @@ package it.polimi.ingsw.model.charactercards;
 import it.polimi.ingsw.model.Identifiable;
 import it.polimi.ingsw.model.PawnColor;
 
+import java.util.Locale;
 import java.util.UUID;
 
 /**
  * Abstract class from which all character cards inherit
  */
-public abstract class Character implements Identifiable {
+public abstract class Character{
     /**
      * has all attributes common to all character cards:
      * cost, unique id and boolean representing if any player as ever used the card: if yes, the cost has to be increased by one
      */
     private int cost;
-    private final UUID id;
+    private final AvailableCharacter characterValue;
     private boolean costIncreased;
 
     /**
@@ -23,7 +24,10 @@ public abstract class Character implements Identifiable {
      */
     public Character(int cost) {
         this.cost = cost;
-        id = UUID.randomUUID();
+        String name = this.getClass().getName();
+        name = name.toUpperCase(Locale.ROOT);
+        name = name.substring(name.lastIndexOf(".") +1);
+        characterValue = AvailableCharacter.valueOf(name);
         costIncreased = false;
     }
 
@@ -44,9 +48,8 @@ public abstract class Character implements Identifiable {
         return cost;
     }
 
-    public UUID getId() {
-        return id;
-    }
+    public AvailableCharacter getValue(){ return characterValue;}
+
 
     public abstract void useEffect() throws IllegalStateException, NoSuchFieldException;
 }

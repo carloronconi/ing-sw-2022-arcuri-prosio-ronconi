@@ -3,6 +3,7 @@ package it.polimi.ingsw.networkmessages.modelevents;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.ProfessorManager;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandTile;
@@ -23,7 +24,7 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> diningRooms;
     private final HashMap<UUID, ArrayList<Integer>> assistantDecks;
     private final HashMap<UUID, Integer> coinsMap;
-    private final HashMap<UUID, Boolean> characterCards;
+    private final HashMap<AvailableCharacter, Boolean> characterCards;
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
     private final HashMap<UUID, UUID> islandOwners;
@@ -38,7 +39,7 @@ public class GameState implements Serializable, ModelEvent {
         diningRooms = gameModel.getDiningRooms();
         assistantDecks = gameModel.getDecks();
         coinsMap = gameModel.getCoinsMap();
-        characterCards = gameModel.getAvailableCharacterCardIds();
+        characterCards = gameModel.getAvailableCharacterCards();
         playedAssistantCards = gameModel.getPlayedAssistantCards();
         motherNaturePosition = gameModel.getMotherNaturePosition();
         islandOwners = gameModel.getIslandOwners();
@@ -77,7 +78,7 @@ public class GameState implements Serializable, ModelEvent {
         return coinsMap;
     }
 
-    public HashMap<UUID, Boolean> getCharacterCards() {
+    public HashMap<AvailableCharacter, Boolean> getCharacterCards() {
         return characterCards;
     }
 
