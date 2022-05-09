@@ -60,4 +60,17 @@ public class FlagBearerTest {
 
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void useEffect2() throws NoSuchFieldException{
+        flagBearer.useEffect();
+        assertSame(player, islandManager.getIsland(8).getOwner());
+        assertEquals(12, islandManager.countIslands());
+        assertTrue(flagBearer.isCostIncreased());
+        assertEquals(4, flagBearer.getCost());
+
+        islandManager.moveMotherNature(2);
+        UUID MNPosition = islandManager.getMotherNaturePosition();
+        assertSame(MNPosition, islandManager.getIsland(2).getId());
+    }
+
 }
