@@ -1,16 +1,18 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+
 import java.io.Serializable;
 import java.util.UUID;
 
 public class ChosenCharacter implements Serializable, GameViewEvent {
-    private final UUID chosenCharacter;
+    private final AvailableCharacter chosenCharacter;
 
-    public ChosenCharacter(UUID chosenCharacter){
+    public ChosenCharacter(AvailableCharacter chosenCharacter){
         this.chosenCharacter = chosenCharacter;
     }
 
-    public UUID getChosenCharacter() {
+    public AvailableCharacter getChosenCharacter() {
         return chosenCharacter;
     }
 

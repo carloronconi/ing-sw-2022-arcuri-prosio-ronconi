@@ -51,9 +51,31 @@ class GameModelTest {
 
         gameModel = new GameModel(true, nicknames, modelEventManager);
 
-        System.out.println(gameModel.getAvailableCharacterCardIds());
-        //TODO: get instantiated characters and assert for different cases (some characters decrease by 4 or 6 the number of students in the bag)
-        assertEquals(106, gameModel.countStudentsInBag());
+        Set<AvailableCharacter> availableCharacters = gameModel.getAvailableCharacterCards().keySet();
+        int expected = 106;
+        if (availableCharacters.contains(AvailableCharacter.MONK)) expected-=4;
+        if (availableCharacters.contains(AvailableCharacter.JUGGLER)) expected-=6;
+        if (availableCharacters.contains(AvailableCharacter.PRINCESS)) expected-=4;
+        assertEquals(expected, gameModel.countStudentsInBag());
+
+    }
+
+    @Test
+    void constructor_hardModeThreePlayers(){
+        List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
+        EventManager<ModelEvent> modelEventManager = new EventManager<>();
+        //create fake eventListener
+        EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
+        modelEventManager.subscribe(GameState.class, listener);
+
+        gameModel = new GameModel(true, nicknames, modelEventManager);
+
+        Set<AvailableCharacter> availableCharacters = gameModel.getAvailableCharacterCards().keySet();
+        int expected = 93;
+        if (availableCharacters.contains(AvailableCharacter.MONK)) expected-=4;
+        if (availableCharacters.contains(AvailableCharacter.JUGGLER)) expected-=6;
+        if (availableCharacters.contains(AvailableCharacter.PRINCESS)) expected-=4;
+        assertEquals(expected, gameModel.countStudentsInBag());
 
     }
 
@@ -87,6 +109,26 @@ class GameModelTest {
 
     @Test
     void moveCloudToEntrance() {
+        UUID cloud = gameModel.getClouds().get(0).keySet().stream().findFirst().get();
+        UUID player = gameModel.getPlayerIds().get(0);
+
+        int entranceBefore = 0;
+        EnumMap<PawnColor, Integer> entranceB = gameModel.getEntrances().get(player);
+        for (PawnColor c: PawnColor.values()){
+            entranceBefore += entranceB.get(c);
+        }
+        try {
+            gameModel.moveCloudToEntrance(cloud, player);
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
+        int entranceAfter = 0;
+        EnumMap<PawnColor, Integer> entranceA = gameModel.getEntrances().get(player);
+        for (PawnColor c: PawnColor.values()){
+            entranceAfter += entranceA.get(c);
+        }
+        //probaby the issue is that the entrance is already full?
+        assertEquals(entranceBefore + 3, entranceAfter);
     }
 
     @Test
