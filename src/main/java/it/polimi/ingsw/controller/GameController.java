@@ -4,6 +4,7 @@ import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
+import it.polimi.ingsw.networkmessages.controllercalls.InvalidNickname;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
@@ -16,62 +17,36 @@ import java.util.*;
 /**
  * controller listens to view events according to the MVC pattern
  */
-public class GameController implements EventListener<SetupViewEvent> {
+public class GameController implements EventListener<ViewEvent> {
     private GameMode gameMode;
     private ControllerState controllerState;
     private int numOfPlayers;
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
-    private final VirtualView firstVirtualView;
-    private ArrayList<VirtualView> virtualViews;
+
     private final EventManager<ModelEvent> modelEventEventManager;
     private TurnController turnController;
     private boolean playAgain = false;
 
     public GameController(EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
-        firstVirtualView = new VirtualView();
         controllerState = ControllerState.INITIAL_SETUP;
         this.modelEventEventManager = modelEventEventManager;
+    }
+
+    public TurnController getTurnController() {
+        return turnController;
+    }
+
+    public List<String> getPlayerNicknames() {
+        return new ArrayList<>(playerNicknames);
     }
 
     /**
      * call to start the game
      */
     public void startGame(){
-        firstVirtualView.getPreferences();
 
-        virtualViews = new ArrayList<>();
-        virtualViews.add(firstVirtualView);
-
-        for (int i = 0; i <numOfPlayers-1 ; i++) {
-            virtualViews.add(new VirtualView());
-        }
-
-        for (VirtualView virtualView : virtualViews){
-            virtualView.getNickname();
-            ArrayList<String> nickList = new ArrayList<>(playerNicknames);
-            nickList.remove(nickList.size()-1);
-            if (nickList.contains(playerNicknames.get(playerNicknames.size()-1))){
-                playerNicknames.remove(playerNicknames.size()-1);
-                virtualView.invalidNickname();
-            }
-        }
-
-        if (playerNicknames.size()==numOfPlayers){
-            boolean expertMode = (gameMode == GameMode.HARD);
-            gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
-        }
-
-        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        HashMap<UUID, VirtualView> map = new HashMap<>();
-        int i = 0;
-        for (UUID id: playerIds){
-            map.put(id, virtualViews.get(i));
-            i++;
-        }
-        turnController = new TurnController(map, gameModel, gameMode);
-        controllerState = ControllerState.PLAYING_GAME;
 
         boolean gameIsOver = false;
         while (!gameIsOver){
@@ -93,16 +68,20 @@ public class GameController implements EventListener<SetupViewEvent> {
 
 
     @Override
-    public void update(SetupViewEvent viewEvent) {
-        if (viewEvent instanceof Handshake){
-            firstVirtualView.sendAcknowledgement();
-        }else if (viewEvent instanceof SetPreferences){
+    public void update(ViewEvent viewEvent) {
+        if (viewEvent instanceof SetPreferences){
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
             gameMode = ((SetPreferences) viewEvent).getGameMode();
         } else if (viewEvent instanceof SetNickname){
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
-        } else if (viewEvent instanceof SetPlayAgain){
+            if (playerNicknames.size()==numOfPlayers){
+                boolean expertMode = (gameMode == GameMode.HARD);
+                gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
+            }
+            controllerState = ControllerState.PLAYING_GAME;
+            turnController = new TurnController(gameModel, gameMode);
+        }else if (viewEvent instanceof SetPlayAgain){
             playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
         }
     }

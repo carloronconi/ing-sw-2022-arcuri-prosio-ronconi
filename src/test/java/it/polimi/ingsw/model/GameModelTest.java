@@ -22,7 +22,7 @@ class GameModelTest {
         EventManager<ModelEvent> modelEventManager = new EventManager<>();
         //create fake eventListener
         EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
-        modelEventManager.subscribe(GameState.class, listener);
+        modelEventManager.subscribe(listener);
 
         gameModel = new GameModel(false, nicknames, modelEventManager);
         assertEquals(106, gameModel.countStudentsInBag());
@@ -34,7 +34,7 @@ class GameModelTest {
         EventManager<ModelEvent> modelEventManager = new EventManager<>();
         //create fake eventListener
         EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
-        modelEventManager.subscribe(GameState.class, listener);
+        modelEventManager.subscribe(listener);
 
         gameModel = new GameModel(false, nicknames, modelEventManager);
         assertEquals(93, gameModel.countStudentsInBag());
@@ -47,7 +47,7 @@ class GameModelTest {
         EventManager<ModelEvent> modelEventManager = new EventManager<>();
         //create fake eventListener
         EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
-        modelEventManager.subscribe(GameState.class, listener);
+        modelEventManager.subscribe(listener);
 
         gameModel = new GameModel(true, nicknames, modelEventManager);
 
@@ -66,7 +66,7 @@ class GameModelTest {
         EventManager<ModelEvent> modelEventManager = new EventManager<>();
         //create fake eventListener
         EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
-        modelEventManager.subscribe(GameState.class, listener);
+        modelEventManager.subscribe(listener);
 
         gameModel = new GameModel(true, nicknames, modelEventManager);
 

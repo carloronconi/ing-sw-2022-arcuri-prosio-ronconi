@@ -17,7 +17,7 @@ import it.polimi.ingsw.server.VirtualView;
 import java.io.InvalidObjectException;
 import java.util.*;
 
-public class TurnController implements EventListener<GameViewEvent> {
+public class TurnController implements EventListener<ViewEvent> {
     //private List<UUID> planningPlayerOrder;
     //private List<UUID> actionPlayerOrder;
     private List<UUID> playerOrder;
@@ -42,33 +42,12 @@ public class TurnController implements EventListener<GameViewEvent> {
         this.viewMap = viewMap;
         this.gameMode = gameMode;
         ArrayList<UUID> list = new ArrayList<>(viewMap.keySet());
-        /*planningPlayerOrder = list;
-        actionPlayerOrder = list;*/
+
         playerOrder = list;
         Collections.shuffle(list);
 
-        /*
-        Random random = new Random();
-        int index = random.nextInt(planningPlayerOrder.size());
-        UUID firstPlayer = planningPlayerOrder.get(index);
-        reorderPlanning(firstPlayer);
-        */
     }
 
-
-    /*
-    private void reorderPlanning(UUID firstPlayer){
-        int first = planningPlayerOrder.indexOf(firstPlayer);
-        ArrayList<UUID> list = new ArrayList<>();
-        list.add(firstPlayer);
-        for (int i = first; i < planningPlayerOrder.size(); i++) {
-            list.add(planningPlayerOrder.get(i));
-        }
-        for (int i = 0; i < first; i++) {
-            list.add(planningPlayerOrder.get(i));
-        }
-    }
-    */
 
     private void reorderPlayerOrder(HashMap<UUID, Integer> map){
         List<UUID> tempPlayerOrder = new ArrayList<>();
@@ -205,7 +184,7 @@ public class TurnController implements EventListener<GameViewEvent> {
 
 
     @Override
-    public void update(GameViewEvent modelEvent)  {
+    public void update(ViewEvent modelEvent)  {
         if (modelEvent instanceof SetAssistantCard){
             lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
         } else if (modelEvent instanceof  ChosenCharacter){
