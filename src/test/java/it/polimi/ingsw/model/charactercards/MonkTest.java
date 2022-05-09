@@ -48,6 +48,21 @@ public class MonkTest {
 
     }
 
+    @Test (expected = IllegalStateException.class)
+    public void useEffect2() throws NoSuchFieldException{
+        IslandTile islandTile = islandManager.getIsland(1);
+
+        for(PawnColor color : PawnColor.values()){
+            if(monk.isColorContained(color)){
+                int numStudents=islandTile.count(color);
+                monk.useEffect();
+                assertEquals(115, bag.count());
+                assertEquals(numStudents+1, islandTile.count(color));
+                break;
+            }
+        }
+    }
+
 
 
 
