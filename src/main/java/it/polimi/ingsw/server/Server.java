@@ -19,7 +19,7 @@ public class Server {
 
         /* Read the port number from System.in. In your project you
          * could also use a configuration file for the same purpose.
-         *   For simplicity we are not doing any error checking when
+         * For simplicity, we are not doing any error checking when
          * parsing the port number, but in a real project you need to
          * always handle invalid inputs! */
         Scanner scanner = new Scanner(System.in);

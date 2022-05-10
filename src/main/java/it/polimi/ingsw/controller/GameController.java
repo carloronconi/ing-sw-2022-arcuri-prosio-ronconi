@@ -45,6 +45,7 @@ public class GameController implements EventListener<ViewEvent> {
     /**
      * call to start the game
      */
+    /*
     public void startGame(){
 
 
@@ -65,7 +66,7 @@ public class GameController implements EventListener<ViewEvent> {
         }
 
     }
-
+    */
 
     @Override
     public void update(ViewEvent viewEvent) {
