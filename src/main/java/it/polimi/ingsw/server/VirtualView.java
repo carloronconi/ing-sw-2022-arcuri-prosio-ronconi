@@ -5,10 +5,7 @@ import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.TurnController;
-import it.polimi.ingsw.networkmessages.controllercalls.Acknowledgement;
-import it.polimi.ingsw.networkmessages.controllercalls.AskPlayAgain;
-import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
-import it.polimi.ingsw.networkmessages.controllercalls.GetPreferences;
+import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
@@ -89,7 +86,11 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void getAssistantCard() {
-
+        try {
+            output.writeObject(new GetAssistantCard());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
