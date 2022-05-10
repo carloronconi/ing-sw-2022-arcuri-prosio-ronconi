@@ -12,6 +12,10 @@ import java.util.Scanner;
 public class Server {
 
     public static void main(String[] args) {
+        Server server = new Server();
+    }
+
+    public Server() {
 
         EventManager<ModelEvent> modelEventManager = new EventManager<>();
         GameController gameController = new GameController(modelEventManager);
