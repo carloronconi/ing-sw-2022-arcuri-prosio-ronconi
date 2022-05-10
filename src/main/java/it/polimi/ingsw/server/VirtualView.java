@@ -24,12 +24,15 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     private ObjectInputStream input;
     private EventManager<ViewEvent> eventManager;
     private static int numberOfInstances = 0;
+    private static int whoseTurn;
     private final int thisInstanceNumber;
-    private GameController gameController;
+    private final GameController gameController;
+    private final TurnController turnController;
 
     public VirtualView(Socket clientSocket, GameController gameController, TurnController turnController) {
         this.clientSocket = clientSocket;
         this.gameController = gameController;
+        this.turnController = turnController;
         eventManager = new EventManager<>();
         eventManager.subscribe(turnController);
         eventManager.subscribe(gameController);
@@ -43,6 +46,17 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     public boolean isNicknameAlreadyUsed(String nickname){
         return gameController.getPlayerNicknames().contains(nickname);
+    }
+
+    public synchronized boolean isItMyTurn(){
+        updateNextTurn();
+        return thisInstanceNumber == whoseTurn;
+    }
+
+    private synchronized void updateNextTurn(){
+        // change whoseTurn variable according to player order in turnController
+        whoseTurn = turnController.getNextPlayer();
+        notifyAll();
     }
 
     @Override

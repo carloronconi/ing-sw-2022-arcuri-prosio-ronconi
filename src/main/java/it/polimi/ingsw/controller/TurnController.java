@@ -22,7 +22,7 @@ public class TurnController implements EventListener<ViewEvent> {
     //private List<UUID> actionPlayerOrder;
     private List<UUID> playerOrder;
     private final GameModel gameModel;
-    private final HashMap<UUID, VirtualView> viewMap;
+
     private int lastPlayedAssistant;
     private AvailableCharacter lastPlayedCharacter;
     private PawnColor lastChosenStudent;
@@ -36,15 +36,13 @@ public class TurnController implements EventListener<ViewEvent> {
 
     private final GameMode gameMode;
 
-    //TODO: delete if not necessary
-    public TurnController(HashMap<UUID, VirtualView> viewMap, GameModel gameModel, GameMode gameMode) {
-        this.gameModel = gameModel;
-        this.viewMap = viewMap;
-        this.gameMode = gameMode;
-        ArrayList<UUID> list = new ArrayList<>(viewMap.keySet());
 
-        playerOrder = list;
-        Collections.shuffle(list);
+    public TurnController(GameModel gameModel, GameMode gameMode) {
+        this.gameModel = gameModel;
+        this.gameMode = gameMode;
+
+        playerOrder = new ArrayList<>(gameModel.getPlayerIds());
+        Collections.shuffle(playerOrder);
 
     }
 
@@ -66,6 +64,17 @@ public class TurnController implements EventListener<ViewEvent> {
         }
         playerOrder = tempPlayerOrder;
 
+    }
+
+    public int getNextPlayer(){
+        int i = 0;
+        UUID nextPlayerId = playerOrder.get(0);
+        for (UUID id : gameModel.getPlayerIds()) {
+            if (id == nextPlayerId) break;
+            i++;
+        }
+
+        return i;
     }
 
     public boolean startRound() {
