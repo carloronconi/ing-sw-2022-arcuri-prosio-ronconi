@@ -47,7 +47,14 @@ public class UsurerTest {
 
         assertEquals(116, bag.count());
         assertEquals(2, players.size());
+        assertEquals(3, usurer.getCost());
+        assertFalse(usurer.isCostIncreased());
+        assertEquals(AvailableCharacter.USURER, usurer.getValue());
 
+        /*
+        this piece of code moves all students from the entrance to the diningRoom for all players.
+        Moreover, it saves in a support variable the color of the students to be put back in the bag
+         */
         for(Player player : players){
             for(PawnColor color : PawnColor.values()){
                 if(player.getEntrance().count(color)>1) c = color;
@@ -60,12 +67,19 @@ public class UsurerTest {
         }
 
 
+        /*
+        the number of students of the chosen color present in the diningRoom of various players is saved in a list
+         */
         numStudents = new ArrayList<>();
         for(Player player : players) numStudents.add(player.getDiningRoom().count(c));
 
 
     }
 
+
+    /**
+     * this method tests that the usurer effect works correctly
+     */
     @Test
     public void useEffect(){
 
@@ -79,6 +93,8 @@ public class UsurerTest {
                 assertEquals(0, players.get(i).getDiningRoom().count(c));
             }
         }
+
+        assertTrue(usurer.isCostIncreased());
     }
 
 

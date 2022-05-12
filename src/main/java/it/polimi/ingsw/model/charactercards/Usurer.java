@@ -37,6 +37,7 @@ public class Usurer extends Character implements EffectWithColor {
             }
 
         }
+        if (!isCostIncreased()) increaseCost();
         color = null;
 
     }
