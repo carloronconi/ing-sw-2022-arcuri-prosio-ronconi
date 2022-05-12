@@ -14,4 +14,9 @@ public class PlayerTurn implements Serializable, RemoteMethodCall {
     public String getNickname(){
         return nickname;
     }
+
+    @Override
+    public void processMessage() {
+
+    }
 }

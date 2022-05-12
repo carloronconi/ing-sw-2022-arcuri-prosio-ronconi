@@ -1,5 +1,8 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.server.VirtualView;
+
+import java.io.InvalidObjectException;
 import java.io.Serializable;
 
 public class SetPlayAgain implements Serializable, SetupViewEvent {
@@ -13,4 +16,8 @@ public class SetPlayAgain implements Serializable, SetupViewEvent {
         return playAgain;
     }
 
+    @Override
+    public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+
+    }
 }

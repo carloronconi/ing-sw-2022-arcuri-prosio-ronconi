@@ -1,5 +1,8 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.server.VirtualView;
+
+import java.io.InvalidObjectException;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -12,5 +15,10 @@ public class SetIslandChoice implements Serializable, GameViewEvent{
 
     public UUID getIsland() {
         return island;
+    }
+
+    @Override
+    public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+
     }
 }

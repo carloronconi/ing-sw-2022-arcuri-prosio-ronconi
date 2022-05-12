@@ -1,6 +1,7 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
 import it.polimi.ingsw.controller.GameMode;
+import it.polimi.ingsw.server.VirtualView;
 
 import java.io.Serializable;
 
@@ -19,5 +20,10 @@ public class SetPreferences implements Serializable, SetupViewEvent {
 
     public GameMode getGameMode() {
         return gameMode;
+    }
+
+    @Override
+    public void processMessage(VirtualView virtualView) {
+        virtualView.getNickname();
     }
 }
