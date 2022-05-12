@@ -31,14 +31,34 @@ public class KnightTest {
 
         assertEquals(2, knight.getCost());
         assertFalse(knight.isCostIncreased());
+        assertEquals(AvailableCharacter.KNIGHT, knight.getValue());
     }
 
+    /**
+     * this method tests that the knight effect works correctly
+     */
     @Test
-    public void useEffect() throws NoSuchFieldException {
+    public void useEffect() {
         knight.setEffectPlayer(player.getId());
-        knight.useEffect();
+        try {
+            knight.useEffect();
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
 
         assertTrue(knight.isCostIncreased());
+    }
+
+    /**
+     * this method tests that the exception is thrown if the player who will benefit from the knight's effect is not set
+     */
+    @Test (expected = IllegalStateException.class)
+    public void useEffect2(){
+        try {
+            knight.useEffect();
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
     }
 
 }
