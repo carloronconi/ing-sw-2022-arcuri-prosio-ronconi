@@ -77,6 +77,7 @@ public class TurnController implements EventListener<ViewEvent> {
         return i;
     }
 
+    /*
     public boolean startRound() {
         startPlanningPhase();
         return startActionPhase();
@@ -102,6 +103,7 @@ public class TurnController implements EventListener<ViewEvent> {
         HashMap<UUID, Integer> map = gameModel.getPlayedAssistantCards();
         reorderPlayerOrder(map);
     }
+     */
 
     private boolean isGameOver(UUID player){
         try {
@@ -112,7 +114,7 @@ public class TurnController implements EventListener<ViewEvent> {
         }
         return false;
     }
-
+/*
     private boolean startActionPhase(){
         for (UUID player : playerOrder){
             VirtualView view = viewMap.get(player);
@@ -190,7 +192,7 @@ public class TurnController implements EventListener<ViewEvent> {
         }
         return false;
     }
-
+*/
 
     @Override
     public void update(ViewEvent modelEvent)  {
