@@ -15,7 +15,7 @@ public class CliView implements ViewInterface {
 
     @Override
     public void sendAcknowledgement() {
-
+        System.out.println("Acknowledgement received by server");
     }
 
     @Override
