@@ -44,31 +44,53 @@ public class FlagBearerTest {
 
     }
 
+    /**
+     * this method tests that the flagBearer effect works correctly
+     */
     @Test
-    public void useEffect() throws NoSuchFieldException {
+    public void useEffect() {
         flagBearer.setEffectIsland(islandManager.getIsland(8).getId());
 
-        flagBearer.useEffect();
+        try {
+            flagBearer.useEffect();
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
         assertSame(player, islandManager.getIsland(8).getOwner());
         assertEquals(12, islandManager.countIslands());
         assertTrue(flagBearer.isCostIncreased());
         assertEquals(4, flagBearer.getCost());
 
-        islandManager.moveMotherNature(2);
+        try {
+            islandManager.moveMotherNature(2);
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
         UUID MNPosition = islandManager.getMotherNaturePosition();
         assertSame(MNPosition, islandManager.getIsland(2).getId());
 
     }
 
+    /**
+     * this method verifies that the exception is thrown if the island on which to calculate the majority is not set
+     */
     @Test (expected = IllegalStateException.class)
-    public void useEffect2() throws NoSuchFieldException{
-        flagBearer.useEffect();
+    public void useEffect2(){
+        try {
+            flagBearer.useEffect();
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
         assertSame(player, islandManager.getIsland(8).getOwner());
         assertEquals(12, islandManager.countIslands());
         assertTrue(flagBearer.isCostIncreased());
         assertEquals(4, flagBearer.getCost());
 
-        islandManager.moveMotherNature(2);
+        try {
+            islandManager.moveMotherNature(2);
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
         UUID MNPosition = islandManager.getMotherNaturePosition();
         assertSame(MNPosition, islandManager.getIsland(2).getId());
     }
