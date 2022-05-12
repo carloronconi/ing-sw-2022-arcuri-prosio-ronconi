@@ -23,6 +23,7 @@ public class GameController implements EventListener<ViewEvent> {
     private int numOfPlayers;
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
+    private List<VirtualView> virtualViews;
 
     private final EventManager<ModelEvent> modelEventEventManager;
     private TurnController turnController;
@@ -32,6 +33,7 @@ public class GameController implements EventListener<ViewEvent> {
         playerNicknames = new ArrayList<>();
         controllerState = ControllerState.INITIAL_SETUP;
         this.modelEventEventManager = modelEventEventManager;
+        virtualViews = new ArrayList<>();
     }
 
     public TurnController getTurnController() {
@@ -84,12 +86,18 @@ public class GameController implements EventListener<ViewEvent> {
             playerNicknames.add(nickname);
             if (playerNicknames.size()==numOfPlayers){
                 boolean expertMode = (gameMode == GameMode.HARD);
+                for (VirtualView v : virtualViews){
+                    modelEventEventManager.subscribe(v);
+                }
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
+                controllerState = ControllerState.PLAYING_GAME;
+                turnController = new TurnController(gameModel, gameMode);
+                for (VirtualView v : virtualViews){
+                    v.subscribeToEventManager(turnController);
+                }
             }
-            controllerState = ControllerState.PLAYING_GAME;
-            turnController = new TurnController(gameModel, gameMode);
             VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
-            virtualView.subscribeToEventManager(turnController);
+            virtualViews.add(virtualView);
         }else if (viewEvent instanceof SetPlayAgain){
             playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
         }
