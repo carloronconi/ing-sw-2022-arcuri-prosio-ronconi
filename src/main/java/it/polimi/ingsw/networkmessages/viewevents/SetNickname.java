@@ -24,6 +24,7 @@ public class SetNickname implements Serializable, SetupViewEvent {
             virtualView.invalidNickname();
             throw new InvalidObjectException("Nickname already used");
         }
+        /*
         while (!virtualView.isItMyTurn()) {
             try {
                 wait();
@@ -31,7 +32,7 @@ public class SetNickname implements Serializable, SetupViewEvent {
                 e.printStackTrace();
             }
         }
-        virtualView.getAssistantCard();
+        virtualView.getAssistantCard();*/
     }
 
     public VirtualView getVirtualView() {
