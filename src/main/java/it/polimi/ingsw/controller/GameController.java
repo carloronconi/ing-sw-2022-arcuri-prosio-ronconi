@@ -88,6 +88,8 @@ public class GameController implements EventListener<ViewEvent> {
             }
             controllerState = ControllerState.PLAYING_GAME;
             turnController = new TurnController(gameModel, gameMode);
+            VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
+            virtualView.subscribeToEventManager(turnController);
         }else if (viewEvent instanceof SetPlayAgain){
             playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
         }

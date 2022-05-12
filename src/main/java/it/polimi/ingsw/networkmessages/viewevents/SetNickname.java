@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class SetNickname implements Serializable, SetupViewEvent {
     private final String nickname;
+    private VirtualView virtualView;
 
     public SetNickname(String nickname) {
         this.nickname = nickname;
@@ -18,6 +19,7 @@ public class SetNickname implements Serializable, SetupViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+        this.virtualView = virtualView;
         if (virtualView.isNicknameAlreadyUsed(nickname)) {
             virtualView.invalidNickname();
             throw new InvalidObjectException("Nickname already used");
@@ -30,5 +32,9 @@ public class SetNickname implements Serializable, SetupViewEvent {
             }
         }
         virtualView.getAssistantCard();
+    }
+
+    public VirtualView getVirtualView() {
+        return virtualView;
     }
 }

@@ -24,14 +24,12 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     private static int whoseTurn;
     private final int thisInstanceNumber;
     private final GameController gameController;
-    private final TurnController turnController;
+    private TurnController turnController;
 
-    public VirtualView(Socket clientSocket, GameController gameController, TurnController turnController) {
+    public VirtualView(Socket clientSocket, GameController gameController) {
         this.clientSocket = clientSocket;
         this.gameController = gameController;
-        this.turnController = turnController;
         eventManager = new EventManager<>();
-        eventManager.subscribe(turnController);
         eventManager.subscribe(gameController);
         thisInstanceNumber = numberOfInstances;
         numberOfInstances++;
@@ -43,6 +41,11 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     public boolean isNicknameAlreadyUsed(String nickname){
         return gameController.getPlayerNicknames().contains(nickname);
+    }
+
+    public void subscribeToEventManager(TurnController turnController){
+        this.turnController = turnController;
+        eventManager.subscribe(turnController);
     }
 
     public synchronized boolean isItMyTurn(){
@@ -186,7 +189,9 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
         try {
             output = new ObjectOutputStream(clientSocket.getOutputStream());
+            System.out.println("output stream created");
             input = new ObjectInputStream(clientSocket.getInputStream());
+            System.out.println("input stream created");
         } catch (IOException e) {
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
             return;
