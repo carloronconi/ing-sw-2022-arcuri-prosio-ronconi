@@ -1,5 +1,7 @@
 package it.polimi.ingsw.networkmessages.modelevents;
 
+import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.ProfessorManager;
@@ -96,5 +98,10 @@ public class GameState implements Serializable, ModelEvent {
 
     public ArrayList<String> getNicknames() {
         return nicknames;
+    }
+
+    @Override
+    public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
+        eventManager.notify(this);
     }
 }
