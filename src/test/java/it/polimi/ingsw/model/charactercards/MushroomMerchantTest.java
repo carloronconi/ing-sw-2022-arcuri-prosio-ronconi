@@ -21,8 +21,12 @@ public class MushroomMerchantTest {
 
         assertEquals(3, mushroomMerchant.getCost());
         assertFalse(mushroomMerchant.isCostIncreased());
+        assertEquals(AvailableCharacter.MUSHROOMMERCHANT, mushroomMerchant.getValue());
     }
 
+    /**
+     * this method tests that the mushroomMerchant effect works correctly
+     */
     @Test
     public void useEffect(){
         mushroomMerchant.setEffectColor(PawnColor.RED);
@@ -31,4 +35,13 @@ public class MushroomMerchantTest {
         assertTrue(mushroomMerchant.isCostIncreased());
     }
 
+    /**
+     * this method verifies that the exception is thrown if the color that should not provide influence
+     * during that turn is not set
+     */
+    @Test (expected = IllegalStateException.class)
+    public void useEffect2(){
+        mushroomMerchant.useEffect();
+
+    }
 }
