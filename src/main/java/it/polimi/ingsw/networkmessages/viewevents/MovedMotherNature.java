@@ -1,5 +1,8 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.server.VirtualView;
+
+import java.io.InvalidObjectException;
 import java.io.Serializable;
 
 public class MovedMotherNature implements Serializable, GameViewEvent {
@@ -11,5 +14,10 @@ public class MovedMotherNature implements Serializable, GameViewEvent {
 
     public int getMotherNatureSteps(){
         return motherNatureSteps;
+    }
+
+    @Override
+    public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+
     }
 }

@@ -12,4 +12,9 @@ public class GameOver implements Serializable, RemoteMethodCall {
     public UUID getWinner() {
         return winner;
     }
+
+    @Override
+    public void processMessage() {
+
+    }
 }

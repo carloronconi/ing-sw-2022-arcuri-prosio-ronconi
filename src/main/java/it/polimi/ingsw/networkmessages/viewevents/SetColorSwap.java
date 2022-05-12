@@ -1,7 +1,9 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.server.VirtualView;
 
+import java.io.InvalidObjectException;
 import java.io.Serializable;
 
 public class SetColorSwap implements Serializable, GameViewEvent {
@@ -19,5 +21,10 @@ public class SetColorSwap implements Serializable, GameViewEvent {
 
     public PawnColor getTake() {
         return take;
+    }
+
+    @Override
+    public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+
     }
 }

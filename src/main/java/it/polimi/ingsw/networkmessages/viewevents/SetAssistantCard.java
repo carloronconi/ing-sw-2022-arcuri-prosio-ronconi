@@ -19,10 +19,10 @@ public class SetAssistantCard implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
-        /*if (virtualView.isAssistantCardIllegal(getCard())){
+        if (virtualView.isAssistantCardIllegal(getCard())){
             virtualView.invalidAssistantCard();
         }
-        */
+
 
     }
 }

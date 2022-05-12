@@ -1,5 +1,8 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.server.VirtualView;
+
+import java.io.InvalidObjectException;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -11,5 +14,10 @@ public class ChosenCloud implements Serializable, GameViewEvent {
     }
     public UUID getCloud() {
         return cloud;
+    }
+
+    @Override
+    public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+
     }
 }
