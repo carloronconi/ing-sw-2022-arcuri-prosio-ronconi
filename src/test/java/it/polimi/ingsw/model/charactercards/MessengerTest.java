@@ -28,7 +28,7 @@ public class MessengerTest {
 
         eventManager = new EventManager<>();
         EventListener<ModelEvent> listener = modelEvent -> System.out.println("update received");
-        eventManager.subscribe(GameState.class, listener);
+        eventManager.subscribe(listener);
 
 
 
