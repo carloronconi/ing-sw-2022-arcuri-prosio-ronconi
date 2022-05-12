@@ -43,6 +43,15 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
         player = null;
     }
 
+    /**
+     * this method returns true if the input color is contained by the juggler
+     * @param color is the color of the student we want to know if it is contained
+     * @return true if the input color is contained by the juggler otherwise returns false
+     */
+    public boolean isColorContained(PawnColor color){
+        return studentCounter.count(color) > 0;
+    }
+
     @Override
     public void setEffectPlayer(UUID player) {
         this.player = player;
