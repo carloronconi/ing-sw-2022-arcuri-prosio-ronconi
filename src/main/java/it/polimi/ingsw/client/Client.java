@@ -61,7 +61,7 @@ public class Client implements Runnable {
         /* We are going to stop the application, so ask the server thread
          * to stop as well. Note that we are invoking the stop() method on
          * ServerHandler, not on Thread */
-        serverHandler.stop();
+        //serverHandler.stop();
     }
 
 }
