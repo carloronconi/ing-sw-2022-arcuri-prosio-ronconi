@@ -56,9 +56,12 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     {
         try {
             output = new ObjectOutputStream(server.getOutputStream());
+            System.out.println("output stream created");
             input = new ObjectInputStream(server.getInputStream());
+            System.out.println("input stream created");
         } catch (IOException e) {
             System.out.println("could not open connection to " + server.getInetAddress());
+            e.printStackTrace();
             //owner.terminate();
             return;
         }
@@ -124,6 +127,7 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     /**
      * Requires the run() method to stop as soon as possible.
      */
+    /*
     public void stop()
     {
         shouldStop.set(true);
@@ -131,7 +135,7 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
             server.shutdownInput();
         } catch (IOException e) { }
     }
-
+*/
     @Override
     public void update(ViewEvent viewEvent) {
         try {
