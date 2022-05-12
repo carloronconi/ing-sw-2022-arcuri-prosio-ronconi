@@ -141,7 +141,11 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void invalidNickname() {
-
+        try {
+            output.writeObject(new InvalidNickname());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
