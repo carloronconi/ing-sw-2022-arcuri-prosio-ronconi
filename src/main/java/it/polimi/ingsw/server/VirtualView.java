@@ -56,6 +56,10 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         notifyAll();
     }
 
+    public boolean isAssistantCardIllegal(int card){
+        return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
+    }
+
     @Override
     public void sendAcknowledgement() {
         try {

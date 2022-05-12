@@ -42,6 +42,12 @@ public class GameController implements EventListener<ViewEvent> {
         return new ArrayList<>(playerNicknames);
     }
 
+    public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum){
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        return false;
+    }
+
     /**
      * call to start the game
      */
