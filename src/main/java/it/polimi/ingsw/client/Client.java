@@ -44,10 +44,12 @@ public class Client implements Runnable {
             System.out.println("server unreachable");
             return;
         }
-        serverHandler = new ServerHandler(server, this, view);
+        //serverHandler = new ServerHandler(server, this, view);
+        serverHandler = new ServerHandler(server, this);
 
         //TODO: ask if to instantiate cli or gui
         view = new CliView(serverHandler);
+        serverHandler.linkView(view);
 
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();

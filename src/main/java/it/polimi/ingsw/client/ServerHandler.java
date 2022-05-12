@@ -3,8 +3,10 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.ReceivedByClient;
 import it.polimi.ingsw.networkmessages.controllercalls.RemoteMethodCall;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.Handshake;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 import it.polimi.ingsw.server.VirtualView;
 
@@ -32,14 +34,17 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
      * a server.
      * @param server The socket connection to the server.
      */
-    public ServerHandler(Socket server, Client owner, ViewInterface view)
+    public ServerHandler(Socket server, Client owner)
     {
         this.server = server;
         this.owner = owner;
         eventManager = new EventManager<>();
+
+    }
+
+    public void linkView(ViewInterface view){
         this.view = view;
         eventManager.subscribe(view);
-
     }
 
 
@@ -80,11 +85,13 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     {
         try {
             boolean stop = false;
+            output.writeObject(new Handshake());
+
             while (!stop) {
                 /* read commands from the server and process them */
                 try {
                     Object next = input.readObject();
-                    RemoteMethodCall message = (RemoteMethodCall) next;
+                    ReceivedByClient message = (ReceivedByClient) next;
                     message.processMessage(view, eventManager);
                 } catch (IOException e) {
                     /* Check if we were interrupted because another thread has asked us to stop */
