@@ -2,15 +2,23 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
+import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 
+import java.util.Scanner;
+
 public class CliView implements ViewInterface {
-    EventManager<ViewEvent> eventManager;
+    private EventManager<ViewEvent> eventManager;
+    private Scanner scanner;
 
     public CliView(ServerHandler handler) {
         eventManager = new EventManager<>();
         eventManager.subscribe(handler);
+        scanner = new Scanner(System.in);
+
     }
 
     @Override
@@ -45,12 +53,31 @@ public class CliView implements ViewInterface {
 
     @Override
     public void getNickname() {
+        System.out.println("Nickname?");
+        String text = scanner.nextLine();
 
+        eventManager.notify(new SetNickname(text));
     }
 
     @Override
     public void getPreferences() {
+        System.out.println("Easy or hard? (E/H)");
+        String text = scanner.nextLine();
+        while (!(text.equals("E") || text.equals("H"))){
+            System.out.println("Easy or hard? (E/H)");
+            text = scanner.nextLine();
+        }
 
+        GameMode gameMode = text.equals("H")? GameMode.HARD : GameMode.EASY;
+
+        System.out.println("Number of players?");
+        int numOfPlayers = scanner.nextInt();
+        while (!(numOfPlayers==2|| numOfPlayers== 3)){
+            System.out.println("Number of players?");
+            numOfPlayers = scanner.nextInt();
+        }
+
+        eventManager.notify(new SetPreferences(numOfPlayers, gameMode));
     }
 
     @Override
@@ -70,7 +97,7 @@ public class CliView implements ViewInterface {
 
     @Override
     public void invalidNickname() {
-
+        getNickname();
     }
 
     @Override
@@ -105,6 +132,6 @@ public class CliView implements ViewInterface {
 
     @Override
     public void update(ModelEvent modelEvent) {
-
+        modelEvent.toString();
     }
 }
