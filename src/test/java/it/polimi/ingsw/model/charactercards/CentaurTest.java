@@ -20,8 +20,12 @@ public class CentaurTest {
 
         assertEquals(3, centaur.getCost());
         assertFalse(centaur.isCostIncreased());
+        assertEquals(AvailableCharacter.CENTAUR, centaur.getValue());
     }
 
+    /**
+     * this method tests that the centaur effect works correctly
+     */
     @Test
     public void useEffect(){
         centaur.useEffect();
