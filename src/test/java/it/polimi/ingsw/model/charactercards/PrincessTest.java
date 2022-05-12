@@ -33,11 +33,15 @@ public class PrincessTest {
         assertEquals(2, princess.getCost());
         assertFalse(princess.isCostIncreased());
         assertEquals(119, bag.count());
+        assertEquals(AvailableCharacter.PRINCESS, princess.getValue());
 
     }
 
+    /**
+     * this method tests that the princess effect works correctly
+     */
     @Test
-    public void useEffect() throws NoSuchFieldException {
+    public void useEffect() {
 
 
         for(PawnColor color : PawnColor.values()){
@@ -45,13 +49,38 @@ public class PrincessTest {
                 int numStudents=player.getDiningRoom().count(color);
                 princess.setEffectColor(color);
                 princess.setEffectPlayer(player.getId());
-                princess.useEffect();
+                try {
+                    princess.useEffect();
+                } catch (NoSuchFieldException e) {
+                    fail();
+                }
                 assertEquals(118, bag.count());
                 assertEquals(numStudents+1, player.getDiningRoom().count(color));
                 break;
             }
         }
 
+    }
+
+    /**
+     * this method tests that the color of the student and
+     * the player who will benefit from this effect have not been set
+     */
+    @Test (expected = IllegalStateException.class)
+    public void useEffect2(){
+        for(PawnColor color : PawnColor.values()){
+            if(princess.isColorContained(color)){
+                int numStudents=player.getDiningRoom().count(color);
+                try {
+                    princess.useEffect();
+                } catch (NoSuchFieldException e) {
+                    fail();
+                }
+                assertEquals(118, bag.count());
+                assertEquals(numStudents+1, player.getDiningRoom().count(color));
+                break;
+            }
+        }
     }
 
 }
