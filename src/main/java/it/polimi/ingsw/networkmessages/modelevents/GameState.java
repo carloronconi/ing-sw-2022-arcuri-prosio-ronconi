@@ -104,4 +104,23 @@ public class GameState implements Serializable, ModelEvent {
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
         eventManager.notify(this);
     }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "bag=" + bag +
+                ", professorOwners=" + professorOwners +
+                ", clouds=" + clouds +
+                ", islands=" + islands +
+                ", entrances=" + entrances +
+                ", diningRooms=" + diningRooms +
+                ", assistantDecks=" + assistantDecks +
+                ", coinsMap=" + coinsMap +
+                ", characterCards=" + characterCards +
+                ", playedAssistantCards=" + playedAssistantCards +
+                ", motherNaturePosition=" + motherNaturePosition +
+                ", islandOwners=" + islandOwners +
+                ", nicknames=" + nicknames +
+                '}';
+    }
 }
