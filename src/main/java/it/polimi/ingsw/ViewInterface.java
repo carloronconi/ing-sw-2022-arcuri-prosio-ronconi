@@ -1,6 +1,8 @@
 package it.polimi.ingsw;
 
-public interface ViewInterface {
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+
+public interface ViewInterface extends EventListener<ModelEvent> {
 
     void sendAcknowledgement();
 
