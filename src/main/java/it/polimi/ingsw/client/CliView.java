@@ -132,6 +132,6 @@ public class CliView implements ViewInterface {
 
     @Override
     public void update(ModelEvent modelEvent) {
-        modelEvent.toString();
+        System.out.println(modelEvent.toString());
     }
 }
