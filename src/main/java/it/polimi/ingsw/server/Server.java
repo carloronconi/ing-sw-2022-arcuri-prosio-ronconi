@@ -44,7 +44,7 @@ public class Server {
                 /* accepts connections; for every connection we accept,
                  * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
-                VirtualView virtualView = new VirtualView(client, gameController, gameController.getTurnController());
+                VirtualView virtualView = new VirtualView(client, gameController);
                 modelEventManager.subscribe(virtualView);
                 Thread thread = new Thread(virtualView, "server_" + client.getInetAddress());
                 thread.start();
