@@ -108,19 +108,19 @@ public class GameState implements Serializable, ModelEvent {
     @Override
     public String toString() {
         return "GameState{" +
-                "bag=" + bag +
-                ", professorOwners=" + professorOwners +
-                ", clouds=" + clouds +
-                ", islands=" + islands +
-                ", entrances=" + entrances +
-                ", diningRooms=" + diningRooms +
-                ", assistantDecks=" + assistantDecks +
-                ", coinsMap=" + coinsMap +
-                ", characterCards=" + characterCards +
-                ", playedAssistantCards=" + playedAssistantCards +
-                ", motherNaturePosition=" + motherNaturePosition +
-                ", islandOwners=" + islandOwners +
-                ", nicknames=" + nicknames +
-                '}';
+                "\nbag=" + bag +
+                ", \nprofessorOwners=" + professorOwners +
+                ", \nclouds=" + clouds +
+                ", \nislands=" + islands +
+                ", \nentrances=" + entrances +
+                ", \ndiningRooms=" + diningRooms +
+                ", \nassistantDecks=" + assistantDecks +
+                ", \ncoinsMap=" + coinsMap +
+                ", \ncharacterCards=" + characterCards +
+                ", \nplayedAssistantCards=" + playedAssistantCards +
+                ", \nmotherNaturePosition=" + motherNaturePosition +
+                ", \nislandOwners=" + islandOwners +
+                ", \nnicknames=" + nicknames +
+                "}";
     }
 }
