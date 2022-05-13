@@ -44,7 +44,7 @@ public class GameController implements EventListener<ViewEvent> {
         return new ArrayList<>(playerNicknames);
     }
 
-    public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum){
+    public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum) {
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
         UUID playerId = playerIds.get(virtualViewInstanceNum);
         return false;
@@ -75,31 +75,32 @@ public class GameController implements EventListener<ViewEvent> {
 
     }
     */
-
     @Override
     public void update(ViewEvent viewEvent) {
-        if(viewEvent instanceof SetNickname){
+        if (viewEvent instanceof SetNickname) {
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
-        }else if (viewEvent instanceof SetPreferences){
+            for (VirtualView v : virtualViews) {
+                v.subscribeToEventManager(turnController);
+            }
+            VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
+            virtualViews.add(virtualView);
+
+        } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
             gameMode = ((SetPreferences) viewEvent).getGameMode();
-            if (playerNicknames.size()==numOfPlayers){
+            if (playerNicknames.size() == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
-                for (VirtualView v : virtualViews){
+                for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
                 }
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
-                for (VirtualView v : virtualViews){
-                    v.subscribeToEventManager(turnController);
-                }
+
+            } else if (viewEvent instanceof SetPlayAgain) {
+                playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
             }
-            VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
-            virtualViews.add(virtualView);
-        }else if (viewEvent instanceof SetPlayAgain){
-            playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
         }
     }
 }
