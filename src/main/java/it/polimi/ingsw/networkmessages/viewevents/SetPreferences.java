@@ -24,6 +24,6 @@ public class SetPreferences implements Serializable, SetupViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) {
-        virtualView.getNickname();
+        //virtualView.getNickname();
     }
 }
