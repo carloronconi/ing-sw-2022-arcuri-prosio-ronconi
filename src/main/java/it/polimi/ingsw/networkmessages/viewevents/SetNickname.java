@@ -24,6 +24,9 @@ public class SetNickname implements Serializable, SetupViewEvent {
             virtualView.invalidNickname();
             throw new InvalidObjectException("Nickname already used");
         }
+        if (virtualView.getThisInstanceNumber() == 0) {
+            virtualView.getPreferences();
+        }
         /*
         while (!virtualView.isItMyTurn()) {
             try {

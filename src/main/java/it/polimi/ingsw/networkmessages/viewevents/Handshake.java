@@ -9,7 +9,11 @@ public class Handshake implements Serializable, SetupViewEvent {
     @Override
     public void processMessage(VirtualView virtualView) {
         virtualView.sendAcknowledgement();
-        if (virtualView.getThisInstanceNumber() == 0) virtualView.getPreferences();
-        else virtualView.getNickname();
+       /* if (virtualView.getThisInstanceNumber() == 0) {
+            virtualView.getPreferences();
+        }else{
+            virtualView.sendAcknowledgement();
+        }*/
+        virtualView.getNickname();
     }
 }
