@@ -78,12 +78,12 @@ public class GameController implements EventListener<ViewEvent> {
 
     @Override
     public void update(ViewEvent viewEvent) {
-        if (viewEvent instanceof SetPreferences){
-            numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
-            gameMode = ((SetPreferences) viewEvent).getGameMode();
-        } else if (viewEvent instanceof SetNickname){
+        if(viewEvent instanceof SetNickname){
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
+        }else if (viewEvent instanceof SetPreferences){
+            numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
+            gameMode = ((SetPreferences) viewEvent).getGameMode();
             if (playerNicknames.size()==numOfPlayers){
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews){
