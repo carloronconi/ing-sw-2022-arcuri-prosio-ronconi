@@ -97,10 +97,9 @@ public class GameController implements EventListener<ViewEvent> {
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
-
-            } else if (viewEvent instanceof SetPlayAgain) {
+            }
+        } else if (viewEvent instanceof SetPlayAgain) {
                 playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
             }
         }
-    }
 }
