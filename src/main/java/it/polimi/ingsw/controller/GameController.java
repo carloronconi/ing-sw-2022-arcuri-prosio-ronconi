@@ -80,11 +80,9 @@ public class GameController implements EventListener<ViewEvent> {
         if (viewEvent instanceof SetNickname) {
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
+
             VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
             virtualViews.add(virtualView);
-            for (VirtualView v : virtualViews) {
-                v.subscribeToEventManager(turnController);
-            }
 
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
@@ -93,6 +91,7 @@ public class GameController implements EventListener<ViewEvent> {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
+                    v.subscribeToEventManager(turnController);
                 }
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
