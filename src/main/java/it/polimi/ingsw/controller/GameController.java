@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.controllercalls.GetAssistantCard;
 import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
 import it.polimi.ingsw.networkmessages.controllercalls.InvalidNickname;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
@@ -96,6 +97,7 @@ public class GameController implements EventListener<ViewEvent> {
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
+
                 for(VirtualView v : virtualViews){
                     v.subscribeToEventManager(turnController);
                 }

@@ -52,7 +52,7 @@ public class CliView implements ViewInterface {
 
     @Override
     public void invalidAssistantCard() {
-
+        getAssistantCard();
     }
 
     @Override

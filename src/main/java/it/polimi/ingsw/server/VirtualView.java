@@ -26,6 +26,14 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     private final GameController gameController;
     private TurnController turnController;
 
+    private void writeObject(RemoteMethodCall remoteMethodCall){
+        try {
+            output.writeObject(remoteMethodCall);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public VirtualView(Socket clientSocket, GameController gameController) {
         this.clientSocket = clientSocket;
         this.gameController = gameController;
@@ -49,15 +57,15 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     }
 
     public synchronized boolean isItMyTurn(){
-        updateNextTurn();
+       // updateNextTurn();
         return thisInstanceNumber == whoseTurn;
     }
 
-    private synchronized void updateNextTurn(){
+  /*  private synchronized void updateNextTurn(){
         // change whoseTurn variable according to player order in turnController
         whoseTurn = turnController.getNextPlayer();
         notifyAll();
-    }
+    }*/
 
     public boolean isAssistantCardIllegal(int card){
         return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
@@ -65,20 +73,12 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void sendAcknowledgement() {
-        try {
-            output.writeObject(new Acknowledgement());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeObject(new Acknowledgement());
     }
 
     @Override
     public void askPlayAgain() {
-        try {
-            output.writeObject(new AskPlayAgain());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeObject(new AskPlayAgain());
     }
 
     @Override
@@ -93,35 +93,24 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void getAssistantCard() {
-        try {
-            output.writeObject(new GetAssistantCard());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeObject(new GetAssistantCard());
     }
 
     @Override
     public void invalidAssistantCard() {
+        writeObject(new InvalidAssistantCard());
 
     }
 
 
     @Override
     public void getNickname() {
-        try {
-            output.writeObject(new GetNickname());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeObject(new GetNickname());
     }
 
     @Override
     public void getPreferences() {
-        try {
-            output.writeObject(new GetPreferences());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeObject(new GetPreferences());
     }
 
     @Override
@@ -141,11 +130,7 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void invalidNickname() {
-        try {
-            output.writeObject(new InvalidNickname());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeObject(new InvalidNickname());
     }
 
     @Override
@@ -209,12 +194,15 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
                 //command.processMessage(this);
                 try{
                     try {
+                        //doubt about this try-catch
                         message.processMessage(this);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     eventManager.notify(message);
-                } catch (InvalidObjectException e){ }
+                } catch (InvalidObjectException e){
+                    e.printStackTrace();
+                }
 
             }
         } catch (ClassNotFoundException | ClassCastException e) {
@@ -226,7 +214,9 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
         try {
             clientSocket.close();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

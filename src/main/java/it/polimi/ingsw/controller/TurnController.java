@@ -66,7 +66,7 @@ public class TurnController implements EventListener<ViewEvent> {
 
     }
 
-    public int getNextPlayer(){
+   /* public int getNextPlayer(){
         int i = 0;
         UUID nextPlayerId = playerOrder.get(0);
         for (UUID id : gameModel.getPlayerIds()) {
@@ -75,7 +75,7 @@ public class TurnController implements EventListener<ViewEvent> {
         }
 
         return i;
-    }
+    } */
 
     /*
     public boolean startRound() {
