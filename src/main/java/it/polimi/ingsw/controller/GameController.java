@@ -80,11 +80,11 @@ public class GameController implements EventListener<ViewEvent> {
         if (viewEvent instanceof SetNickname) {
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
+            VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
+            virtualViews.add(virtualView);
             for (VirtualView v : virtualViews) {
                 v.subscribeToEventManager(turnController);
             }
-            VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
-            virtualViews.add(virtualView);
 
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
