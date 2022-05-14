@@ -101,7 +101,8 @@ public class GameController implements EventListener<ViewEvent> {
                 for(VirtualView v : virtualViews){
                     v.subscribeToEventManager(turnController);
                 }
-
+                gameModel.fillAllClouds();
+                gameModel.clearPlayedAssistantCards();
             }
         } else if (viewEvent instanceof SetPlayAgain) {
                 playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();

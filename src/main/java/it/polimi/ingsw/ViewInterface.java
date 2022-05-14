@@ -20,6 +20,8 @@ public interface ViewInterface extends EventListener<ModelEvent> {
 
     void getPreferences();
 
+    void letsPlay();
+
     void playerTurn();
 
     void invalidCharacterChoice();

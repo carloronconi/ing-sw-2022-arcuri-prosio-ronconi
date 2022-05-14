@@ -57,15 +57,15 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     }
 
     public synchronized boolean isItMyTurn(){
-       // updateNextTurn();
+       updateNextTurn();
         return thisInstanceNumber == whoseTurn;
     }
 
-  /*  private synchronized void updateNextTurn(){
+    private synchronized void updateNextTurn(){
         // change whoseTurn variable according to player order in turnController
         whoseTurn = turnController.getNextPlayer();
         notifyAll();
-    }*/
+    }
 
     public boolean isAssistantCardIllegal(int card){
         return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
@@ -112,6 +112,12 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     public void getPreferences() {
         writeObject(new GetPreferences());
     }
+
+    @Override
+    public  void letsPlay(){
+        writeObject(new LetsPlay());
+    }
+
 
     @Override
     public void playerTurn() {
@@ -200,6 +206,7 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
                         e.printStackTrace();
                     }
                     eventManager.notify(message);
+
                 } catch (InvalidObjectException e){
                     e.printStackTrace();
                 }

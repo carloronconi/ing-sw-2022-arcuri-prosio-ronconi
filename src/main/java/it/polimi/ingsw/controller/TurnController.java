@@ -23,7 +23,7 @@ public class TurnController implements EventListener<ViewEvent> {
     private List<UUID> playerOrder;
     private final GameModel gameModel;
 
-    private int lastPlayedAssistant;
+    int lastPlayedAssistant;
     private AvailableCharacter lastPlayedCharacter;
     private PawnColor lastChosenStudent;
     private UUID lastChosenIsland;
@@ -66,7 +66,7 @@ public class TurnController implements EventListener<ViewEvent> {
 
     }
 
-   /* public int getNextPlayer(){
+   public int getNextPlayer(){
         int i = 0;
         UUID nextPlayerId = playerOrder.get(0);
         for (UUID id : gameModel.getPlayerIds()) {
@@ -75,7 +75,7 @@ public class TurnController implements EventListener<ViewEvent> {
         }
 
         return i;
-    } */
+    }
 
     /*
     public boolean startRound() {
@@ -197,10 +197,8 @@ public class TurnController implements EventListener<ViewEvent> {
     @Override
     public void update(ViewEvent modelEvent)  {
         if (modelEvent instanceof SetAssistantCard){
-            gameModel.fillAllClouds();
-            gameModel.clearPlayedAssistantCards();
+
             lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
-            System.out.println("card received");
 
         } else if (modelEvent instanceof  ChosenCharacter){
             lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
