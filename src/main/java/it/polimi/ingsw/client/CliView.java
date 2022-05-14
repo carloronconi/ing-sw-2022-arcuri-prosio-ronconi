@@ -4,6 +4,7 @@ import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
 import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
@@ -43,6 +44,9 @@ public class CliView implements ViewInterface {
 
     @Override
     public void getAssistantCard() {
+        System.out.println("Choose an Assistant Card: [1-10] ");
+        int card = scanner.nextInt();
+        eventManager.notify(new SetAssistantCard(card));
 
     }
 

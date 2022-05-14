@@ -208,7 +208,11 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
                 ViewEvent message = (ViewEvent) next;
                 //command.processMessage(this);
                 try{
-                    message.processMessage(this);
+                    try {
+                        message.processMessage(this);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     eventManager.notify(message);
                 } catch (InvalidObjectException e){ }
 

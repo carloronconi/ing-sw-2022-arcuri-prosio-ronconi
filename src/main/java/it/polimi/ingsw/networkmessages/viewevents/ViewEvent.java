@@ -7,5 +7,5 @@ import java.io.InvalidObjectException;
 import java.io.Serializable;
 
 public interface ViewEvent extends GenericEvent {
-    void processMessage(VirtualView virtualView) throws InvalidObjectException;
+    void processMessage(VirtualView virtualView) throws InvalidObjectException, InterruptedException;
 }

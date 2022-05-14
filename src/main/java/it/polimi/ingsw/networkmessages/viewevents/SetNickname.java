@@ -27,15 +27,7 @@ public class SetNickname implements Serializable, SetupViewEvent {
         if (virtualView.getThisInstanceNumber() == 0) {
             virtualView.getPreferences();
         }
-        /*
-        while (!virtualView.isItMyTurn()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        virtualView.getAssistantCard();*/
+
     }
 
     public VirtualView getVirtualView() {

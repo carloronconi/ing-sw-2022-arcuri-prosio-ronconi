@@ -23,7 +23,16 @@ public class SetPreferences implements Serializable, SetupViewEvent {
     }
 
     @Override
-    public void processMessage(VirtualView virtualView) {
-        //virtualView.getNickname();
+    public void processMessage(VirtualView virtualView) throws InterruptedException {
+
+      while (!virtualView.isItMyTurn()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        virtualView.getAssistantCard();
+
     }
 }

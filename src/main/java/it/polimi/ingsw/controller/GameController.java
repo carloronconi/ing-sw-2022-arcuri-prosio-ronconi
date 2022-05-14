@@ -91,11 +91,15 @@ public class GameController implements EventListener<ViewEvent> {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
-                    v.subscribeToEventManager(turnController);
+
                 }
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
+                for(VirtualView v : virtualViews){
+                    v.subscribeToEventManager(turnController);
+                }
+
             }
         } else if (viewEvent instanceof SetPlayAgain) {
                 playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();

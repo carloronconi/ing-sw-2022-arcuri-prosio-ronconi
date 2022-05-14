@@ -197,7 +197,11 @@ public class TurnController implements EventListener<ViewEvent> {
     @Override
     public void update(ViewEvent modelEvent)  {
         if (modelEvent instanceof SetAssistantCard){
+            gameModel.fillAllClouds();
+            gameModel.clearPlayedAssistantCards();
             lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
+            System.out.println("card received");
+
         } else if (modelEvent instanceof  ChosenCharacter){
             lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
         } else if (modelEvent instanceof MovedStudent){
