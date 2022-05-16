@@ -9,11 +9,10 @@ import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.util.Collection;
+import java.util.UUID;
 
 public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Runnable {
     private Socket clientSocket;
@@ -24,7 +23,8 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     private static int whoseTurn;
     private final int thisInstanceNumber;
     private final GameController gameController;
-    private TurnController turnController;
+    private TurnController turnController ;
+    public UUID id;
 
     private void writeObject(RemoteMethodCall remoteMethodCall){
         try {
@@ -43,6 +43,10 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         numberOfInstances++;
     }
 
+    public UUID getId(){
+        return id;
+    }
+
     public int getThisInstanceNumber() {
         return thisInstanceNumber;
     }
@@ -56,8 +60,14 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         eventManager.subscribe(turnController);
     }
 
+
+
     public synchronized boolean isItMyTurn(){
-       updateNextTurn();
+
+        if( id.equals(turnController.getPlayerId(0))){
+            updateNextTurn();
+
+        }
         return thisInstanceNumber == whoseTurn;
     }
 
@@ -226,4 +236,19 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         }
 
     }
+
+
+    public void threadWait(){
+       if(thisInstanceNumber != whoseTurn) {
+           try {
+               wait();
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
+
+    }
+
+
+
 }

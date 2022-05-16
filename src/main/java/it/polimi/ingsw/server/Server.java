@@ -2,6 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.TurnController;
+import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
 import java.io.IOException;

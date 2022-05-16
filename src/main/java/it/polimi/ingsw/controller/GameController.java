@@ -25,6 +25,7 @@ public class GameController implements EventListener<ViewEvent> {
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
     private List<VirtualView> virtualViews;
+    private UUID id; //virtual view id
 
     private final EventManager<ModelEvent> modelEventEventManager;
     private TurnController turnController;
@@ -35,6 +36,10 @@ public class GameController implements EventListener<ViewEvent> {
         controllerState = ControllerState.INITIAL_SETUP;
         this.modelEventEventManager = modelEventEventManager;
         virtualViews = new ArrayList<>();
+    }
+
+    public List<VirtualView> getVirtualViews(){
+        return virtualViews;
     }
 
     public TurnController getTurnController() {
@@ -100,6 +105,7 @@ public class GameController implements EventListener<ViewEvent> {
 
                 for(VirtualView v : virtualViews){
                     v.subscribeToEventManager(turnController);
+                    v.id = turnController.getPlayerId(v.getThisInstanceNumber());
                 }
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();

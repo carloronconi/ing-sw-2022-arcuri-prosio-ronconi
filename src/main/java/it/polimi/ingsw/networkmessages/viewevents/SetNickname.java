@@ -26,6 +26,8 @@ public class SetNickname implements Serializable, SetupViewEvent {
         }
         if (virtualView.getThisInstanceNumber() == 0) {
             virtualView.getPreferences();
+        } else {
+            virtualView.letsPlay();
         }
 
     }
