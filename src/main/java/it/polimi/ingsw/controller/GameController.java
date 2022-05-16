@@ -29,6 +29,9 @@ public class GameController implements EventListener<ViewEvent> {
     private TurnController turnController;
     private boolean playAgain = false;
 
+    private final Object lock = new Object();
+    private int num=0;
+
     public GameController(EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
         controllerState = ControllerState.INITIAL_SETUP;
@@ -78,6 +81,12 @@ public class GameController implements EventListener<ViewEvent> {
     @Override
     public void update(ViewEvent viewEvent) {
         if (viewEvent instanceof SetNickname) {
+            if(((SetNickname) viewEvent).getVirtualView().getThisInstanceNumber()>0){
+                synchronized (lock){
+                    num++;
+                    lock.notifyAll();
+                }
+            }else num++;
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
 
@@ -87,6 +96,24 @@ public class GameController implements EventListener<ViewEvent> {
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
             gameMode = ((SetPreferences) viewEvent).getGameMode();
+            synchronized (lock){
+                while (num<numOfPlayers) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            /*while (num<2) {
+                synchronized (lock) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }*/
             if (playerNicknames.size() == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews) {
