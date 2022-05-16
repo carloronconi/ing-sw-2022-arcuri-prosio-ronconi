@@ -105,15 +105,7 @@ public class GameController implements EventListener<ViewEvent> {
                     }
                 }
             }
-            /*while (num<2) {
-                synchronized (lock) {
-                    try {
-                        lock.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }*/
+
             if (playerNicknames.size() == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews) {
@@ -129,7 +121,7 @@ public class GameController implements EventListener<ViewEvent> {
 
             }
         } else if (viewEvent instanceof SetPlayAgain) {
-                playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
-            }
+            playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
         }
+    }
 }
