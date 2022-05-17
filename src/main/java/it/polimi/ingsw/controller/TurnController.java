@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
-import it.polimi.ingsw.networkmessages.controllercalls.LetsPlay;
+//import it.polimi.ingsw.networkmessages.controllercalls.LetsPlay;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import it.polimi.ingsw.server.VirtualView;
@@ -207,13 +207,13 @@ public class TurnController implements EventListener<ViewEvent> {
 
     @Override
     public void update(ViewEvent modelEvent)  {
-        if(modelEvent instanceof LetsPlay){
+       /* if(modelEvent instanceof LetsPlay){
             views = gameController.getVirtualViews();
             UUID thisPlayer = playerOrder.get(0);
             UUID nextPlayer = getPlayerId(getNextPlayer());
 
 
-        }
+        } */
         if (modelEvent instanceof SetAssistantCard){
 
             lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();

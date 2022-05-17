@@ -2,6 +2,7 @@ package it.polimi.ingsw.networkmessages.viewevents;
 
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.controller.TurnController;
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.Serializable;
@@ -32,11 +33,13 @@ public class SetPreferences implements Serializable, SetupViewEvent {
     @Override
     public void processMessage(VirtualView virtualView) throws InterruptedException {
 
-           virtualView.letsPlay();
+          //virtualView.letsPlay();
 
 
 
         }
+
+        //TODO: is my turn e thread block goes in controller
        /* for(VirtualView v : views){
             if(!virtualView.isItMyTurn()){
                 try{
@@ -46,7 +49,7 @@ public class SetPreferences implements Serializable, SetupViewEvent {
             }else{
                 virtualView.getAssistantCard();
             }
-        }*/
+        } */
 
 
 

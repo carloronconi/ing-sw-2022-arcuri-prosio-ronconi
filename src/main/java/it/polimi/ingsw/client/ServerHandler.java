@@ -8,6 +8,7 @@ import it.polimi.ingsw.networkmessages.controllercalls.RemoteMethodCall;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.Handshake;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.IOException;

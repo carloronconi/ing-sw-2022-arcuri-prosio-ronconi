@@ -104,7 +104,7 @@ public class GameController implements EventListener<ViewEvent> {
                 turnController = new TurnController(gameModel, gameMode);
 
                 for(VirtualView v : virtualViews){
-                    v.subscribeToEventManager(turnController);
+                   // v.subscribeToEventManager(turnController);
                     v.id = turnController.getPlayerId(v.getThisInstanceNumber());
                 }
                 gameModel.fillAllClouds();
