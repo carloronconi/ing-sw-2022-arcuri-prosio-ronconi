@@ -14,7 +14,7 @@ import java.net.Socket;
 import java.util.Collection;
 import java.util.UUID;
 
-public class VirtualView implements EventListener<ModelEvent>  {
+public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private Socket clientSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
@@ -25,7 +25,7 @@ public class VirtualView implements EventListener<ModelEvent>  {
     private final GameController gameController;
     private TurnController turnController ;
     public UUID id;
-    private ClientHandler clientHandler;
+    private final ClientHandler clientHandler;
 
    /* private void writeObject(RemoteMethodCall remoteMethodCall){
         try {
@@ -83,7 +83,7 @@ public class VirtualView implements EventListener<ModelEvent>  {
         return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
     }
 
-   /* @Override
+    //@Override
     public void sendAcknowledgement() {
         try {
             output.writeObject(new Acknowledgement());
@@ -94,39 +94,41 @@ public class VirtualView implements EventListener<ModelEvent>  {
 
     @Override
     public void askPlayAgain() {
-        writeObject(new AskPlayAgain());
+        clientHandler.writeObject(new AskPlayAgain());
     }
 
     @Override
     public void chooseCharacter() {
+        clientHandler.writeObject(new ChooseCharacter());
 
     }
 
     @Override
     public void chooseCloud() {
-
+        clientHandler.writeObject(new ChooseCloud());
     }
 
     @Override
     public void getAssistantCard() {
-        writeObject(new GetAssistantCard());
+        clientHandler.writeObject(new GetAssistantCard());
     }
 
     @Override
     public void invalidAssistantCard() {
-        writeObject(new InvalidAssistantCard());
+        clientHandler.writeObject(new InvalidAssistantCard());
 
     }
 
 
     @Override
     public void getNickname() {
-        writeObject(new GetNickname());
+        clientHandler.writeObject( new GetNickname());
+
     }
 
-    @Override
+   @Override
     public void getPreferences() {
-        writeObject(new GetPreferences());
+        clientHandler.writeObject(new GetPreferences());
     }
 
    /* @Override
@@ -135,7 +137,7 @@ public class VirtualView implements EventListener<ModelEvent>  {
     } */
 
 
-  /*  @Override
+    @Override
     public void playerTurn() {
 
     }
@@ -152,7 +154,7 @@ public class VirtualView implements EventListener<ModelEvent>  {
 
     @Override
     public void invalidNickname() {
-        writeObject(new InvalidNickname());
+        clientHandler.writeObject(new InvalidNickname());
     }
 
     @Override
@@ -184,7 +186,7 @@ public class VirtualView implements EventListener<ModelEvent>  {
     public void getIslandChoice() {
 
     }
- */
+
     @Override
     public void update(ModelEvent modelEvent) {
         //forward the modelEvent through the socket

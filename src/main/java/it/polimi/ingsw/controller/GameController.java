@@ -104,8 +104,10 @@ public class GameController implements EventListener<ViewEvent> {
                 turnController = new TurnController(gameModel, gameMode);
 
                 for(VirtualView v : virtualViews){
-                   // v.subscribeToEventManager(turnController);
+                   // v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
+                    // RN THERE IS A CONFLICT BETWEEN TURN CONTROLLER AND GAME CONTROLLER
                     v.id = turnController.getPlayerId(v.getThisInstanceNumber());
+
                 }
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();

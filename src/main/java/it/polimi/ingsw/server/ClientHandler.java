@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
@@ -12,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    private Socket clientSocket;
+    private final Socket clientSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private VirtualView virtualView;
@@ -33,108 +32,14 @@ public class ClientHandler implements Runnable {
         }
     }
 
-   // @Override
-    public void askPlayAgain() {
 
-    }
-
-   // @Override
-    public void chooseCharacter() {
-
-    }
-
-   // @Override
-    public void chooseCloud() {
-
-    }
-
-  //  @Override
-    public void getAssistantCard() {
-
-    }
-
-    //@Override
-    public void invalidAssistantCard() {
-
-    }
-
-   // @Override
-    public void getNickname() {
-        try {
-            output.writeObject(new GetNickname());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-  //  @Override
-    public void getPreferences() {
-        try {
-            output.writeObject(new GetPreferences());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-   // @Override
-    public void playerTurn() {
-
-    }
-
-   // @Override
-    public void invalidCharacterChoice() {
-
-    }
-
-   // @Override
-    public void invalidMNMove() {
-
-    }
-
-   // @Override
-    public void invalidNickname() {
-
-    }
-
-    //@Override
-    public void moveMotherNature() {
-
-    }
-
-    //@Override
-    public void moveStudent() {
-
-    }
-
-    //@Override
-    public void gameOver() {
-
-    }
-
-    //@Override
-    public void getColorSwap() {
-
-    }
-
-    //@Override
-    public void getColorChoice() {
-
-    }
-
-
-    public void getIslandChoice() {
-
-    }
-
-  /*  private void writeObject(RemoteMethodCall remoteMethodCall){
+   protected void writeObject(RemoteMethodCall remoteMethodCall){
         try {
             output.writeObject(remoteMethodCall);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } */
+    }
 
 
     public void forwardModel(ModelEvent modelEvent){
@@ -165,7 +70,6 @@ public class ClientHandler implements Runnable {
                 //command.processMessage(this);
                 try{
                     try {
-                        //doubt about this try-catch
                         message.processMessage(virtualView);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

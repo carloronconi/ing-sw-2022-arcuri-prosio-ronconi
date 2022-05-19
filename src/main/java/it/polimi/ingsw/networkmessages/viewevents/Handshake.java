@@ -15,6 +15,6 @@ public class Handshake implements Serializable, SetupViewEvent {
         }else{
             virtualView.sendAcknowledgement();
         }*/
-        virtualView.getClientHandler().getNickname();
+        virtualView.getNickname();
     }
 }
