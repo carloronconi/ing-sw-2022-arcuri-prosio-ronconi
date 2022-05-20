@@ -7,10 +7,10 @@ import it.polimi.ingsw.server.ClientHandler;
 
 import java.io.Serializable;
 
-/*public class LetsPlay implements Serializable {
+public class LetsPlay implements Serializable, RemoteMethodCall {
+
     @Override
-    public void processMessage(ClientHandler clientHandler, EventManager<ModelEvent> eventManager) {
-        clientHandler.letsPlay();
+    public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
+        viewInterface.letsPlay();
     }
 }
-*/

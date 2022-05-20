@@ -81,14 +81,14 @@ public class CliView implements ViewInterface {
         eventManager.notify(new SetPreferences(numOfPlayers, gameMode));
     }
 
-    /*@Override
+    @Override
     public void letsPlay(){
         System.out.println("READY TO PLAY! 1 for yes 0 for no");
         int yes = scanner.nextInt();
         if(yes == 1) {
             eventManager.notify(new ReadyToPlay());
         }
-    } */
+    }
 
 
     @Override

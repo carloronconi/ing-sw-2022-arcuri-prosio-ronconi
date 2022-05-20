@@ -70,6 +70,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
             updateNextTurn();
 
         }
+
         return thisInstanceNumber == whoseTurn;
     }
 
@@ -131,10 +132,10 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         clientHandler.writeObject(new GetPreferences());
     }
 
-   /* @Override
+   @Override
    public  void letsPlay(){
-        writeObject(new LetsPlay());
-    } */
+        clientHandler.writeObject(new LetsPlay());
+    }
 
 
     @Override

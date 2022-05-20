@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.GenericEvent;
 import it.polimi.ingsw.networkmessages.controllercalls.GetAssistantCard;
 import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
 import it.polimi.ingsw.networkmessages.controllercalls.InvalidNickname;
@@ -93,6 +94,7 @@ public class GameController implements EventListener<ViewEvent> {
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
             gameMode = ((SetPreferences) viewEvent).getGameMode();
+
             if (playerNicknames.size() == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews) {
@@ -104,13 +106,17 @@ public class GameController implements EventListener<ViewEvent> {
                 turnController = new TurnController(gameModel, gameMode);
 
                 for(VirtualView v : virtualViews){
-                   // v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
+
+                   v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
                     // RN THERE IS A CONFLICT BETWEEN TURN CONTROLLER AND GAME CONTROLLER
                     v.id = turnController.getPlayerId(v.getThisInstanceNumber());
+
 
                 }
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();
+            } else if(viewEvent instanceof ReadyToPlay){
+
             }
         } else if (viewEvent instanceof SetPlayAgain) {
                 playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();
