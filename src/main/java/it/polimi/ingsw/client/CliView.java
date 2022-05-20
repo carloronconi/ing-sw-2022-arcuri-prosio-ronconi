@@ -4,10 +4,7 @@ import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
-import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
-import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
-import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
-import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
+import it.polimi.ingsw.networkmessages.viewevents.*;
 
 import java.util.Scanner;
 
@@ -52,7 +49,7 @@ public class CliView implements ViewInterface {
 
     @Override
     public void invalidAssistantCard() {
-
+        getAssistantCard();
     }
 
     @Override
@@ -83,6 +80,16 @@ public class CliView implements ViewInterface {
 
         eventManager.notify(new SetPreferences(numOfPlayers, gameMode));
     }
+
+    @Override
+    public void letsPlay(){
+        System.out.println("READY TO PLAY! 1 for yes 0 for no");
+        int yes = scanner.nextInt();
+        if(yes == 1) {
+            eventManager.notify(new ReadyToPlay());
+        }
+    }
+
 
     @Override
     public void playerTurn() {
@@ -134,7 +141,7 @@ public class CliView implements ViewInterface {
 
     }
 
-    @Override
+
     public void update(ModelEvent modelEvent) {
         System.out.println(modelEvent.toString());
     }

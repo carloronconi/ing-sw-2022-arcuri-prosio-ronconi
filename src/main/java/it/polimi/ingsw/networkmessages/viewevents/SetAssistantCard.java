@@ -1,5 +1,7 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;
@@ -19,10 +21,10 @@ public class SetAssistantCard implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
-        if (virtualView.isAssistantCardIllegal(getCard())){
-            virtualView.invalidAssistantCard();
+     //   if (virtualView.isAssistantCardIllegal(getCard())){
+       //     virtualView.invalidAssistantCard();
         }
 
 
     }
-}
+

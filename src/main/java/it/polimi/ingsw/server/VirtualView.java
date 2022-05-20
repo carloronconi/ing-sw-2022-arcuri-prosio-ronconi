@@ -9,13 +9,12 @@ import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.util.Collection;
+import java.util.UUID;
 
-public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Runnable {
+public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private Socket clientSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
@@ -24,15 +23,30 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     private static int whoseTurn;
     private final int thisInstanceNumber;
     private final GameController gameController;
-    private TurnController turnController;
+    private TurnController turnController ;
+    public UUID id;
+    private final ClientHandler clientHandler;
 
-    public VirtualView(Socket clientSocket, GameController gameController) {
-        this.clientSocket = clientSocket;
+   /* private void writeObject(RemoteMethodCall remoteMethodCall){
+        try {
+            output.writeObject(remoteMethodCall);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    public VirtualView(GameController gameController, ClientHandler clientHandler) {
+        //this.clientSocket = clientSocket;
         this.gameController = gameController;
         eventManager = new EventManager<>();
         eventManager.subscribe(gameController);
         thisInstanceNumber = numberOfInstances;
         numberOfInstances++;
+        this.clientHandler = clientHandler;
+    }
+
+    public UUID getId(){
+        return id;
     }
 
     public int getThisInstanceNumber() {
@@ -48,8 +62,15 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         eventManager.subscribe(turnController);
     }
 
+
+
     public synchronized boolean isItMyTurn(){
-        updateNextTurn();
+
+        if( id.equals(turnController.getPlayerId(0))){
+            updateNextTurn();
+
+        }
+
         return thisInstanceNumber == whoseTurn;
     }
 
@@ -63,7 +84,7 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
     }
 
-    @Override
+    //@Override
     public void sendAcknowledgement() {
         try {
             output.writeObject(new Acknowledgement());
@@ -74,55 +95,48 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void askPlayAgain() {
-        try {
-            output.writeObject(new AskPlayAgain());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.writeObject(new AskPlayAgain());
     }
 
     @Override
     public void chooseCharacter() {
+        clientHandler.writeObject(new ChooseCharacter());
 
     }
 
     @Override
     public void chooseCloud() {
-
+        clientHandler.writeObject(new ChooseCloud());
     }
 
     @Override
     public void getAssistantCard() {
-        try {
-            output.writeObject(new GetAssistantCard());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.writeObject(new GetAssistantCard());
     }
 
     @Override
     public void invalidAssistantCard() {
+        clientHandler.writeObject(new InvalidAssistantCard());
 
     }
 
 
     @Override
     public void getNickname() {
-        try {
-            output.writeObject(new GetNickname());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.writeObject( new GetNickname());
+
     }
 
-    @Override
+   @Override
     public void getPreferences() {
-        try {
-            output.writeObject(new GetPreferences());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.writeObject(new GetPreferences());
     }
+
+   @Override
+   public  void letsPlay(){
+        clientHandler.writeObject(new LetsPlay());
+    }
+
 
     @Override
     public void playerTurn() {
@@ -141,11 +155,7 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
 
     @Override
     public void invalidNickname() {
-        try {
-            output.writeObject(new InvalidNickname());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.writeObject(new InvalidNickname());
     }
 
     @Override
@@ -181,17 +191,23 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
     @Override
     public void update(ModelEvent modelEvent) {
         //forward the modelEvent through the socket
-        try {
-            output.writeObject(modelEvent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            clientHandler.forwardModel(modelEvent);
+            //clientHandler.output.writeObject(modelEvent);
+
     }
 
-    @Override
+    public ClientHandler getClientHandler(){
+        return clientHandler;
+    }
+
+    public void message(ViewEvent message){
+        eventManager.notify(message);
+    }
+    /*@Override
     public void run() {
 
-        try {
+      /*  try {
             output = new ObjectOutputStream(clientSocket.getOutputStream());
             System.out.println("output stream created");
             input = new ObjectInputStream(clientSocket.getInputStream());
@@ -199,9 +215,9 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         } catch (IOException e) {
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
             return;
-        }
+        } */
 
-        try {
+       /* try {
             while (true) {
 
                 Object next = input.readObject();
@@ -209,12 +225,16 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
                 //command.processMessage(this);
                 try{
                     try {
+                        //doubt about this try-catch
                         message.processMessage(this);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     eventManager.notify(message);
-                } catch (InvalidObjectException e){ }
+
+                } catch (InvalidObjectException e){
+                    e.printStackTrace();
+                }
 
             }
         } catch (ClassNotFoundException | ClassCastException e) {
@@ -222,11 +242,28 @@ public class VirtualView implements ViewInterface, EventListener<ModelEvent>, Ru
         } catch (IOException e) {
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
             return;
-        }
+        } */
 
-        try {
+       /* try {
             clientSocket.close();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } */
 
     }
-}
+
+
+   /* public void threadWait(){
+       if(thisInstanceNumber != whoseTurn) {
+           try {
+               wait();
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
+
+    }
+
+
+
+} */

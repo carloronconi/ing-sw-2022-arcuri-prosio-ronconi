@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Use to create an eventManager to implement the observable-observer design pattern
- * @param <EventType> enum of types of event that the event manager will handòe
+ * @param <EventType> enum of types of event that the event manager will handle
  */
 public class EventManager<EventType extends GenericEvent> {
     /**
@@ -37,7 +37,8 @@ public class EventManager<EventType extends GenericEvent> {
      * @param event of event that happened
      */
     public void notify(EventType event) {
-        for (EventListener<EventType> l : listeners){
+        ArrayList<EventListener<EventType>> listenersCopy = new ArrayList<>(listeners);
+        for (EventListener<EventType> l : listenersCopy){
             l.update(event);
         }
     }

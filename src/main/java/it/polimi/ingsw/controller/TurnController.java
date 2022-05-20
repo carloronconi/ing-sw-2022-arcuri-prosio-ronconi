@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
+//import it.polimi.ingsw.networkmessages.controllercalls.LetsPlay;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import it.polimi.ingsw.server.VirtualView;
@@ -23,7 +24,10 @@ public class TurnController implements EventListener<ViewEvent> {
     private List<UUID> playerOrder;
     private final GameModel gameModel;
 
-    private int lastPlayedAssistant;
+    private GameController gameController;
+    private List<VirtualView> views;
+
+    int lastPlayedAssistant;
     private AvailableCharacter lastPlayedCharacter;
     private PawnColor lastChosenStudent;
     private UUID lastChosenIsland;
@@ -46,6 +50,13 @@ public class TurnController implements EventListener<ViewEvent> {
 
     }
 
+    public List<UUID> getPlayerOrder(){
+        return playerOrder;
+    }
+
+    public UUID getPlayerId(int index){
+        return playerOrder.get(index);
+    }
 
     private void reorderPlayerOrder(HashMap<UUID, Integer> map){
         List<UUID> tempPlayerOrder = new ArrayList<>();
@@ -66,7 +77,7 @@ public class TurnController implements EventListener<ViewEvent> {
 
     }
 
-    public int getNextPlayer(){
+   public int getNextPlayer(){
         int i = 0;
         UUID nextPlayerId = playerOrder.get(0);
         for (UUID id : gameModel.getPlayerIds()) {
@@ -196,11 +207,16 @@ public class TurnController implements EventListener<ViewEvent> {
 
     @Override
     public void update(ViewEvent modelEvent)  {
+       /* if(modelEvent instanceof LetsPlay){
+            views = gameController.getVirtualViews();
+            UUID thisPlayer = playerOrder.get(0);
+            UUID nextPlayer = getPlayerId(getNextPlayer());
+
+
+        } */
         if (modelEvent instanceof SetAssistantCard){
-            gameModel.fillAllClouds();
-            gameModel.clearPlayedAssistantCards();
+
             lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
-            System.out.println("card received");
 
         } else if (modelEvent instanceof  ChosenCharacter){
             lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();

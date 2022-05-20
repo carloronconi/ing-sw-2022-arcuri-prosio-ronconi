@@ -3,6 +3,8 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.GenericEvent;
+import it.polimi.ingsw.networkmessages.controllercalls.GetAssistantCard;
 import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
 import it.polimi.ingsw.networkmessages.controllercalls.InvalidNickname;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
@@ -24,6 +26,7 @@ public class GameController implements EventListener<ViewEvent> {
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
     private List<VirtualView> virtualViews;
+    private UUID id; //virtual view id
 
     private final EventManager<ModelEvent> modelEventEventManager;
     private TurnController turnController;
@@ -37,6 +40,10 @@ public class GameController implements EventListener<ViewEvent> {
         controllerState = ControllerState.INITIAL_SETUP;
         this.modelEventEventManager = modelEventEventManager;
         virtualViews = new ArrayList<>();
+    }
+
+    public List<VirtualView> getVirtualViews(){
+        return virtualViews;
     }
 
     public TurnController getTurnController() {
@@ -115,9 +122,18 @@ public class GameController implements EventListener<ViewEvent> {
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
+
                 for(VirtualView v : virtualViews){
-                    v.subscribeToEventManager(turnController);
+
+                   v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
+                    // RN THERE IS A CONFLICT BETWEEN TURN CONTROLLER AND GAME CONTROLLER
+                    v.id = turnController.getPlayerId(v.getThisInstanceNumber());
+
+
                 }
+                gameModel.fillAllClouds();
+                gameModel.clearPlayedAssistantCards();
+            } else if(viewEvent instanceof ReadyToPlay){
 
             }
         } else if (viewEvent instanceof SetPlayAgain) {

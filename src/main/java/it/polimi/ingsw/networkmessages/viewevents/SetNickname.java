@@ -1,5 +1,6 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;
@@ -22,10 +23,13 @@ public class SetNickname implements Serializable, SetupViewEvent {
         this.virtualView = virtualView;
         if (virtualView.isNicknameAlreadyUsed(nickname)) {
             virtualView.invalidNickname();
-            throw new InvalidObjectException("Nickname already used");
+            //TODO: remove this exception since it is already treated elsewhere
+            //throw new InvalidObjectException("Nickname already used");
         }
         if (virtualView.getThisInstanceNumber() == 0) {
             virtualView.getPreferences();
+        } else {
+            virtualView.letsPlay();
         }
 
     }

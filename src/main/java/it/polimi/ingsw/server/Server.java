@@ -2,6 +2,8 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.TurnController;
+import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
 import java.io.IOException;
@@ -44,13 +46,19 @@ public class Server {
                 /* accepts connections; for every connection we accept,
                  * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
-                VirtualView virtualView = new VirtualView(client, gameController);
+                ClientHandler clientHandler = new ClientHandler(client);
+                VirtualView virtualView = new VirtualView(gameController, clientHandler);
+                clientHandler.assignVirtualView(virtualView);
                 modelEventManager.subscribe(virtualView);
-                Thread thread = new Thread(virtualView, "server_" + client.getInetAddress());
+                Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();
             } catch (IOException e) {
                 System.out.println("connection dropped");
             }
         }
+
+
     }
+
+
 }

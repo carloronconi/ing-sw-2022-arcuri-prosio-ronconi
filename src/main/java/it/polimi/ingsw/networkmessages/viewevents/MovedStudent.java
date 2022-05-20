@@ -1,6 +1,7 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;
