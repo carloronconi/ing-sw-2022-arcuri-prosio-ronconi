@@ -37,7 +37,8 @@ public class EventManager<EventType extends GenericEvent> {
      * @param event of event that happened
      */
     public void notify(EventType event) {
-        for (EventListener<EventType> l : listeners){
+        ArrayList<EventListener<EventType>> listenersCopy = new ArrayList<>(listeners);
+        for (EventListener<EventType> l : listenersCopy){
             l.update(event);
         }
     }
