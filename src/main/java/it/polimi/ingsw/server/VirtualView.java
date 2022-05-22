@@ -11,7 +11,6 @@ import it.polimi.ingsw.networkmessages.viewevents.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Collection;
 import java.util.UUID;
 
 public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
@@ -201,7 +200,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         return clientHandler;
     }
 
-    public void message(ViewEvent message){
+    public void notifyController(ViewEvent message){
         eventManager.notify(message);
     }
     /*@Override
