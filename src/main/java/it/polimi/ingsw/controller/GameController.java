@@ -96,7 +96,7 @@ public class GameController implements EventListener<ViewEvent> {
             }else num++;
             String nickname = ((SetNickname) viewEvent).getNickname();
             playerNicknames.add(nickname);
-
+            System.out.println(playerNicknames);
             VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
             virtualViews.add(virtualView);
 
