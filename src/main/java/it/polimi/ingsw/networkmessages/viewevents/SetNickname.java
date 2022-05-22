@@ -30,6 +30,9 @@ public class SetNickname implements Serializable, SetupViewEvent {
             if (virtualView.getThisInstanceNumber() == 0) {
                 virtualView.getPreferences();
             } else {
+                //TODO: here wait for someone to enter the preferences, when it happened it means the controller
+                // knows whose turn it is, so send virtualView.whoseTurn() and wait again
+                // until it is this player's turn, then send virtualView.getAssistantCard()
                 virtualView.letsPlay();
             }
         }
