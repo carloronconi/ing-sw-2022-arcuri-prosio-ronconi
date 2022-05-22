@@ -85,11 +85,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     //@Override
     public void sendAcknowledgement() {
-        try {
-            output.writeObject(new Acknowledgement());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientHandler.writeObject(new Acknowledgement());
     }
 
     @Override
