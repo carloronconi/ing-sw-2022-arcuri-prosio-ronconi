@@ -9,12 +9,8 @@ public class Handshake implements Serializable, SetupViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) {
-        virtualView.getClientHandler().sendAcknowledgement();
-       /* if (virtualView.getThisInstanceNumber() == 0) {
-            virtualView.getPreferences();
-        }else{
-            virtualView.sendAcknowledgement();
-        }*/
+        virtualView.notifyController(this);
+        virtualView.sendAcknowledgement();
         virtualView.getNickname();
     }
 }
