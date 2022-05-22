@@ -103,8 +103,8 @@ public class GameController implements EventListener<ViewEvent> {
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
             gameMode = ((SetPreferences) viewEvent).getGameMode();
-            synchronized (lock){
-                while (num<numOfPlayers) {
+            synchronized (lock) {
+                while (num < numOfPlayers) {
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
@@ -123,9 +123,9 @@ public class GameController implements EventListener<ViewEvent> {
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
 
-                for(VirtualView v : virtualViews){
+                for (VirtualView v : virtualViews) {
 
-                   v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
+                    v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
                     // RN THERE IS A CONFLICT BETWEEN TURN CONTROLLER AND GAME CONTROLLER
                     v.id = turnController.getPlayerId(v.getThisInstanceNumber());
 
