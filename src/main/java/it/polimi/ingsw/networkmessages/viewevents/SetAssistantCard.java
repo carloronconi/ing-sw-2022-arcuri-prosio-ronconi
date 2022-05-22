@@ -23,6 +23,9 @@ public class SetAssistantCard implements Serializable, GameViewEvent {
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
      //   if (virtualView.isAssistantCardIllegal(getCard())){
        //     virtualView.invalidAssistantCard();
+            synchronized (ReadyToPlay.class){
+                ReadyToPlay.class.notifyAll();
+            }
         }
 
 
