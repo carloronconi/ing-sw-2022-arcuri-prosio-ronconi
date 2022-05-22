@@ -83,11 +83,8 @@ public class CliView implements ViewInterface {
 
     @Override
     public void letsPlay(){
-        System.out.println("READY TO PLAY! 1 for yes 0 for no");
-        int yes = scanner.nextInt();
-        if(yes == 1) {
-            eventManager.notify(new ReadyToPlay());
-        }
+        System.out.println("Waiting for other player to finish setup");
+        eventManager.notify(new ReadyToPlay());
     }
 
 
