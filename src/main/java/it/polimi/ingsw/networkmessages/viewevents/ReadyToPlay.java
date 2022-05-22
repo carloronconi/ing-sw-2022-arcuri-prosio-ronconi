@@ -7,6 +7,11 @@ import java.io.InvalidObjectException;
 import java.io.Serializable;
 
 public class ReadyToPlay implements Serializable, SetupViewEvent {
+    private static boolean preferencesWereSet = false;
+
+    public ReadyToPlay(){
+
+    }
 
     @Override
    public void processMessage(VirtualView virtualView) throws InvalidObjectException, InterruptedException {
