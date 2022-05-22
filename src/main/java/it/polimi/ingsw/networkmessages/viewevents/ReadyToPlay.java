@@ -15,14 +15,69 @@ public class ReadyToPlay implements Serializable, SetupViewEvent {
 
     @Override
    public void processMessage(VirtualView virtualView) throws InvalidObjectException, InterruptedException {
-      /*  while (!virtualView.isItMyTurn()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if(virtualView.getThisInstanceNumber()!=0){
+            synchronized (ReadyToPlay.class){
+                while(!preferencesWereSet){
+                    try {
+                        System.out.println("thread "+ virtualView.getThisInstanceNumber() + " waiting");
+                        ReadyToPlay.class.wait();
+                        System.out.println("thread "+ virtualView.getThisInstanceNumber() + " restarted");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
-        virtualView.getAssistantCard();  */
+        /*
+        if(virtualView.getThisInstanceNumber()==1) {
+            synchronized (lock) {
+                while (num < 1) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+
+        if(2== virtualView.getThisInstanceNumber()) {
+            synchronized (lock) {
+                while (num < 2) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }*/
+
+
+        synchronized (ReadyToPlay.class){
+            preferencesWereSet = true;
+            ReadyToPlay.class.notifyAll();
+            System.out.println("thread " + virtualView.getThisInstanceNumber() + " notified all");
+        }
+
+        synchronized (ReadyToPlay.class){
+            while (!virtualView.isItMyTurn()) {
+                try {
+                    ReadyToPlay.class.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("thread " + virtualView.getThisInstanceNumber() + " gone");
+        virtualView.getAssistantCard();
+
+        /*synchronized (ReadyToPlay.class){
+            ReadyToPlay.class.notifyAll();
+        }*/
+
+
     }
 }
 
