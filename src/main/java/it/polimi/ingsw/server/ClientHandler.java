@@ -74,7 +74,6 @@ public class ClientHandler implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    virtualView.notifyController(message);
 
                 } catch (InvalidObjectException e){
                     e.printStackTrace();
