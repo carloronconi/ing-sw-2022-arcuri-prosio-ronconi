@@ -108,6 +108,7 @@ public class CliView implements ViewInterface {
 
     @Override
     public void invalidNickname() {
+        System.out.println("Invalid nickname! Try again:");
         getNickname();
     }
 
