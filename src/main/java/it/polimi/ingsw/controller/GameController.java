@@ -57,7 +57,12 @@ public class GameController implements EventListener<ViewEvent> {
     public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum) {
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
         UUID playerId = playerIds.get(virtualViewInstanceNum);
-        return false;
+        try {
+            return gameModel.isAssistantCardIllegal(playerId, card);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     /**
