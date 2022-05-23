@@ -4,7 +4,9 @@ import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.controller.TurnController;
+import it.polimi.ingsw.controller.TurnState;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
@@ -46,6 +48,13 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     public UUID getId(){
         return id;
     }
+
+    public static int getNumberOfInstances() {
+        return numberOfInstances;
+    }
+
+    public GameMode getGameMode(){return gameController.getGameMode();}
+    public TurnState getTurnControllerState(){ return turnController.getCurrentPhase();}
 
     public int getThisInstanceNumber() {
         return thisInstanceNumber;
