@@ -54,11 +54,12 @@ public class ReadyToPlay implements Serializable, SetupViewEvent {
             }
         }*/
 
-
-        synchronized (ReadyToPlay.class){
-            preferencesWereSet = true;
-            ReadyToPlay.class.notifyAll();
-            System.out.println("thread " + virtualView.getThisInstanceNumber() + " notified all");
+        if(virtualView.getThisInstanceNumber() == 0){
+            synchronized (ReadyToPlay.class){
+                preferencesWereSet = true;
+                ReadyToPlay.class.notifyAll();
+                System.out.println("thread " + virtualView.getThisInstanceNumber() + " notified all");
+            }
         }
 
         synchronized (ReadyToPlay.class){
