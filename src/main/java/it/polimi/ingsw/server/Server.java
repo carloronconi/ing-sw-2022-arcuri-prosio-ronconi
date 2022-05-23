@@ -30,8 +30,8 @@ public class Server {
          * always handle invalid inputs! */
         Scanner scanner = new Scanner(System.in);
         System.out.println("Server port?");
-        int socketPort = Integer.parseInt(scanner.nextLine());
-
+        //int socketPort = Integer.parseInt(scanner.nextLine());
+        int socketPort = 5000;
         ServerSocket socket;
         try {
             socket = new ServerSocket(socketPort);

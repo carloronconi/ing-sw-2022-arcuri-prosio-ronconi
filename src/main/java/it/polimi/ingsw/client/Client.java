@@ -30,10 +30,11 @@ public class Client implements Runnable {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("IP address of server?");
-        String ip = scanner.nextLine();
+        //String ip = scanner.nextLine();
+        String ip = "localhost";
         System.out.println("Server port?");
-        int socketPort = Integer.parseInt(scanner.nextLine());
-
+        //int socketPort = Integer.parseInt(scanner.nextLine());
+        int socketPort = 5000;
 
         /* Open connection to the server and start a thread for handling
          * communication. */
