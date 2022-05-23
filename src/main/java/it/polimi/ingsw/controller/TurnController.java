@@ -19,25 +19,10 @@ import java.io.InvalidObjectException;
 import java.util.*;
 
 public class TurnController implements EventListener<ViewEvent> {
-    //private List<UUID> planningPlayerOrder;
-    //private List<UUID> actionPlayerOrder;
-    private List<UUID> playerOrder;
+    private ArrayList<UUID> playerOrder; //reorder it only after planning phase
+    private int currentPlayerIndex; //index of the player who is currently playing in playerOrder
+    private TurnState phase = TurnState.PLANNING;
     private final GameModel gameModel;
-
-    private GameController gameController;
-    private List<VirtualView> views;
-
-    int lastPlayedAssistant;
-    private AvailableCharacter lastPlayedCharacter;
-    private PawnColor lastChosenStudent;
-    private UUID lastChosenIsland;
-    private int lastMotherNatureSteps;
-    private UUID lastChosenCloud;
-    private PawnColor lastGivenSwap;
-    private PawnColor lastTakenSwap;
-    private PawnColor lastChosenColor;
-    private UUID lastEffectChosenIsland;
-
     private final GameMode gameMode;
 
 
@@ -47,15 +32,50 @@ public class TurnController implements EventListener<ViewEvent> {
 
         playerOrder = new ArrayList<>(gameModel.getPlayerIds());
         Collections.shuffle(playerOrder);
-
+        currentPlayerIndex = 0;
     }
 
     public UUID getPlayerId(int index){
         return playerOrder.get(index);
     }
 
-    private void reorderPlayerOrder(HashMap<UUID, Integer> map){
-        List<UUID> tempPlayerOrder = new ArrayList<>();
+    public UUID getCurrentPlayer(){
+        return playerOrder.get(currentPlayerIndex);
+    }
+
+    public TurnState getCurrentPhase(){
+        return phase;
+    }
+
+    /**
+     * method to be called when a player has finished doing all the moves in its turn
+     */
+    public void playerFinishedTurn(){
+        //three cases:
+        //1. we are in the middle of either phase, so we just need to increment the currentPlayerIndex
+        if(currentPlayerIndex < playerOrder.size()-1){
+            currentPlayerIndex++;
+        } else { //we are at the end of one of the two possible phases
+            //2. we are at the end of ACTION phase, so we just roll back the currentPlayerIndex to 0 and
+            //   update the phase and turn it into PLANNING
+            if (phase == TurnState.ACTION){
+                currentPlayerIndex = 0;
+                phase = TurnState.PLANNING;
+            //3. we are at the end og PLANNING phase, so we need to change the ordering of playerOrder list,
+            //   roll back the currentPlayerIndex to 0 and update the phase and turn it into ACTION
+            } else {
+                reorderPlayerOrder();
+                currentPlayerIndex = 0;
+                phase = TurnState.ACTION;
+            }
+        }
+    }
+
+
+    private void reorderPlayerOrder(){
+
+        HashMap<UUID, Integer> map = gameModel.getPlayedAssistantCards();
+        ArrayList<UUID> tempPlayerOrder = new ArrayList<>();
         HashMap<UUID, Integer> tempMap = new HashMap<>(map);
         for (int i = 0; i < map.size(); i++) {
             int minValue = 11;
@@ -73,17 +93,7 @@ public class TurnController implements EventListener<ViewEvent> {
 
     }
 
-   public int getNextPlayer(){
-        int i = 0;
-        //we need this loop to convert from id to int
-        UUID nextPlayerId = playerOrder.get(0);
-        for (UUID id : gameModel.getPlayerIds()) {
-            if (id == nextPlayerId) break;
-            i++;
-        }
 
-        return i;
-    }
 
     /*
     public boolean startRound() {
@@ -204,33 +214,32 @@ public class TurnController implements EventListener<ViewEvent> {
 
     @Override
     public void update(ViewEvent modelEvent)  {
-       /* if(modelEvent instanceof LetsPlay){
-            views = gameController.getVirtualViews();
-            UUID thisPlayer = playerOrder.get(0);
-            UUID nextPlayer = getPlayerId(getNextPlayer());
 
-
-        } */
         if (modelEvent instanceof SetAssistantCard){
-
-            lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
-
+            int card = ((SetAssistantCard) modelEvent).getCard();
+            UUID player = getCurrentPlayer();
+            try {
+                gameModel.playAssistantCard(player, card);
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            //lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
         } else if (modelEvent instanceof  ChosenCharacter){
-            lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
+            //lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
         } else if (modelEvent instanceof MovedStudent){
-            lastChosenStudent = ((MovedStudent) modelEvent).getColor();
-            lastChosenIsland = ((MovedStudent) modelEvent).getIslandId();
+            //lastChosenStudent = ((MovedStudent) modelEvent).getColor();
+            //lastChosenIsland = ((MovedStudent) modelEvent).getIslandId();
         } else if (modelEvent instanceof MovedMotherNature){
-            lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
+            //lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
         } else if (modelEvent instanceof  ChosenCloud){
-            lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
+            //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
         } else if (modelEvent instanceof SetColorSwap){
-            lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
-            lastTakenSwap = ((SetColorSwap) modelEvent).getTake();
+            //lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
+            //lastTakenSwap = ((SetColorSwap) modelEvent).getTake();
         } else if (modelEvent instanceof SetColorChoice){
-            lastChosenColor = ((SetColorChoice) modelEvent).getColor();
+            //lastChosenColor = ((SetColorChoice) modelEvent).getColor();
         } else if (modelEvent instanceof SetIslandChoice){
-            lastEffectChosenIsland = ((SetIslandChoice) modelEvent).getIsland();
+            //lastEffectChosenIsland = ((SetIslandChoice) modelEvent).getIsland();
         }
     }
 }

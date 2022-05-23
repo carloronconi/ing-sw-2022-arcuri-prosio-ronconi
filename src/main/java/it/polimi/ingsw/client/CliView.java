@@ -43,12 +43,14 @@ public class CliView implements ViewInterface {
     public void getAssistantCard() {
         System.out.println("Choose an Assistant Card: [1-10] ");
         int card = scanner.nextInt();
+        card--;
         eventManager.notify(new SetAssistantCard(card));
 
     }
 
     @Override
     public void invalidAssistantCard() {
+        System.out.println("Invalid assistant card! Try again:");
         getAssistantCard();
     }
 

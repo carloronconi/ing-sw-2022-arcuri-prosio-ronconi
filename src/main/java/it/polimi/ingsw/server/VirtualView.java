@@ -19,7 +19,6 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private ObjectInputStream input;
     private EventManager<ViewEvent> eventManager;
     private static int numberOfInstances = 0;
-    private static int whoseTurn;
     private final int thisInstanceNumber;
     private final GameController gameController;
     private TurnController turnController ;
@@ -64,21 +63,11 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
 
     public synchronized boolean isItMyTurn(){
-
-        // only when the player who is currently playing calls isItMyTurn will the
-        // whoseTurn variable be updated
-        if( id.equals(turnController.getPlayerId(0))){
-            updateNextTurn();
-
-        }
-
-        return thisInstanceNumber == whoseTurn;
+        return id == turnController.getCurrentPlayer();
     }
 
-    private synchronized void updateNextTurn(){
-        // change whoseTurn variable according to player order in turnController
-        whoseTurn = turnController.getNextPlayer();
-        //notifyAll();
+    public void playerFinishedTurn(){
+        turnController.playerFinishedTurn();
     }
 
     public boolean isAssistantCardIllegal(int card){
@@ -100,7 +89,6 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         clientHandler.writeObject(new ChooseCharacter());
 
     }
-
     @Override
     public void chooseCloud() {
         clientHandler.writeObject(new ChooseCloud());
@@ -116,14 +104,11 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         clientHandler.writeObject(new InvalidAssistantCard());
 
     }
-
-
     @Override
     public void getNickname() {
         clientHandler.writeObject( new GetNickname());
 
     }
-
    @Override
     public void getPreferences() {
         clientHandler.writeObject(new GetPreferences());
@@ -133,7 +118,6 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
    public  void letsPlay(){
         clientHandler.writeObject(new LetsPlay());
     }
-
 
     @Override
     public void playerTurn() {

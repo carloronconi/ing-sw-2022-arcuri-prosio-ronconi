@@ -21,13 +21,21 @@ public class SetAssistantCard implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
-     //   if (virtualView.isAssistantCardIllegal(getCard())){
-       //     virtualView.invalidAssistantCard();
-            synchronized (ReadyToPlay.class){
-                ReadyToPlay.class.notifyAll();
-            }
+        if (virtualView.isAssistantCardIllegal(getCard())) {
+            virtualView.invalidAssistantCard();
+            return;
         }
 
 
+        virtualView.notifyController(this);
+
+        synchronized (ReadyToPlay.class){
+            //temporarily have turn finish after just setting the assistant card
+            virtualView.playerFinishedTurn();
+            ReadyToPlay.class.notifyAll();
+        }
     }
+
+
+}
 
