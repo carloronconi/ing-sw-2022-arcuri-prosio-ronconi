@@ -65,6 +65,8 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     public synchronized boolean isItMyTurn(){
 
+        // only when the player who is currently playing calls isItMyTurn will the
+        // whoseTurn variable be updated
         if( id.equals(turnController.getPlayerId(0))){
             updateNextTurn();
 
@@ -76,7 +78,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private synchronized void updateNextTurn(){
         // change whoseTurn variable according to player order in turnController
         whoseTurn = turnController.getNextPlayer();
-        notifyAll();
+        //notifyAll();
     }
 
     public boolean isAssistantCardIllegal(int card){

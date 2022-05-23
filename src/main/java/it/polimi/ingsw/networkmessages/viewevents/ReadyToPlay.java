@@ -65,12 +65,13 @@ public class ReadyToPlay implements Serializable, SetupViewEvent {
             while (!virtualView.isItMyTurn()) {
                 try {
                     ReadyToPlay.class.wait();
+                    System.out.println("thread " + virtualView.getThisInstanceNumber() + " checking if it's his turn");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
-        System.out.println("thread " + virtualView.getThisInstanceNumber() + " gone");
+        System.out.println("thread " + virtualView.getThisInstanceNumber() + " gone from readyToPlay");
         virtualView.getAssistantCard();
 
         /*synchronized (ReadyToPlay.class){

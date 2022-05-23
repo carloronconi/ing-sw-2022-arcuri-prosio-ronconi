@@ -50,10 +50,6 @@ public class TurnController implements EventListener<ViewEvent> {
 
     }
 
-    public List<UUID> getPlayerOrder(){
-        return playerOrder;
-    }
-
     public UUID getPlayerId(int index){
         return playerOrder.get(index);
     }
@@ -79,6 +75,7 @@ public class TurnController implements EventListener<ViewEvent> {
 
    public int getNextPlayer(){
         int i = 0;
+        //we need this loop to convert from id to int
         UUID nextPlayerId = playerOrder.get(0);
         for (UUID id : gameModel.getPlayerIds()) {
             if (id == nextPlayerId) break;
