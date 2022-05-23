@@ -15,6 +15,7 @@ public class Client implements Runnable {
     private ServerHandler serverHandler;
     private boolean shallTerminate;
     private ViewInterface view;
+    private ViewInterface guiView;
 
 
     public static void main(String[] args) {
@@ -48,8 +49,15 @@ public class Client implements Runnable {
         serverHandler = new ServerHandler(server, this);
 
         //TODO: ask if to instantiate cli or gui
-        view = new CliView(serverHandler);
-        serverHandler.linkView(view);
+        System.out.println("CLI or GUI?");
+        String choice = scanner.nextLine();
+        if(choice.equals("cli")) {
+            view = new CliView(serverHandler);
+            serverHandler.linkView(view);
+        }else{
+            guiView = new GuiView(serverHandler);
+            serverHandler.linkView(guiView);
+        }
 
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();

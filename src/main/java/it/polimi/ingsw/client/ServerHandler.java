@@ -30,6 +30,7 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     private ViewInterface view;
 
 
+
     /**
      * Initializes a new handler using a specific socket connected to
      * a server.
