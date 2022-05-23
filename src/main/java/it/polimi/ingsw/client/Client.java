@@ -23,6 +23,7 @@ public class Client implements Runnable {
          * thread where user interaction is handled. */
         Client client = new Client();
         client.run();
+
     }
 
 
