@@ -31,8 +31,14 @@ public class TurnController implements EventListener<ViewEvent> {
         this.gameMode = gameMode;
 
         playerOrder = new ArrayList<>(gameModel.getPlayerIds());
-        Collections.shuffle(playerOrder);
+        System.out.println("Player order at initialization:\n"+playerOrder);
+        //Collections.shuffle(playerOrder);
         currentPlayerIndex = 0;
+    }
+
+    public void firstOrderShuffle(){
+        Collections.shuffle(playerOrder);
+        System.out.println("Player order after shuffle:\n"+playerOrder);
     }
 
     public UUID getPlayerId(int index){
