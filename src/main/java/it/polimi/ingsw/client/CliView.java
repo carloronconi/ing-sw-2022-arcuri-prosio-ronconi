@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
@@ -31,7 +32,22 @@ public class CliView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
+        System.out.println("Choose a Character Card:");
+        boolean flag = true;
+        AvailableCharacter characterEnum = null;
+        while(flag){
+            String characterString = scanner.nextLine();
+            System.out.println("Line inserted: " + characterString);
+            try{
+                characterEnum = AvailableCharacter.valueOf(characterString.toUpperCase());
+                flag = false;
+            } catch (IllegalArgumentException e){
+                System.out.println("That Character Card doesn't exist! Try again:");
+            }
 
+        }
+
+        eventManager.notify(new ChosenCharacter(characterEnum));
     }
 
     @Override
