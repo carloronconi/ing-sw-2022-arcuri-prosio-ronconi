@@ -174,6 +174,15 @@ public class GameModel {
      * @throws IllegalArgumentException if card already played by someone else in current turn
      */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException, NoSuchFieldException {
+        if (isAssistantCardIllegal(idPlayer,cardNumber)) throw new IllegalArgumentException();
+
+        Player player = ConverterUtility.idToElement(idPlayer, players);
+        player.playAssistantCard(cardNumber);
+        playedCards.put(player, cardNumber);
+        eventManager.notify(new GameState(this));
+    }
+
+    public boolean isAssistantCardIllegal(UUID idPlayer, int cardNumber) throws NoSuchFieldException {
         for (Integer playedCard : playedCards.values()) {
             Player player = ConverterUtility.idToElement(idPlayer, players);
             boolean noAlternative = true;
@@ -183,15 +192,11 @@ public class GameModel {
                     break;
                 }
             }
-            if (playedCard.equals(cardNumber) && noAlternative) {
-                throw new IllegalArgumentException();
+            if (playedCard.equals(cardNumber) && !noAlternative) {
+                return true;
             }
         }
-
-        Player player = ConverterUtility.idToElement(idPlayer, players);
-        player.playAssistantCard(cardNumber);
-        playedCards.put(player, cardNumber);
-        eventManager.notify(new GameState(this));
+        return false;
     }
 
     /**
