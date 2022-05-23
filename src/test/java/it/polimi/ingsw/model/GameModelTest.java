@@ -132,6 +132,25 @@ class GameModelTest {
     }
 
     @Test
+    void isAssistantCardIllegal() {
+        ArrayList<UUID> idList = gameModel.getPlayerIds();
+        try {
+            gameModel.playAssistantCard(idList.get(0), 1);
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
+
+        boolean isIllegal = false;
+        try {
+            isIllegal = gameModel.isAssistantCardIllegal(idList.get(1), 1);
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
+        assertEquals(true, isIllegal);
+    }
+
+
+    @Test
     void playAssistantCard() {
     }
 
