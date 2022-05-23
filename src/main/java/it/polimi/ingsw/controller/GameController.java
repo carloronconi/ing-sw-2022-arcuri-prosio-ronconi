@@ -65,6 +65,10 @@ public class GameController implements EventListener<ViewEvent> {
         }
     }
 
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
     /**
      * call to start the game
      */
@@ -130,12 +134,13 @@ public class GameController implements EventListener<ViewEvent> {
 
                 for (VirtualView v : virtualViews) {
 
-                    v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
-                    // RN THERE IS A CONFLICT BETWEEN TURN CONTROLLER AND GAME CONTROLLER
+                    v.subscribeToEventManager(turnController);
                     v.id = turnController.getPlayerId(v.getThisInstanceNumber());
 
 
                 }
+                turnController.firstOrderShuffle();
+
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();
             } else if(viewEvent instanceof ReadyToPlay){
