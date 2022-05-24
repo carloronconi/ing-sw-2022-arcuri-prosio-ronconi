@@ -229,8 +229,16 @@ public class TurnController implements EventListener<ViewEvent> {
             } catch (NoSuchFieldException e) {
                 throw new RuntimeException(e);
             }
-            //lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
         } else if (modelEvent instanceof  ChosenCharacter){
+            AvailableCharacter character = ((ChosenCharacter) modelEvent).getChosenCharacter();
+
+            try {
+                gameModel.payAndGetCharacter(getCurrentPlayer(), character);
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+
+            //TODO: just save the character somewhere and use it in new method after setting up player, island, color
             //lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
         } else if (modelEvent instanceof MovedStudent){
             //lastChosenStudent = ((MovedStudent) modelEvent).getColor();
