@@ -88,6 +88,15 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         return gameController.isCharacterCardIllegal(card, thisInstanceNumber);
     }
 
+    public boolean isMNMoveIllegal(int steps){
+        return gameController.isMNMoveIllegal(steps, thisInstanceNumber);
+    }
+
+    public boolean isGameOver(){
+        return turnController.isGameOver(thisInstanceNumber);
+    }
+
+
     //@Override
     public void sendAcknowledgement() {
         clientHandler.writeObject(new Acknowledgement());
@@ -140,12 +149,12 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     @Override
     public void invalidCharacterChoice() {
-
+        clientHandler.writeObject(new InvalidCharacterChoice());
     }
 
     @Override
     public void invalidMNMove() {
-
+        clientHandler.writeObject(new InvalidMNMove());
     }
 
     @Override
@@ -155,12 +164,12 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     @Override
     public void moveMotherNature() {
-
+        clientHandler.writeObject(new MoveMotherNature());
     }
 
     @Override
     public void moveStudent() {
-
+        clientHandler.writeObject(new MoveStudent());
     }
 
     @Override

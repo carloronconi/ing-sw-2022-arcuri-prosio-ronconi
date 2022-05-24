@@ -129,7 +129,9 @@ public class TurnController implements EventListener<ViewEvent> {
     }
      */
 
-    private boolean isGameOver(UUID player){
+    public boolean isGameOver(int virtualViewInstanceNum){
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        UUID player = playerIds.get(virtualViewInstanceNum);
         try {
             if (gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
                     gameModel.countStudentsInBag() == 0 || gameModel.getDeckSize(player) == 0) return true;
@@ -241,9 +243,29 @@ public class TurnController implements EventListener<ViewEvent> {
             //TODO: just save the character somewhere and use it in new method after setting up player, island, color
             //lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
         } else if (modelEvent instanceof MovedStudent){
+            UUID island = ((MovedStudent) modelEvent).getIslandId();
+            PawnColor color = ((MovedStudent) modelEvent).getColor();
+            if (island == null){
+                try {
+                    gameModel.moveStudentToDining(color, getCurrentPlayer());
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    gameModel.moveStudentToIsland(color, getCurrentPlayer(), island);
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            }
             //lastChosenStudent = ((MovedStudent) modelEvent).getColor();
             //lastChosenIsland = ((MovedStudent) modelEvent).getIslandId();
         } else if (modelEvent instanceof MovedMotherNature){
+            try {
+                gameModel.moveMotherNature(((MovedMotherNature) modelEvent).getMotherNatureSteps(), getCurrentPlayer());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
             //lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
         } else if (modelEvent instanceof  ChosenCloud){
             //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
