@@ -21,6 +21,14 @@ public class ChosenCharacter implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+        if(virtualView.isCharacterCardIllegal(chosenCharacter)){
+            virtualView.invalidCharacterChoice();
+            return;
+        }
+
+        virtualView.notifyController(this);
+
+        //TODO: according to which interfaces the character implements, ask to choose a student, island, color
 
     }
 }
