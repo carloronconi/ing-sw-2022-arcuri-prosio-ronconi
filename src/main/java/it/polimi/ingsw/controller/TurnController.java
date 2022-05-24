@@ -273,6 +273,10 @@ public class TurnController implements EventListener<ViewEvent> {
             } catch (NoSuchFieldException e) {
                 throw new RuntimeException(e);
             }
+            if(phase == TurnState.ACTION && currentPlayerIndex >= playerOrder.size()-1){
+                gameModel.fillAllClouds();
+                gameModel.clearPlayedAssistantCards();
+            }
             //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
         } else if (modelEvent instanceof SetColorSwap){
             //lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
