@@ -268,6 +268,11 @@ public class TurnController implements EventListener<ViewEvent> {
             }
             //lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
         } else if (modelEvent instanceof  ChosenCloud){
+            try {
+                gameModel.moveCloudToEntrance(((ChosenCloud) modelEvent).getCloud(), getCurrentPlayer());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
             //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
         } else if (modelEvent instanceof SetColorSwap){
             //lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
