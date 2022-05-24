@@ -30,6 +30,8 @@ public interface ViewInterface extends EventListener<ModelEvent> {
 
     void invalidNickname();
 
+    void invalidStudentMove();
+
     void moveMotherNature();
 
     void moveStudent();

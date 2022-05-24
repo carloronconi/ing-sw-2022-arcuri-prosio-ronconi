@@ -137,6 +137,12 @@ public class CliView implements ViewInterface {
     }
 
     @Override
+    public void invalidStudentMove() {
+        System.out.println("Invalid student move! Try again:");
+        moveStudent();
+    }
+
+    @Override
     public void moveMotherNature() {
         System.out.println("How many mother nature steps?");
         int steps = scanner.nextInt();

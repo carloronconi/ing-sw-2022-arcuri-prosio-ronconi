@@ -31,6 +31,11 @@ public class MovedStudent implements Serializable, GameViewEvent {
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
         //TODO: react if move is invalid with new message (never created class)
+        if (virtualView.isStudentMoveIllegal(color)){
+            virtualView.invalidStudentMove();
+            return;
+        }
+
         virtualView.notifyController(this);
 
         int totColorsToChoose = virtualView.getGameMode()== GameMode.EASY? 3 : 4;

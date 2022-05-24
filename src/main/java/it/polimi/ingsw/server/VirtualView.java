@@ -7,6 +7,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.controller.TurnState;
+import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
@@ -92,6 +93,10 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         return gameController.isMNMoveIllegal(steps, thisInstanceNumber);
     }
 
+    public boolean isStudentMoveIllegal(PawnColor color){
+        return gameController.isStudentMoveIllegal(color, thisInstanceNumber);
+    }
+
     public boolean isGameOver(){
         return turnController.isGameOver(thisInstanceNumber);
     }
@@ -160,6 +165,11 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     @Override
     public void invalidNickname() {
         clientHandler.writeObject(new InvalidNickname());
+    }
+
+    @Override
+    public void invalidStudentMove() {
+        clientHandler.writeObject(new InvalidStudentMove());
     }
 
     @Override

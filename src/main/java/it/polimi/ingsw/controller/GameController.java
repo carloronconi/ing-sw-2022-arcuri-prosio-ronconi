@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.GenericEvent;
 import it.polimi.ingsw.networkmessages.controllercalls.GetAssistantCard;
@@ -56,8 +57,7 @@ public class GameController implements EventListener<ViewEvent> {
     }
 
     public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum) {
-        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
             return gameModel.isAssistantCardIllegal(playerId, card);
         } catch (NoSuchFieldException e) {
@@ -85,13 +85,24 @@ public class GameController implements EventListener<ViewEvent> {
     }
 
     public boolean isMNMoveIllegal(int steps, int virtualViewInstanceNum){
-        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
             return gameModel.isMNMoveIllegal(steps, playerId);
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isStudentMoveIllegal(PawnColor color, int virtualViewInstanceNum){
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
+        int available = gameModel.getEntrances().get(playerId).get(color);
+        return available <= 0;
+    }
+
+    private UUID virtualViewInstanceToId(int virtualViewInstanceNum){
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        return playerId;
     }
 
     public GameMode getGameMode() {
