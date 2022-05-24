@@ -27,6 +27,9 @@ public class MovedStudent implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+        //TODO: react if move is invalid with new message (never created class)
+        virtualView.notifyController(this);
+        virtualView.moveMotherNature();
 
     }
 }
