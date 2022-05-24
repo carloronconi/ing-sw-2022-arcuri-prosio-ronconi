@@ -24,7 +24,7 @@ public class ChosenCloud implements Serializable, GameViewEvent {
         virtualView.notifyController(this);
 
         synchronized (SetAssistantCard.class){
-            //turn ends after setting the assistant card
+            //turn ends after choosing the cloud
             virtualView.playerFinishedTurn();
             SetAssistantCard.class.notifyAll();
         }
