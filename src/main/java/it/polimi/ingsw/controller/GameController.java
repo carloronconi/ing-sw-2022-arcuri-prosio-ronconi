@@ -84,6 +84,16 @@ public class GameController implements EventListener<ViewEvent> {
        return true;
     }
 
+    public boolean isMNMoveIllegal(int steps, int virtualViewInstanceNum){
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        try {
+            return gameModel.isMNMoveIllegal(steps, playerId);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public GameMode getGameMode() {
         return gameMode;
     }

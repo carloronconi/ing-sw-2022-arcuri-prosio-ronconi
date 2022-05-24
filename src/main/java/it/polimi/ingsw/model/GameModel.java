@@ -337,12 +337,17 @@ public class GameModel {
      * @throws NoSuchFieldException if the player hasn't played a card with enough steps
      */
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
+        if (isMNMoveIllegal(steps, playerId)) throw new IllegalArgumentException("Not enough steps in the card played");
         Player player = ConverterUtility.idToElement(playerId,players);
-        if (playedCards.get(player) + messengerEffect < steps) throw new IllegalArgumentException("Not enough steps in the card played");
         islandManager.moveMotherNature(steps);
         messengerEffect = 0;
-
+        System.out.println("moved mother nature");
         eventManager.notify(new GameState(this));
+    }
+
+    public boolean isMNMoveIllegal(int steps, UUID playerId) throws NoSuchFieldException {
+        Player player = ConverterUtility.idToElement(playerId,players);
+        return (playedCards.get(player) + messengerEffect < steps);
     }
 
     public void clearPlayedAssistantCards(){
