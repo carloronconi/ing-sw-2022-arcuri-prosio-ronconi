@@ -37,6 +37,10 @@ public class SetAssistantCard implements Serializable, GameViewEvent {
             ReadyToPlay.class.notifyAll();
         }
 
+        synchronized (ChosenCloud.class){
+            ChosenCloud.class.notifyAll();
+        }
+
         System.out.println("thread " + virtualView.getThisInstanceNumber() + " finished its turn in planning phase");
 
         System.out.println("thread " + virtualView.getThisInstanceNumber() + " woke up to start action phase");
