@@ -310,6 +310,17 @@ public class GameModel {
 
     }
 
+    public int getCurrentCharacterPrice(AvailableCharacter character) throws NoSuchFieldException{
+        int characterIndex = -1;
+        for (int i = 0; i<characters.size(); i++){
+            Character c = characters.get(i);
+            if (c.getValue() == character) characterIndex = i;
+        }
+        if (characterIndex == -1) throw new NoSuchFieldException();
+        Character c = characters.get(characterIndex);
+        return c.getCost();
+    }
+
     /**
      * called only by cheese merchant card
      * @param player owninng the merchant
