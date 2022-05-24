@@ -19,6 +19,19 @@ public class MovedMotherNature implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+        if(virtualView.isMNMoveIllegal(motherNatureSteps)){
+            virtualView.invalidMNMove();
+            return;
+        }
 
+        virtualView.notifyController(this);
+        if (virtualView.isGameOver()){
+            //TODO: send it to everybody, maybe through gameModel (like gameState update that is
+            //      delivered to everyone regardless of the fact that the thread is paused)
+            virtualView.gameOver();
+            virtualView.askPlayAgain();
+        } else {
+            virtualView.chooseCloud();
+        }
     }
 }
