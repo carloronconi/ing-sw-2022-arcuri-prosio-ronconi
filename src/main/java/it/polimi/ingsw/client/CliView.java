@@ -3,11 +3,13 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
+import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class CliView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
@@ -52,7 +54,14 @@ public class CliView implements ViewInterface {
 
     @Override
     public void chooseCloud() {
+        String island = "";
+        while(island.equals("")){
+            System.out.println("Choose a cloud (id):");
+            island = scanner.nextLine();
+        }
+        UUID uuid = UUID.fromString(island);
 
+        eventManager.notify(new ChosenCloud(uuid));
     }
 
     @Override
@@ -129,12 +138,42 @@ public class CliView implements ViewInterface {
 
     @Override
     public void moveMotherNature() {
-
+        System.out.println("How many mother nature steps?");
+        int steps = scanner.nextInt();
+        eventManager.notify(new MovedMotherNature(steps));
     }
 
     @Override
     public void moveStudent() {
+        System.out.println("Choose a color of student to be moved:");
+        boolean flag = true;
+        PawnColor color = null;
+        while(flag){
+            String characterString = scanner.nextLine();
+            try{
+                color = PawnColor.valueOf(characterString.toUpperCase());
+                flag = false;
+            } catch (IllegalArgumentException e){
+                System.out.println("That color doesn't exist! Try again:");
+            }
 
+        }
+        System.out.println("Move the student to dining room or island? (D/I):");
+        String text = scanner.nextLine();
+        while (!(text.equals("D") || text.equals("I"))){
+            System.out.println("Move a student to dining room or island? (D/I):");
+            text = scanner.nextLine();
+        }
+
+        boolean isIsland = text.equals("I");
+        UUID uuid = null;
+        if(isIsland){
+            System.out.println("Choose the island (id):");
+            String island = scanner.nextLine();
+            uuid = UUID.fromString(island);
+        }
+
+        eventManager.notify(new MovedStudent(color, uuid));
     }
 
     @Override
