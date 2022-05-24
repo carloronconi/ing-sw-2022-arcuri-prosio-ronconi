@@ -54,12 +54,12 @@ public class CliView implements ViewInterface {
 
     @Override
     public void chooseCloud() {
-        String island = "";
-        while(island.equals("")){
+        String cloud = "";
+        while(cloud.equals("")){
             System.out.println("Choose a cloud (id):");
-            island = scanner.nextLine();
+            cloud = scanner.nextLine();
         }
-        UUID uuid = UUID.fromString(island);
+        UUID uuid = UUID.fromString(cloud);
 
         eventManager.notify(new ChosenCloud(uuid));
     }
