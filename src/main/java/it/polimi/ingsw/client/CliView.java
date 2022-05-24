@@ -5,21 +5,37 @@ import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class CliView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
     private Scanner scanner;
+    private GameState gameState;
 
     public CliView(ServerHandler handler) {
         eventManager = new EventManager<>();
         eventManager.subscribe(handler);
         scanner = new Scanner(System.in);
 
+    }
+
+    private String askUserInput(String message, InputParser parser){
+        while (true){
+            System.out.println(message);
+            String input = scanner.nextLine();
+            if (parser.isStringAccepted(input)){
+                return input;
+            } else {
+                System.out.println("Input not accepted! Try again.");
+            }
+        }
     }
 
     @Override
@@ -34,27 +50,38 @@ public class CliView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
-        System.out.println("Choose a Character Card:");
-        boolean flag = true;
-        AvailableCharacter characterEnum = null;
-        while(flag){
-            String characterString = scanner.nextLine();
-            System.out.println("Line inserted: " + characterString);
-            try{
-                characterEnum = AvailableCharacter.valueOf(characterString.toUpperCase());
-                flag = false;
-            } catch (IllegalArgumentException e){
-                System.out.println("That Character Card doesn't exist! Try again:");
-            }
 
-        }
+        String textualCharacter = askUserInput("Choose a character card:", s->{
+            try{
+                AvailableCharacter c = AvailableCharacter.valueOf(s);
+                return true;
+            } catch (IllegalArgumentException e){
+                return false;
+            }
+        });
+
+        AvailableCharacter characterEnum = AvailableCharacter.valueOf(textualCharacter);
 
         eventManager.notify(new ChosenCharacter(characterEnum));
     }
 
     @Override
     public void chooseCloud() {
+
+        //TODO: finish this and change all other methods to use askUserInput
+        /*
+        String cloud = askUserInput("Choose a cloud id:", s->{
+            ArrayList<UUID> cloudIds = new ArrayList<>();
+            for (HashMap<UUID, ArrayList<PawnColor>> c : gameState.getClouds()) {
+                for (UUID id : c.keySet()){
+                    cloudIds.add(id);
+                }
+            }
+            return !cloudIds.contains(UUID.fromString(s));
+        });*/
+
         String cloud = "";
+
         while(cloud.equals("")){
             System.out.println("Choose a cloud (id):");
             cloud = scanner.nextLine();
@@ -81,29 +108,19 @@ public class CliView implements ViewInterface {
 
     @Override
     public void getNickname() {
-        System.out.println("Nickname?");
-        String text = scanner.nextLine();
-
+        String text = askUserInput("Nickname?", s->true);
         eventManager.notify(new SetNickname(text));
     }
 
     @Override
     public void getPreferences() {
-        System.out.println("Easy or hard? (E/H)");
-        String text = scanner.nextLine();
-        while (!(text.equals("E") || text.equals("H"))){
-            System.out.println("Easy or hard? (E/H)");
-            text = scanner.nextLine();
-        }
+        String text = askUserInput("Easy or hard? (E/H)", s-> (s.equals("E") || s.equals("H")));
 
         GameMode gameMode = text.equals("H")? GameMode.HARD : GameMode.EASY;
 
-        System.out.println("Number of players?");
-        int numOfPlayers = scanner.nextInt();
-        while (!(numOfPlayers==2|| numOfPlayers== 3)){
-            System.out.println("Number of players?");
-            numOfPlayers = scanner.nextInt();
-        }
+        String numString = askUserInput("Number of players?", s->(s.equals("2") || s.equals("3")));
+
+        int numOfPlayers = Integer.valueOf(numString);
 
         eventManager.notify(new SetPreferences(numOfPlayers, gameMode));
     }
@@ -204,6 +221,10 @@ public class CliView implements ViewInterface {
 
 
     public void update(ModelEvent modelEvent) {
-        System.out.println(modelEvent.toString());
+        if(modelEvent instanceof GameState){
+            gameState = (GameState) modelEvent;
+            System.out.println(modelEvent.toString());
+        }
+
     }
 }
