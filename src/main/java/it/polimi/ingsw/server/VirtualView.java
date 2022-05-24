@@ -7,6 +7,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.controller.TurnState;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
@@ -81,6 +82,10 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     public boolean isAssistantCardIllegal(int card){
         return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
+    }
+
+    public boolean isCharacterCardIllegal(AvailableCharacter card){
+        return gameController.isCharacterCardIllegal(card, thisInstanceNumber);
     }
 
     //@Override

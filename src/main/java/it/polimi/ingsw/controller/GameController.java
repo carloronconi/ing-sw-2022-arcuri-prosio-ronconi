@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.GenericEvent;
 import it.polimi.ingsw.networkmessages.controllercalls.GetAssistantCard;
 import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
@@ -63,6 +64,24 @@ public class GameController implements EventListener<ViewEvent> {
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    public boolean isCharacterCardIllegal(AvailableCharacter card, int virtualViewInstanceNum){
+        HashMap<AvailableCharacter, Boolean> characterMap = gameModel.getAvailableCharacterCards();
+        boolean isPresent = characterMap.containsKey(card);
+        if (!isPresent) return false;
+
+        int price = 0;
+        try {
+            price = gameModel.getCurrentCharacterPrice(card);
+        } catch (NoSuchFieldException e) {}
+
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        int coins = gameModel.getCoinsMap().get(playerId);
+        if(coins<price) return false;
+
+       return true;
     }
 
     public GameMode getGameMode() {
