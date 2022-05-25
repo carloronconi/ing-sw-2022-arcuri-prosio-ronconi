@@ -22,24 +22,23 @@ public class Server {
         EventManager<ModelEvent> modelEventManager = new EventManager<>();
         GameController gameController = new GameController(modelEventManager);
 
-
-        /* Read the port number from System.in. In your project you
-         * could also use a configuration file for the same purpose.
-         * For simplicity, we are not doing any error checking when
-         * parsing the port number, but in a real project you need to
-         * always handle invalid inputs! */
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Server port?");
-        //int socketPort = Integer.parseInt(scanner.nextLine());
-        int socketPort = 5000;
+
         ServerSocket socket;
-        try {
-            socket = new ServerSocket(socketPort);
-        } catch (IOException e) {
-            System.out.println("cannot open server socket");
-            System.exit(1);
-            return;
+        while(true){
+            System.out.println("Server port?");
+            //int socketPort = Integer.parseInt(scanner.nextLine());
+            int socketPort = 5000;
+
+            try {
+                socket = new ServerSocket(socketPort);
+                break;
+            } catch (IOException | IllegalArgumentException e) {
+                System.out.println("Can't open server socket! Try with a different port:");
+            }
         }
+
+        System.out.println("Server active! Waiting for clients...");
 
         while (true) {
             try {
