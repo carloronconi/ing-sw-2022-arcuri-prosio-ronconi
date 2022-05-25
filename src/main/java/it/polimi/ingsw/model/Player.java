@@ -59,7 +59,7 @@ public class Player implements Identifiable{
      */
     public void playAssistantCard(int cardNumber){
 
-        assistantDeck.remove(cardNumber);
+        assistantDeck.remove(cardNumber-1);
     }
 
     /**

@@ -347,7 +347,9 @@ public class GameModel {
 
     public boolean isMNMoveIllegal(int steps, UUID playerId) throws NoSuchFieldException {
         Player player = ConverterUtility.idToElement(playerId,players);
-        return (playedCards.get(player) + messengerEffect < steps);
+        int cardValue = playedCards.get(player)/2;
+        if(playedCards.get(player)%2 !=0) cardValue++;
+        return (cardValue + messengerEffect < steps);
     }
 
     public void clearPlayedAssistantCards(){
