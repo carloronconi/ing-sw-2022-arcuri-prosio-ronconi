@@ -188,18 +188,8 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     }
 
     @Override
-    public void getColorSwap() {
-
-    }
-
-    @Override
-    public void getColorChoice() {
-
-    }
-
-    @Override
-    public void getIslandChoice() {
-
+    public void getCharacterSettings(AvailableCharacter forCharacter) {
+        clientHandler.writeObject(new GetCharacterSettings(forCharacter));
     }
 
     @Override

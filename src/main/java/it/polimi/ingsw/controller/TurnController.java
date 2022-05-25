@@ -25,6 +25,8 @@ public class TurnController implements EventListener<ViewEvent> {
     private final GameModel gameModel;
     private final GameMode gameMode;
 
+    private Character lastCharacter;
+
 
     public TurnController(GameModel gameModel, GameMode gameMode) {
         this.gameModel = gameModel;
@@ -235,7 +237,7 @@ public class TurnController implements EventListener<ViewEvent> {
             AvailableCharacter character = ((ChosenCharacter) modelEvent).getChosenCharacter();
 
             try {
-                gameModel.payAndGetCharacter(getCurrentPlayer(), character);
+                lastCharacter = gameModel.payAndGetCharacter(getCurrentPlayer(), character);
             } catch (NoSuchFieldException e) {
                 throw new RuntimeException(e);
             }
@@ -278,13 +280,32 @@ public class TurnController implements EventListener<ViewEvent> {
                 gameModel.clearPlayedAssistantCards();
             }
             //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
-        } else if (modelEvent instanceof SetColorSwap){
-            //lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
-            //lastTakenSwap = ((SetColorSwap) modelEvent).getTake();
-        } else if (modelEvent instanceof SetColorChoice){
-            //lastChosenColor = ((SetColorChoice) modelEvent).getColor();
-        } else if (modelEvent instanceof SetIslandChoice){
-            //lastEffectChosenIsland = ((SetIslandChoice) modelEvent).getIsland();
+        } else if (modelEvent instanceof SetCharacterSettings){
+            PawnColor color = ((SetCharacterSettings) modelEvent).getColor();
+            UUID island = ((SetCharacterSettings) modelEvent).getIsland();
+            UUID player = ((SetCharacterSettings) modelEvent).getPlayer();
+            PawnColor giveColor = ((SetCharacterSettings) modelEvent).getGiveColor();
+            PawnColor takeColor = ((SetCharacterSettings) modelEvent).getTakeColor();
+
+            if (lastCharacter instanceof EffectWithColor){
+                ((EffectWithColor) lastCharacter).setEffectColor(color);
+            }
+            if (lastCharacter instanceof EffectWithIsland){
+                ((EffectWithIsland) lastCharacter).setEffectIsland(island);
+            }
+            if (lastCharacter instanceof EffectWithPlayer){
+                ((EffectWithPlayer) lastCharacter).setEffectPlayer(player);
+            }
+            if (lastCharacter instanceof SwapperCharacter){
+                ((SwapperCharacter) lastCharacter).setupColorSwaps(giveColor, takeColor);
+            }
+
+
+            try {
+                lastCharacter.useEffect();
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

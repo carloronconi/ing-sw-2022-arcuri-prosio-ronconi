@@ -67,21 +67,12 @@ public class GameController implements EventListener<ViewEvent> {
     }
 
     public boolean isCharacterCardIllegal(AvailableCharacter card, int virtualViewInstanceNum){
-        HashMap<AvailableCharacter, Boolean> characterMap = gameModel.getAvailableCharacterCards();
-        boolean isPresent = characterMap.containsKey(card);
-        if (!isPresent) return false;
-
-        int price = 0;
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
-            price = gameModel.getCurrentCharacterPrice(card);
-        } catch (NoSuchFieldException e) {}
-
-        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        UUID playerId = playerIds.get(virtualViewInstanceNum);
-        int coins = gameModel.getCoinsMap().get(playerId);
-        if(coins<price) return false;
-
-       return true;
+            return gameModel.isCharacterCardIllegal(playerId, card);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean isMNMoveIllegal(int steps, int virtualViewInstanceNum){

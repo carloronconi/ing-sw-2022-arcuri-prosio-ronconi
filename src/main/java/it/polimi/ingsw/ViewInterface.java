@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
 public interface ViewInterface extends EventListener<ModelEvent> {
@@ -38,10 +39,6 @@ public interface ViewInterface extends EventListener<ModelEvent> {
 
     void gameOver();
 
-    void getColorSwap();
-
-    void getColorChoice();
-
-    void getIslandChoice();
+    void getCharacterSettings(AvailableCharacter forCharacter);
 
 }

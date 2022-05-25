@@ -5,6 +5,10 @@ import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.model.charactercards.SwapperCharacter;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
+import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
@@ -56,16 +60,22 @@ public class CliView implements ViewInterface {
     @Override
     public void chooseCharacter() {
 
-        String textualCharacter = askUserInput("Choose a character card:", s->{
+        String textualCharacter = askUserInput("Choose a character card or write NO:", s->{
+            if (s.equals("NO")) return true;
             try{
-                AvailableCharacter c = AvailableCharacter.valueOf(s);
+                AvailableCharacter c = AvailableCharacter.valueOf(s.toUpperCase());
                 return true;
             } catch (IllegalArgumentException e){
                 return false;
             }
         });
 
-        AvailableCharacter characterEnum = AvailableCharacter.valueOf(textualCharacter);
+        if (textualCharacter.equals("NO")){
+            eventManager.notify(new ChosenCharacter(null));
+            return;
+        }
+
+        AvailableCharacter characterEnum = AvailableCharacter.valueOf(textualCharacter.toUpperCase());
 
         eventManager.notify(new ChosenCharacter(characterEnum));
     }
@@ -237,17 +247,83 @@ public class CliView implements ViewInterface {
     }
 
     @Override
-    public void getColorSwap() {
+    public void getCharacterSettings(AvailableCharacter forCharacter) {
 
-    }
+        Class<?> characterClass = forCharacter.getCharacterClass();
 
-    @Override
-    public void getColorChoice() {
+        PawnColor color = null;
+        UUID island = null;
+        UUID player = null;
+        PawnColor giveColor = null;
+        PawnColor takeColor = null;
 
-    }
+        InputParser colorInputParser = new InputParser() {
+            @Override
+            public boolean isStringAccepted(String input) {
+                try{
+                    PawnColor col = PawnColor.valueOf(input.toUpperCase());
+                    return true;
+                } catch (IllegalArgumentException e){
+                    return false;
+                }
+            }
+        };
 
-    @Override
-    public void getIslandChoice() {
+        if (characterClass.isInstance((EffectWithColor) c -> {})){
+            String text = askUserInput("Select a color for the character effect:", colorInputParser);
+
+            color = PawnColor.valueOf(text.toUpperCase());
+        }
+        if (characterClass.isInstance((EffectWithIsland) i -> {})){
+            String text = askUserInput("Select an island for the character effect:", s->{
+                ArrayList<UUID> islandIds = new ArrayList<>();
+                for (HashMap<UUID, ArrayList<PawnColor>> isl : gameState.getIslands()) {
+                    for (UUID id : isl.keySet()){
+                        islandIds.add(id);
+                    }
+                }
+                UUID uuid = null;
+                try{
+                    uuid = UUID.fromString(s);
+                } catch (IllegalArgumentException e){
+                    return false;
+                }
+
+                return islandIds.contains(uuid);
+            });
+
+            island = UUID.fromString(text);
+
+        }
+        if (characterClass.isInstance((EffectWithPlayer) i -> {})){
+            String text = askUserInput("Select a player for the character effect:", s->{
+                ArrayList<UUID> playerIds = new ArrayList<>();
+                for (UUID p : gameState.getEntrances().keySet()) {
+                    playerIds.add(p);
+                }
+                UUID uuid = null;
+                try{
+                    uuid = UUID.fromString(s);
+                } catch (IllegalArgumentException e){
+                    return false;
+                }
+
+                return playerIds.contains(uuid);
+            });
+
+            player = UUID.fromString(text);
+        }
+        if (characterClass.isInstance(new SwapperCharacter(0, null, 0) {
+            public void useEffect() throws IllegalStateException, NoSuchFieldException {}
+        })){
+            String giveText = askUserInput("Select color to be given for the character effect:", colorInputParser);
+            giveColor = PawnColor.valueOf(giveText);
+
+            String takeText = askUserInput("Select color to be taken for the character effect:", colorInputParser);
+            takeColor = PawnColor.valueOf(takeText);
+        }
+
+        eventManager.notify(new SetCharacterSettings(color, player, island, giveColor, takeColor));
 
     }
 
