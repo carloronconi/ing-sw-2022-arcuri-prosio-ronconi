@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CliView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
@@ -30,6 +32,9 @@ public class CliView implements ViewInterface {
         while (true){
             System.out.println(message);
             String input = scanner.nextLine();
+            while(input.isEmpty()){
+                input = scanner.nextLine();
+            }
             if (parser.isStringAccepted(input)){
                 return input;
             } else {
@@ -68,8 +73,6 @@ public class CliView implements ViewInterface {
     @Override
     public void chooseCloud() {
 
-        //TODO: finish this and change all other methods to use askUserInput
-        /*
         String cloud = askUserInput("Choose a cloud id:", s->{
             ArrayList<UUID> cloudIds = new ArrayList<>();
             for (HashMap<UUID, ArrayList<PawnColor>> c : gameState.getClouds()) {
@@ -77,15 +80,16 @@ public class CliView implements ViewInterface {
                     cloudIds.add(id);
                 }
             }
-            return !cloudIds.contains(UUID.fromString(s));
-        });*/
+            UUID uuid = null;
+            try{
+                uuid = UUID.fromString(s);
+            } catch (IllegalArgumentException e){
+                return false;
+            }
 
-        String cloud = "";
+            return cloudIds.contains(uuid);
+        });
 
-        while(cloud.equals("")){
-            System.out.println("Choose a cloud (id):");
-            cloud = scanner.nextLine();
-        }
         UUID uuid = UUID.fromString(cloud);
 
         eventManager.notify(new ChosenCloud(uuid));
@@ -93,9 +97,16 @@ public class CliView implements ViewInterface {
 
     @Override
     public void getAssistantCard() {
-        System.out.println("Choose an Assistant Card: [1-10] ");
-        int card = scanner.nextInt();
-        card--;
+        String text = askUserInput("Choose an Assistant Card:", s->{
+            try{
+                int number = Integer.parseInt(s);
+                return number>=1 && number <=10;
+            } catch (NumberFormatException e){
+                return false;
+            }
+
+        });
+        int card = Integer.parseInt(text);
         eventManager.notify(new SetAssistantCard(card));
 
     }
@@ -120,14 +131,14 @@ public class CliView implements ViewInterface {
 
         String numString = askUserInput("Number of players?", s->(s.equals("2") || s.equals("3")));
 
-        int numOfPlayers = Integer.valueOf(numString);
+        int numOfPlayers = Integer.parseInt(numString);
 
         eventManager.notify(new SetPreferences(numOfPlayers, gameMode));
     }
 
     @Override
     public void letsPlay(){
-        System.out.println("Waiting for other player to finish setup");
+        System.out.println("Waiting for other players...");
         eventManager.notify(new ReadyToPlay());
     }
 
@@ -139,12 +150,14 @@ public class CliView implements ViewInterface {
 
     @Override
     public void invalidCharacterChoice() {
-
+        System.out.println("Invalid character choice! Try again:");
+        chooseCharacter();
     }
 
     @Override
     public void invalidMNMove() {
-
+        System.out.println("Invalid mother nature move! Try again:");
+        moveMotherNature();
     }
 
     @Override
@@ -161,42 +174,61 @@ public class CliView implements ViewInterface {
 
     @Override
     public void moveMotherNature() {
-        System.out.println("How many mother nature steps?");
-        int steps = scanner.nextInt();
+        String text = askUserInput("How many mother nature steps?", s->{
+            try{
+                int number = Integer.parseInt(s);
+                return number>=1 && number <=5;
+            } catch (NumberFormatException e){
+                return false;
+            }
+        });
+        int steps = Integer.parseInt(text);
         eventManager.notify(new MovedMotherNature(steps));
     }
 
     @Override
     public void moveStudent() {
-        System.out.println("Choose a color of student to be moved:");
-        boolean flag = true;
-        PawnColor color = null;
-        while(flag){
-            String characterString = scanner.nextLine();
+        String textualColor = askUserInput("Choose a color of student to be moved:", s->{
             try{
-                color = PawnColor.valueOf(characterString.toUpperCase());
-                flag = false;
+                PawnColor color = PawnColor.valueOf(s.toUpperCase());
+                return true;
             } catch (IllegalArgumentException e){
-                System.out.println("That color doesn't exist! Try again:");
+                return false;
             }
+        });
 
-        }
-        System.out.println("Move the student to dining room or island? (D/I):");
-        String text = scanner.nextLine();
-        while (!(text.equals("D") || text.equals("I"))){
-            System.out.println("Move a student to dining room or island? (D/I):");
-            text = scanner.nextLine();
-        }
+        PawnColor color = PawnColor.valueOf(textualColor.toUpperCase());
 
-        boolean isIsland = text.equals("I");
-        UUID uuid = null;
+        String textualChoice = askUserInput("Move the student to dining room or island? (D/I):", s->{
+            return (s.equalsIgnoreCase("D") || s.equalsIgnoreCase("I"));
+        });
+
+        boolean isIsland = textualChoice.equalsIgnoreCase("I");
+
+        UUID islandId = null;
         if(isIsland){
-            System.out.println("Choose the island (id):");
-            String island = scanner.nextLine();
-            uuid = UUID.fromString(island);
+            String textualIsland = askUserInput("Choose the island (id):", s->{
+                ArrayList<UUID> islandIds = new ArrayList<>();
+                for (HashMap<UUID, ArrayList<PawnColor>> island : gameState.getIslands()) {
+                    for (UUID id : island.keySet()){
+                        islandIds.add(id);
+                    }
+                }
+                UUID uuid = null;
+                try{
+                    uuid = UUID.fromString(s);
+                } catch (IllegalArgumentException e){
+                    return false;
+                }
+
+                return islandIds.contains(uuid);
+            });
+
+            islandId = UUID.fromString(textualIsland);
+
         }
 
-        eventManager.notify(new MovedStudent(color, uuid));
+        eventManager.notify(new MovedStudent(color, islandId));
     }
 
     @Override
