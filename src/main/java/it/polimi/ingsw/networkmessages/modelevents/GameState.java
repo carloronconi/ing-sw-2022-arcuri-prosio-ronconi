@@ -2,20 +2,20 @@ package it.polimi.ingsw.networkmessages.modelevents;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.cliview.Color;
+import it.polimi.ingsw.cliview.Matrix;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
-import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.Cloud;
-import it.polimi.ingsw.model.studentmanagers.IslandTile;
+import it.polimi.ingsw.model.studentmanagers.*;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
+
+import static it.polimi.ingsw.model.PawnColor.*;
 
 public class GameState implements Serializable, ModelEvent {
     private final int bag;
@@ -32,6 +32,12 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<UUID, UUID> islandOwners;
     private final ArrayList<String> nicknames;
 
+    //private ArrayList<String> [][] e;
+
+    private ArrayList<Matrix> matrix;
+
+    //private Matrix matrix;
+
     public GameState(GameModel gameModel) {
         bag = gameModel.countStudentsInBag();
         professorOwners = gameModel.getProfessorOwners();
@@ -46,7 +52,47 @@ public class GameState implements Serializable, ModelEvent {
         motherNaturePosition = gameModel.getMotherNaturePosition();
         islandOwners = gameModel.getIslandOwners();
         nicknames = gameModel.getPlayerNicknames();
+
+        //ArrayList<Player> players = gameModel.getPlayers();
+
+
+        matrix = new ArrayList<>();
+        for (Player p : gameModel.getPlayers()){
+            matrixCreation(5, max(p.getEntrance()), p.getEntrance(), p.getDiningRoom());
+        }
+
+        //gMatrix(5, max(gameModel.getPlayers().get(0).getEntrance()), gameModel.getPlayers().get(0).getEntrance(), gameModel.getPlayers().get(0).getDiningRoom());
+
+        //matrixCreation(players.get(0).getEntrance());
     }
+
+    public ArrayList<Matrix> getMatrix(){
+        return matrix;
+    }
+
+    private int max(StudentCounter studentCounter){
+        int max=-1;
+        for (PawnColor c : PawnColor.values()){
+            if (studentCounter.count(c)>max){
+                max=studentCounter.count(c);
+            }
+        }
+        return max;
+    }
+
+
+    public void matrixCreation(int n, int m, StudentCounter studentCounter, StudentCounter studentCounter2){
+        matrix.add(new Matrix(n, m, studentCounter, studentCounter2));
+        //matrix = new Matrix(n, m, studentCounter, studentCounter2);
+    }
+
+    /*public ArrayList<String> [][] getE(){
+        return e;
+    }*/
+
+    /*public ArrayList<Player> getPlayers(){
+        return players;
+    }*/
 
     public int getBag() {
         return bag;
@@ -105,7 +151,14 @@ public class GameState implements Serializable, ModelEvent {
         eventManager.notify(this);
     }
 
-    @Override
+    /*@Override
+    public String toString(){
+        String s = ;
+
+        return s;
+    }*/
+
+    /*@Override
     public String toString() {
         return "GameState{" +
                 "\nbag=" + bag +
@@ -122,5 +175,67 @@ public class GameState implements Serializable, ModelEvent {
                 ", \nislandOwners=" + islandOwners +
                 ", \nnicknames=" + nicknames +
                 "}";
+    }*/
+
+    /*public void matrixCreation(Entrance entrance){
+
+        //e = new ArrayList[][]
+
+
+
+
+        e = new ArrayList[10][10];
+
+        /*e[0][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
+        e[0][1].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
+        e[0][2].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
+        e[0][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
+        e[1][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
+        e[2][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);*/
+
+
+        /*for (int j=0; j<10; j++){
+            for (int i=0; i<10; i++){
+                e[j][i] = new ArrayList<>();
+                e[j][i].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
+            }
+        }
+
+        /*for (PawnColor color : values()){
+            //e.add(new ArrayList<String>());
+            int numColor = entrance.count(color);
+            //e = new ArrayList[numColor][];
+            for (int i = 0; i<numColor; i++){
+                e[j][i].add(sameColor(color) + "\u2022" + Color.RESET);
+                //e.get(j).add(sameColor(color) + "\u2022" + Color.RESET);
+            }
+            j++;
+        }*/
+
+
+
+
+    //}
+
+    private Color sameColor(PawnColor color){
+        switch (color){
+            case RED:
+                return Color.ANSI_RED;
+            case GREEN:
+                return Color.ANSI_GREEN;
+            case BLUE:
+                return Color.ANSI_BLUE;
+            case YELLOW:
+                return Color.ANSI_YELLOW;
+            case PURPLE:
+                return Color.ANSI_PURPLE;
+        }
+        return Color.RESET;
     }
+
+
+
+
+
+
 }
