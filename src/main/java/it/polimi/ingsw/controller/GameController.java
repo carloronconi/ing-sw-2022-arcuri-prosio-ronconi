@@ -37,6 +37,11 @@ public class GameController implements EventListener<ViewEvent> {
     private final Object lock = new Object();
     private int num=0;
 
+    private String name0;
+    private String name1;
+    private String name2;
+    private int howManyNames =0;
+
     public GameController(EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
         controllerState = ControllerState.INITIAL_SETUP;
@@ -144,7 +149,18 @@ public class GameController implements EventListener<ViewEvent> {
                 }
             }else num++;
             String nickname = ((SetNickname) viewEvent).getNickname();
-            playerNicknames.add(nickname);
+
+            if (((SetNickname) viewEvent).getVirtualView().getThisInstanceNumber()==0){
+                name0 = nickname;
+                howManyNames++;
+            }else if (((SetNickname) viewEvent).getVirtualView().getThisInstanceNumber()==1){
+                name1 =nickname;
+                howManyNames++;
+            }else{
+                name2 = nickname;
+                howManyNames++;
+            }
+
             System.out.println(playerNicknames);
             VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
             virtualViews.add(virtualView);
@@ -162,12 +178,22 @@ public class GameController implements EventListener<ViewEvent> {
                 }
             }
 
-            if (playerNicknames.size() == numOfPlayers) {
+            if (howManyNames==numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
 
                 }
+
+                if (howManyNames==2){
+                    playerNicknames.add(name0);
+                    playerNicknames.add(name1);
+                }else{
+                    playerNicknames.add(name0);
+                    playerNicknames.add(name1);
+                    playerNicknames.add(name2);
+                }
+
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
