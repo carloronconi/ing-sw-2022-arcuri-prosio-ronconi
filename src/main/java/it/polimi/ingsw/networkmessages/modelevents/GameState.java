@@ -35,6 +35,7 @@ public class GameState implements Serializable, ModelEvent {
     //private ArrayList<String> [][] e;
 
     private ArrayList<Matrix> matrix;
+    private ArrayList<String> playersNickname;
 
     //private Matrix matrix;
 
@@ -57,9 +58,24 @@ public class GameState implements Serializable, ModelEvent {
 
 
         matrix = new ArrayList<>();
-        for (Player p : gameModel.getPlayers()){
-            matrixCreation(5, max(p.getEntrance()), p.getEntrance(), p.getDiningRoom());
+
+        for (String s : nicknames){
+            for (Player p : gameModel.getPlayers()){
+                if (s.equals(p.getNickname())){
+                    int howManyColumns = max(p.getEntrance()) + max(p.getDiningRoom());
+                    matrixCreation(5, max(p.getEntrance()) + max(p.getDiningRoom()), max(p.getEntrance()), p.getEntrance(), p.getDiningRoom());
+                }
+            }
         }
+
+
+        /*for (Player p : gameModel.getPlayers()){
+            //playersNickname.add(p.getNickname());
+
+            //int howManyColumns=0;
+            int howManyColumns = max(p.getEntrance()) + max(p.getDiningRoom());
+            matrixCreation(5, max(p.getEntrance()) + max(p.getDiningRoom()), max(p.getEntrance()), p.getEntrance(), p.getDiningRoom());
+        }*/
 
         //gMatrix(5, max(gameModel.getPlayers().get(0).getEntrance()), gameModel.getPlayers().get(0).getEntrance(), gameModel.getPlayers().get(0).getDiningRoom());
 
@@ -81,10 +97,18 @@ public class GameState implements Serializable, ModelEvent {
     }
 
 
-    public void matrixCreation(int n, int m, StudentCounter studentCounter, StudentCounter studentCounter2){
-        matrix.add(new Matrix(n, m, studentCounter, studentCounter2));
+    public void matrixCreation(int n, int m, int firstStudentstudentCounter2, StudentCounter studentCounter, StudentCounter studentCounter2){
+        matrix.add(new Matrix(n, m, firstStudentstudentCounter2, studentCounter, studentCounter2));
         //matrix = new Matrix(n, m, studentCounter, studentCounter2);
     }
+
+
+    public ArrayList<String> getPlayersNickname(){
+        return playersNickname;
+    }
+
+
+
 
     /*public ArrayList<String> [][] getE(){
         return e;
