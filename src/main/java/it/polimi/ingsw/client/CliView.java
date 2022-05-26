@@ -5,6 +5,7 @@ import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.model.charactercards.ColorSwap;
 import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
@@ -254,8 +255,7 @@ public class CliView implements ViewInterface {
         PawnColor color = null;
         UUID island = null;
         UUID player = null;
-        PawnColor giveColor = null;
-        PawnColor takeColor = null;
+        ArrayList<ColorSwap> colorSwaps = null;
 
         InputParser colorInputParser = new InputParser() {
             @Override
@@ -269,18 +269,16 @@ public class CliView implements ViewInterface {
             }
         };
 
-        if (characterClass.isInstance((EffectWithColor) c -> {})){
+        if (EffectWithColor.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select a color for the character effect:", colorInputParser);
 
             color = PawnColor.valueOf(text.toUpperCase());
         }
-        if (characterClass.isInstance((EffectWithIsland) i -> {})){
+        if (EffectWithIsland.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select an island for the character effect:", s->{
                 ArrayList<UUID> islandIds = new ArrayList<>();
                 for (HashMap<UUID, ArrayList<PawnColor>> isl : gameState.getIslands()) {
-                    for (UUID id : isl.keySet()){
-                        islandIds.add(id);
-                    }
+                    islandIds.addAll(isl.keySet());
                 }
                 UUID uuid = null;
                 try{
@@ -294,13 +292,11 @@ public class CliView implements ViewInterface {
 
             island = UUID.fromString(text);
 
-        }
-        if (characterClass.isInstance((EffectWithPlayer) i -> {})){
+        }/*
+        if (EffectWithPlayer.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select a player for the character effect:", s->{
                 ArrayList<UUID> playerIds = new ArrayList<>();
-                for (UUID p : gameState.getEntrances().keySet()) {
-                    playerIds.add(p);
-                }
+                playerIds.addAll(gameState.getEntrances().keySet());
                 UUID uuid = null;
                 try{
                     uuid = UUID.fromString(s);
@@ -312,18 +308,30 @@ public class CliView implements ViewInterface {
             });
 
             player = UUID.fromString(text);
-        }
-        if (characterClass.isInstance(new SwapperCharacter(0, null, 0) {
-            public void useEffect() throws IllegalStateException, NoSuchFieldException {}
-        })){
-            String giveText = askUserInput("Select color to be given for the character effect:", colorInputParser);
-            giveColor = PawnColor.valueOf(giveText);
+        }*/
+        if (SwapperCharacter.class.isAssignableFrom(characterClass)){
+            System.out.println("GETTING COLOR SWAPS");
+            colorSwaps = new ArrayList<>();
+            int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
+            System.out.println("MAX COLOR SWAPS:" +maxSwaps);
+            for (int i = 0; i<maxSwaps; i++){
+                String num = String.valueOf(i+1);
+                String mess = "Do you want to set the " + num + " color swap (Y) or skip (N)? You have " + maxSwaps + " total swaps.";
+                String again = askUserInput(mess, s->s.equalsIgnoreCase("Y")||s.equalsIgnoreCase("N"));
+                if (again.equalsIgnoreCase("N")) break;
 
-            String takeText = askUserInput("Select color to be taken for the character effect:", colorInputParser);
-            takeColor = PawnColor.valueOf(takeText);
+                String giveText = askUserInput("Select color to be given for the character effect:", colorInputParser);
+                PawnColor giveColor = PawnColor.valueOf(giveText);
+
+                String takeText = askUserInput("Select color to be taken for the character effect:", colorInputParser);
+                PawnColor takeColor = PawnColor.valueOf(takeText);
+
+                colorSwaps.add(new ColorSwap(giveColor, takeColor));
+            }
+
         }
 
-        eventManager.notify(new SetCharacterSettings(color, player, island, giveColor, takeColor));
+        eventManager.notify(new SetCharacterSettings(color, player, island, colorSwaps));
 
     }
 
