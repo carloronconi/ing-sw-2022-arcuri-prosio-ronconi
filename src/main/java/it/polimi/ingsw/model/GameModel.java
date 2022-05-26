@@ -68,6 +68,10 @@ public class GameModel {
 
     }
 
+    public ArrayList<Player> getPlayers(){
+        return (ArrayList<Player>) players.clone();
+    }
+
     /**
      * transfers a student of a certain color from a player's entrance to the corresponding diningRoom.
      * If the bank has a number of coins greater than 0 and the number of students of that color is multiples of 3,
