@@ -310,10 +310,9 @@ public class CliView implements ViewInterface {
             player = UUID.fromString(text);
         }*/
         if (SwapperCharacter.class.isAssignableFrom(characterClass)){
-            System.out.println("GETTING COLOR SWAPS");
             colorSwaps = new ArrayList<>();
-            int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
-            System.out.println("MAX COLOR SWAPS:" +maxSwaps);
+            //int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
+            int maxSwaps = forCharacter.getMaxColorSwaps();
             for (int i = 0; i<maxSwaps; i++){
                 String num = String.valueOf(i+1);
                 String mess = "Do you want to set the " + num + " color swap (Y) or skip (N)? You have " + maxSwaps + " total swaps.";
@@ -321,10 +320,10 @@ public class CliView implements ViewInterface {
                 if (again.equalsIgnoreCase("N")) break;
 
                 String giveText = askUserInput("Select color to be given for the character effect:", colorInputParser);
-                PawnColor giveColor = PawnColor.valueOf(giveText);
+                PawnColor giveColor = PawnColor.valueOf(giveText.toUpperCase());
 
                 String takeText = askUserInput("Select color to be taken for the character effect:", colorInputParser);
-                PawnColor takeColor = PawnColor.valueOf(takeText);
+                PawnColor takeColor = PawnColor.valueOf(takeText.toUpperCase());
 
                 colorSwaps.add(new ColorSwap(giveColor, takeColor));
             }

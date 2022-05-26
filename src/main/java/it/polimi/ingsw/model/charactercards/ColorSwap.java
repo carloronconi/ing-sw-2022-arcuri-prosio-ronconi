@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.PawnColor;
 
+import java.io.Serializable;
+
 /**
  * inner class used to create a more convenient data structure for colorSwaps
  */
-public class ColorSwap {
+public class ColorSwap implements Serializable {
     private final PawnColor give;
     private final PawnColor take;
 

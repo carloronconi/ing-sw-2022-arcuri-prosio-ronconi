@@ -13,13 +13,14 @@ import java.util.UUID;
 
 public class Musician extends SwapperCharacter implements EffectWithPlayer {
     private UUID player;
+    private static int maxColorSwaps = 2;
 
     /**
      * initialises super with 2 maximum color swaps
      * @param players needed for special effect
      */
     public Musician(List<Player> players) {
-        super(1, players, 2);
+        super(1, players, maxColorSwaps);
     }
 
     /**
@@ -44,5 +45,9 @@ public class Musician extends SwapperCharacter implements EffectWithPlayer {
     @Override
     public void setEffectPlayer(UUID player) {
         this.player = player;
+    }
+
+    public static int getMaxColorSwaps() {
+        return maxColorSwaps;
     }
 }

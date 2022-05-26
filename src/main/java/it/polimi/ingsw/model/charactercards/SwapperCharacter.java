@@ -34,8 +34,4 @@ public abstract class SwapperCharacter extends Character {
         if (colorSwaps.size()>maxColorSwaps-1) throw new IllegalStateException("already set up maximum number of students to be swapped");
         colorSwaps.add(new ColorSwap(give, take));
     }
-
-    public int getMaxColorSwaps() {
-        return maxColorSwaps;
-    }
 }

@@ -22,4 +22,13 @@ public enum AvailableCharacter {
     public Class<?> getCharacterClass() {
         return characterClass;
     }
+
+    public int getMaxColorSwaps(){
+        if (Musician.class == characterClass) {
+            return Musician.getMaxColorSwaps();
+        } else if (Juggler.class == characterClass) {
+            return Juggler.getMaxColorSwaps();
+        }
+        return 0;
+    }
 }
