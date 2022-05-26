@@ -51,14 +51,16 @@ public class GameState implements Serializable, ModelEvent {
         motherNaturePosition = gameModel.getMotherNaturePosition();
         islandOwners = gameModel.getIslandOwners();
         nicknames = gameModel.getPlayerNicknames();
-        if(characterCards.containsKey(AvailableCharacter.MONK)){
-            characterCardsStudents.put(AvailableCharacter.MONK, Monk.getStudents());
-        }
-        if(characterCards.containsKey(AvailableCharacter.JUGGLER)){
-            characterCardsStudents.put(AvailableCharacter.JUGGLER, Juggler.getStudents());
-        }
-        if(characterCards.containsKey(AvailableCharacter.PRINCESS)){
-            characterCardsStudents.put(AvailableCharacter.PRINCESS, Princess.getStudents());
+        if(characterCards != null){
+            if(characterCards.containsKey(AvailableCharacter.MONK)){
+                characterCardsStudents.put(AvailableCharacter.MONK, Monk.getStudents());
+            }
+            if(characterCards.containsKey(AvailableCharacter.JUGGLER)){
+                characterCardsStudents.put(AvailableCharacter.JUGGLER, Juggler.getStudents());
+            }
+            if(characterCards.containsKey(AvailableCharacter.PRINCESS)){
+                characterCardsStudents.put(AvailableCharacter.PRINCESS, Princess.getStudents());
+            }
         }
     }
 
