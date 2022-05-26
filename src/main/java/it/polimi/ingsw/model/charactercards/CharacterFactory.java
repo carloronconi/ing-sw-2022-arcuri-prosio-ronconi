@@ -66,7 +66,8 @@ public class CharacterFactory {
      */
     public Character createUninstantiatedCharacter() throws IllegalStateException{
         if (uninstantiatedCharacters.isEmpty()) throw new IllegalStateException();
-        Random random = new Random();
+        //TODO: remove seed (with this you get MUSICIAN, JUGGLER, WITCH)
+        Random random = new Random(1);
         int index = random.nextInt(uninstantiatedCharacters.size());
         AvailableCharacter character = uninstantiatedCharacters.get(index);
         uninstantiatedCharacters.remove(index);

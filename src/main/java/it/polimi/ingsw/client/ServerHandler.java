@@ -142,6 +142,7 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
         try {
             output.writeObject(viewEvent);
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("Communication error");
             //owner.terminate();
         }
