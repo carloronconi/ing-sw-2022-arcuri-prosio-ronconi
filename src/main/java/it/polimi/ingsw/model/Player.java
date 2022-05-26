@@ -16,6 +16,8 @@ public class Player implements Identifiable{
     private TowerColor towerColor;
     private ArrayList<Integer> assistantDeck;
     private int coins;
+    private static int numberOfInstances = 0;
+    private final int thisInstanceNumber;
 
 
     public Player(Entrance entrance, DiningRoom diningRoom, String nickname) {
@@ -28,6 +30,15 @@ public class Player implements Identifiable{
         for (int i = 1; i < 11; i++) {
             assistantDeck.add(i);
         }
+        thisInstanceNumber = numberOfInstances;
+        if (thisInstanceNumber==0){
+            towerColor=TowerColor.WHITE;
+        }else if (thisInstanceNumber==1){
+            towerColor=TowerColor.BLACK;
+        }else{
+            towerColor=TowerColor.GREY;
+        }
+        numberOfInstances++;
     }
 
     public Entrance getEntrance() {
@@ -50,6 +61,10 @@ public class Player implements Identifiable{
 
     public ArrayList<Integer> getDeck(){
         return (ArrayList<Integer>) assistantDeck.clone();
+    }
+
+    public TowerColor getTowerColor(){
+        return towerColor;
     }
 
     /**
