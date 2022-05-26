@@ -15,7 +15,7 @@ public class Bullet implements Serializable {
 
     public Bullet(Color color){
         this.color=color;
-        symbol=BULLET;
+        symbol=" ";
     }
 
     public Color getColor(){

@@ -7,26 +7,31 @@ import java.io.Serializable;
 
 public class Matrix implements Serializable {
 
-    private int numRighe;
-    private int numColonne;
+    private int numRow;
+    private int numColumns;
 
     private Cell[][] mat;
 
-    private int startColumn;
+    private int studentCounter2InitialColumn=0;
+
+    private int firstStudentstudentCounter2;
 
 
     public Matrix(int n, int m){
         mat = new Cell[n][m];
-        numRighe = n;
-        numColonne = m;
+        numRow = n;
+        numColumns = m;
     }
 
 
 
-    public Matrix(int row, int columns, StudentCounter studentCounter, StudentCounter studentCounter2){
+    public Matrix(int row, int columns, int firstStudentstudentCounter2, StudentCounter studentCounter, StudentCounter studentCounter2){
 
         mat = new Cell[row][columns];
-        numColonne = columns;
+        numRow = row;
+        numColumns = columns;
+
+        this.firstStudentstudentCounter2=firstStudentstudentCounter2;
 
 
         for (int i=0; i<row; i++){
@@ -36,7 +41,7 @@ public class Matrix implements Serializable {
         }
 
 
-
+        //int studentCounter2InitialColumn=0;
         int rowIndexer=0;
         for (PawnColor color : PawnColor.values()){
 
@@ -46,28 +51,35 @@ public class Matrix implements Serializable {
                 mat[rowIndexer][columnIndexer].getBullet().setColor(c);
                 mat[rowIndexer][columnIndexer].getBullet().setSymbol();
                 columnIndexer++;
+                /*if (columnIndexer>studentCounter2InitialColumn){
+                    studentCounter2InitialColumn=columnIndexer;
+                }*/
             }
             rowIndexer++;
         }
 
-        startColumn = mat[0].length;
+        int m=firstStudentstudentCounter2;
+        rowIndexer=0;
+        //studentCounter2InitialColumn = mat[0].length;
         for (PawnColor color : PawnColor.values()){
 
             int columnIndexer=0;
             while (columnIndexer< studentCounter2.count(color)){
                 Color c = colorConverter(color);
-                mat[rowIndexer][startColumn].getBullet().setColor(c);
-                mat[rowIndexer][startColumn].getBullet().setSymbol();
+                mat[rowIndexer][m].getBullet().setColor(c);
+                mat[rowIndexer][m].getBullet().setSymbol();
                 columnIndexer++;
-                startColumn++;
+                m++;
+                //studentCounter2InitialColumn++;
             }
             rowIndexer++;
+            m=firstStudentstudentCounter2;
         }
     }
 
-    public int getNumRighe() {return numRighe;}
+    public int getNumRow() {return numRow;}
 
-    public int getNumColonne() {return numColonne;}
+    public int getNumColumns() {return numColumns;}
 
     /*private int max(StudentCounter studentCounter){
         int max=-1;
@@ -99,13 +111,14 @@ public class Matrix implements Serializable {
     public String toString(){
         String s = new String();
         s += "\n";
-        for (int i=0; i< mat.length; i++){
+        for (int i=0; i< getNumRow(); i++){
             s += "|";
-            for (int j=0; j<numColonne; j++){
-                s += mat[i][j].toString();
-                if (j==startColumn){
+            for (int j=0; j<getNumColumns(); j++){
+                if (j==firstStudentstudentCounter2){
                     s += "|";
                 }
+                s += mat[i][j].toString();
+
             }
             s += "|";
             s += "\n";
