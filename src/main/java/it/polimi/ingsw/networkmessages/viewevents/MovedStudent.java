@@ -38,7 +38,7 @@ public class MovedStudent implements Serializable, GameViewEvent {
 
         virtualView.notifyController(this);
 
-        int totColorsToChoose = virtualView.getGameMode()== GameMode.EASY? 3 : 4;
+        int totColorsToChoose = VirtualView.getNumberOfInstances() == 2? 3 : 4;
         totColorsToChoose--;
         if (colorsChosen<totColorsToChoose){
             colorsChosen++;
