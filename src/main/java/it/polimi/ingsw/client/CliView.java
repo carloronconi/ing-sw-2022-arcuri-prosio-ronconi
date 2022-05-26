@@ -2,22 +2,23 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.cliview.Matrix;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class CliView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
     private Scanner scanner;
     private GameState gameState;
+    private HashMap<String, UUID> player;
+    private ArrayList<Player> players;
 
     public CliView(ServerHandler handler) {
         eventManager = new EventManager<>();
@@ -223,8 +224,28 @@ public class CliView implements ViewInterface {
     public void update(ModelEvent modelEvent) {
         if(modelEvent instanceof GameState){
             gameState = (GameState) modelEvent;
-            System.out.println(modelEvent.toString());
+
+            ArrayList<String> nicknames = gameState.getNicknames();
+
+            ArrayList<Matrix> matrix = gameState.getMatrix();
+            for (int i=0; i< matrix.size(); i++){
+                System.out.println(nicknames.get(i).toString());
+                matrix.get(i).dumb();
+            }
+
+            //matrix.dumb();
+
+
+
+
+
+            //System.out.println(matrix.toString());
         }
 
     }
+
+
+
+
+
 }
