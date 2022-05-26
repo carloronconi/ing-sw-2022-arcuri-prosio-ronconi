@@ -24,6 +24,9 @@ public class Player implements Identifiable{
         this.nickname = nickname;
         id=UUID.randomUUID();
         coins=0;
+        //TODO: remove this cheat code
+        if(nickname.equals("MONEY")) coins = 100;
+
         assistantDeck = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
             assistantDeck.add(i);
