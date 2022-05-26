@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Character;
+import it.polimi.ingsw.model.charactercards.ColorSwap;
 import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
@@ -283,9 +284,7 @@ public class TurnController implements EventListener<ViewEvent> {
         } else if (modelEvent instanceof SetCharacterSettings){
             PawnColor color = ((SetCharacterSettings) modelEvent).getColor();
             UUID island = ((SetCharacterSettings) modelEvent).getIsland();
-            UUID player = ((SetCharacterSettings) modelEvent).getPlayer();
-            PawnColor giveColor = ((SetCharacterSettings) modelEvent).getGiveColor();
-            PawnColor takeColor = ((SetCharacterSettings) modelEvent).getTakeColor();
+            ArrayList<ColorSwap> colorSwaps = ((SetCharacterSettings) modelEvent).getColorSwaps();
 
             if (lastCharacter instanceof EffectWithColor){
                 ((EffectWithColor) lastCharacter).setEffectColor(color);
@@ -294,17 +293,20 @@ public class TurnController implements EventListener<ViewEvent> {
                 ((EffectWithIsland) lastCharacter).setEffectIsland(island);
             }
             if (lastCharacter instanceof EffectWithPlayer){
-                ((EffectWithPlayer) lastCharacter).setEffectPlayer(player);
+                ((EffectWithPlayer) lastCharacter).setEffectPlayer(getCurrentPlayer());
             }
             if (lastCharacter instanceof SwapperCharacter){
-                ((SwapperCharacter) lastCharacter).setupColorSwaps(giveColor, takeColor);
+                for (ColorSwap swap : colorSwaps){
+                    ((SwapperCharacter) lastCharacter).setupColorSwaps(swap.getGive(), swap.getTake());
+                }
+
             }
 
 
             try {
                 lastCharacter.useEffect();
             } catch (NoSuchFieldException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
