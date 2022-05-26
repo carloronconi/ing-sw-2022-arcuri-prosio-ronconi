@@ -9,12 +9,13 @@ import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.CharacterStudentCounter;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
 public class Princess extends Character implements EffectWithPlayer, EffectWithColor {
-    private final CharacterStudentCounter studentCounter;
+    private static final CharacterStudentCounter studentCounter = new CharacterStudentCounter();
     private final Bag bag;
     private final List<Player> players;
     private UUID player;
@@ -24,8 +25,17 @@ public class Princess extends Character implements EffectWithPlayer, EffectWithC
         super(2);
         this.bag = bag;
         this.players = players;
-        studentCounter = new CharacterStudentCounter();
         IntStream.range(0, 4).forEach(i -> studentCounter.takeStudentFrom(bag));
+    }
+
+    public static ArrayList<PawnColor> getStudents() {
+        ArrayList<PawnColor> colors = new ArrayList<>();
+        for (PawnColor color : PawnColor.values()){
+            for (int i = 0; i<studentCounter.count(color); i++){
+                colors.add(color);
+            }
+        }
+        return colors;
     }
 
     public void useEffect() throws NoSuchFieldException {

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.model.PawnColor;
+
+import java.util.ArrayList;
+
 public enum AvailableCharacter {
     MONK(Monk.class),
     CHEESEMERCHANT(CheeseMerchant.class),
@@ -30,5 +34,16 @@ public enum AvailableCharacter {
             return Juggler.getMaxColorSwaps();
         }
         return 0;
+    }
+
+    public ArrayList<PawnColor> getStudents(){
+        if (Juggler.class == characterClass){
+            return Juggler.getStudents();
+        } else if(Monk.class == characterClass){
+            return Monk.getStudents();
+        } else if (Princess.class == characterClass){
+            return Princess.getStudents();
+        }
+        return null;
     }
 }

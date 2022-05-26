@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.model.charactercards.Juggler;
+import it.polimi.ingsw.model.charactercards.Monk;
+import it.polimi.ingsw.model.charactercards.Princess;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandTile;
@@ -32,6 +35,8 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<UUID, UUID> islandOwners;
     private final ArrayList<String> nicknames;
 
+    private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
+
     public GameState(GameModel gameModel) {
         bag = gameModel.countStudentsInBag();
         professorOwners = gameModel.getProfessorOwners();
@@ -46,6 +51,15 @@ public class GameState implements Serializable, ModelEvent {
         motherNaturePosition = gameModel.getMotherNaturePosition();
         islandOwners = gameModel.getIslandOwners();
         nicknames = gameModel.getPlayerNicknames();
+        if(characterCards.containsKey(AvailableCharacter.MONK)){
+            characterCardsStudents.put(AvailableCharacter.MONK, Monk.getStudents());
+        }
+        if(characterCards.containsKey(AvailableCharacter.JUGGLER)){
+            characterCardsStudents.put(AvailableCharacter.JUGGLER, Juggler.getStudents());
+        }
+        if(characterCards.containsKey(AvailableCharacter.PRINCESS)){
+            characterCardsStudents.put(AvailableCharacter.PRINCESS, Princess.getStudents());
+        }
     }
 
     public int getBag() {
@@ -117,6 +131,7 @@ public class GameState implements Serializable, ModelEvent {
                 ", \nassistantDecks=" + assistantDecks +
                 ", \ncoinsMap=" + coinsMap +
                 ", \ncharacterCards=" + characterCards +
+                ", \ncharacterCards=" + characterCardsStudents +
                 ", \nplayedAssistantCards=" + playedAssistantCards +
                 ", \nmotherNaturePosition=" + motherNaturePosition +
                 ", \nislandOwners=" + islandOwners +

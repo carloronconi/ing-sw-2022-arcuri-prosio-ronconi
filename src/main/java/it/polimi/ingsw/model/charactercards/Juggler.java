@@ -15,10 +15,10 @@ import java.util.UUID;
 import java.util.stream.IntStream;
 
 public class Juggler extends SwapperCharacter implements EffectWithPlayer {
-    private final CharacterStudentCounter studentCounter;
+    private static final CharacterStudentCounter studentCounter = new CharacterStudentCounter();
     private UUID player;
 
-    private static int maxColorSwaps = 3;
+    private static final int maxColorSwaps = 3;
 
     /**
      * initialises parameters needed for effect, draws 6 students from the bag and initialises super with 3 maximum color swaps
@@ -27,7 +27,6 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
      */
     public Juggler(Bag bag, List<Player> players) {
         super(1, players, maxColorSwaps);
-        studentCounter = new CharacterStudentCounter();
         IntStream.range(0,6).forEach(i -> studentCounter.takeStudentFrom(bag));
     }
 
@@ -61,5 +60,15 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
 
     public static int getMaxColorSwaps() {
         return maxColorSwaps;
+    }
+
+    public static ArrayList<PawnColor> getStudents(){
+        ArrayList<PawnColor> colors = new ArrayList<>();
+        for (PawnColor color : PawnColor.values()){
+            for (int i = 0; i<studentCounter.count(color); i++){
+                colors.add(color);
+            }
+        }
+        return colors;
     }
 }

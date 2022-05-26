@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.CharacterStudentCounter;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -17,7 +18,7 @@ public class Monk extends Character implements EffectWithColor, EffectWithIsland
     /**
      * has specific attributes needed to execute its special effect
      */
-    private final CharacterStudentCounter studentCounter;
+    private static final CharacterStudentCounter studentCounter = new CharacterStudentCounter();
     private final Bag bag;
     private final IslandManager islandManager;
     private PawnColor color;
@@ -32,8 +33,17 @@ public class Monk extends Character implements EffectWithColor, EffectWithIsland
         super(1);
         this.bag = bag;
         this.islandManager = islandManager;
-        studentCounter = new CharacterStudentCounter();
         IntStream.range(0,4).forEach(i -> studentCounter.takeStudentFrom(bag));
+    }
+
+    public static ArrayList<PawnColor> getStudents() {
+        ArrayList<PawnColor> colors = new ArrayList<>();
+        for (PawnColor color : PawnColor.values()){
+            for (int i = 0; i<studentCounter.count(color); i++){
+                colors.add(color);
+            }
+        }
+        return colors;
     }
 
     /**
