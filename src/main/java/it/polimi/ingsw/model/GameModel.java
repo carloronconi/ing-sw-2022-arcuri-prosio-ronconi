@@ -485,12 +485,12 @@ public class GameModel {
         return map;
     }
 
-    public ArrayList<String> getPlayerNicknames(){
-        ArrayList<String> list = new ArrayList<>();
+    public HashMap<UUID, String> getPlayerNicknames(){
+        HashMap<UUID, String> map = new HashMap<>();
         for (Player p : players){
-            list.add(p.getNickname());
+            map.put(p.getId(), p.getNickname());
         }
-        return list;
+        return map;
     }
 
     public String toString(){

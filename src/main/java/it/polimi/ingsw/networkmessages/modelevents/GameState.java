@@ -33,7 +33,7 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
     private final HashMap<UUID, UUID> islandOwners;
-    private final ArrayList<String> nicknames;
+    private final HashMap<UUID, String> nicknames;
 
     private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
 
@@ -112,7 +112,7 @@ public class GameState implements Serializable, ModelEvent {
         return islandOwners;
     }
 
-    public ArrayList<String> getNicknames() {
+    public HashMap<UUID, String> getNicknames() {
         return nicknames;
     }
 
