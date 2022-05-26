@@ -84,6 +84,22 @@ public class CliView implements ViewInterface {
     @Override
     public void chooseCloud() {
 
+        int howManyCloudsFull = 0;
+        UUID fullCloudId = null;
+        for (HashMap<UUID, ArrayList<PawnColor>> cloud :gameState.getClouds()){
+            UUID id = cloud.keySet().stream().findAny().get();
+            if (!cloud.get(id).isEmpty()){
+                howManyCloudsFull++;
+                fullCloudId = id;
+            }
+        }
+
+        if (howManyCloudsFull == 1) {
+            System.out.println("Just one cloud remaining! You get that one.");
+            eventManager.notify(new ChosenCloud(fullCloudId));
+            return;
+        }
+
         String cloud = askUserInput("Choose a cloud id:", s->{
             ArrayList<UUID> cloudIds = new ArrayList<>();
             for (HashMap<UUID, ArrayList<PawnColor>> c : gameState.getClouds()) {
