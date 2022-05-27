@@ -351,14 +351,7 @@ public class CliView implements ViewInterface {
                 System.out.println(nicknames.get(i).toString() + "'s school");
                 matrix.get(i).dumb();
             }
-
-            //matrix.dumb();
-
-
-
-
-
-            //System.out.println(matrix.toString());
+            System.out.println(gameState.toString());
         }
 
     }
