@@ -29,15 +29,13 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<AvailableCharacter, Boolean> characterCards;
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
-    private final HashMap<UUID, UUID> islandOwners;
+    private final HashMap<UUID, UUID> islandOwners; //primo UUID IslandTile e secondo Player
     private final ArrayList<String> nicknames;
 
-    //private ArrayList<String> [][] e;
+
 
     private ArrayList<Matrix> matrix;
-    private ArrayList<String> playersNickname;
 
-    //private Matrix matrix;
 
     public GameState(GameModel gameModel) {
         bag = gameModel.countStudentsInBag();
@@ -54,7 +52,6 @@ public class GameState implements Serializable, ModelEvent {
         islandOwners = gameModel.getIslandOwners();
         nicknames = gameModel.getPlayerNicknames();
 
-        //ArrayList<Player> players = gameModel.getPlayers();
 
 
         matrix = new ArrayList<>();
@@ -62,61 +59,27 @@ public class GameState implements Serializable, ModelEvent {
         for (String s : nicknames){
             for (Player p : gameModel.getPlayers()){
                 if (s.equals(p.getNickname())){
-                    int howManyColumns = max(p.getEntrance()) + max(p.getDiningRoom());
-                    matrixCreation(5, max(p.getEntrance()) + max(p.getDiningRoom()), max(p.getEntrance()), p.getEntrance(), p.getDiningRoom());
+                    matrixCreation(nicknames.size(), gameModel.getNumOfTowers(p.getId()), p, professorOwners);
                 }
             }
         }
 
-
-        /*for (Player p : gameModel.getPlayers()){
-            //playersNickname.add(p.getNickname());
-
-            //int howManyColumns=0;
-            int howManyColumns = max(p.getEntrance()) + max(p.getDiningRoom());
-            matrixCreation(5, max(p.getEntrance()) + max(p.getDiningRoom()), max(p.getEntrance()), p.getEntrance(), p.getDiningRoom());
-        }*/
-
-        //gMatrix(5, max(gameModel.getPlayers().get(0).getEntrance()), gameModel.getPlayers().get(0).getEntrance(), gameModel.getPlayers().get(0).getDiningRoom());
-
-        //matrixCreation(players.get(0).getEntrance());
     }
 
     public ArrayList<Matrix> getMatrix(){
         return matrix;
     }
 
-    private int max(StudentCounter studentCounter){
-        int max=-1;
-        for (PawnColor c : PawnColor.values()){
-            if (studentCounter.count(c)>max){
-                max=studentCounter.count(c);
-            }
-        }
-        return max;
-    }
 
-
-    public void matrixCreation(int n, int m, int firstStudentstudentCounter2, StudentCounter studentCounter, StudentCounter studentCounter2){
-        matrix.add(new Matrix(n, m, firstStudentstudentCounter2, studentCounter, studentCounter2));
-        //matrix = new Matrix(n, m, studentCounter, studentCounter2);
-    }
-
-
-    public ArrayList<String> getPlayersNickname(){
-        return playersNickname;
+    public void matrixCreation(int numPlayers, int numTowersUsed, Player player, EnumMap<PawnColor, UUID> professorOwners){
+        matrix.add(new Matrix(numPlayers, numTowersUsed, player, professorOwners));
     }
 
 
 
 
-    /*public ArrayList<String> [][] getE(){
-        return e;
-    }*/
 
-    /*public ArrayList<Player> getPlayers(){
-        return players;
-    }*/
+
 
     public int getBag() {
         return bag;
@@ -175,12 +138,6 @@ public class GameState implements Serializable, ModelEvent {
         eventManager.notify(this);
     }
 
-    /*@Override
-    public String toString(){
-        String s = ;
-
-        return s;
-    }*/
 
     /*@Override
     public String toString() {
@@ -200,65 +157,6 @@ public class GameState implements Serializable, ModelEvent {
                 ", \nnicknames=" + nicknames +
                 "}";
     }*/
-
-    /*public void matrixCreation(Entrance entrance){
-
-        //e = new ArrayList[][]
-
-
-
-
-        e = new ArrayList[10][10];
-
-        /*e[0][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
-        e[0][1].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
-        e[0][2].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
-        e[0][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
-        e[1][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
-        e[2][0].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);*/
-
-
-        /*for (int j=0; j<10; j++){
-            for (int i=0; i<10; i++){
-                e[j][i] = new ArrayList<>();
-                e[j][i].add(Color.ANSI_BLUE+ "\u2022" + Color.RESET);
-            }
-        }
-
-        /*for (PawnColor color : values()){
-            //e.add(new ArrayList<String>());
-            int numColor = entrance.count(color);
-            //e = new ArrayList[numColor][];
-            for (int i = 0; i<numColor; i++){
-                e[j][i].add(sameColor(color) + "\u2022" + Color.RESET);
-                //e.get(j).add(sameColor(color) + "\u2022" + Color.RESET);
-            }
-            j++;
-        }*/
-
-
-
-
-    //}
-
-    private Color sameColor(PawnColor color){
-        switch (color){
-            case RED:
-                return Color.ANSI_RED;
-            case GREEN:
-                return Color.ANSI_GREEN;
-            case BLUE:
-                return Color.ANSI_BLUE;
-            case YELLOW:
-                return Color.ANSI_YELLOW;
-            case PURPLE:
-                return Color.ANSI_PURPLE;
-        }
-        return Color.RESET;
-    }
-
-
-
 
 
 
