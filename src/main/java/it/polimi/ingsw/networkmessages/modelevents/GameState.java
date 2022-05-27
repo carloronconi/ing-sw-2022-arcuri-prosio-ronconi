@@ -76,7 +76,7 @@ public class GameState implements Serializable, ModelEvent {
 
         matrix = new ArrayList<>();
 
-        for (String s : nicknames){
+        for (String s : nicknames.values()){
             for (Player p : gameModel.getPlayers()){
                 if (s.equals(p.getNickname())){
                     matrixCreation(nicknames.size(), gameModel.getNumOfTowers(p.getId()), p, professorOwners);

@@ -344,7 +344,7 @@ public class CliView implements ViewInterface {
         if(modelEvent instanceof GameState){
             gameState = (GameState) modelEvent;
 
-            ArrayList<String> nicknames = gameState.getNicknames();
+            ArrayList<String> nicknames = new ArrayList<>(gameState.getNicknames().values());
 
             ArrayList<Matrix> matrix = gameState.getMatrix();
             for (int i=0; i< matrix.size(); i++){
