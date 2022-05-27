@@ -2,8 +2,11 @@ package it.polimi.ingsw.networkmessages.modelevents;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.cliview.Color;
+import it.polimi.ingsw.cliview.Matrix;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Juggler;
@@ -12,10 +15,14 @@ import it.polimi.ingsw.model.charactercards.Princess;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.IslandTile;
+import it.polimi.ingsw.model.studentmanagers.*;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.*;
+
+import static it.polimi.ingsw.model.PawnColor.*;
 
 public class GameState implements Serializable, ModelEvent {
     private final int bag;
@@ -33,6 +40,11 @@ public class GameState implements Serializable, ModelEvent {
     private final LinkedHashMap<UUID, String> nicknames;
 
     private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
+
+
+
+    private ArrayList<Matrix> matrix;
+
 
     public GameState(GameModel gameModel) {
         bag = gameModel.countStudentsInBag();
@@ -59,7 +71,35 @@ public class GameState implements Serializable, ModelEvent {
                 characterCardsStudents.put(AvailableCharacter.PRINCESS, Princess.getStudents());
             }
         }
+
+
+
+        matrix = new ArrayList<>();
+
+        for (String s : nicknames){
+            for (Player p : gameModel.getPlayers()){
+                if (s.equals(p.getNickname())){
+                    matrixCreation(nicknames.size(), gameModel.getNumOfTowers(p.getId()), p, professorOwners);
+                }
+            }
+        }
+
     }
+
+    public ArrayList<Matrix> getMatrix(){
+        return matrix;
+    }
+
+
+    public void matrixCreation(int numPlayers, int numTowersUsed, Player player, EnumMap<PawnColor, UUID> professorOwners){
+        matrix.add(new Matrix(numPlayers, numTowersUsed, player, professorOwners));
+    }
+
+
+
+
+
+
 
     public int getBag() {
         return bag;
