@@ -159,7 +159,7 @@ public class Matrix implements Serializable {
     @Override
     public String toString(){
         String s = new String();
-        s += "\n";
+        //s += "\n";
         for (int i=0; i< getNumRow(); i++){
             s += "|";
             for (int j=0; j<getNumColumns(); j++){

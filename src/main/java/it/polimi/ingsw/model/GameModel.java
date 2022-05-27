@@ -69,7 +69,7 @@ public class GameModel {
     }
 
     public ArrayList<Player> getPlayers(){
-        return (ArrayList<Player>) players.clone();
+        return new ArrayList<>(players);
     }
 
     /**

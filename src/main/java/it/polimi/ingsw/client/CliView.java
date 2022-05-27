@@ -11,7 +11,6 @@ import it.polimi.ingsw.model.charactercards.ColorSwap;
 import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
-import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
@@ -20,9 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.*;
 
 public class CliView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
@@ -343,14 +339,6 @@ public class CliView implements ViewInterface {
     public void update(ModelEvent modelEvent) {
         if(modelEvent instanceof GameState){
             gameState = (GameState) modelEvent;
-
-            ArrayList<String> nicknames = new ArrayList<>(gameState.getNicknames().values());
-
-            ArrayList<Matrix> matrix = gameState.getMatrix();
-            for (int i=0; i< matrix.size(); i++){
-                System.out.println(nicknames.get(i).toString() + "'s school");
-                matrix.get(i).dumb();
-            }
             System.out.println(gameState.toString());
         }
 
