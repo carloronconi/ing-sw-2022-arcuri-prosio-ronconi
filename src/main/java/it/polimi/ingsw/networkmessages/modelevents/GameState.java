@@ -137,7 +137,16 @@ public class GameState implements Serializable, ModelEvent {
 
         sb.append("\ncharacters:       ");
         sb.append(characterCards + " ");
-        sb.append(characterCardsStudents + "\n\n");
+        sb.append(characterCardsStudents + "\n");
+
+        sb.append("\nprofessor owners: ");
+        for (PawnColor prof : PawnColor.values()){
+            sb.append(prof + " = ");
+            sb.append(professorOwners.get(prof) == null? "none":professorOwners.get(prof));
+            sb.append("\n                  ");
+        }
+
+        sb.append("\n");
 
         for (UUID player : nicknames.keySet()){
             sb.append(nicknames.get(player) + "'s school board\n");
