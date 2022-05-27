@@ -36,7 +36,7 @@ public class Client implements Runnable {
 
             System.out.println("Server port?");
             //int socketPort = Integer.parseInt(scanner.nextLine());
-            int socketPort = 5000;
+            int socketPort = 4999;
 
             try {
                 server = new Socket(ip, socketPort);

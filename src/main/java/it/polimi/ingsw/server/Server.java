@@ -28,7 +28,7 @@ public class Server {
         while(true){
             System.out.println("Server port?");
             //int socketPort = Integer.parseInt(scanner.nextLine());
-            int socketPort = 5000;
+            int socketPort = 4999;
 
             try {
                 socket = new ServerSocket(socketPort);
