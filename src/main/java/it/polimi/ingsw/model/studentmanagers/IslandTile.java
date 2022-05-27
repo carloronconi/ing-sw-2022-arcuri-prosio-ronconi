@@ -43,6 +43,10 @@ public class IslandTile extends StudentCounter implements Identifiable {
         }
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public Player getOwner() {
         return owner;
     }
