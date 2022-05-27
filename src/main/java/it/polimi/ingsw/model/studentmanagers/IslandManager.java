@@ -39,7 +39,7 @@ public class IslandManager extends StudentCounter {
         for (int i = 0; i < 12; i++) {
             IslandTile it;
 
-            if(i == 0 || i == 5){
+            if(i == 0 || i == 6){
                 it = new IslandTile();
             } else {
                 it = new IslandTile(this, 1);
@@ -208,6 +208,6 @@ public class IslandManager extends StudentCounter {
     }
 
     public ArrayList<IslandTile> getIslands() {
-        return (ArrayList<IslandTile>) islands.clone();
+        return new ArrayList<>(islands);
     }
 }
