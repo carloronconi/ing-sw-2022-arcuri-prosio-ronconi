@@ -49,16 +49,10 @@ public class Client implements Runnable {
         //serverHandler = new ServerHandler(server, this, view);
         serverHandler = new ServerHandler(server, this);
 
-        //TODO: ask if to instantiate cli or gui
-        System.out.println("CLI or GUI?");
-        String choice = scanner.nextLine();
-        if(choice.equals("cli")) {
+
             view = new CliView(serverHandler);
             serverHandler.linkView(view);
-        }else{
-            guiView = new GuiView(serverHandler);
-            serverHandler.linkView(guiView);
-        }
+
 
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
