@@ -1,9 +1,13 @@
 package it.polimi.ingsw.cliview;
 
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TowerColor;
 import it.polimi.ingsw.model.studentmanagers.StudentCounter;
 
 import java.io.Serializable;
+import java.util.EnumMap;
+import java.util.UUID;
 
 public class Matrix implements Serializable {
 
@@ -12,9 +16,10 @@ public class Matrix implements Serializable {
 
     private Cell[][] mat;
 
-    private int studentCounter2InitialColumn=0;
-
-    private int firstStudentstudentCounter2;
+    int firstColumnDiningRoom;
+    int profColumn;
+    int firstColumnTowers;
+    boolean professorsColumn;
 
 
     public Matrix(int n, int m){
@@ -25,73 +30,105 @@ public class Matrix implements Serializable {
 
 
 
-    public Matrix(int row, int columns, int firstStudentstudentCounter2, StudentCounter studentCounter, StudentCounter studentCounter2){
 
-        mat = new Cell[row][columns];
-        numRow = row;
-        numColumns = columns;
-
-        this.firstStudentstudentCounter2=firstStudentstudentCounter2;
+    public Matrix(int numPlayers, int numTowersUsed, Player player, EnumMap<PawnColor, UUID> professorOwners){
+        int numTower;
 
 
-        for (int i=0; i<row; i++){
-            for (int j=0; j<columns; j++){
+        if (numPlayers == 2){
+            numColumns = 20;
+            firstColumnDiningRoom = 7;
+            profColumn = 17;
+            firstColumnTowers = 18;
+            numTower = 8;
+        }else {
+            numColumns = 22;
+            firstColumnDiningRoom = 9;
+            profColumn = 19;
+            firstColumnTowers = 20;
+            numTower = 6;
+        }
+
+        numRow = 5;
+
+
+
+        mat = new Cell[numRow][numColumns];
+
+
+
+        for (int i=0; i<numRow; i++){
+            for (int j=0; j<numColumns; j++){
                 mat[i][j] = new Cell();
             }
         }
 
+        insertingElements(player.getEntrance(), 0);
+        insertingElements(player.getDiningRoom(), firstColumnDiningRoom);
 
-        //int studentCounter2InitialColumn=0;
-        int rowIndexer=0;
-        for (PawnColor color : PawnColor.values()){
-
-            int columnIndexer=0;
-            while (columnIndexer< studentCounter.count(color)){
-                Color c = colorConverter(color);
-                mat[rowIndexer][columnIndexer].getBullet().setColor(c);
-                mat[rowIndexer][columnIndexer].getBullet().setSymbol();
-                columnIndexer++;
-                /*if (columnIndexer>studentCounter2InitialColumn){
-                    studentCounter2InitialColumn=columnIndexer;
-                }*/
+        professorsColumn =false;
+        for (PawnColor color : professorOwners.keySet()){
+            if (professorOwners.get(color)!=null && player.getId().equals(professorOwners.get(color))){
+                professorsColumn = true;
+                break;
             }
-            rowIndexer++;
         }
 
-        int m=firstStudentstudentCounter2;
-        rowIndexer=0;
-        //studentCounter2InitialColumn = mat[0].length;
-        for (PawnColor color : PawnColor.values()){
-
-            int columnIndexer=0;
-            while (columnIndexer< studentCounter2.count(color)){
-                Color c = colorConverter(color);
-                mat[rowIndexer][m].getBullet().setColor(c);
-                mat[rowIndexer][m].getBullet().setSymbol();
-                columnIndexer++;
-                m++;
-                //studentCounter2InitialColumn++;
+        if (professorsColumn) {
+            int index = 0;
+            for (PawnColor color : professorOwners.keySet()) {
+                if (professorOwners.get(color) != null && player.getId().equals(professorOwners.get(color))) {
+                    mat[index][profColumn].getBullet().setColor(pawnColorConverter(color));
+                    mat[index][profColumn].getBullet().setSymbol();
+                }
+                index++;
             }
-            rowIndexer++;
-            m=firstStudentstudentCounter2;
         }
+
+
+        if (numTower-numTowersUsed>5){
+            insertingTowers(5, firstColumnTowers, player);
+            insertingTowers((numTower-numTowersUsed)-5, firstColumnTowers+1, player);
+        }else insertingTowers(numTower-numTowersUsed, firstColumnTowers, player);
+
+
+
+
     }
 
     public int getNumRow() {return numRow;}
 
     public int getNumColumns() {return numColumns;}
 
-    /*private int max(StudentCounter studentCounter){
-        int max=-1;
-        for (PawnColor c : PawnColor.values()){
-            if (studentCounter.count(c)>max){
-                max=studentCounter.count(c);
-            }
-        }
-        return max;
-    }*/
 
-    private Color colorConverter(PawnColor color){
+    private void insertingTowers(int rowLenght, int column, Player p){
+        for (int i=0; i<rowLenght; i++){
+            mat[i][column].getBullet().setColor(towerColorConverter(p.getTowerColor()));
+            mat[i][column].getBullet().setSymbol();
+        }
+    }
+
+    private void insertingElements(StudentCounter studentCounter, int startingColumn){
+
+        int column;
+
+        int rowIndexer = 0;
+        for (PawnColor color : PawnColor.values()){
+
+            column = startingColumn;
+            int columnIndexer = 0;
+            while (columnIndexer < studentCounter.count(color)){
+                mat[rowIndexer][column].getBullet().setColor(pawnColorConverter(color));
+                mat[rowIndexer][column].getBullet().setSymbol();
+                columnIndexer++;
+                column++;
+            }
+            rowIndexer++;
+        }
+    }
+
+
+    private Color pawnColorConverter(PawnColor color){
         switch (color){
             case RED:
                 return Color.ANSI_RED;
@@ -107,6 +144,18 @@ public class Matrix implements Serializable {
         return Color.RESET;
     }
 
+    private Color towerColorConverter(TowerColor color){
+        switch (color){
+            case WHITE:
+                return Color.ANSI_WHITE;
+            case BLACK:
+                return Color.ANSI_BLACK;
+            case GREY:
+                return Color.ANSI_GREY;
+        }
+        return Color.RESET;
+    }
+
     @Override
     public String toString(){
         String s = new String();
@@ -114,7 +163,13 @@ public class Matrix implements Serializable {
         for (int i=0; i< getNumRow(); i++){
             s += "|";
             for (int j=0; j<getNumColumns(); j++){
-                if (j==firstStudentstudentCounter2){
+                if (j==firstColumnDiningRoom){
+                    s += "|";
+                }
+                if (j==profColumn){
+                    s += "|";
+                }
+                if (j==firstColumnTowers){
                     s += "|";
                 }
                 s += mat[i][j].toString();
@@ -131,23 +186,6 @@ public class Matrix implements Serializable {
     public void dumb(){
         System.out.println(this);
     }
-
-    /*public Cell getCell(){
-        return cell;
-    }
-
-
-    public Matrice(int n, int m) {
-        mat=new Cella[n][m];
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<m;j++) {
-                mat[i][j]=new Cella();
-            }
-        }
-    }
-
-    public Cella[][] mat;*/
-
 
 
 
