@@ -109,7 +109,7 @@ class GameModelTest {
 
     @Test
     void moveCloudToEntrance() {
-        UUID cloud = gameModel.getClouds().get(0).keySet().stream().findFirst().get();
+        UUID cloud = gameModel.getClouds().keySet().stream().findFirst().get();
         UUID player = gameModel.getPlayerIds().get(0);
 
         int entranceBefore = 0;
