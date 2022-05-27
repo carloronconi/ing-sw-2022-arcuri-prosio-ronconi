@@ -15,7 +15,7 @@ public class Client implements Runnable {
     private ServerHandler serverHandler;
     private boolean shallTerminate;
     private ViewInterface view;
-    private ViewInterface guiView;
+
 
 
     public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class Client implements Runnable {
             return;
         }
         //serverHandler = new ServerHandler(server, this, view);
-        serverHandler = new ServerHandler(server, this);
+        serverHandler = new ServerHandler(server, this, null);
 
 
             view = new CliView(serverHandler);

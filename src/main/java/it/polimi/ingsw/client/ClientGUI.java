@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.server.Server;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,6 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 
 public class ClientGUI {  //CONTROLLER
@@ -55,10 +60,25 @@ public class ClientGUI {  //CONTROLLER
         serverHandlerGUI.openConnection(ipSet(),portSet());
     } */
 
+    private ObjectInputStream input;
+    private ObjectOutputStream output;
+    private ServerHandler serverHandler;
+    private ViewInterface guiView;
+
     public void connectButtonClicked(ActionEvent event) throws IOException
     {
         //Switch scene;
-        serverHandlerGUI.openConnection(ipSet(), portSet());
+
+            Socket server;
+
+            server = new Socket(ipSet(), portSet());
+
+
+
+        serverHandler = new ServerHandler(server, null, this);
+        guiView = new GuiView(serverHandler);
+        serverHandler.linkView(guiView);
+       // serverHandlerGUI.openConnection(ipSet(), portSet());
 
         root = FXMLLoader.load(getClass().getResource("/eryantisFirstScene.fxml"));
         scene = new Scene(root, 800, 530);

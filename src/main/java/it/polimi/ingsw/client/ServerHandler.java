@@ -29,6 +29,9 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     private EventManager<ModelEvent> eventManager;
     private ViewInterface view;
 
+    private ClientGUI otherOwner;
+
+
 
 
     /**
@@ -36,10 +39,11 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
      * a server.
      * @param server The socket connection to the server.
      */
-    public ServerHandler(Socket server, Client owner)
+    public ServerHandler(Socket server, Client owner, ClientGUI otherOwner)
     {
         this.server = server;
         this.owner = owner;
+        this.otherOwner = otherOwner;
         eventManager = new EventManager<>();
 
     }
