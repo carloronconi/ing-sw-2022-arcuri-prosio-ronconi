@@ -229,7 +229,7 @@ public class CliView implements ViewInterface {
 
             ArrayList<Matrix> matrix = gameState.getMatrix();
             for (int i=0; i< matrix.size(); i++){
-                System.out.println(nicknames.get(i).toString());
+                System.out.println(nicknames.get(i).toString() + "'s school");
                 matrix.get(i).dumb();
             }
 
