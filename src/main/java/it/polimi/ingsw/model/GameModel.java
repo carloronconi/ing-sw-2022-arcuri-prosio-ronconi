@@ -382,10 +382,9 @@ public class GameModel {
         return map;
     }
 
-    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getClouds(){
-        ArrayList<HashMap<UUID, ArrayList<PawnColor>>> list = new ArrayList<>();
+    public HashMap<UUID, ArrayList<PawnColor>> getClouds(){
+        HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
         for (Cloud cloud: clouds){
-            HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
             ArrayList<PawnColor> colors = new ArrayList<>();
             ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
             for (PawnColor color: PawnColor.values()){
@@ -397,29 +396,28 @@ public class GameModel {
                 }
             }
             map.put(cloud.getId(),colors);
-            list.add(map);
+
         }
-        return list;
+        return map;
     }
 
-    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getIslands(){
-        ArrayList<HashMap<UUID, ArrayList<PawnColor>>> list = new ArrayList<>();
+    public HashMap<UUID, ArrayList<PawnColor>> getIslands(){
+        HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
         for (IslandTile island: islandManager.getIslands()){
-            HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
             ArrayList<PawnColor> colors = new ArrayList<>();
-            ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
+            ArrayList<PawnColor> colorsInIsland = new ArrayList<>();
             for (PawnColor color: PawnColor.values()){
-                if (island.count(color)>0) colorsInCloud.add(color);
+                if (island.count(color)>0) colorsInIsland.add(color);
             }
-            for (PawnColor color: colorsInCloud){
+            for (PawnColor color: colorsInIsland){
                 for (int i = 0; i < island.count(color); i++) {
                     colors.add(color);
                 }
             }
             map.put(island.getId(),colors);
-            list.add(map);
+
         }
-        return list;
+        return map;
     }
 
     public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances(){

@@ -86,12 +86,9 @@ public class CliView implements ViewInterface {
 
         int howManyCloudsFull = 0;
         UUID fullCloudId = null;
-        for (HashMap<UUID, ArrayList<PawnColor>> cloud :gameState.getClouds()){
-            UUID id = cloud.keySet().stream().findAny().get();
-            if (!cloud.get(id).isEmpty()){
-                howManyCloudsFull++;
-                fullCloudId = id;
-            }
+        for (UUID cloud : gameState.getClouds().keySet()){
+            howManyCloudsFull++;
+            fullCloudId = cloud;
         }
 
         if (howManyCloudsFull == 1) {
@@ -101,12 +98,7 @@ public class CliView implements ViewInterface {
         }
 
         String cloud = askUserInput("Choose a cloud id:", s->{
-            ArrayList<UUID> cloudIds = new ArrayList<>();
-            for (HashMap<UUID, ArrayList<PawnColor>> c : gameState.getClouds()) {
-                for (UUID id : c.keySet()){
-                    cloudIds.add(id);
-                }
-            }
+            ArrayList<UUID> cloudIds = new ArrayList<>(gameState.getClouds().keySet());
             UUID uuid = null;
             try{
                 uuid = UUID.fromString(s);
@@ -235,12 +227,7 @@ public class CliView implements ViewInterface {
         UUID islandId = null;
         if(isIsland){
             String textualIsland = askUserInput("Choose the island (id):", s->{
-                ArrayList<UUID> islandIds = new ArrayList<>();
-                for (HashMap<UUID, ArrayList<PawnColor>> island : gameState.getIslands()) {
-                    for (UUID id : island.keySet()){
-                        islandIds.add(id);
-                    }
-                }
+                ArrayList<UUID> islandIds = new ArrayList<>(gameState.getIslands().keySet());
                 UUID uuid = null;
                 try{
                     uuid = UUID.fromString(s);
@@ -292,10 +279,7 @@ public class CliView implements ViewInterface {
         }
         if (EffectWithIsland.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select an island for the character effect:", s->{
-                ArrayList<UUID> islandIds = new ArrayList<>();
-                for (HashMap<UUID, ArrayList<PawnColor>> isl : gameState.getIslands()) {
-                    islandIds.addAll(isl.keySet());
-                }
+                ArrayList<UUID> islandIds = new ArrayList<>(gameState.getIslands().keySet());
                 UUID uuid = null;
                 try{
                     uuid = UUID.fromString(s);

@@ -23,8 +23,8 @@ import java.util.UUID;
 public class GameState implements Serializable, ModelEvent {
     private final int bag;
     private final EnumMap<PawnColor, UUID> professorOwners;
-    private final ArrayList<HashMap<UUID, ArrayList<PawnColor>>> clouds;
-    private final ArrayList<HashMap<UUID, ArrayList<PawnColor>>> islands;
+    private final HashMap<UUID, ArrayList<PawnColor>> clouds;
+    private final HashMap<UUID, ArrayList<PawnColor>> islands;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> entrances;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> diningRooms;
     private final HashMap<UUID, ArrayList<Integer>> assistantDecks;
@@ -72,11 +72,11 @@ public class GameState implements Serializable, ModelEvent {
         return professorOwners;
     }
 
-    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getClouds() {
+    public HashMap<UUID, ArrayList<PawnColor>> getClouds() {
         return clouds;
     }
 
-    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getIslands() {
+    public HashMap<UUID, ArrayList<PawnColor>> getIslands() {
         return islands;
     }
 
