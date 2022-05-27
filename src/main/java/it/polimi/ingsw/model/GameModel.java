@@ -382,8 +382,8 @@ public class GameModel {
         return map;
     }
 
-    public HashMap<UUID, ArrayList<PawnColor>> getClouds(){
-        HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
+    public LinkedHashMap<UUID, ArrayList<PawnColor>> getClouds(){
+        LinkedHashMap<UUID, ArrayList<PawnColor>> map = new LinkedHashMap<>();
         for (Cloud cloud: clouds){
             ArrayList<PawnColor> colors = new ArrayList<>();
             ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
@@ -401,8 +401,8 @@ public class GameModel {
         return map;
     }
 
-    public HashMap<UUID, ArrayList<PawnColor>> getIslands(){
-        HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
+    public LinkedHashMap<UUID, ArrayList<PawnColor>> getIslands(){
+        LinkedHashMap<UUID, ArrayList<PawnColor>> map = new LinkedHashMap<>();
         for (IslandTile island: islandManager.getIslands()){
             ArrayList<PawnColor> colors = new ArrayList<>();
             ArrayList<PawnColor> colorsInIsland = new ArrayList<>();
@@ -483,8 +483,8 @@ public class GameModel {
         return map;
     }
 
-    public HashMap<UUID, String> getPlayerNicknames(){
-        HashMap<UUID, String> map = new HashMap<>();
+    public LinkedHashMap<UUID, String> getPlayerNicknames(){
+        LinkedHashMap<UUID, String> map = new LinkedHashMap<>();
         for (Player p : players){
             map.put(p.getId(), p.getNickname());
         }

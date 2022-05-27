@@ -15,16 +15,13 @@ import it.polimi.ingsw.model.studentmanagers.IslandTile;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class GameState implements Serializable, ModelEvent {
     private final int bag;
     private final EnumMap<PawnColor, UUID> professorOwners;
-    private final HashMap<UUID, ArrayList<PawnColor>> clouds;
-    private final HashMap<UUID, ArrayList<PawnColor>> islands;
+    private final LinkedHashMap<UUID, ArrayList<PawnColor>> clouds;
+    private final LinkedHashMap<UUID, ArrayList<PawnColor>> islands;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> entrances;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> diningRooms;
     private final HashMap<UUID, ArrayList<Integer>> assistantDecks;
@@ -33,7 +30,7 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
     private final HashMap<UUID, UUID> islandOwners;
-    private final HashMap<UUID, String> nicknames;
+    private final LinkedHashMap<UUID, String> nicknames;
 
     private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
 
@@ -123,6 +120,35 @@ public class GameState implements Serializable, ModelEvent {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder("GAME STATE\n");
+        sb.append("bag:              " + bag + "\n");
+        sb.append("\nclouds:           ");
+        for (UUID c: clouds.keySet()){
+            sb.append(c +" = " + clouds.get(c) +"\n                  ");
+        }
+        sb.append("\nislands:          ");
+        for (UUID i: islands.keySet()){
+            sb.append(i +" = " + islands.get(i));
+            sb.append(" | owner = ");
+            sb.append(islandOwners.get(i) == null? "none" : nicknames.get(i));
+            if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
+            sb.append("\n                  ");
+        }
+
+        sb.append("\ncharacters:       ");
+        sb.append(characterCards + " ");
+        sb.append(characterCardsStudents + "\n\n");
+
+        for (UUID player : nicknames.keySet()){
+            sb.append(nicknames.get(player) + "'s school board\n");
+            sb.append("entrance:         "+entrances.get(player));
+            sb.append("\ndining room:      "+diningRooms.get(player));
+            sb.append("\nassistant deck:   "+assistantDecks.get(player));
+            sb.append("\ncoins:            "+coinsMap.get(player));
+            sb.append("\nplayed assistant: "+playedAssistantCards.get(player) +"\n\n");
+
+        }
+        /*
         return "GameState{" +
                 "\nbag=" + bag +
                 ", \nprofessorOwners=" + professorOwners +
@@ -138,6 +164,7 @@ public class GameState implements Serializable, ModelEvent {
                 ", \nmotherNaturePosition=" + motherNaturePosition +
                 ", \nislandOwners=" + islandOwners +
                 ", \nnicknames=" + nicknames +
-                "}";
+                "}";*/
+        return sb.toString();
     }
 }
