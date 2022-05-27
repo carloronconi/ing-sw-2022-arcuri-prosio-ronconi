@@ -206,20 +206,24 @@ public class GameModel {
     /**
      * returns the number of towers owned by the player passed in as input
      * @param idPlayer id of the player on which the number of towers will be checked
-     * @return number of towers remaining
+     * @return number of islands owned by the player
      */
     public int getNumOfTowers(UUID idPlayer){
-        int howManyPlayers=0;
-        for(Player player : players){
-            if(player.getId().equals(idPlayer)){
-                howManyPlayers++;
+        Player player = null;
+        try {
+            player = ConverterUtility.idToElement(idPlayer, players);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        int howManyIslands=0;
+        for(IslandTile islandTile : islandManager.getIslands()){
+            if (islandTile.getOwner()!=null) {
+                if (islandTile.getOwner().equals(player)) {
+                    howManyIslands += islandTile.getSize();
+                }
             }
         }
-        if(players.size()==3){
-            return 6-howManyPlayers;
-        }else{
-            return 8-howManyPlayers;
-        }
+        return howManyIslands;
 
     }
 
