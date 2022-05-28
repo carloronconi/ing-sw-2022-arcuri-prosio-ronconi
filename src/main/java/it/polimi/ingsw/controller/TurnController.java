@@ -136,7 +136,8 @@ public class TurnController implements EventListener<ViewEvent> {
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
         UUID player = playerIds.get(virtualViewInstanceNum);
         try {
-            if (gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
+            int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
+            if (initialNumOfTowers - gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
                     gameModel.countStudentsInBag() == 0 || gameModel.getDeckSize(player) == 0) return true;
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

@@ -221,7 +221,7 @@ public class GameModel {
     /**
      * returns the number of towers owned by the player passed in as input
      * @param idPlayer id of the player on which the number of towers will be checked
-     * @return number of islands owned by the player
+     * @return number of towers already placed by the player
      */
     public int getNumOfTowers(UUID idPlayer){
         Player player = null;
