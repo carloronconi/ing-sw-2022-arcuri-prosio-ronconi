@@ -1,154 +1,75 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.EventListener;
+import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.Handshake;
+import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class ServerHandlerGUI {
+public class ServerHandlerGUI implements Runnable, EventListener<ViewEvent> {
     private Thread thread;
     private Socket server;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private Consumer<Boolean> connectionCompleteObserver;
-    private Consumer<IncomingMessage> messageArrivedObserver;
-    private ArrayList<IncomingMessage> delayedMessages = new ArrayList<>();
-    private Runnable connectionClosedObserver;
+    private ClientGUIFirst owner;
+    private ViewInterface view;
+    private EventManager<ModelEvent> eventManager;
 
+    public ServerHandlerGUI(Socket server, ClientGUIFirst owner){
+        this.server = server;
+        this.owner = owner;
+        eventManager = new EventManager<>();
 
-
-
-
-    synchronized public void setConnectionCompleteObserver(Consumer<Boolean> connectionCompleteObserver)
-    {
-        this.connectionCompleteObserver = connectionCompleteObserver;
     }
 
-   /* synchronized public void setMessageArrivedObserver(Consumer<IncomingMessage> messageArrivedObserver)
-    {
-        this.messageArrivedObserver = messageArrivedObserver;
-        for (IncomingMessage msg: delayedMessages) {
-            messageArrivedObserver.accept(msg);
-        }
-        delayedMessages.clear();
-    }*/
+    //TODO: restructure ServerHander so it can be applied both to CLI and GUI
 
-    synchronized public void setConnectionClosedObserver(Runnable connectionClosedObserver)
-    {
-        this.connectionClosedObserver = connectionClosedObserver;
-    }
-
-    synchronized public void notifyConnectionComplete(boolean success)
-    {
-        if (connectionCompleteObserver != null)
-            connectionCompleteObserver.accept(success);
+    public void linkGuiView(ViewInterface view){
+        this.view = view;
+        eventManager.subscribe(view);
     }
 
 
-     synchronized public void notifyMessageArrived(IncomingMessage msg)
-    {
-        if (messageArrivedObserver != null)
-            messageArrivedObserver.accept(msg);
-        else
-            delayedMessages.add(msg);
-    }
-
-    synchronized public void notifyConnectionClosed()
-    {
-        if (connectionClosedObserver != null)
-            connectionClosedObserver.run();
-    }
-
-
-    public void attemptConnection(String ip, int port)
-    {
-        thread = new Thread(() -> connectionThread(ip, port));
-        thread.start();
-    }
-
-     private void connectionThread(String ip, int port)
-    {
-        boolean success = openConnection(ip, port);
-        notifyConnectionComplete(success);
-        if (!success)
-            return;
-
-        try {
-            while (true) {
-                 //this loop terminates when the socket is closed
-                IncomingMessage msg = (IncomingMessage) input.readObject();
-                notifyMessageArrived(msg);
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-        } catch (ClassNotFoundException | ClassCastException e) {
-            System.out.println("protocol violation");
-        }
-
-        closeConnection();
-    }
-
-
-    synchronized public boolean openConnection(String ip, int port)
-    {
-        try {
-            server = new Socket(ip, port);
-        } catch (IOException e) {
-            return false;
-        }
-
+    @Override
+    public void run() {
         try {
             output = new ObjectOutputStream(server.getOutputStream());
             input = new ObjectInputStream(server.getInputStream());
-        } catch (IOException e) {
-            output = null;
-            input = null;
-            try {
-                server.close();
-            } catch (IOException e2) { }
-            return false;
+        } catch (IOException e){
+            e.printStackTrace();
         }
-
-        return true;
-    }
-
-
-    synchronized public void sendMessage(Object o)
-    {
-        assert(output != null);
         try {
-            output.writeObject(o);
-            output.flush();
-            output.reset();
-        } catch (IOException e) { }
-    }
-
-
-    synchronized public void closeConnection()
-    {
-        if (!server.isClosed()) {
-            try {
-                server.close();
-            } catch (IOException e) { }
-            notifyConnectionClosed();
+            output.writeObject(new Handshake());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        output = null;
-        input = null;
-        thread = null;
+
     }
 
+    public void forwardMessage(String s) throws IOException {
+        Object object = s;
+        output.writeObject(object);
+    }
 
-    synchronized public boolean isConnected()
-    {
-        return thread != null;
+    @Override
+    public void update(ViewEvent viewEvent) {
+        try {
+            output.writeObject(viewEvent);
+        } catch (IOException e) {
+            System.out.println("Communication error");
+            //owner.terminate();
+        }
     }
 }
 
