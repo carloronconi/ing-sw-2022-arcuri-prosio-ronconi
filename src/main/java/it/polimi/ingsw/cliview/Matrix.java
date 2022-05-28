@@ -3,9 +3,11 @@ package it.polimi.ingsw.cliview;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.StudentCounter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.UUID;
 
@@ -31,7 +33,9 @@ public class Matrix implements Serializable {
 
 
 
-    public Matrix(int numPlayers, int numTowersUsed, Player player, EnumMap<PawnColor, UUID> professorOwners){
+
+
+    public Matrix(int numPlayers, int numTowersUsed, UUID player, TowerColor towerColor, EnumMap<PawnColor, Integer> entrance, EnumMap<PawnColor, Integer> diningRoom, EnumMap<PawnColor, UUID> professorOwners){
         int numTower;
 
 
@@ -55,20 +59,18 @@ public class Matrix implements Serializable {
 
         mat = new Cell[numRow][numColumns];
 
-
-
         for (int i=0; i<numRow; i++){
             for (int j=0; j<numColumns; j++){
                 mat[i][j] = new Cell();
             }
         }
 
-        insertingElements(player.getEntrance(), 0);
-        insertingElements(player.getDiningRoom(), firstColumnDiningRoom);
+        insertElements(entrance, 0);
+        insertElements(diningRoom, firstColumnDiningRoom);
 
         professorsColumn =false;
         for (PawnColor color : professorOwners.keySet()){
-            if (professorOwners.get(color)!=null && player.getId().equals(professorOwners.get(color))){
+            if (professorOwners.get(color)!=null && player.equals(professorOwners.get(color))){
                 professorsColumn = true;
                 break;
             }
@@ -77,20 +79,18 @@ public class Matrix implements Serializable {
         if (professorsColumn) {
             int index = 0;
             for (PawnColor color : professorOwners.keySet()) {
-                if (professorOwners.get(color) != null && player.getId().equals(professorOwners.get(color))) {
-                    mat[index][profColumn].getBullet().setColor(pawnColorConverter(color));
+                if (professorOwners.get(color) != null && player.equals(professorOwners.get(color))) {
+                    mat[index][profColumn].getBullet().setColor(Color.pawnColorConverter(color));
                     mat[index][profColumn].getBullet().setSymbol();
                 }
                 index++;
             }
         }
 
-
         if (numTower-numTowersUsed>5){
-            insertingTowers(5, firstColumnTowers, player);
-            insertingTowers((numTower-numTowersUsed)-5, firstColumnTowers+1, player);
-        }else insertingTowers(numTower-numTowersUsed, firstColumnTowers, player);
-
+            insertTowers(5, firstColumnTowers, towerColor);
+            insertTowers((numTower-numTowersUsed)-5, firstColumnTowers+1, towerColor);
+        }else insertTowers(numTower-numTowersUsed, firstColumnTowers, towerColor);
 
 
 
@@ -100,61 +100,36 @@ public class Matrix implements Serializable {
 
     public int getNumColumns() {return numColumns;}
 
-
-    private void insertingTowers(int rowLenght, int column, Player p){
+    private void insertTowers(int rowLenght, int column, TowerColor towerColor){
         for (int i=0; i<rowLenght; i++){
-            mat[i][column].getBullet().setColor(towerColorConverter(p.getTowerColor()));
+            mat[i][column].getBullet().setColor(Color.towerColorConverter(towerColor));
             mat[i][column].getBullet().setSymbol();
         }
     }
 
-    private void insertingElements(StudentCounter studentCounter, int startingColumn){
 
+
+    private void insertElements(EnumMap<PawnColor, Integer> entrance, int startingColumn){
         int column;
 
         int rowIndexer = 0;
-        for (PawnColor color : PawnColor.values()){
+        for (PawnColor color : entrance.keySet()){
 
             column = startingColumn;
             int columnIndexer = 0;
-            while (columnIndexer < studentCounter.count(color)){
-                mat[rowIndexer][column].getBullet().setColor(pawnColorConverter(color));
+            while (columnIndexer < entrance.get(color)){
+                mat[rowIndexer][column].getBullet().setColor(Color.pawnColorConverter(color));
                 mat[rowIndexer][column].getBullet().setSymbol();
                 columnIndexer++;
                 column++;
             }
             rowIndexer++;
+
         }
-    }
 
 
-    private Color pawnColorConverter(PawnColor color){
-        switch (color){
-            case RED:
-                return Color.ANSI_RED;
-            case GREEN:
-                return Color.ANSI_GREEN;
-            case BLUE:
-                return Color.ANSI_BLUE;
-            case YELLOW:
-                return Color.ANSI_YELLOW;
-            case PURPLE:
-                return Color.ANSI_PURPLE;
-        }
-        return Color.RESET;
     }
 
-    private Color towerColorConverter(TowerColor color){
-        switch (color){
-            case WHITE:
-                return Color.ANSI_WHITE;
-            case BLACK:
-                return Color.ANSI_BLACK;
-            case GREY:
-                return Color.ANSI_GREY;
-        }
-        return Color.RESET;
-    }
 
     @Override
     public String toString(){
