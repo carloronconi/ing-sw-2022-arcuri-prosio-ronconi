@@ -124,7 +124,7 @@ public class GameState implements Serializable, ModelEvent {
         for (UUID i: islands.keySet()){
             sb.append(i +" = " + islands.get(i));
             sb.append(" | owner = ");
-            sb.append(islandOwners.get(i) == null? "none" : nicknames.get(i));
+            sb.append(islandOwners.get(i) == null? "none" : nicknames.get(islandOwners.get(i)));
             if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
             sb.append("\n                  ");
         }
