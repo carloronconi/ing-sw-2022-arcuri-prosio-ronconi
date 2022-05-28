@@ -22,70 +22,47 @@ import java.net.Socket;
 
 public class ClientGUI {  //CONTROLLER
 
-    private static ClientGUI currentApplication;
-    private ServerHandlerGUI serverHandlerGUI = new ServerHandlerGUI();
-
-    @FXML
+   @FXML
     private TextField serverIpBox;
     @FXML
     private TextField serverPortBox;
-
-
-
-    public static ClientGUI getCurrentApplication()
-    {
-        return currentApplication;
-    }
-
-
-    public ServerHandlerGUI getServerHandlerGUI()
-    {
-        return serverHandlerGUI;
-    }
-
-
-    public String ipSet(){
-        return serverIpBox.getText();
-    }
-
-    public int portSet(){
-        return Integer.parseInt(serverPortBox.getText());
-    }
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-  /*  public void setConnection(){
-        serverHandlerGUI.openConnection(ipSet(),portSet());
-    } */
 
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private ServerHandler serverHandler;
     private ViewInterface guiView;
 
-    public void connectButtonClicked(ActionEvent event) throws IOException
-    {
-        //Switch scene;
-
-            Socket server;
-
-            server = new Socket(ipSet(), portSet());
+    private String message = "";
+    //private ServerHandlerGUI serverHandlerGUI;
 
 
 
-        serverHandler = new ServerHandler(server, null, this);
-        guiView = new GuiView(serverHandler);
-        serverHandler.linkView(guiView);
-       // serverHandlerGUI.openConnection(ipSet(), portSet());
 
-        root = FXMLLoader.load(getClass().getResource("/eryantisFirstScene.fxml"));
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+
+    public void starting() throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/SetNickname.fxml"));
         scene = new Scene(root, 800, 530);
         stage = new Stage();
-        stage.setTitle("ERYANTIS");
+        stage.setTitle("Nickname");
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    @FXML
+    private TextField nickname;
+
+    private String selectNickname(){
+        return nickname.getText();
+    }
+
+    public void buttonSetNickname(){
+        String s = selectNickname();
+
 
 
     }
@@ -93,13 +70,6 @@ public class ClientGUI {  //CONTROLLER
 
 
 
-    /*SWITCH TO LOGO AFTER CONNECTION
-    Parent root = FXMLLoader.load(getClass().getResource("eryantisFirstScene.fxml"));
-        Scene scene = new Scene(root, 800, 530);
-        stage.setTitle("ERYANTIS");
-        stage.setScene(scene);
-        stage.show();
-     */
 
 
 }
