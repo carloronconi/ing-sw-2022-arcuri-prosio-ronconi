@@ -88,12 +88,14 @@ public class CliView implements ViewInterface {
         int howManyCloudsFull = 0;
         UUID fullCloudId = null;
         for (UUID cloud : gameState.getClouds().keySet()){
-            howManyCloudsFull++;
-            fullCloudId = cloud;
+            if (!gameState.getClouds().get(cloud).isEmpty()){
+                howManyCloudsFull++;
+                fullCloudId = cloud;
+            }
         }
 
         if (howManyCloudsFull == 1) {
-            System.out.println("Just one cloud remaining! You get that one.");
+            System.out.println("Just one cloud remaining! You get that one.\n");
             eventManager.notify(new ChosenCloud(fullCloudId));
             return;
         }
