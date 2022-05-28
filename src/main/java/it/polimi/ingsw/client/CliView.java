@@ -2,10 +2,8 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.cliview.Matrix;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.ColorSwap;
 import it.polimi.ingsw.model.charactercards.SwapperCharacter;
@@ -21,11 +19,9 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class CliView implements ViewInterface {
-    private EventManager<ViewEvent> eventManager;
-    private Scanner scanner;
+    private final EventManager<ViewEvent> eventManager;
+    private final Scanner scanner;
     private GameState gameState;
-    private HashMap<String, UUID> player;
-    private ArrayList<Player> players;
 
     public CliView(ServerHandler handler) {
         eventManager = new EventManager<>();
