@@ -187,8 +187,23 @@ public class GameModel {
     }
 
     public boolean isAssistantCardIllegal(UUID idPlayer, int cardNumber) throws NoSuchFieldException {
+        Player player = ConverterUtility.idToElement(idPlayer, players);
+        if (!player.getDeck().contains(cardNumber)) return true; //the card is not contained in the player's deck
+        else{ //the card is contained in the player's deck
+            if(!playedCards.containsValue(cardNumber)) return false; //the card has not been played by other player in same turn
+            else{ //the card is contained in the player's deck and has been played by other player in same turn
+                for (int card : player.getDeck()){
+                    if (card == cardNumber) continue;
+                    if (!playedCards.containsValue(card)) return true; //there is a card in the deck, different from cardNumber,
+                                                                       //that has not been played by other player in the same turn
+                }
+                return false;
+            }
+        }
+
+        /*
         for (Integer playedCard : playedCards.values()) {
-            Player player = ConverterUtility.idToElement(idPlayer, players);
+
             boolean noAlternative = true;
             for (int card : player.getDeck()){
                 if (!playedCards.containsValue(card)) {
@@ -200,7 +215,7 @@ public class GameModel {
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 
     /**
@@ -377,6 +392,7 @@ public class GameModel {
 
     public void clearPlayedAssistantCards(){
         playedCards.clear();
+        eventManager.notify(new GameState(this));
     }
 
     public EnumMap<PawnColor, UUID> getProfessorOwners(){

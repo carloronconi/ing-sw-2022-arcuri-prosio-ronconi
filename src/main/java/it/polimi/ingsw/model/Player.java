@@ -76,8 +76,8 @@ public class Player implements Identifiable{
      * @param cardNumber is the number of the card to be removed
      */
     public void playAssistantCard(int cardNumber){
-
-        assistantDeck.remove(cardNumber-1);
+        int index = assistantDeck.indexOf(cardNumber);
+        assistantDeck.remove(index);
     }
 
     /**
