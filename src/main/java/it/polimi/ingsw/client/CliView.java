@@ -249,6 +249,7 @@ public class CliView implements ViewInterface {
     @Override
     public void gameOver() {
 
+        System.out.println("Game over! The winner is: " );
     }
 
     @Override

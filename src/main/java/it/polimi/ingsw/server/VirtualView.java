@@ -184,7 +184,8 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     @Override
     public void gameOver() {
-
+        //TODO: add winner
+        clientHandler.writeObject(new GameOver(null));
     }
 
     @Override
