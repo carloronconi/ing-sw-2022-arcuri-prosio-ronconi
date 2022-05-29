@@ -62,9 +62,12 @@ public class IslandTile extends StudentCounter implements Identifiable {
     public void moveAllPawnsFrom(IslandTile otherIsland){
         size++;
         for (PawnColor c: PawnColor.values()) {
+            while(otherIsland.count(c)>0){
+                movePawnFrom(otherIsland, c);
+            }/*
             for (int i = 0; i < otherIsland.count(c); i++) {
                 movePawnFrom(otherIsland,c);
-            }
+            }*/
         }
     }
 
