@@ -47,7 +47,7 @@ public class Client implements Runnable {
             return;
         }
         //serverHandler = new ServerHandler(server, this, view);
-        serverHandler = new ServerHandler(server, this, null);
+        serverHandler = new ServerHandler(server, this);
 
 
             view = new CliView(serverHandler);

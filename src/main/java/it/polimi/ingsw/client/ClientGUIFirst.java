@@ -15,9 +15,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientGUIFirst extends Application {
-    private static ServerHandlerGUI serverHandlerGUI;
-    private ClientGUI clientGUI = new ClientGUI();
+import static jdk.internal.net.http.common.Utils.close;
+
+
+public class ClientGUIFirst extends Application implements Runnable {
+    private ServerHandlerGUI serverHandlerGUI;
+    private ClientGUI clientGUI;
+    private Socket server;
 
     public static void main(String[] args){  launch(args);  }
 
@@ -31,6 +35,7 @@ public class ClientGUIFirst extends Application {
         stage.setScene(scene);
         stage.show();
 
+
     }
 
     @FXML
@@ -41,7 +46,7 @@ public class ClientGUIFirst extends Application {
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private ServerHandler serverHandler;
-    private static ViewInterface guiView;
+    private ViewInterface guiView;
 
     private String message = "";
 
@@ -65,15 +70,7 @@ public class ClientGUIFirst extends Application {
 
     public void connectButtonClicked(ActionEvent event) throws IOException
     {
-        Socket server;
-        server = new Socket(ipSet(), portSet());
-        serverHandlerGUI = new ServerHandlerGUI(server, this);
-        serverHandlerGUI.run();
-
-        guiView = new GuiView(serverHandlerGUI);
-        serverHandlerGUI.linkGuiView(guiView);
-
-
+        run();
         root = FXMLLoader.load(getClass().getResource("/eryantisFirstScene.fxml"));
         scene = new Scene(root, 800, 530);
         stage = new Stage();
@@ -85,7 +82,7 @@ public class ClientGUIFirst extends Application {
     }
 
     public void starting() throws IOException {
-        guiView.sendAcknowledgement();
+
         root = FXMLLoader.load(getClass().getResource("/SetNickname.fxml"));
         scene = new Scene(root, 800, 530);
         stage = new Stage();
@@ -103,20 +100,31 @@ public class ClientGUIFirst extends Application {
     }
 
     public void buttonSetNickname() throws IOException {
-        String s = selectNickname();
-        serverHandlerGUI.forwardMessage(s);
+       // String s = selectNickname();
+        //serverHandlerGUI.forwardMessage(s);
 
 
     }
 
 
+    @Override
+    public void run() {
+        String ip = ipSet();
+        int port = portSet();
+
+        try {
+            server = new Socket(ip, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        serverHandlerGUI = new ServerHandlerGUI(server, this);
+
+        guiView = new GuiView(serverHandlerGUI);
+        serverHandlerGUI.linkGuiView(guiView);
+
+        Thread serverHandlerThread = new Thread(serverHandlerGUI, "server_" + server.getInetAddress().getHostAddress());
+        serverHandlerThread.start();
 
 
-
-
-
-
-
-
-
+    }
 }

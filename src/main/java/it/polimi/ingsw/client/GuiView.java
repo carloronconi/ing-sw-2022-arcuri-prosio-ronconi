@@ -17,18 +17,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class GuiView extends Application implements ViewInterface {
+public class GuiView implements ViewInterface {
           private EventManager<ViewEvent> eventManager;
+          private Scanner scanner;
+
           //private JTextField introductionField;
           //private JTextArea screenArea;
          // private String message = "";
          // private String serverChat;
 
 
-   public GuiView(ServerHandler serverHandler){
+   public GuiView(ServerHandlerGUI serverHandlerGUI){
     eventManager = new EventManager<>();
-    eventManager.subscribe(serverHandler);
-
+    eventManager.subscribe(serverHandlerGUI);
+    scanner = new Scanner(System.in);
 
     //introductionField = new JTextField();
    // introductionField.setEditable( false );
@@ -136,11 +138,7 @@ public class GuiView extends Application implements ViewInterface {
 
     }
 
- @Override
- public void start(Stage s) throws IOException {
 
 
 
-
- }
 }

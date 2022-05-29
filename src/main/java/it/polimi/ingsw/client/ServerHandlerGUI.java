@@ -55,11 +55,25 @@ public class ServerHandlerGUI implements Runnable, EventListener<ViewEvent> {
             e.printStackTrace();
         }
 
+            handleConnection();
+
+
     }
 
     public void forwardMessage(String s) throws IOException {
         Object object = s;
         output.writeObject(object);
+    }
+
+    public void handleConnection(){
+        try {
+            boolean stop = false;
+            output.writeObject(new Handshake());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
