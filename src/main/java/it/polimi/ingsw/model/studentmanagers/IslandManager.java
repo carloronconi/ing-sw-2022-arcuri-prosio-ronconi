@@ -123,6 +123,7 @@ public class IslandManager extends StudentCounter {
             islands.remove(nextIsland);
         }
 
+        currentIsland = ConverterUtility.idToIndex(currentIslandId, islands);
         if(currentIsland==0){
             prevIsland=islands.size()-1;
         }else{
