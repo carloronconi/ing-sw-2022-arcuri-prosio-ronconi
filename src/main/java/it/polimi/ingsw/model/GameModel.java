@@ -224,7 +224,7 @@ public class GameModel {
      * @return number of towers already placed by the player
      */
     public int getNumOfTowers(UUID idPlayer){
-        Player player = null;
+        Player player;
         try {
             player = ConverterUtility.idToElement(idPlayer, players);
         } catch (NoSuchFieldException e) {
@@ -442,6 +442,22 @@ public class GameModel {
 
         }
         return map;
+    }
+
+    public LinkedHashMap<UUID, Integer> getIslandSizes(){
+        LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
+        for (IslandTile island : islandManager.getIslands()){
+            map.put(island.getId(), island.getSize());
+        }
+        return map;
+    }
+
+    public ArrayList<UUID> getWhichIslandsHaveBan(){
+        ArrayList<UUID> islandsWithBan = new ArrayList<>();
+        for (IslandTile island: islandManager.getIslands()){
+            if (island.ban) islandsWithBan.add(island.getId());
+        }
+        return islandsWithBan;
     }
 
     public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances(){

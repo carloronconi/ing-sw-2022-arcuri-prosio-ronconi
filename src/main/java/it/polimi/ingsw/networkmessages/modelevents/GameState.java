@@ -13,12 +13,15 @@ import it.polimi.ingsw.model.charactercards.Princess;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameState implements Serializable, ModelEvent {
     private final int bag;
     private final EnumMap<PawnColor, UUID> professorOwners;
     private final LinkedHashMap<UUID, ArrayList<PawnColor>> clouds;
     private final LinkedHashMap<UUID, ArrayList<PawnColor>> islands;
+    private final LinkedHashMap<UUID, Integer> islandSizes;
+    private final ArrayList<UUID> islandsWithBan;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> entrances;
     private final HashMap<UUID, EnumMap<PawnColor, Integer>> diningRooms;
     private final HashMap<UUID, ArrayList<Integer>> assistantDecks;
@@ -41,6 +44,8 @@ public class GameState implements Serializable, ModelEvent {
         professorOwners = gameModel.getProfessorOwners();
         clouds = gameModel.getClouds();
         islands = gameModel.getIslands();
+        islandSizes = gameModel.getIslandSizes();
+        islandsWithBan = gameModel.getWhichIslandsHaveBan();
         entrances = gameModel.getEntrances();
         diningRooms = gameModel.getDiningRooms();
         assistantDecks = gameModel.getDecks();
@@ -87,10 +92,6 @@ public class GameState implements Serializable, ModelEvent {
 
 
 
-
-
-
-
     public int getBag() {
         return bag;
     }
@@ -122,7 +123,8 @@ public class GameState implements Serializable, ModelEvent {
         }
         sb.append("\nislands:          ");
         for (UUID i: islands.keySet()){
-            sb.append(i +" = " + islands.get(i));
+            sb.append(i +" : size = " + islandSizes.get(i) + " | colors = "+ islands.get(i) );
+            if (characterCards!=null && islandsWithBan.contains(i)) sb.append(" | ban active!");
             sb.append(" | owner = ");
             sb.append(islandOwners.get(i) == null? "none" : nicknames.get(islandOwners.get(i)));
             if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
