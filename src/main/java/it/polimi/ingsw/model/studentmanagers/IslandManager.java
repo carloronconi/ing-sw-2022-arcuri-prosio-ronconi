@@ -74,7 +74,7 @@ public class IslandManager extends StudentCounter {
 
         //update mother nature position (id) using the index
         int motherNatureIndex = ConverterUtility.idToIndex(motherNaturePosition, islands);
-        if (motherNatureIndex + steps > islands.size()){
+        if (motherNatureIndex + steps >= islands.size()){
             motherNatureIndex = motherNatureIndex + steps - islands.size();
         } else {
             motherNatureIndex += steps;
