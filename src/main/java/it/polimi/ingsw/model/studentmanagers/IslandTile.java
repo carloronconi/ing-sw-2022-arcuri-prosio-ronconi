@@ -93,15 +93,22 @@ public class IslandTile extends StudentCounter implements Identifiable {
             if (this.count(color)>0) colorsOnIsland.add(color);
         }
 
+        if (mushroomMerchantEffect!=null) colorsOnIsland.remove(mushroomMerchantEffect);
+
         for(PawnColor color : colorsOnIsland){
             Player colorOwner = professorManager.getProfessorOwner(color);
             if(colorOwner == null) continue;
             playerPointsMap.put(colorOwner, this.count(color));
         }
 
-        if(owner!=null){
+        if(owner!=null &&!centaurEffect){
             if (playerPointsMap.get(owner) == null) playerPointsMap.put(owner, size);
             else playerPointsMap.put(owner, playerPointsMap.get(owner)+size);
+        }
+
+        if(knightEffectOwner!=null){
+            if(!playerPointsMap.containsKey(knightEffectOwner)) playerPointsMap.put(knightEffectOwner, 2);
+            else playerPointsMap.put(knightEffectOwner, playerPointsMap.get(knightEffectOwner) +2);
         }
 
         if (playerPointsMap.isEmpty()) return null;
