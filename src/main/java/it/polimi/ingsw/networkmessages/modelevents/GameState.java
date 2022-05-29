@@ -2,6 +2,7 @@ package it.polimi.ingsw.networkmessages.modelevents;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.client.CliViewIdConverter;
 import it.polimi.ingsw.cliview.Matrix;
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
@@ -115,15 +116,17 @@ public class GameState implements Serializable, ModelEvent {
 
     @Override
     public String toString() {
+        CliViewIdConverter converter = new CliViewIdConverter(this);
+
         StringBuilder sb = new StringBuilder("GAME STATE\n");
         sb.append("bag:              " + bag + "\n");
         sb.append("\nclouds:           ");
         for (UUID c: clouds.keySet()){
-            sb.append(c +" = " + clouds.get(c) +"\n                  ");
+            sb.append(converter.idToName(c, CliViewIdConverter.converterSetting.CLOUD) +" = " + clouds.get(c) +"\n                  ");
         }
         sb.append("\nislands:          ");
         for (UUID i: islands.keySet()){
-            sb.append(i +" : size = " + islandSizes.get(i) + " | colors = "+ islands.get(i) );
+            sb.append(converter.idToName(i, CliViewIdConverter.converterSetting.ISLAND) +" : size = " + islandSizes.get(i) + " | colors = "+ islands.get(i) );
             if (characterCards!=null && islandsWithBan.contains(i)) sb.append(" | ban active!");
             sb.append(" | owner = ");
             sb.append(islandOwners.get(i) == null? "none" : nicknames.get(islandOwners.get(i)));

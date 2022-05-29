@@ -23,6 +23,8 @@ public class CliView implements ViewInterface {
     private final Scanner scanner;
     private GameState gameState;
 
+    private CliViewIdConverter converter;
+
     public CliView(ServerHandler handler) {
         eventManager = new EventManager<>();
         eventManager.subscribe(handler);
@@ -96,19 +98,15 @@ public class CliView implements ViewInterface {
             return;
         }
 
-        String cloud = askUserInput("Choose a cloud id:", s->{
-            ArrayList<UUID> cloudIds = new ArrayList<>(gameState.getClouds().keySet());
-            UUID uuid = null;
-            try{
-                uuid = UUID.fromString(s);
-            } catch (IllegalArgumentException e){
-                return false;
-            }
+        String cloud = askUserInput("Choose a cloud:", s->{
+            UUID id = converter.nameToId(s, CliViewIdConverter.converterSetting.CLOUD);
 
-            return cloudIds.contains(uuid);
+            if (id == null) return false;
+            return true;
+
         });
 
-        UUID uuid = UUID.fromString(cloud);
+        UUID uuid = converter.nameToId(cloud, CliViewIdConverter.converterSetting.CLOUD);
 
         eventManager.notify(new ChosenCloud(uuid));
     }
@@ -225,19 +223,11 @@ public class CliView implements ViewInterface {
 
         UUID islandId = null;
         if(isIsland){
-            String textualIsland = askUserInput("Choose the island (id):", s->{
-                ArrayList<UUID> islandIds = new ArrayList<>(gameState.getIslands().keySet());
-                UUID uuid = null;
-                try{
-                    uuid = UUID.fromString(s);
-                } catch (IllegalArgumentException e){
-                    return false;
-                }
-
-                return islandIds.contains(uuid);
+            String textualIsland = askUserInput("Choose the island:", s->{
+                return converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND)!=null;
             });
 
-            islandId = UUID.fromString(textualIsland);
+            islandId = converter.nameToId(textualIsland, CliViewIdConverter.converterSetting.ISLAND);
 
         }
 
@@ -279,6 +269,7 @@ public class CliView implements ViewInterface {
         }
         if (EffectWithIsland.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select an island for the character effect:", s->{
+                /*
                 ArrayList<UUID> islandIds = new ArrayList<>(gameState.getIslands().keySet());
                 UUID uuid = null;
                 try{
@@ -287,28 +278,14 @@ public class CliView implements ViewInterface {
                     return false;
                 }
 
-                return islandIds.contains(uuid);
+                return islandIds.contains(uuid);*/
+                return converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND)!=null;
             });
 
-            island = UUID.fromString(text);
+            //island = UUID.fromString(text);
+            island = converter.nameToId(text, CliViewIdConverter.converterSetting.ISLAND);
 
-        }/*
-        if (EffectWithPlayer.class.isAssignableFrom(characterClass)){
-            String text = askUserInput("Select a player for the character effect:", s->{
-                ArrayList<UUID> playerIds = new ArrayList<>();
-                playerIds.addAll(gameState.getEntrances().keySet());
-                UUID uuid = null;
-                try{
-                    uuid = UUID.fromString(s);
-                } catch (IllegalArgumentException e){
-                    return false;
-                }
-
-                return playerIds.contains(uuid);
-            });
-
-            player = UUID.fromString(text);
-        }*/
+        }
         if (SwapperCharacter.class.isAssignableFrom(characterClass)){
             colorSwaps = new ArrayList<>();
             //int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
@@ -338,6 +315,8 @@ public class CliView implements ViewInterface {
     public void update(ModelEvent modelEvent) {
         if(modelEvent instanceof GameState){
             gameState = (GameState) modelEvent;
+            if(converter==null) converter = new CliViewIdConverter(gameState);
+            else converter.setGameState(gameState);
             System.out.println(gameState.toString());
         }
 
