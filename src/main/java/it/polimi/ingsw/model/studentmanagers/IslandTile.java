@@ -60,7 +60,7 @@ public class IslandTile extends StudentCounter implements Identifiable {
      * @param otherIsland is the island from which students are transferred
      */
     public void moveAllPawnsFrom(IslandTile otherIsland){
-        size++;
+        size+=otherIsland.size;
         for (PawnColor c: PawnColor.values()) {
             while(otherIsland.count(c)>0){
                 movePawnFrom(otherIsland, c);
