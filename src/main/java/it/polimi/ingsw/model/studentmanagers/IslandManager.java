@@ -18,8 +18,8 @@ public class IslandManager extends StudentCounter {
     private final ProfessorManager professorManager;
     private Witch witch;
     private boolean centaurEffect;
-    private Player knightEffectPlayer;
-    private PawnColor mushroomMerchantEffect;
+    private Player knightEffectPlayer = null;
+    private PawnColor mushroomMerchantEffect = null;
 
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
@@ -118,16 +118,15 @@ public class IslandManager extends StudentCounter {
             nextIsland=currentIsland+1;
         }
 
+        if(islands.get(currentIsland).getOwner()==islands.get(nextIsland).getOwner()){
+            islands.get(currentIsland).moveAllPawnsFrom(islands.get(nextIsland));
+            islands.remove(nextIsland);
+        }
+
         if(currentIsland==0){
             prevIsland=islands.size()-1;
         }else{
             prevIsland=currentIsland-1;
-        }
-
-
-        if(islands.get(currentIsland).getOwner()==islands.get(nextIsland).getOwner()){
-            islands.get(currentIsland).moveAllPawnsFrom(islands.get(nextIsland));
-            islands.remove(nextIsland);
         }
 
         if(islands.get(currentIsland).getOwner()==islands.get(prevIsland).getOwner()){
