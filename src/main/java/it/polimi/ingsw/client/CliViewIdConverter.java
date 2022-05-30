@@ -40,12 +40,14 @@ public class CliViewIdConverter {
         }
         int i = 1;
         for (UUID id : idList){
-            String additionalSpace = i<10? " " : "";
-            String currName = elementName + Integer.toString(i) + additionalSpace;
+            //String additionalSpace = i<10? " " : "";
+            String currName = elementName + Integer.toString(i);
             idToNameMap.put(id, currName);
             nameToIdMap.put(currName, id);
             i++;
         }
+        System.out.println(idToNameMap);
+        System.out.println(nameToIdMap);
 
     }
 
