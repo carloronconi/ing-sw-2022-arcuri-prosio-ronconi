@@ -122,13 +122,13 @@ public class GameState implements Serializable, ModelEvent {
         StringBuilder sb = new StringBuilder("GAME STATE\n");
         sb.append("bag:              " + bag + "\n");
         sb.append("\nclouds:           ");
+        /*
         for (UUID c: clouds.keySet()){
             sb.append(converter.idToName(c, CliViewIdConverter.converterSetting.CLOUD) +" = " + clouds.get(c) +"\n                  ");
-        }
-        int numCloud=0;
+        }*/
+
         for (UUID id : clouds.keySet()){
-            ++numCloud;
-            sb.append(numCloud + ": ");
+            sb.append(converter.idToName(id, CliViewIdConverter.converterSetting.CLOUD) + ": ");
             //ArrayList<Bullet> cloud = new ArrayList<>();
             for (PawnColor color : clouds.get(id)){
                 sb.append(new Bullet(Color.pawnColorConverter(color)));
@@ -139,7 +139,7 @@ public class GameState implements Serializable, ModelEvent {
             sb.append("\t\t");
 
         }
-
+        /*
         sb.append("\nislands:          ");
         for (UUID i: islands.keySet()){
             sb.append(converter.idToName(i, CliViewIdConverter.converterSetting.ISLAND) +" : size = " + islandSizes.get(i) + " | colors = "+ islands.get(i) );
@@ -148,7 +148,7 @@ public class GameState implements Serializable, ModelEvent {
             sb.append(islandOwners.get(i) == null? "none" : nicknames.get(islandOwners.get(i)));
             if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
             sb.append("\n                  ");
-        }
+        }*/
 
         sb.append("\nislands:          \n");
         Matrix m = new Matrix(islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
@@ -158,12 +158,13 @@ public class GameState implements Serializable, ModelEvent {
         sb.append(characterCards + " ");
         sb.append(characterCardsStudents + "\n");
 
+        /*
         sb.append("\nprofessor owners: ");
         for (PawnColor prof : PawnColor.values()){
             sb.append(prof + " = ");
             sb.append(professorOwners.get(prof) == null? "none":professorOwners.get(prof));
             sb.append("\n                  ");
-        }
+        }*/
 
         sb.append("\nprofessor owners: ");
         for (PawnColor prof : PawnColor.values()){
@@ -177,8 +178,9 @@ public class GameState implements Serializable, ModelEvent {
 
         for (UUID player : nicknames.keySet()){
             sb.append(nicknames.get(player) + "'s school board\n");
+            /*
             sb.append("entrance:         "+entrances.get(player));
-            sb.append("\ndining room:      "+diningRooms.get(player));
+            sb.append("\ndining room:      "+diningRooms.get(player));*/
             if (player.equals(ofPlayer)) sb.append("\nassistant deck:   "+assistantDecks.get(player));
             sb.append("\ncoins:            "+coinsMap.get(player));
             String playedAssistant = playedAssistantCards.get(player) == null? "none" : Integer.toString(playedAssistantCards.get(player));
