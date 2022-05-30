@@ -22,8 +22,10 @@ public class CliView implements ViewInterface {
     private final EventManager<ViewEvent> eventManager;
     private final Scanner scanner;
     private GameState gameState;
-
     private CliViewIdConverter converter;
+
+    private String tempNickname;
+    private String finalNickname;
 
     public CliView(ServerHandler handler) {
         eventManager = new EventManager<>();
@@ -136,6 +138,7 @@ public class CliView implements ViewInterface {
     @Override
     public void getNickname() {
         String text = askUserInput("Nickname?", s->true);
+        tempNickname = text;
         eventManager.notify(new SetNickname(text));
     }
 
@@ -317,7 +320,10 @@ public class CliView implements ViewInterface {
             gameState = (GameState) modelEvent;
             if(converter==null) converter = new CliViewIdConverter(gameState);
             else converter.setGameState(gameState);
-            System.out.println(gameState.toString());
+
+            if(finalNickname == null) finalNickname = tempNickname;
+
+            System.out.println(gameState.drawGameState(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER)));
         }
 
     }

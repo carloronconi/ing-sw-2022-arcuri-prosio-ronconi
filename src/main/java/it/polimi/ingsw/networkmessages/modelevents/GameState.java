@@ -114,8 +114,7 @@ public class GameState implements Serializable, ModelEvent {
         eventManager.notify(this);
     }
 
-    @Override
-    public String toString() {
+    public String drawGameState(UUID ofPlayer) {
         CliViewIdConverter converter = new CliViewIdConverter(this);
 
         StringBuilder sb = new StringBuilder("GAME STATE\n");
@@ -151,9 +150,10 @@ public class GameState implements Serializable, ModelEvent {
             sb.append(nicknames.get(player) + "'s school board\n");
             sb.append("entrance:         "+entrances.get(player));
             sb.append("\ndining room:      "+diningRooms.get(player));
-            sb.append("\nassistant deck:   "+assistantDecks.get(player));
+            if (player.equals(ofPlayer)) sb.append("\nassistant deck:   "+assistantDecks.get(player));
             sb.append("\ncoins:            "+coinsMap.get(player));
-            sb.append("\nplayed assistant: "+playedAssistantCards.get(player) +"\n\n");
+            String playedAssistant = playedAssistantCards.get(player) == null? "none" : Integer.toString(playedAssistantCards.get(player));
+            sb.append("\nplayed assistant: "+playedAssistant +"\n\n");
 
             sb.append(
                     "|entrance          |prof t. \n" +

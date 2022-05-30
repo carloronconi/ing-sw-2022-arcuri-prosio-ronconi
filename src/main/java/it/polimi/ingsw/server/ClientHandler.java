@@ -59,6 +59,7 @@ public class ClientHandler implements Runnable {
             System.out.println("input stream created");
         } catch (IOException e) {
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
+            e.printStackTrace();
             return;
         }
 
