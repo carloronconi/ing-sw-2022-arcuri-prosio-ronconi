@@ -15,13 +15,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import static jdk.internal.net.http.common.Utils.close;
-
 
 public class ClientGUIFirst extends Application implements Runnable {
     private ServerHandlerGUI serverHandlerGUI;
     private ClientGUI clientGUI;
     private Socket server;
+    private static GuiView guiView;
 
     public static void main(String[] args){  launch(args);  }
 
@@ -46,7 +45,7 @@ public class ClientGUIFirst extends Application implements Runnable {
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private ServerHandler serverHandler;
-    private ViewInterface guiView;
+
 
     private String message = "";
 
@@ -66,6 +65,26 @@ public class ClientGUIFirst extends Application implements Runnable {
         serverHandlerGUI.openConnection(ipSet(),portSet());
     } */
 
+    @Override
+    public void run() {
+        String ip = ipSet();
+        int port = portSet();
+
+        try {
+            server = new Socket(ip, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        serverHandlerGUI = new ServerHandlerGUI(server, this);
+
+        guiView = new GuiView(serverHandlerGUI, this);
+        serverHandlerGUI.linkGuiView(guiView);
+
+        Thread serverHandlerThread = new Thread(serverHandlerGUI, "server_" + server.getInetAddress().getHostAddress());
+        serverHandlerThread.start();
+
+
+    }
 
 
     public void connectButtonClicked(ActionEvent event) throws IOException
@@ -95,36 +114,17 @@ public class ClientGUIFirst extends Application implements Runnable {
     @FXML
     private TextField nickname;
 
-    private String selectNickname(){
+    public String selectNickname(){
         return nickname.getText();
     }
 
-    public void buttonSetNickname() throws IOException {
-       // String s = selectNickname();
-        //serverHandlerGUI.forwardMessage(s);
+    public void buttonSetNickname(ActionEvent event) throws IOException {
+       String s = selectNickname();
+       //guiView.getNickname(s);
+       //serverHandlerGUI.forwardMessage(s);
 
 
     }
 
 
-    @Override
-    public void run() {
-        String ip = ipSet();
-        int port = portSet();
-
-        try {
-            server = new Socket(ip, port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        serverHandlerGUI = new ServerHandlerGUI(server, this);
-
-        guiView = new GuiView(serverHandlerGUI);
-        serverHandlerGUI.linkGuiView(guiView);
-
-        Thread serverHandlerThread = new Thread(serverHandlerGUI, "server_" + server.getInetAddress().getHostAddress());
-        serverHandlerThread.start();
-
-
-    }
 }

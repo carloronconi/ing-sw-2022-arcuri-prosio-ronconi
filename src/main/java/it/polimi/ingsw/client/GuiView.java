@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import java.util.Scanner;
 public class GuiView implements ViewInterface {
           private EventManager<ViewEvent> eventManager;
           private Scanner scanner;
+          private ClientGUIFirst clientGUIFirst;
 
           //private JTextField introductionField;
           //private JTextArea screenArea;
@@ -27,10 +29,12 @@ public class GuiView implements ViewInterface {
          // private String serverChat;
 
 
-   public GuiView(ServerHandlerGUI serverHandlerGUI){
+   public GuiView(ServerHandlerGUI serverHandlerGUI, ClientGUIFirst clientGUIFirst){
     eventManager = new EventManager<>();
     eventManager.subscribe(serverHandlerGUI);
     scanner = new Scanner(System.in);
+
+    this.clientGUIFirst = clientGUIFirst;
 
     //introductionField = new JTextField();
    // introductionField.setEditable( false );
@@ -74,7 +78,14 @@ public class GuiView implements ViewInterface {
     }
 
     @Override
-    public void getNickname() {
+    public void getNickname(){
+    //  String name = clientGUIFirst.selectNickname();
+     // eventManager.notify(new SetNickname(name));
+
+    }
+
+    public void getNickname(String s) {
+      eventManager.notify(new SetNickname(s));
 
     }
 
