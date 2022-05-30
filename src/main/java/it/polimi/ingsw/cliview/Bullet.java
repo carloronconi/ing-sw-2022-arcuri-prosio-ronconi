@@ -30,6 +30,8 @@ public class Bullet implements Serializable {
         symbol=BULLET;
     }
 
+    public void setSymbol(String s){ symbol=s;}
+
     @Override
     public String toString(){
         return color + symbol + Color.RESET;
