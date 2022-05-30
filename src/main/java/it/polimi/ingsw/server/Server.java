@@ -20,8 +20,12 @@ public class Server {
     private ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
     private boolean stop;
 
+    private ServerSocket socket;
+
     public static void main(String[] args) {
+
         Server server = new Server();
+        System.exit(0);
     }
 
     public Server() {
@@ -31,7 +35,7 @@ public class Server {
 
         Scanner scanner = new Scanner(System.in);
 
-        ServerSocket socket;
+
         while(true){
             System.out.println("Server port?");
             //int socketPort = Integer.parseInt(scanner.nextLine());
@@ -75,6 +79,12 @@ public class Server {
             clientHandler.stopClient();
         }
         System.out.println("Stopping server");
-        stop = true; //TODO: Server actually keeps running
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Socket closed");
+        stop = true;
     }
 }
