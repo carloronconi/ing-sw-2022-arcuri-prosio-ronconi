@@ -46,8 +46,6 @@ public class CliViewIdConverter {
             nameToIdMap.put(currName, id);
             i++;
         }
-        System.out.println(idToNameMap);
-        System.out.println(nameToIdMap);
 
     }
 
