@@ -22,12 +22,14 @@ public class CliView implements ViewInterface {
     private final EventManager<ViewEvent> eventManager;
     private final Scanner scanner;
     private GameState gameState;
+    private ServerHandler serverHandler;
     private CliViewIdConverter converter;
 
     private String tempNickname;
     private String finalNickname;
 
     public CliView(ServerHandler handler) {
+        this.serverHandler = handler;
         eventManager = new EventManager<>();
         eventManager.subscribe(handler);
         scanner = new Scanner(System.in);
@@ -240,7 +242,8 @@ public class CliView implements ViewInterface {
     @Override
     public void gameOver() {
 
-        System.out.println("Game over! The winner is: " );
+        System.out.println("Game over!" );
+        serverHandler.stopServer();
     }
 
     @Override
