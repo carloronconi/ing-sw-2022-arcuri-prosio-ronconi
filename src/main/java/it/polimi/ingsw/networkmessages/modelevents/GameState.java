@@ -29,10 +29,13 @@ public class GameState implements Serializable, ModelEvent {
     private final HashMap<AvailableCharacter, Boolean> characterCards;
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
-    private final HashMap<UUID, UUID> islandOwners;
+    private final HashMap<UUID, UUID> islandOwners;  //first UUID of the island and second of the player
     private final LinkedHashMap<UUID, String> nicknames;
     private final LinkedHashMap<UUID, Integer> numOfTowersUsed;
     private final LinkedHashMap<UUID, TowerColor> colorPlayersTowers;
+
+    private final LinkedHashMap<UUID, Integer> islandsSize; //UUID of the islands and their size
+    private final LinkedHashMap<UUID, Boolean> banOnIslands; //UUID of the islands and true or false if they are banned or not
 
     private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
 
@@ -75,6 +78,9 @@ public class GameState implements Serializable, ModelEvent {
         for (Player player : gameModel.getPlayers()){
             colorPlayersTowers.put(player.getId(), player.getTowerColor());
         }
+
+        islandsSize = gameModel.islandsSize();
+        banOnIslands = gameModel.banOnIslands();
 
 
 
@@ -131,6 +137,7 @@ public class GameState implements Serializable, ModelEvent {
 
         }
 
+        /*FATTO DA CARLO
         sb.append("\nislands:          ");
         for (UUID i: islands.keySet()){
             sb.append(i +" = " + islands.get(i));
@@ -138,7 +145,15 @@ public class GameState implements Serializable, ModelEvent {
             sb.append(islandOwners.get(i) == null? "none" : nicknames.get(i));
             if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
             sb.append("\n                  ");
-        }
+        }*/
+
+        sb.append("\nislands:          \n");
+        Matrix m = new Matrix(islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
+        sb.append(m);
+
+
+
+
 
         sb.append("\ncharacters:       ");
         sb.append(characterCards + " ");
