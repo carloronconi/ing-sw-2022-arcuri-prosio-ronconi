@@ -263,6 +263,25 @@ public class GameModel {
         return islandManager.countIslands();
     }
 
+    public LinkedHashMap<UUID, Integer> islandsSize(){
+        LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
+
+        for (int i=0; i<islandManager.getIslands().size(); i++){
+            map.put(islandManager.getIsland(i).getId(), islandManager.getIsland(i).getSize());
+        }
+
+        return map;
+    }
+
+    public LinkedHashMap<UUID, Boolean> banOnIslands(){
+        LinkedHashMap<UUID, Boolean> map = new LinkedHashMap<>();
+        for (int i=0; i<islandManager.getIslands().size(); i++){
+            map.put(islandManager.getIsland(i).getId(), islandManager.getIsland(i).ban);
+        }
+
+        return map;
+    }
+
     /**
      * counts the number of cards remaining in the player's deck that is passed into the entrance
      * @param player id of the player on whom the check of the number of cards left in his deck is made
