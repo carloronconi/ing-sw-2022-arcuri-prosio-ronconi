@@ -36,7 +36,7 @@ public class Matrix implements Serializable {
     }
 
     //islands - circular shape
-    public Matrix(CliViewIdConverter converter, HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, ArrayList<UUID> islandTiles, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
+    public Matrix(CliViewIdConverter converter, HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, ArrayList<UUID> initialIslandIds, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
 
         matrixType = "islands";
 
@@ -51,11 +51,11 @@ public class Matrix implements Serializable {
             }
         }
 
-        for (UUID uuid : islands.keySet()){
+        for (UUID uuid : initialIslandIds){
 
-            if (islandTiles.contains(uuid)){
+            if (islands.containsKey(uuid)){
 
-                choiceCoordinates(islandTiles.indexOf(uuid));
+                choiceCoordinates(initialIslandIds.indexOf(uuid));
 
                 drawOutline(initialRow, initialColumn);
 

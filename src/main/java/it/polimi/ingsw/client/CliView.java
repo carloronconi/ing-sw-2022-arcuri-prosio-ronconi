@@ -27,6 +27,7 @@ public class CliView implements ViewInterface {
 
     private String tempNickname;
     private String finalNickname;
+    private ArrayList<UUID> initialIslandIds;
 
     public CliView(ServerHandler handler) {
         this.serverHandler = handler;
@@ -326,7 +327,9 @@ public class CliView implements ViewInterface {
 
             if(finalNickname == null) finalNickname = tempNickname;
 
-            System.out.println(gameState.drawGameState(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER)));
+            if (initialIslandIds == null) initialIslandIds = new ArrayList<>(gameState.getIslands().keySet());
+
+            System.out.println(gameState.drawGameState(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER), initialIslandIds));
         }
 
     }

@@ -38,17 +38,9 @@ public class GameState implements Serializable, ModelEvent {
     private final LinkedHashMap<UUID, String> nicknames;
     private final LinkedHashMap<UUID, Integer> numOfTowersUsed;
     private final LinkedHashMap<UUID, TowerColor> colorPlayersTowers;
-
     private final LinkedHashMap<UUID, Integer> islandsSize; //UUID of the islands and their size
     private final LinkedHashMap<UUID, Boolean> banOnIslands; //UUID of the islands and true or false if they are banned or not
-
-    private static boolean firstTime = false;
-    private ArrayList<UUID> islandTile;
-
     private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
-
-
-
 
 
     public GameState(GameModel gameModel) {
@@ -92,12 +84,6 @@ public class GameState implements Serializable, ModelEvent {
         islandsSize = gameModel.islandsSize();
         banOnIslands = gameModel.banOnIslands();
 
-        if (!firstTime) {
-            islandTile = new ArrayList<>();
-            for (UUID id : islands.keySet()){
-                islandTile.add(id);
-            }
-        }
 
 
 
@@ -129,7 +115,7 @@ public class GameState implements Serializable, ModelEvent {
         eventManager.notify(this);
     }
 
-    public String drawGameState(UUID ofPlayer) {
+    public String drawGameState(UUID ofPlayer, ArrayList<UUID> initialIslandIds) {
         CliViewIdConverter converter = new CliViewIdConverter(this);
 
         StringBuilder sb = new StringBuilder("GAME STATE\n");
@@ -167,7 +153,7 @@ public class GameState implements Serializable, ModelEvent {
         Matrix m = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
         sb.append(m);
         sb.append("\n");
-        Matrix mt = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islandTile, islands);
+        Matrix mt = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, initialIslandIds, islands);
         sb.append(mt);
 
         sb.append("\ncharacters:       ");
