@@ -22,6 +22,10 @@ public class Matrix implements Serializable {
     private boolean professorsColumn;
 
     private String matrixType;
+    private int initialRow;
+    private int initialColumn;
+    private int finalRow;
+    private int finalColumn;
 
 
     public Matrix(int n, int m){
@@ -30,8 +34,215 @@ public class Matrix implements Serializable {
         numColumns = m;
     }
 
+    //islands - circular shape
+    public Matrix(HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, ArrayList<UUID> islandTiles, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
+
+        matrixType = "islands";
+
+        numRow = 50;
+        numColumns = (11 * 7) + 30;
+
+        mat =  new Cell[numRow][numColumns];
+
+        for (int i=0; i<numRow; i++){
+            for (int j=0; j<numColumns; j++){
+                mat[i][j] = new Cell();
+            }
+        }
+
+        for (UUID uuid : islands.keySet()){
+
+            if (islandTiles.contains(uuid)){
+
+                choiceCoordinates(islandTiles.indexOf(uuid));
+
+                drawOutline(initialRow, initialColumn);
+
+                insertStudents(initialRow, initialColumn, islands.get(uuid));
+
+                insertIslandSize(initialRow, initialColumn, islandsSize.get(uuid));
+
+                insertMotherNature(initialRow, initialColumn, uuid.equals(motherNaturePosition));
+
+                insertBanOnIsland(initialRow, initialColumn, banOnIslands.get(uuid));
+
+                insertTower(initialRow, initialColumn, islandOwners.get(uuid), colorPlayersTowers, islandsSize.get(uuid));
 
 
+            }
+        }
+
+
+    }
+
+    private void choiceCoordinates(int positionInArray){
+        switch (positionInArray){
+            case 0:
+                initialRow = 13;
+                finalRow = 20;
+                initialColumn = 0;
+                finalColumn = 10;
+                break;
+            case 1:
+                initialRow = 7;
+                finalRow = 14;
+                initialColumn = 16;
+                finalColumn = 26;
+                break;
+            case 2:
+                initialRow = 3;
+                finalRow = 10;
+                initialColumn = 32;
+                finalColumn = 42;
+                break;
+            case 3:
+                initialRow = 0;
+                finalRow = 7;
+                initialColumn = 48;
+                finalColumn = 58;
+                break;
+            case 4:
+                initialRow = 3;
+                finalRow = 10;
+                initialColumn = 64;
+                finalColumn = 74;
+                break;
+            case 5:
+                initialRow = 7;
+                finalRow = 14;
+                initialColumn = 80;
+                finalColumn = 90;
+                break;
+            case 6:
+                initialRow = 13;
+                finalRow = 20;
+                initialColumn = 96;
+                finalColumn = 106;
+                break;
+            case 7:
+                initialRow = 19;
+                finalRow = 26;
+                initialColumn = 80;
+                finalColumn = 90;
+                break;
+            case 8:
+                initialRow = 23;
+                finalRow = 30;
+                initialColumn = 64;
+                finalColumn = 74;
+                break;
+            case 9:
+                initialRow = 26;
+                finalRow = 33;
+                initialColumn = 48;
+                finalColumn = 58;
+                break;
+            case 10:
+                initialRow = 23;
+                finalRow = 30;
+                initialColumn = 32;
+                finalColumn = 42;
+                break;
+            case 11:
+                initialRow = 19;
+                finalRow = 26;
+                initialColumn = 16;
+                finalColumn = 26;
+                break;
+        }
+    }
+
+    private void drawOutline(int initialRow, int initialColumn){
+        int columnIndexer;
+
+        columnIndexer = initialColumn; //use another variable because I have to increment it
+        for (int i=0; i<9; i++){
+            columnIndexer++;
+            mat[initialRow][columnIndexer].getBullet().setSymbol("-");
+            mat[initialRow+7][columnIndexer].getBullet().setSymbol("-");
+        }
+
+        for (int i=0; i<6; i++){
+            initialRow++;
+            mat[initialRow][initialColumn].getBullet().setSymbol("|");
+            mat[initialRow][initialColumn+10].getBullet().setSymbol("|");
+        }
+
+    }
+
+    private void insertStudents(int initialRow, int initialColumn, ArrayList<PawnColor> islandsColors){
+
+
+        for (PawnColor color : PawnColor.values()){
+            int howManyColors =0;
+            for (PawnColor c : islandsColors){
+                if (color==c){
+                    howManyColors++;
+                }
+            }
+
+            mat[initialRow+2][initialColumn+1].getBullet().setColor(Color.pawnColorConverter(color));
+            mat[initialRow+2][initialColumn+1].getBullet().setSymbol(String.valueOf(howManyColors));
+
+            initialColumn += 2;
+        }
+
+    }
+
+    private void insertIslandSize(int initialRow, int initialColumn, Integer islandSize){
+
+        mat[initialRow+4][initialColumn+1].getBullet().setSymbol("s");
+        mat[initialRow+4][initialColumn+2].getBullet().setSymbol("i");
+        mat[initialRow+4][initialColumn+3].getBullet().setSymbol("z");
+        mat[initialRow+4][initialColumn+4].getBullet().setSymbol("e");
+        mat[initialRow+4][initialColumn+5].getBullet().setSymbol(":");
+        mat[initialRow+4][initialColumn+7].getBullet().setSymbol(String.valueOf(islandSize));
+
+    }
+
+    private void insertMotherNature(int initialRow, int initialColumn, boolean motherNatureHere){
+
+        mat[initialRow+5][initialColumn+1].getBullet().setSymbol("M");
+        mat[initialRow+5][initialColumn+2].getBullet().setSymbol("N");
+        mat[initialRow+5][initialColumn+3].getBullet().setSymbol(":");
+        if (motherNatureHere){
+            mat[initialRow+5][initialColumn+5].getBullet().setSymbol("h");
+            mat[initialRow+5][initialColumn+6].getBullet().setSymbol("e");
+            mat[initialRow+5][initialColumn+7].getBullet().setSymbol("r");
+            mat[initialRow+5][initialColumn+8].getBullet().setSymbol("e");
+        }
+
+    }
+
+    private void insertBanOnIsland(int initialRow, int initialColumn, boolean banHere){
+
+        if (banHere){
+            mat[initialRow+6][initialColumn+1].getBullet().setSymbol("B");
+            mat[initialRow+6][initialColumn+2].getBullet().setSymbol("A");
+            mat[initialRow+6][initialColumn+3].getBullet().setSymbol("N");
+        }
+    }
+
+    private void insertTower(int initialRow, int initialColumn, UUID islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, Integer islandsSize){
+        int columnIndexer = initialColumn;
+
+        columnIndexer++;
+
+        if (islandOwners!=null){
+
+            for (int i=0; i<islandsSize; i++){
+
+                mat[3][columnIndexer+i].getBullet().setSymbol();
+                mat[3][columnIndexer+i].getBullet().setColor(Color.towerColorConverter(colorPlayersTowers.get(islandOwners)));
+            }
+
+        }
+
+
+    }
+
+
+    //islands - linear shape
     public Matrix(HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
 
         matrixType = "islands";
@@ -48,9 +259,8 @@ public class Matrix implements Serializable {
         }
 
         int columnIndexer = 1;
-        /*
-        questo codice inserisce i trattini sopra e sotto per delimitare le isole
-         */
+
+        //questo codice inserisce i trattini sopra e sotto per delimitare le isole
         for (int i = 0; i< islands.size(); i++){
             for (int j=0; j<9; j++){
                 mat[0][columnIndexer].getBullet().setSymbol("-");
@@ -152,7 +362,7 @@ public class Matrix implements Serializable {
 
 
 
-
+    //school
     public Matrix(int numPlayers, int numTowersUsed, UUID player, TowerColor towerColor, EnumMap<PawnColor, Integer> entrance, EnumMap<PawnColor, Integer> diningRoom, EnumMap<PawnColor, UUID> professorOwners){
         matrixType = "school";
 
