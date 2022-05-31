@@ -14,7 +14,6 @@ import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -241,9 +240,12 @@ public class CliView implements ViewInterface {
     }
 
     @Override
-    public void gameOver() {
-
-        System.out.println("Game over!" );
+    public void gameOver(UUID winner) {
+        if (winner == null) System.out.println("Game over!");
+        else {
+            String winnerNickname = converter.idToName(winner, CliViewIdConverter.converterSetting.PLAYER);
+            System.out.println("Game over! The winner is: " + winnerNickname);
+        }
         serverHandler.stopServer();
     }
 

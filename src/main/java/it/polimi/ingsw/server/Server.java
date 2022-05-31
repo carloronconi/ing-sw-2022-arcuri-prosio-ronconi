@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 import static java.lang.Thread.currentThread;
 
@@ -57,7 +58,7 @@ public class Server {
                  * create a new Thread executing a ClientHandler */
                 Socket client = socket.accept();
                 ClientHandler clientHandler = new ClientHandler(client, this);
-                VirtualView virtualView = new VirtualView(gameController, clientHandler);
+                VirtualView virtualView = new VirtualView(gameController, clientHandler, this);
                 clientHandler.assignVirtualView(virtualView);
                 modelEventManager.subscribe(virtualView);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
@@ -65,16 +66,16 @@ public class Server {
                 thread.start();
             } catch (IOException e) {
                 System.out.println("connection dropped");
-                gameIsOver();
+                gameIsOver(null);
             }
         }
 
 
     }
 
-    public void gameIsOver(){
+    public void gameIsOver(UUID winner){
         for (ClientHandler clientHandler : clientHandlers){
-            clientHandler.writeObject(new GameOver(null));
+            clientHandler.writeObject(new GameOver(winner));
             //stop the thread
             clientHandler.stopClient();
         }

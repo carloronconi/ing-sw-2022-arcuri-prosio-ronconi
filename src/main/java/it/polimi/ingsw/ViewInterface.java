@@ -3,6 +3,8 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
+import java.util.UUID;
+
 public interface ViewInterface extends EventListener<ModelEvent> {
 
     void sendAcknowledgement();
@@ -37,7 +39,7 @@ public interface ViewInterface extends EventListener<ModelEvent> {
 
     void moveStudent();
 
-    void gameOver();
+    void gameOver(UUID winner);
 
     void getCharacterSettings(AvailableCharacter forCharacter);
 

@@ -88,7 +88,7 @@ public class ClientHandler implements Runnable {
         } catch (ClassNotFoundException | ClassCastException e) {
             System.out.println("invalid stream from client");
         } catch (IOException e) {
-            server.gameIsOver();
+            server.gameIsOver(null);
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
         }
 

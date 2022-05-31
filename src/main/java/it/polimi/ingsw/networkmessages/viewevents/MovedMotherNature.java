@@ -1,6 +1,5 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
-import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;
@@ -26,10 +25,7 @@ public class MovedMotherNature implements Serializable, GameViewEvent {
 
         virtualView.notifyController(this);
         if (virtualView.isGameOver()){
-            //TODO: send it to everybody, maybe through gameModel (like gameState update that is
-            //      delivered to everyone regardless of the fact that the thread is paused)
-            virtualView.gameOver();
-            virtualView.askPlayAgain();
+            virtualView.gameOver(virtualView.getGameWinner());
         } else {
             virtualView.chooseCloud();
         }

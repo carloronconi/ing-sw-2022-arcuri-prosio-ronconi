@@ -19,6 +19,6 @@ public class GameOver implements Serializable, RemoteMethodCall {
 
     @Override
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
-        viewInterface.gameOver();
+        viewInterface.gameOver(winner);
     }
 }

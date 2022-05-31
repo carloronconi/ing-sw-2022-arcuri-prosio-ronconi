@@ -132,17 +132,75 @@ public class TurnController implements EventListener<ViewEvent> {
     }
      */
 
-    public boolean isGameOver(int virtualViewInstanceNum){
+    public boolean isGameOver(){
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        UUID player = playerIds.get(virtualViewInstanceNum);
-        try {
-            int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
-            if (initialNumOfTowers - gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
-                    gameModel.countStudentsInBag() == 0 || (gameModel.getDeckSize(player) == 0 && currentPlayerIndex < playerOrder.size()-1 && phase == TurnState.ACTION)) return true;
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+        for (UUID player: playerIds){
+            try {
+                int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
+                if (initialNumOfTowers - gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
+                        gameModel.countStudentsInBag() == 0 || (gameModel.getDeckSize(player) == 0 && currentPlayerIndex < playerOrder.size()-1 && phase == TurnState.ACTION)) return true;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
         }
         return false;
+    }
+
+    public UUID getGameWinner(){
+        if (!isGameOver()) return null;
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        for (UUID player: playerIds){
+            int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
+            if(initialNumOfTowers - gameModel.getNumOfTowers(player)==0) return player;
+            else{
+                //return player with most towers or if tie player with most professors among the players with most towers
+                ArrayList<UUID> playersWithMostTowers = getPlayersWithMostTowers();
+                if (playersWithMostTowers.size() == 1) return playersWithMostTowers.get(0);
+                return getPlayerWithMostProfessors(playersWithMostTowers);
+            }
+        }
+        return null;
+    }
+
+    private ArrayList<UUID> getPlayersWithMostTowers(){
+        int maxTowers = 0;
+        boolean tie = false;
+        UUID maxPlayer = null;
+        for (UUID player : gameModel.getPlayerIds()){
+            int currTowers = gameModel.getNumOfTowers(player);
+            if (currTowers>maxTowers){
+                maxTowers = currTowers;
+                maxPlayer = player;
+                tie = false;
+            } else if (currTowers == maxTowers){
+                tie = true;
+            }
+        }
+        ArrayList<UUID> list = new ArrayList<>();
+        if (!tie) {
+            list.add(maxPlayer);
+        } else {
+            for (UUID player : gameModel.getPlayerIds()){
+                if (gameModel.getNumOfTowers(player) == maxTowers) list.add(player);
+            }
+        }
+        return list;
+    }
+
+    private UUID getPlayerWithMostProfessors(ArrayList<UUID> amongPlayers){
+        int maxProfessors = 0;
+        UUID maxPlayer = null;
+        for (UUID player : amongPlayers){
+            int currProfessors = 0;
+            for (PawnColor color: PawnColor.values()){
+                if (gameModel.getProfessorOwners().get(color).equals(player)) currProfessors++;
+            }
+            if (currProfessors>maxProfessors){
+                maxProfessors = currProfessors;
+                maxPlayer = player;
+            }
+        }
+        return maxPlayer;
     }
 /*
     private boolean startActionPhase(){

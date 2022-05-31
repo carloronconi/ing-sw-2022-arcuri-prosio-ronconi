@@ -28,6 +28,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private TurnController turnController ;
     public UUID id;
     private final ClientHandler clientHandler;
+    private final Server server;
 
    /* private void writeObject(RemoteMethodCall remoteMethodCall){
         try {
@@ -37,7 +38,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         }
     }*/
 
-    public VirtualView(GameController gameController, ClientHandler clientHandler) {
+    public VirtualView(GameController gameController, ClientHandler clientHandler, Server server) {
         //this.clientSocket = clientSocket;
         this.gameController = gameController;
         eventManager = new EventManager<>();
@@ -45,6 +46,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         thisInstanceNumber = numberOfInstances;
         numberOfInstances++;
         this.clientHandler = clientHandler;
+        this.server = server;
     }
 
     public UUID getId(){
@@ -98,7 +100,11 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     }
 
     public boolean isGameOver(){
-        return turnController.isGameOver(thisInstanceNumber);
+        return turnController.isGameOver();
+    }
+
+    public UUID getGameWinner(){
+        return turnController.getGameWinner();
     }
 
 
@@ -183,9 +189,8 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     }
 
     @Override
-    public void gameOver() {
-        //TODO: add winner
-        clientHandler.writeObject(new GameOver(null));
+    public void gameOver(UUID winner) {
+        server.gameIsOver(winner);
     }
 
     @Override
