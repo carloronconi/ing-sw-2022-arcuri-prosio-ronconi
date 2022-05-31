@@ -164,7 +164,7 @@ public class GameState implements Serializable, ModelEvent {
         }*/
 
         sb.append("\nislands:          \n");
-        Matrix m = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
+        Matrix m = new Matrix(islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
         sb.append(m);
         sb.append("\n");
         Matrix mt = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islandTile, islands);
