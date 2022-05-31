@@ -138,7 +138,7 @@ public class TurnController implements EventListener<ViewEvent> {
         try {
             int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
             if (initialNumOfTowers - gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
-                    gameModel.countStudentsInBag() == 0 || gameModel.getDeckSize(player) == 0) return true;
+                    gameModel.countStudentsInBag() == 0 || (gameModel.getDeckSize(player) == 0 && currentPlayerIndex < playerOrder.size()-1 && phase == TurnState.ACTION)) return true;
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
