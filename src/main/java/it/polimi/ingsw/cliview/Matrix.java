@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cliview;
 
+import it.polimi.ingsw.client.CliViewIdConverter;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TowerColor;
@@ -32,7 +33,7 @@ public class Matrix implements Serializable {
 
 
 
-    public Matrix(HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
+    public Matrix(CliViewIdConverter converter, HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
 
         matrixType = "islands";
 
@@ -72,6 +73,18 @@ public class Matrix implements Serializable {
             }
             columnIndexer += 2;  //distanza tra "|" dell'isola peecedente e la successiva, in mezzo c'è lo spazio
         }
+
+        columnIndexer = 1;
+        for (UUID id : islands.keySet()){
+            String islandName = converter.idToName(id, CliViewIdConverter.converterSetting.ISLAND);
+
+            for (int i=0; i<islandName.length(); i++){
+                mat[1][columnIndexer+i].getBullet().setSymbol(String.valueOf(islandName.charAt(i)));
+            }
+            columnIndexer += 12;
+
+        }
+
 
         columnIndexer = 1;
         for (UUID id : islands.keySet()) {
