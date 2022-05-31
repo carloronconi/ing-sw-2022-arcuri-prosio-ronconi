@@ -148,17 +148,19 @@ public class GameState implements Serializable, ModelEvent {
             if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
             sb.append("\n                  ");
         }*/
-
+        /*
         sb.append("\nislands:          \n");
         Matrix m = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
-        sb.append(m);
+        sb.append(m);*/
         sb.append("\n");
         Matrix mt = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, initialIslandIds, islands);
         sb.append(mt);
 
-        sb.append("\ncharacters:       ");
-        sb.append(characterCards + " ");
-        sb.append(characterCardsStudents + "\n");
+        if (characterCards != null){
+            sb.append("\ncharacters:       ");
+            sb.append(characterCards + " ");
+            sb.append(characterCardsStudents + "\n");
+        }
 
         /*
         sb.append("\nprofessor owners: ");
