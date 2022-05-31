@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Juggler;
 import it.polimi.ingsw.model.charactercards.Monk;
 import it.polimi.ingsw.model.charactercards.Princess;
+import it.polimi.ingsw.model.studentmanagers.IslandTile;
 
 import java.io.Serializable;
 import java.util.*;
@@ -40,6 +41,9 @@ public class GameState implements Serializable, ModelEvent {
 
     private final LinkedHashMap<UUID, Integer> islandsSize; //UUID of the islands and their size
     private final LinkedHashMap<UUID, Boolean> banOnIslands; //UUID of the islands and true or false if they are banned or not
+
+    private static boolean firstTime = false;
+    private ArrayList<UUID> islandTile;
 
     private final HashMap<AvailableCharacter, ArrayList<PawnColor>> characterCardsStudents = new HashMap<>();
 
@@ -87,6 +91,15 @@ public class GameState implements Serializable, ModelEvent {
 
         islandsSize = gameModel.islandsSize();
         banOnIslands = gameModel.banOnIslands();
+
+        if (!firstTime) {
+            islandTile = new ArrayList<>();
+            for (UUID id : islands.keySet()){
+                islandTile.add(id);
+            }
+        }
+
+
 
 
 
@@ -153,6 +166,9 @@ public class GameState implements Serializable, ModelEvent {
         sb.append("\nislands:          \n");
         Matrix m = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
         sb.append(m);
+        sb.append("\n");
+        Matrix mt = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islandTile, islands);
+        sb.append(mt);
 
         sb.append("\ncharacters:       ");
         sb.append(characterCards + " ");
