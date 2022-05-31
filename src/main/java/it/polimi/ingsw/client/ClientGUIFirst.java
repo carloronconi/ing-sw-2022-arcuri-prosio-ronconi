@@ -1,26 +1,33 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.controller.GameMode;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class ClientGUIFirst extends Application implements Runnable {
+public class ClientGUIFirst extends Application implements Runnable{
     private ServerHandlerGUI serverHandlerGUI;
     private ClientGUI clientGUI;
     private Socket server;
     private static GuiView guiView;
+
 
     public static void main(String[] args){  launch(args);  }
 
@@ -118,13 +125,56 @@ public class ClientGUIFirst extends Application implements Runnable {
         return nickname.getText();
     }
 
+
+
     public void buttonSetNickname(ActionEvent event) throws IOException {
        String s = selectNickname();
-       //guiView.getNickname(s);
-       //serverHandlerGUI.forwardMessage(s);
+       guiView.getNickname(s);
+
+
+        root = FXMLLoader.load(getClass().getResource("/SetPreferences.fxml"));
+        scene = new Scene(root, 800, 530);
+        stage = new Stage();
+        stage.setTitle("Nickname");
+        stage.setScene(scene);
+        stage.show();
+
 
 
     }
+    public int numOfPlayersG;
+    public GameMode gameModeG;
 
+
+    @FXML
+    private RadioButton button2;
+    @FXML
+    private RadioButton button3;
+    @FXML
+    private RadioButton buttonEasy;
+    @FXML
+    private RadioButton buttonHard;
+
+
+
+    public boolean playersSelectedTwo(){
+        if(button2.isSelected()) return true;
+        return false;
+    }
+
+    public boolean gameModeSelectedEasy(){
+        if(buttonEasy.isSelected()) return true;
+        return false;
+    }
+
+
+    public void buttonClick(ActionEvent event) throws IOException{
+        if(playersSelectedTwo()) numOfPlayersG = 2; else numOfPlayersG = 3;
+        if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
+        guiView.getPreferences(numOfPlayersG, gameModeG);
+
+
+
+    }
 
 }
