@@ -2,8 +2,10 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
+import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -87,6 +89,10 @@ public class GuiView implements ViewInterface {
     public void getNickname(String s) {
       eventManager.notify(new SetNickname(s));
 
+    }
+
+    public void getPreferences(int players, GameMode mode){
+      eventManager.notify(new SetPreferences(players, mode));
     }
 
     @Override
