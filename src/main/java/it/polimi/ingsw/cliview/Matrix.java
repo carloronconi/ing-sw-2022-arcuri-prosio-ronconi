@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cliview;
 
+import it.polimi.ingsw.client.CliViewIdConverter;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TowerColor;
@@ -35,7 +36,7 @@ public class Matrix implements Serializable {
     }
 
     //islands - circular shape
-    public Matrix(HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, ArrayList<UUID> islandTiles, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
+    public Matrix(CliViewIdConverter converter, HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, ArrayList<UUID> islandTiles, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
 
         matrixType = "islands";
 
@@ -67,6 +68,12 @@ public class Matrix implements Serializable {
                 insertBanOnIsland(initialRow, initialColumn, banOnIslands.get(uuid));
 
                 insertTower(initialRow, initialColumn, islandOwners.get(uuid), colorPlayersTowers, islandsSize.get(uuid));
+
+                String islandName = converter.idToName(uuid, CliViewIdConverter.converterSetting.ISLAND);
+
+                insertName(initialRow, initialColumn, islandName);
+
+
 
 
             }
@@ -232,12 +239,22 @@ public class Matrix implements Serializable {
 
             for (int i=0; i<islandsSize; i++){
 
-                mat[3][columnIndexer+i].getBullet().setSymbol();
-                mat[3][columnIndexer+i].getBullet().setColor(Color.towerColorConverter(colorPlayersTowers.get(islandOwners)));
+                mat[initialRow+3][columnIndexer+i].getBullet().setSymbol();
+                mat[initialRow+3][columnIndexer+i].getBullet().setColor(Color.towerColorConverter(colorPlayersTowers.get(islandOwners)));
             }
 
         }
 
+
+    }
+
+    private void insertName(int initialRow, int initialColumn, String islandName){
+        int columnIndexer = initialColumn;
+
+        columnIndexer++;
+        for (int i=0; i<islandName.length(); i++){
+            mat[initialRow+1][columnIndexer+i].getBullet().setSymbol(String.valueOf(islandName.charAt(i)));
+        }
 
     }
 
