@@ -100,8 +100,8 @@ public class GameState implements Serializable, ModelEvent {
         return new HashMap<>(clouds);
     }
 
-    public HashMap<UUID, ArrayList<PawnColor>> getIslands() {
-        return new HashMap<>(islands);
+    public LinkedHashMap<UUID, ArrayList<PawnColor>> getIslands() {
+        return new LinkedHashMap<>(islands);
     }
 
     public HashMap<UUID, String> getNicknames() {
