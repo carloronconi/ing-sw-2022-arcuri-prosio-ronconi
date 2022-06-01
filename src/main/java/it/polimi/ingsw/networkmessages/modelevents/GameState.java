@@ -97,15 +97,30 @@ public class GameState implements Serializable, ModelEvent {
     }
 
     public HashMap<UUID, ArrayList<PawnColor>> getClouds() {
-        return clouds;
+        return new HashMap<>(clouds);
     }
 
     public HashMap<UUID, ArrayList<PawnColor>> getIslands() {
-        return islands;
+        return new HashMap<>(islands);
     }
 
     public HashMap<UUID, String> getNicknames() {
-        return nicknames;
+        return new HashMap<>(nicknames);
+    }
+
+    public HashMap<AvailableCharacter, ArrayList<PawnColor>> getCharacterCardsStudents() {
+        return new HashMap<>(characterCardsStudents);
+    }
+    public LinkedHashMap<UUID, Boolean> getBanOnIslands() {
+        return new LinkedHashMap<>(banOnIslands);
+    }
+
+    public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances() {
+        return new HashMap<>(entrances);
+    }
+
+    public HashMap<UUID, EnumMap<PawnColor, Integer>> getDiningRooms() {
+        return new HashMap<>(diningRooms);
     }
 
     @Override

@@ -4,18 +4,14 @@ import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.charactercards.AvailableCharacter;
-import it.polimi.ingsw.model.charactercards.ColorSwap;
-import it.polimi.ingsw.model.charactercards.SwapperCharacter;
+import it.polimi.ingsw.model.charactercards.*;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class CliView implements ViewInterface {
     private final EventManager<ViewEvent> eventManager;
@@ -259,36 +255,38 @@ public class CliView implements ViewInterface {
         UUID player = null;
         ArrayList<ColorSwap> colorSwaps = null;
 
-        InputParser colorInputParser = new InputParser() {
-            @Override
-            public boolean isStringAccepted(String input) {
-                try{
-                    PawnColor col = PawnColor.valueOf(input.toUpperCase());
-                    return true;
-                } catch (IllegalArgumentException e){
-                    return false;
-                }
+        InputParser colorInputParser = input -> {
+            try{
+                PawnColor col = PawnColor.valueOf(input.toUpperCase());
+                return true;
+            } catch (IllegalArgumentException e){
+                return false;
             }
         };
 
         if (EffectWithColor.class.isAssignableFrom(characterClass)){
-            String text = askUserInput("Select a color for the character effect:", colorInputParser);
+            String text = askUserInput("Select a color for the character effect:", input -> {
+                try {
+                    PawnColor col = PawnColor.valueOf(input.toUpperCase());
+                    if(Monk.class.isAssignableFrom(characterClass)){
+                        return gameState.getCharacterCardsStudents().get(AvailableCharacter.MONK).contains(col);
+                    }
+                    if (Princess.class.isAssignableFrom(characterClass)){
+                        return gameState.getCharacterCardsStudents().get(AvailableCharacter.PRINCESS).contains(col);
+                    }
+                    return true;
+                } catch (IllegalArgumentException e){
+                    return false;
+                }
+            });
 
             color = PawnColor.valueOf(text.toUpperCase());
         }
         if (EffectWithIsland.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select an island for the character effect:", s->{
-                /*
-                ArrayList<UUID> islandIds = new ArrayList<>(gameState.getIslands().keySet());
-                UUID uuid = null;
-                try{
-                    uuid = UUID.fromString(s);
-                } catch (IllegalArgumentException e){
-                    return false;
-                }
-
-                return islandIds.contains(uuid);*/
-                return converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND)!=null;
+                UUID isl = converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND);
+                if (Witch.class.isAssignableFrom(characterClass)) return !gameState.getBanOnIslands().get(isl);
+                return isl!=null;
             });
 
             //island = UUID.fromString(text);
@@ -299,16 +297,52 @@ public class CliView implements ViewInterface {
             colorSwaps = new ArrayList<>();
             //int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
             int maxSwaps = forCharacter.getMaxColorSwaps();
+
+            EnumMap<PawnColor, Integer> entrance = gameState.getEntrances().get(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER));
+            EnumMap<PawnColor, Integer> dining = gameState.getDiningRooms().get(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER));
+            ArrayList<PawnColor> juggler = gameState.getCharacterCardsStudents().get(AvailableCharacter.JUGGLER);
+
             for (int i = 0; i<maxSwaps; i++){
                 String num = String.valueOf(i+1);
                 String mess = "Do you want to set the " + num + " color swap (Y) or skip (N)? You have " + maxSwaps + " total swaps.";
                 String again = askUserInput(mess, s->s.equalsIgnoreCase("Y")||s.equalsIgnoreCase("N"));
                 if (again.equalsIgnoreCase("N")) break;
 
-                String giveText = askUserInput("Select color to be given for the character effect:", colorInputParser);
+                String giveText = askUserInput("Select color to be given from your entrance for the character effect:", input ->{
+                    try{
+                        PawnColor col = PawnColor.valueOf(input.toUpperCase());
+                        if (entrance.containsKey(col) && entrance.get(col)>0) {
+                            entrance.put(col, entrance.get(col)-1);
+                            return true;
+                        }
+                        else return false;
+                    } catch (IllegalArgumentException e){
+                        return false;
+                    }
+                });
                 PawnColor giveColor = PawnColor.valueOf(giveText.toUpperCase());
 
-                String takeText = askUserInput("Select color to be taken for the character effect:", colorInputParser);
+                String takeText = askUserInput("Select color to be taken to your entrance for the character effect:", input -> {
+                    try{
+                        PawnColor col = PawnColor.valueOf(input.toUpperCase());
+                        if (Juggler.class.isAssignableFrom(characterClass)){
+                            if (juggler.contains(col)){
+                                juggler.remove(col);
+                                return true;
+                            }
+                            else return false;
+                        } else { //musician
+                            if (dining.containsKey(col) && dining.get(col)>0) {
+                                dining.put(col, dining.get(col)-1);
+                                return true;
+                            }
+                            else return false;
+                        }
+                    } catch (IllegalArgumentException e){
+                        return false;
+                    }
+                });
+
                 PawnColor takeColor = PawnColor.valueOf(takeText.toUpperCase());
 
                 colorSwaps.add(new ColorSwap(giveColor, takeColor));
