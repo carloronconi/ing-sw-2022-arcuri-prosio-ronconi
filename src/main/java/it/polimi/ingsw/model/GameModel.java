@@ -92,7 +92,7 @@ public class GameModel {
     /**
      * Updates the correspondence between teachers and players in professorManager
      */
-    private void updateProfessorManager(){
+    public void updateProfessorManager(){
 
         Player supportPlayer =null;
         for(PawnColor pawnColor : PawnColor.values()){

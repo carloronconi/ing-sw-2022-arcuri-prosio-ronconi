@@ -350,6 +350,9 @@ public class CliView implements ViewInterface {
 
         }
 
+        while (colorSwaps.size()> forCharacter.getMaxColorSwaps()){
+            colorSwaps.remove(colorSwaps.size()-1);
+        }
         eventManager.notify(new SetCharacterSettings(color, player, island, colorSwaps));
 
     }

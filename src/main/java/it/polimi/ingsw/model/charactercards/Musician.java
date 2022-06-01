@@ -40,6 +40,7 @@ public class Musician extends SwapperCharacter implements EffectWithPlayer {
         for(ColorSwap cs: colorSwaps) entrance.swapStudent(diningRoom, cs.getGive(), cs.getTake());
         if(!isCostIncreased()) increaseCost();
         player = null;
+        gameModel.updateProfessorManager();
         if (gameModel!=null) gameModel.notifyListeners();
     }
 
