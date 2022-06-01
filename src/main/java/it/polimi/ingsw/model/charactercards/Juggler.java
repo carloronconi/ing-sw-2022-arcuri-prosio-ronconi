@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.ConverterUtility;
+import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
@@ -16,6 +17,7 @@ import java.util.stream.IntStream;
 public class Juggler extends SwapperCharacter implements EffectWithPlayer {
     private static final CharacterStudentCounter studentCounter = new CharacterStudentCounter();
     private UUID player;
+    private GameModel gameModel;
 
     private static final int maxColorSwaps = 3;
 
@@ -24,8 +26,9 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
      * @param players needed for special effect
      * @param bag needed to draw students
      */
-    public Juggler(Bag bag, List<Player> players) {
+    public Juggler(Bag bag, List<Player> players, GameModel gameModel) {
         super(AvailableCharacter.JUGGLER.getInitialCost(), players, maxColorSwaps);
+        this.gameModel = gameModel;
         IntStream.range(0,6).forEach(i -> studentCounter.takeStudentFrom(bag));
     }
 
@@ -41,6 +44,7 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());
         if (!isCostIncreased()) increaseCost();
         player = null;
+        if (gameModel!=null) gameModel.notifyListeners();
     }
 
     /**

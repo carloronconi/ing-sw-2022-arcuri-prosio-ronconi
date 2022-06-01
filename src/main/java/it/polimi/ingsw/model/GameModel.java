@@ -582,4 +582,8 @@ public class GameModel {
 
         return list;
     }
+
+    public void notifyListeners(){
+        eventManager.notify(new GameState(this));
+    }
 }

@@ -49,10 +49,10 @@ public class CharacterFactory {
             case MESSENGER: return new Messenger(gameModel);
             case WITCH: return new Witch(islandManager);
             case CENTAUR: return new Centaur(islandManager);
-            case JUGGLER: return new Juggler(bag, players);
+            case JUGGLER: return new Juggler(bag, players, gameModel);
             case KNIGHT: return new Knight(islandManager, players);
             case MUSHROOMMERCHANT: return new MushroomMerchant(islandManager);
-            case MUSICIAN: return new Musician(players);
+            case MUSICIAN: return new Musician(players, gameModel);
             case PRINCESS: return new Princess(bag, players);
             case USURER: return new Usurer(players, bag);
             default: throw new EnumConstantNotPresentException(AvailableCharacter.class, "other");

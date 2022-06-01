@@ -1,11 +1,14 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.EventListener;
+import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
 import it.polimi.ingsw.model.studentmanagers.Entrance;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,7 +36,7 @@ public class JugglerTest {
         List<Player> players = new ArrayList<>();
         players.add(player);
 
-        juggler = new Juggler(bag, players);
+        juggler = new Juggler(bag, players, null);
 
         assertEquals(1, juggler.getCurrentCost());
         assertFalse(juggler.isCostIncreased());

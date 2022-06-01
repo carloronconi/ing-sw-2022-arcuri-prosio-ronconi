@@ -33,7 +33,7 @@ public class MusicianTest {
 
         players.add(player);
 
-        musician = new Musician(players);
+        musician = new Musician(players, null);
 
         assertEquals(123, bag.count());
         assertEquals(1, players.size());
