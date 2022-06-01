@@ -345,8 +345,8 @@ public class GameModel {
         Character c = characters.get(characterIndex);
 
         if (isCharacterCardIllegal(player, character)) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
-        p.payCoins(c.getCost());
-        bank+=c.getCost();
+        p.payCoins(c.getCurrentCost());
+        bank+=c.getCurrentCost();
         eventManager.notify(new GameState(this));
         return c;
 
@@ -363,7 +363,7 @@ public class GameModel {
         if (characterIndex == -1) throw new NoSuchFieldException();
         Character c = characters.get(characterIndex);
 
-        return (p.getNumOfCoins()<c.getCost()) ;
+        return (p.getNumOfCoins()<c.getCurrentCost()) ;
     }
 
     /*
