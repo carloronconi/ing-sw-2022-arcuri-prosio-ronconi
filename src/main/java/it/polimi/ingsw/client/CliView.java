@@ -61,7 +61,7 @@ public class CliView implements ViewInterface {
     public void chooseCharacter() {
 
         String textualCharacter = askUserInput("Choose a character card or write NO:", s->{
-            if (s.equals("NO")) return true;
+            if (s.equalsIgnoreCase("NO")) return true;
             try{
                 AvailableCharacter c = AvailableCharacter.valueOf(s.toUpperCase());
                 return true;
@@ -144,7 +144,7 @@ public class CliView implements ViewInterface {
     public void getPreferences() {
         String text = askUserInput("Easy or hard? (E/H)", s-> (s.equals("E") || s.equals("H")));
 
-        GameMode gameMode = text.equals("H")? GameMode.HARD : GameMode.EASY;
+        GameMode gameMode = text.equalsIgnoreCase("H")? GameMode.HARD : GameMode.EASY;
 
         String numString = askUserInput("Number of players?", s->(s.equals("2") || s.equals("3")));
 
