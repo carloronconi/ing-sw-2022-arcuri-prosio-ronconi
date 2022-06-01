@@ -14,11 +14,9 @@ import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Juggler;
 import it.polimi.ingsw.model.charactercards.Monk;
 import it.polimi.ingsw.model.charactercards.Princess;
-import it.polimi.ingsw.model.studentmanagers.IslandTile;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GameState implements Serializable, ModelEvent {
     private final int bag;
@@ -158,8 +156,19 @@ public class GameState implements Serializable, ModelEvent {
 
         if (characterCards != null){
             sb.append("\ncharacters:       ");
+            for (Map.Entry<AvailableCharacter, Boolean> character :characterCards.entrySet()){
+                sb.append(character.getKey() + ": initial cost = " + character.getKey().getInitialCost() + " | increased = "+ character.getValue());
+                if (characterCardsStudents.containsKey(character.getKey())){
+                    sb.append(" | students = ");
+                    for (PawnColor color : characterCardsStudents.get(character.getKey())){
+                        sb.append(new Bullet(Color.pawnColorConverter(color)));
+                        sb.append(" ");
+                    }
+                }
+                sb.append("\n                  ");
+            }/*
             sb.append(characterCards + " ");
-            sb.append(characterCardsStudents + "\n");
+            sb.append(characterCardsStudents + "\n");*/
         }
 
         /*
@@ -198,6 +207,7 @@ public class GameState implements Serializable, ModelEvent {
 
             Matrix matrix = new Matrix(nicknames.size(), numOfTowersUsed.get(player), player, colorPlayersTowers.get(player), entrances.get(player), diningRooms.get(player), professorOwners);
             sb.append(matrix.toString());
+            sb.append("\n");
         }
 
         return sb.toString();
