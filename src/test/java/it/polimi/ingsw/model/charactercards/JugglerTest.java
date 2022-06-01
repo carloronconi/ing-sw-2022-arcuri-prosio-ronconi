@@ -35,7 +35,7 @@ public class JugglerTest {
 
         juggler = new Juggler(bag, players);
 
-        assertEquals(1, juggler.getCost());
+        assertEquals(1, juggler.getCurrentCost());
         assertFalse(juggler.isCostIncreased());
         assertEquals(117, bag.count());
         assertEquals(AvailableCharacter.JUGGLER, juggler.getValue());
@@ -75,7 +75,7 @@ public class JugglerTest {
             fail();
         }
 
-        assertEquals(2, juggler.getCost());
+        assertEquals(2, juggler.getCurrentCost());
         assertEquals(numStudentsTake+1, player.getEntrance().count(colorTake));
         assertEquals(numStudentsGive-1, player.getEntrance().count(colorGive));
         assertTrue(juggler.isCostIncreased());

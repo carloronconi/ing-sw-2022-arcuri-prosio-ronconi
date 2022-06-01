@@ -19,7 +19,7 @@ public class MushroomMerchantTest {
         IslandManager islandManager = new IslandManager(bag, professorManager);
         mushroomMerchant = new MushroomMerchant(islandManager);
 
-        assertEquals(3, mushroomMerchant.getCost());
+        assertEquals(3, mushroomMerchant.getCurrentCost());
         assertFalse(mushroomMerchant.isCostIncreased());
         assertEquals(AvailableCharacter.MUSHROOMMERCHANT, mushroomMerchant.getValue());
     }

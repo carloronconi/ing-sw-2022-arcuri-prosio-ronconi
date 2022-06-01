@@ -30,7 +30,7 @@ public class Monk extends Character implements EffectWithColor, EffectWithIsland
      * @param islandManager needed to move student to island when effect is used
      */
     protected Monk(Bag bag, IslandManager islandManager) {
-        super(1);
+        super(AvailableCharacter.MONK.getInitialCost());
         this.bag = bag;
         this.islandManager = islandManager;
         IntStream.range(0,4).forEach(i -> studentCounter.takeStudentFrom(bag));

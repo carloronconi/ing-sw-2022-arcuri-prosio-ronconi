@@ -4,14 +4,12 @@ import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
-import java.util.UUID;
-
 public class MushroomMerchant extends Character implements EffectWithColor {
     private final IslandManager islandManager;
     private PawnColor color;
 
     public MushroomMerchant(IslandManager islandManager) {
-        super(3);
+        super(AvailableCharacter.MUSHROOMMERCHANT.getInitialCost());
         this.islandManager = islandManager;
     }
 

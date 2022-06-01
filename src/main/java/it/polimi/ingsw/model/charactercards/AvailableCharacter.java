@@ -5,26 +5,32 @@ import it.polimi.ingsw.model.PawnColor;
 import java.util.ArrayList;
 
 public enum AvailableCharacter {
-    MONK(Monk.class),
-    CHEESEMERCHANT(CheeseMerchant.class),
-    FLAGBEARER(FlagBearer.class),
-    MESSENGER(Messenger.class),
-    WITCH(Witch.class),
-    CENTAUR(Centaur.class),
-    JUGGLER(Juggler.class),
-    KNIGHT(Knight.class),
-    MUSHROOMMERCHANT(MushroomMerchant.class),
-    MUSICIAN(Musician.class),
-    PRINCESS(Princess.class),
-    USURER(Usurer.class);
+    MONK(Monk.class, 1),
+    CHEESEMERCHANT(CheeseMerchant.class, 2),
+    FLAGBEARER(FlagBearer.class, 3),
+    MESSENGER(Messenger.class, 1),
+    WITCH(Witch.class, 2),
+    CENTAUR(Centaur.class, 3),
+    JUGGLER(Juggler.class, 1),
+    KNIGHT(Knight.class, 2),
+    MUSHROOMMERCHANT(MushroomMerchant.class, 3),
+    MUSICIAN(Musician.class, 1),
+    PRINCESS(Princess.class, 2),
+    USURER(Usurer.class, 3);
 
-    private Class<?> characterClass;
-    private AvailableCharacter(Class<?> characterClass){
+    private final Class<? extends Character> characterClass;
+    private int initialCost;
+    AvailableCharacter(Class<? extends Character> characterClass, int initialCost){
         this.characterClass = characterClass;
+        this.initialCost = initialCost;
     }
 
-    public Class<?> getCharacterClass() {
+    public Class<? extends Character> getCharacterClass() {
         return characterClass;
+    }
+
+    public int getInitialCost() {
+        return initialCost;
     }
 
     public int getMaxColorSwaps(){

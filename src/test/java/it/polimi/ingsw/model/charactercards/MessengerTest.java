@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.charactercards;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +49,7 @@ public class MessengerTest {
         Messenger messenger = new Messenger(gameModel);
 
         assertFalse(messenger.isCostIncreased());
-        assertEquals(1, messenger.getCost());
+        assertEquals(1, messenger.getCurrentCost());
         assertEquals(AvailableCharacter.MESSENGER, messenger.getValue());
 
 

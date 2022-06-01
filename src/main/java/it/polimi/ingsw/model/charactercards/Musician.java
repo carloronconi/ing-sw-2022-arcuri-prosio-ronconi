@@ -1,8 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.ConverterUtility;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
@@ -20,7 +18,7 @@ public class Musician extends SwapperCharacter implements EffectWithPlayer {
      * @param players needed for special effect
      */
     public Musician(List<Player> players) {
-        super(1, players, maxColorSwaps);
+        super(AvailableCharacter.MUSICIAN.getInitialCost(), players, maxColorSwaps);
     }
 
     /**

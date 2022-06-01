@@ -4,12 +4,8 @@ import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.DiningRoom;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.IntStream;
 
 public class Usurer extends Character implements EffectWithColor {
     private final List<Player> players;
@@ -17,7 +13,7 @@ public class Usurer extends Character implements EffectWithColor {
     private PawnColor color;
 
     public Usurer(List<Player> players, Bag bag) {
-        super(3);
+        super(AvailableCharacter.USURER.getInitialCost());
         this.players = players;
         this.bag = bag;
     }

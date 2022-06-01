@@ -30,7 +30,7 @@ public class PrincessTest {
         players.add(player);
         princess = new Princess(bag, players);
 
-        assertEquals(2, princess.getCost());
+        assertEquals(2, princess.getCurrentCost());
         assertFalse(princess.isCostIncreased());
         assertEquals(119, bag.count());
         assertEquals(AvailableCharacter.PRINCESS, princess.getValue());

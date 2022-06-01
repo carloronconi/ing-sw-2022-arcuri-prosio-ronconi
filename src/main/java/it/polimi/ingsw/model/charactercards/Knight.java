@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.ConverterUtility;
-import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
@@ -15,7 +14,7 @@ public class Knight extends Character implements EffectWithPlayer {
     private UUID player;
 
     public Knight(IslandManager islandManager, List<Player> players) {
-        super(2);
+        super(AvailableCharacter.KNIGHT.getInitialCost());
         this.islandManager = islandManager;
         this.players = players;
     }

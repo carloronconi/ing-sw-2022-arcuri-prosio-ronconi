@@ -22,7 +22,7 @@ public class Princess extends Character implements EffectWithPlayer, EffectWithC
     private PawnColor color;
 
     public Princess(Bag bag, List<Player> players) {
-        super(2);
+        super(AvailableCharacter.PRINCESS.getInitialCost());
         this.bag = bag;
         this.players = players;
         IntStream.range(0, 4).forEach(i -> studentCounter.takeStudentFrom(bag));
