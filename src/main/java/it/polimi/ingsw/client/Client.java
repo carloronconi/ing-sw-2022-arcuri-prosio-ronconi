@@ -31,12 +31,12 @@ public class Client implements Runnable {
         Socket server;
         while(true){
             System.out.println("IP address of server?");
-            //String ip = scanner.nextLine();
-            String ip = "localhost";
+            String ip = scanner.nextLine();
+            //String ip = "localhost";
 
             System.out.println("Server port?");
-            //int socketPort = Integer.parseInt(scanner.nextLine());
-            int socketPort = 4999;
+            int socketPort = Integer.parseInt(scanner.nextLine());
+            //int socketPort = 4999;
 
             try {
                 server = new Socket(ip, socketPort);
