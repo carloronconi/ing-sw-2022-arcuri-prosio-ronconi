@@ -70,7 +70,7 @@ public class CliView implements ViewInterface {
             }
         });
 
-        if (textualCharacter.equals("NO")){
+        if (textualCharacter.equalsIgnoreCase("NO")){
             eventManager.notify(new ChosenCharacter(null));
             return;
         }
