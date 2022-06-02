@@ -97,7 +97,7 @@ public class GameState implements Serializable, ModelEvent {
     }
 
     public HashMap<UUID, ArrayList<PawnColor>> getClouds() {
-        return new HashMap<>(clouds);
+        return new LinkedHashMap<>(clouds);
     }
 
     public LinkedHashMap<UUID, ArrayList<PawnColor>> getIslands() {
