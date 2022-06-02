@@ -7,18 +7,29 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.sql.PseudoColumnUsage;
 import java.util.ResourceBundle;
 
 
@@ -167,14 +178,23 @@ public class ClientGUIFirst extends Application implements Runnable{
         return false;
     }
 
-
     public void buttonClick(ActionEvent event) throws IOException{
         if(playersSelectedTwo()) numOfPlayersG = 2; else numOfPlayersG = 3;
         if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
         guiView.getPreferences(numOfPlayersG, gameModeG);
 
+        root = FXMLLoader.load(getClass().getResource("/GameBoard.fxml"));
+
+        scene = new Scene(root, 1300, 900);
+        stage = new Stage();
+        stage.setTitle("Game Board");
+        stage.setScene(scene);
+        stage.show();
+
 
 
     }
+
+
 
 }
