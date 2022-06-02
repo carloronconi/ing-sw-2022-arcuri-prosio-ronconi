@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="168.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
+<AnchorPane prefHeight="168.0" prefWidth="267.0" style="-fx-background-color: #6abade;"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
    <children>
       <Label layoutX="14.0" layoutY="53.0" text="Server IP" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="53.0" />
       <Label layoutX="14.0" layoutY="93.0" text="Port" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="93.0" />

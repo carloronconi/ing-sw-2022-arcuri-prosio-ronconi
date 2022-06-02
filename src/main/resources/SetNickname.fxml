@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6abade;"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
    <children>
       <Button layoutX="443.0" layoutY="336.0" mnemonicParsing="false" text="SET  NICKNAME"
               onAction="#buttonSetNickname"
