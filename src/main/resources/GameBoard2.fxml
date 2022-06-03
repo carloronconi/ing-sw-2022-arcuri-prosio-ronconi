@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gameBoardController">
+    <children>
+        <VBox fx:id="vbox" prefHeight="900.0" prefWidth="1584.0">
+            <children>
+                <Pane fx:id="boardPane">
+                    <children>
+                        <Group fx:id="rectangleGroup">
+                            <children>
+                                <Pane fx:id="row0">
+                                    <children>
+                                        <Rectangle fx:id="sq0_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq1_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq2_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq3_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq4_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq5_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq6_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq7_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq8_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq9_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq10_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="116.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile2.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="404.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile3.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="692.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile1.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="980.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile2.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1261.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile3.png" />
+                                 </image>
+                              </ImageView>
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="Row1" layoutY="180.0">
+                                    <children>
+                                        <Rectangle fx:id="sq0_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq1_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq2_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq3_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq4_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq5_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq6_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq7_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq8_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq9_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq10_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                              <ImageView fitHeight="146.0" fitWidth="174.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile1.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1396.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile1.png" />
+                                 </image>
+                              </ImageView>
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="row2" layoutY="360.0">
+                                    <children>
+                                        <Rectangle fx:id="sq0_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq1_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq2_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq3_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq4_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq5_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq6_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
+                                        <Rectangle fx:id="sq7_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq8_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq9_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq10_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1268.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile2.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="980.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile3.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="702.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile1.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="404.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile2.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="126.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@tile3.png" />
+                                 </image>
+                              </ImageView>
+                                    </children>
+                                </Pane>
+
+                            </children>
+                        </Group>
+
+                    </children>
+
+                </Pane>
+                <Pane fx:id="schoolBoard" prefHeight="361.0" prefWidth="1556.0" style="-fx-background-color: #6abade;">
+                    <children>
+                        <Group fx:id="squaresGroup">
+                            <children>
+                                <Pane fx:id="firstRow" layoutY="65.0" prefHeight="50.0" prefWidth="1556.0">
+                                    <children>
+                                        <Rectangle fx:id="tile00" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" width="59.0" />
+                                        <Rectangle fx:id="tile01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="64.0" width="59.0" />
+                                        <Rectangle fx:id="tile02" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="144.0" width="33.0" />
+                                        <Rectangle fx:id="tile03" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="177.0" width="40.0" />
+                                        <Rectangle fx:id="tile04" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="215.0" width="40.0" />
+                                        <Rectangle fx:id="tile05" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="253.0" width="33.0" />
+                                        <Rectangle fx:id="tile06" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="292.0" width="33.0" />
+                                        <Rectangle fx:id="tile07" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="326.0" width="40.0" />
+                                        <Rectangle fx:id="tile08" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="366.0" width="33.0" />
+                                        <Rectangle fx:id="tile09" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="401.0" width="33.0" />
+                                        <Rectangle fx:id="tile010" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="441.0" width="33.0" />
+                                        <Rectangle fx:id="tile011" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="475.0" width="33.0" />
+                                        <Rectangle fx:id="tile012" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="532.0" width="68.0" />
+                                        <Rectangle fx:id="tile013" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="615.0" width="68.0" />
+                                        <Rectangle fx:id="tile014" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="692.0" width="59.0" />
+                                        <Rectangle fx:id="tile015" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="827.0" width="47.0" />
+                                        <Rectangle fx:id="tile016" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="877.0" width="47.0" />
+                                        <Rectangle fx:id="tile017" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="949.0" width="40.0" />
+                                        <Rectangle fx:id="tile018" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="988.0" width="40.0" />
+                                        <Rectangle fx:id="tile019" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1024.0" width="40.0" />
+                                        <Rectangle fx:id="tile020" arcHeight="5.0" arcWidth="5.0" fill="#6adabe" height="50.0" layoutX="1063.0" width="33.0" />
+                                        <Rectangle fx:id="tile021" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1104.0" width="27.0" />
+                                        <Rectangle fx:id="tile022" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1135.0" width="40.0" />
+                                        <Rectangle fx:id="tile023" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1176.0" width="33.0" />
+                                        <Rectangle fx:id="tile024" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1211.0" width="33.0" />
+                                        <Rectangle fx:id="tile025" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1250.0" width="33.0" />
+                                        <Rectangle fx:id="tile026" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1286.0" width="40.0" />
+                                        <Rectangle fx:id="tile027" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1350.0" width="59.0" />
+                                        <Rectangle fx:id="tile028" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1430.0" width="59.0" />
+                                        <Rectangle fx:id="tile029" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1493.0" width="59.0" />
+
+
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="secondRow" layoutY="115.0" prefHeight="55.0" prefWidth="1556.0">
+                                    <children>
+                                        <Rectangle fx:id="tile10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" width="59.0" />
+                                        <Rectangle fx:id="tile11" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="64.0" width="59.0" />
+                                        <Rectangle fx:id="tile12" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="144.0" width="33.0" />
+                                        <Rectangle fx:id="tile13" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="177.0" width="40.0" />
+                                        <Rectangle fx:id="tile14" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="215.0" width="40.0" />
+                                        <Rectangle fx:id="tile15" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="253.0" width="33.0" />
+                                        <Rectangle fx:id="tile16" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="292.0" width="33.0" />
+                                        <Rectangle fx:id="tile17" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="326.0" width="40.0" />
+                                        <Rectangle fx:id="tile18" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="366.0" width="33.0" />
+                                        <Rectangle fx:id="tile19" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="401.0" width="33.0" />
+                                        <Rectangle fx:id="tile110" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="441.0" width="33.0" />
+                                        <Rectangle fx:id="tile111" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="475.0" width="33.0" />
+                                        <Rectangle fx:id="tile112" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="532.0" width="68.0" />
+                                        <Rectangle fx:id="tile113" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="615.0" width="68.0" />
+                                        <Rectangle fx:id="tile114" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="692.0" width="59.0" />
+                                        <Rectangle fx:id="tile115" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="827.0" width="47.0" />
+                                        <Rectangle fx:id="tile116" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="877.0" width="47.0" />
+                                        <Rectangle fx:id="tile117" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="949.0" width="40.0" />
+                                        <Rectangle fx:id="tile118" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="988.0" width="40.0" />
+                                        <Rectangle fx:id="tile119" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1024.0" width="40.0" />
+                                        <Rectangle fx:id="tile120" arcHeight="5.0" arcWidth="5.0" fill="#6adabe" height="50.0" layoutX="1063.0" width="33.0" />
+                                        <Rectangle fx:id="tile121" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1104.0" width="27.0" />
+                                        <Rectangle fx:id="tile122" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1135.0" width="40.0" />
+                                        <Rectangle fx:id="tile123" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1176.0" width="33.0" />
+                                        <Rectangle fx:id="tile124" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1211.0" width="33.0" />
+                                        <Rectangle fx:id="tile125" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1250.0" width="33.0" />
+                                        <Rectangle fx:id="tile126" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1286.0" width="40.0" />
+                                        <Rectangle fx:id="tile127" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1350.0" width="59.0" />
+                                        <Rectangle fx:id="tile128" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1430.0" width="59.0" />
+                                        <Rectangle fx:id="tile129" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1493.0" width="59.0" />
+
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="thirdRow" layoutY="170.0" prefHeight="55.0" prefWidth="1556.0">
+                                    <children>
+                                        <Rectangle fx:id="tile20" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" width="59.0" />
+                                        <Rectangle fx:id="tile21" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="64.0" width="59.0" />
+                                        <Rectangle fx:id="tile22" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="144.0" width="33.0" />
+                                        <Rectangle fx:id="tile23" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="177.0" width="40.0" />
+                                        <Rectangle fx:id="tile24" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="215.0" width="40.0" />
+                                        <Rectangle fx:id="tile25" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="253.0" width="33.0" />
+                                        <Rectangle fx:id="tile26" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="292.0" width="33.0" />
+                                        <Rectangle fx:id="tile27" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="326.0" width="40.0" />
+                                        <Rectangle fx:id="tile28" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="366.0" width="33.0" />
+                                        <Rectangle fx:id="tile29" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="401.0" width="33.0" />
+                                        <Rectangle fx:id="tile210" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="441.0" width="33.0" />
+                                        <Rectangle fx:id="tile211" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="475.0" width="33.0" />
+                                        <Rectangle fx:id="tile212" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="532.0" width="68.0" />
+                                        <Rectangle fx:id="tile213" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="615.0" width="68.0" />
+                                        <Rectangle fx:id="tile214" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="692.0" width="59.0" />
+                                        <Rectangle fx:id="tile215" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="827.0" width="47.0" />
+                                        <Rectangle fx:id="tile216" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="877.0" width="47.0" />
+                                        <Rectangle fx:id="tile217" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="949.0" width="40.0" />
+                                        <Rectangle fx:id="tile218" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="988.0" width="40.0" />
+                                        <Rectangle fx:id="tile219" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1024.0" width="40.0" />
+                                        <Rectangle fx:id="tile220" arcHeight="5.0" arcWidth="5.0" fill="#6adabe" height="50.0" layoutX="1063.0" width="33.0" />
+                                        <Rectangle fx:id="tile221" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1104.0" width="27.0" />
+                                        <Rectangle fx:id="tile222" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1135.0" width="40.0" />
+                                        <Rectangle fx:id="tile223" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1176.0" width="33.0" />
+                                        <Rectangle fx:id="tile224" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1211.0" width="33.0" />
+                                        <Rectangle fx:id="tile225" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1250.0" width="33.0" />
+                                        <Rectangle fx:id="tile226" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1286.0" width="40.0" />
+                                        <Rectangle fx:id="tile227" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1350.0" width="59.0" />
+                                        <Rectangle fx:id="tile228" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1430.0" width="59.0" />
+                                        <Rectangle fx:id="tile229" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1493.0" width="59.0" />
+
+
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="fourthRow" layoutY="225.0" prefHeight="55.0" prefWidth="1556.0">
+                                    <children>
+                                        <Rectangle fx:id="tile30" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" width="59.0" />
+                                        <Rectangle fx:id="tile31" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="64.0" width="59.0" />
+                                        <Rectangle fx:id="tile32" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="144.0" width="33.0" />
+                                        <Rectangle fx:id="tile33" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="177.0" width="40.0" />
+                                        <Rectangle fx:id="tile34" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="215.0" width="40.0" />
+                                        <Rectangle fx:id="tile35" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="253.0" width="33.0" />
+                                        <Rectangle fx:id="tile36" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="292.0" width="33.0" />
+                                        <Rectangle fx:id="tile37" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="326.0" width="40.0" />
+                                        <Rectangle fx:id="tile38" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="366.0" width="33.0" />
+                                        <Rectangle fx:id="tile39" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="401.0" width="33.0" />
+                                        <Rectangle fx:id="tile310" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="441.0" width="33.0" />
+                                        <Rectangle fx:id="tile311" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="475.0" width="33.0" />
+                                        <Rectangle fx:id="tile312" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="532.0" width="68.0" />
+                                        <Rectangle fx:id="tile313" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="615.0" width="68.0" />
+                                        <Rectangle fx:id="tile314" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="692.0" width="59.0" />
+                                        <Rectangle fx:id="tile315" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="827.0" width="47.0" />
+                                        <Rectangle fx:id="tile316" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="877.0" width="47.0" />
+                                        <Rectangle fx:id="tile317" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="949.0" width="40.0" />
+                                        <Rectangle fx:id="tile318" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="988.0" width="40.0" />
+                                        <Rectangle fx:id="tile319" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1024.0" width="40.0" />
+                                        <Rectangle fx:id="tile320" arcHeight="5.0" arcWidth="5.0" fill="#6adabe" height="50.0" layoutX="1063.0" width="33.0" />
+                                        <Rectangle fx:id="tile321" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1104.0" width="27.0" />
+                                        <Rectangle fx:id="tile322" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1135.0" width="40.0" />
+                                        <Rectangle fx:id="tile323" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1176.0" width="33.0" />
+                                        <Rectangle fx:id="tile324" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1211.0" width="33.0" />
+                                        <Rectangle fx:id="tile325" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1250.0" width="33.0" />
+                                        <Rectangle fx:id="tile326" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1286.0" width="40.0" />
+                                        <Rectangle fx:id="tile327" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1350.0" width="59.0" />
+                                        <Rectangle fx:id="tile328" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1430.0" width="59.0" />
+                                        <Rectangle fx:id="tile329" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1493.0" width="59.0" />
+
+
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="fifthRow" layoutY="280.0" prefHeight="55.0" prefWidth="1556.0">
+                                    <children>
+                                        <Rectangle fx:id="tile40" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" width="59.0" />
+                                        <Rectangle fx:id="tile41" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="64.0" width="59.0" />
+                                        <Rectangle fx:id="tile42" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="144.0" width="33.0" />
+                                        <Rectangle fx:id="tile43" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="177.0" width="40.0" />
+                                        <Rectangle fx:id="tile44" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="215.0" width="40.0" />
+                                        <Rectangle fx:id="tile45" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="253.0" width="33.0" />
+                                        <Rectangle fx:id="tile46" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="292.0" width="33.0" />
+                                        <Rectangle fx:id="tile47" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="326.0" width="40.0" />
+                                        <Rectangle fx:id="tile48" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="366.0" width="33.0" />
+                                        <Rectangle fx:id="tile49" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="401.0" width="33.0" />
+                                        <Rectangle fx:id="tile410" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="441.0" width="33.0" />
+                                        <Rectangle fx:id="tile411" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="475.0" width="33.0" />
+                                        <Rectangle fx:id="tile412" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="532.0" width="68.0" />
+                                        <Rectangle fx:id="tile413" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="615.0" width="68.0" />
+                                        <Rectangle fx:id="tile414" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="692.0" width="59.0" />
+                                        <Rectangle fx:id="tile415" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="827.0" width="47.0" />
+                                        <Rectangle fx:id="tile416" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="877.0" width="47.0" />
+                                        <Rectangle fx:id="tile417" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="949.0" width="40.0" />
+                                        <Rectangle fx:id="tile418" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="988.0" width="40.0" />
+                                        <Rectangle fx:id="tile419" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1024.0" width="40.0" />
+                                        <Rectangle fx:id="tile420" arcHeight="5.0" arcWidth="5.0" fill="#6adabe" height="50.0" layoutX="1063.0" width="33.0" />
+                                        <Rectangle fx:id="tile421" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1104.0" width="27.0" />
+                                        <Rectangle fx:id="tile422" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1135.0" width="40.0" />
+                                        <Rectangle fx:id="tile423" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1176.0" width="33.0" />
+                                        <Rectangle fx:id="tile424" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1211.0" width="33.0" />
+                                        <Rectangle fx:id="tile425" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1250.0" width="33.0" />
+                                        <Rectangle fx:id="tile426" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1286.0" width="40.0" />
+                                        <Rectangle fx:id="tile427" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1350.0" width="59.0" />
+                                        <Rectangle fx:id="tile428" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1430.0" width="59.0" />
+                                        <Rectangle fx:id="tile429" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="50.0" layoutX="1493.0" width="59.0" />
+
+
+                                    </children>
+                                </Pane>
+
+                            </children>
+
+                        </Group>
+                  <ImageView fitHeight="336.0" fitWidth="806.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@PLANCIAGIOCO.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="337.0" fitWidth="774.0" layoutX="810.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@PLANCIAGIOCO.png" />
+                     </image>
+                  </ImageView>
+                        <Circle fx:id="circle" centerX="50.0" centerY="50.0" fill="#ff3600" layoutX="39.0" layoutY="31.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
+
+                    </children>
+
+                </Pane>
+
+            </children>
+        </VBox>
+    </children>
+</VBox>
