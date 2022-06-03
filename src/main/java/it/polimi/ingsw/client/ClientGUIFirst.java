@@ -183,9 +183,13 @@ public class ClientGUIFirst extends Application implements Runnable{
         if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
         guiView.getPreferences(numOfPlayersG, gameModeG);
 
-        root = FXMLLoader.load(getClass().getResource("/GameBoard.fxml"));
+        gameBoardController c = new gameBoardController();
 
-        scene = new Scene(root, 1300, 900);
+        root = FXMLLoader.load(getClass().getResource("/GameBoard2.fxml"));
+
+        scene = new Scene(root, 1560, 900);
+        scene.setOnMouseMoved((evt) -> c.mouseMoved(evt));
+        scene.setOnMouseDragged((evt)->c.mouseMoved(evt));
         stage = new Stage();
         stage.setTitle("Game Board");
         stage.setScene(scene);
