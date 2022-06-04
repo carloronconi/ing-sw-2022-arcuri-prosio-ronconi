@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
@@ -66,8 +65,7 @@ public class CharacterFactory {
      */
     public Character createUninstantiatedCharacter() throws IllegalStateException{
         if (uninstantiatedCharacters.isEmpty()) throw new IllegalStateException();
-        //TODO: remove seed (with this you get MUSICIAN, JUGGLER, WITCH)
-        Random random = new Random(1);
+        Random random = new Random();
         int index = random.nextInt(uninstantiatedCharacters.size());
         AvailableCharacter character = uninstantiatedCharacters.get(index);
         uninstantiatedCharacters.remove(index);
