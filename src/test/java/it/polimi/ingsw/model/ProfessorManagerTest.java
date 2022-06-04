@@ -49,6 +49,9 @@ public class ProfessorManagerTest {
         assertEquals(pluto, professorManager.getProfessorOwner(PawnColor.BLUE));
     }
 
+    /**
+     * this method checks the color associated with the players
+     */
     @Test
     public void colorsAssociateToPlayer(){
         assertEquals(pippoPawnColors, professorManager.colorsAssociateToPlayer(pippo));
@@ -57,6 +60,9 @@ public class ProfessorManagerTest {
 
     }
 
+    /**
+     * this method verifies that the players who could get professors are the same as those who were entered at the beginning
+     */
     @Test
     public void playersContained(){
         ArrayList<Player> players = new ArrayList<>();
@@ -66,6 +72,9 @@ public class ProfessorManagerTest {
         assertEquals(players, professorManager.playersContained());
     }
 
+    /**
+     * this method verifies that printing is working correctly
+     */
     @Test
     public void print(){
         String s = professorManager.toString();
