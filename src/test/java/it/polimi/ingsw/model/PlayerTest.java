@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import com.sun.jdi.event.ClassPrepareEvent;
 import it.polimi.ingsw.model.studentmanagers.Bag;
 import it.polimi.ingsw.model.studentmanagers.Cloud;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
@@ -11,7 +10,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     private Player player;
@@ -49,6 +47,9 @@ public class PlayerTest {
 
     }
 
+    /**
+     * this method verifies that the playAssistantCard method works correctly
+     */
     @Test
     public void playAssistantCard(){
         assertEquals(10, player.getDeckSize());
@@ -59,6 +60,9 @@ public class PlayerTest {
         assertEquals(8, player.getDeckSize());
     }
 
+    /**
+     * this method verifies that the payCoins method works correctly
+     */
     @Test
     public void coins(){
         assertEquals(1, player.getNumOfCoins());
@@ -69,6 +73,9 @@ public class PlayerTest {
 
     }
 
+    /**
+     * this method verifies that printing is working correctly
+     */
     @Test
     public void print(){
         String s = player.toString();
