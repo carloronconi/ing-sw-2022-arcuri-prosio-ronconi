@@ -1,11 +1,10 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.EventManager;
+import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.Cloud;
-import it.polimi.ingsw.model.studentmanagers.DiningRoom;
-import it.polimi.ingsw.model.studentmanagers.Entrance;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,22 +23,24 @@ public class MusicianTest {
 
     @Before
     public void setUp(){
-        Bag bag = new Bag();
-        List<Cloud> clouds = new ArrayList<>();
-        Entrance entrance = new Entrance(bag, clouds, 7);
-        DiningRoom diningRoom = new DiningRoom(entrance);
-        player = new Player(entrance, diningRoom, "testname");
-        List<Player> players = new ArrayList<>();
+        ArrayList<String> playerNicknames = new ArrayList<>();
+        playerNicknames.add("pippo");
+        playerNicknames.add("pluto");
 
-        players.add(player);
+        EventManager<ModelEvent> eventManager = new EventManager<>();
 
-        musician = new Musician(players, null);
+        GameModel gameModel =  new GameModel(false, playerNicknames, eventManager);
 
-        assertEquals(123, bag.count());
-        assertEquals(1, players.size());
+        List<Player> players = gameModel.getPlayers();
+        player = players.get(0);
+
+        musician = new Musician(players, gameModel);
+
+        assertEquals(2, players.size());
         assertEquals(1, musician.getCurrentCost());
         assertFalse(musician.isCostIncreased());
         assertEquals(AvailableCharacter.MUSICIAN, musician.getValue());
+        assertEquals(2, Musician.getMaxColorSwaps());
 
 
         for(PawnColor c : PawnColor.values()){
