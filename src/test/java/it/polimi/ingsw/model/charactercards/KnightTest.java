@@ -14,14 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class KnightTest {
     private Knight knight;
     private Player player;
-    List<Player> players;
 
     @Before
     public void setUp(){
         Bag bag = new Bag();
         ProfessorManager professorManager = new ProfessorManager();
         IslandManager islandManager = new IslandManager(bag, professorManager);
-        players = new ArrayList<>();
+        List<Player> players = new ArrayList<>();
         List<Cloud> clouds = new ArrayList<>();
         Entrance entrance = new Entrance(bag, clouds, 7);
         DiningRoom diningRoom = new DiningRoom(entrance);
