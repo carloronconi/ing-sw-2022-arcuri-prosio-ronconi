@@ -17,7 +17,7 @@ public class ProfessorManager {
 
     public Player getProfessorOwner(PawnColor color){
         return map.get(color);
-    } //forse da eliminare
+    }
 
 
     /**
