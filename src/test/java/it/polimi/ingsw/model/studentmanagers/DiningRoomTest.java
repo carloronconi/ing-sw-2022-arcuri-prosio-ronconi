@@ -1,14 +1,13 @@
 package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.PawnColor;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
 
 public class DiningRoomTest extends StudentCounter{
     private Bag bag;
@@ -16,8 +15,8 @@ public class DiningRoomTest extends StudentCounter{
     private Entrance entrance;
     private DiningRoom diningRoom;
 
-    @BeforeEach
-    void setup(){
+    @Before
+    public void setup(){
         bag = new Bag();
         clouds = new ArrayList<>();
         IntStream.range(0, 3).forEach(i -> clouds.add(new Cloud(bag)));
@@ -30,24 +29,27 @@ public class DiningRoomTest extends StudentCounter{
 
     }
 
+    /**
+     * this method verifies that the filling of the diningRoom from the entrance works correctly
+     */
     @Test
-    void fill(){
+    public void fill(){
 
-        int pawnsInEntranceBeforeBLUE = entrance.count(PawnColor.BLUE);
-        int pawnsInDiningBeforeBLUE = diningRoom.count(PawnColor.BLUE);
-
-        try {
-            diningRoom.fill(PawnColor.BLUE);
-
-        } catch(IllegalArgumentException e) {
-            fail(e.getMessage());
+        PawnColor c = null;
+        for (PawnColor color : PawnColor.values()){
+            if (entrance.count(color)>0){
+                c = color;
+                break;
+            }
         }
-        int pawnsInEntranceAfterBLUE = entrance.count(PawnColor.BLUE);
-        int pawnsInDiningAfterBLUE = diningRoom.count(PawnColor.BLUE);
 
+        int numStudents = entrance.count(c);
 
-        assertEquals(pawnsInEntranceBeforeBLUE - 1, pawnsInEntranceAfterBLUE);
-        assertEquals(pawnsInDiningBeforeBLUE + 1, pawnsInDiningAfterBLUE);
+        diningRoom.fill(c);
+
+        assertEquals(numStudents-1, entrance.count(c));
+        assertEquals(1, diningRoom.count(c));
+
 
         }
 
