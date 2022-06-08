@@ -151,10 +151,15 @@ public class GameController implements EventListener<ViewEvent> {
 
             if (numOfNicknamesAdded == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
+                Iterator<VirtualView> iterator = virtualViews.iterator();
+                while(iterator.hasNext()){
+                    VirtualView view = iterator.next();
+                    modelEventEventManager.subscribe(view);
+                }/*
                 for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
 
-                }
+                }*/
                 for (int i = 0; i<numOfPlayers; i++){
                     playerNicknames.add(mapOfPlayerNicknames.get(i));
                 }
