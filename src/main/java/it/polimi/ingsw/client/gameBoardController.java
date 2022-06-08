@@ -30,8 +30,10 @@ public class gameBoardController {
     @FXML
     Pane schoolBoard;
     @FXML
-    Circle circle;
+    Pane boardPane;
     @FXML
+    Circle circle;
+     @FXML
     Group rectangleGroup;
     @FXML
     Group squaresGroup;
@@ -51,6 +53,9 @@ public class gameBoardController {
 
         schoolBoard.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
         schoolBoard.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
+        boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
+        boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
+
 
         vbox.setMaxWidth(1556.0d);
     }
@@ -115,6 +120,7 @@ public class gameBoardController {
 
     private boolean inBoard(Point2D pt){
         Point2D panePt = schoolBoard.sceneToLocal(pt);
+       // Point2D panePtIsle = boardPane.sceneToLocal(pt); implement method for island
         return (panePt.getX()-offset.getX() >=0.0d
                 && panePt.getY()-offset.getY() >= 0.0d
                 && panePt.getX() <= schoolBoard.getWidth()
