@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gameBoardController">
+<children>
+    <VBox fx:id="vbox" prefHeight="700.0" prefWidth="1440.0">
+        <children>
+            <Pane fx:id="cardsPane">
+                <children>
+                    <Group fx:id="rectangleGroup">
+                        <children>
+                            <Pane fx:id="row0">
+                                <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="sq1_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="sq3_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="sq5_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="sq7_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="sq9_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+
+                                </children>
+                            </Pane>
+                        <Pane fx:id="row01" layoutY="450.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle fx:id="sq1_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle fx:id="sq3_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle fx:id="sq5_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle fx:id="sq7_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                              <Rectangle fx:id="sq9_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                           </children>
+                        </Pane>
+                        <TextField layoutY="425.0"  prefWidth="Infinity" text="YOUR CARDS" />
+                        <TextField layoutY="250.0" prefWidth="Infinity" text="YOUR OPPONENT'S CARDS" />
+                        </children>
+                    </Group>
+                </children>
+            </Pane>
+        </children>
+    </VBox>
+</children>
+</VBox>
