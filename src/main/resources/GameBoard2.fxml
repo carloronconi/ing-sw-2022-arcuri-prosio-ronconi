@@ -15,17 +15,17 @@
                             <children>
                                 <Pane fx:id="row0">
                                     <children>
-                                        <Rectangle fx:id="sq0_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq1_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq2_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq3_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq4_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq5_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq6_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq7_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq8_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq9_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq10_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq0_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq1_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="sq2_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq3_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq4_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="sq5_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq6_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq7_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq8_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq9_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq10_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="116.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@tile2.png" />
@@ -55,17 +55,17 @@
                                 </Pane>
                                 <Pane fx:id="Row1" layoutY="180.0">
                                     <children>
-                                        <Rectangle fx:id="sq0_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq1_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq2_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq3_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq4_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq5_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq6_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq7_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq8_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq9_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq10_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq0_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="sq1_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq2_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq3_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq4_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="sq5_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq6_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq7_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq8_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq9_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq10_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
                               <ImageView fitHeight="146.0" fitWidth="174.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@tile1.png" />
@@ -95,17 +95,17 @@
                                 </Pane>
                                 <Pane fx:id="row2" layoutY="360.0">
                                     <children>
-                                        <Rectangle fx:id="sq0_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq1_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq2_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq3_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq4_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq5_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq6_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square" width="144.0" />
-                                        <Rectangle fx:id="sq7_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq8_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq9_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
-                                        <Rectangle fx:id="sq10_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" styleClass="board_square_lt" width="144.0" />
+                                        <Rectangle fx:id="sq0_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="sq1_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq2_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq3_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq4_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq5_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq6_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq7_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="sq8_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq9_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE"  width="144.0" />
+                                        <Rectangle fx:id="sq10_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1268.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@tile2.png" />
