@@ -183,17 +183,15 @@ public class ClientGUIFirst extends Application implements Runnable{
         if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
         guiView.getPreferences(numOfPlayersG, gameModeG);
 
-        gameBoardController c = new gameBoardController();
+        chooseAssistantController c = new chooseAssistantController();
 
-        root = FXMLLoader.load(getClass().getResource("/GameBoard2.fxml"));
-
-        scene = new Scene(root, 1560, 900);
-        scene.setOnMouseMoved((evt) -> c.mouseMoved(evt));
-        scene.setOnMouseDragged((evt)->c.mouseMoved(evt));
+        root = FXMLLoader.load(getClass().getResource("/ChooseAssistantCard.fxml"));
+        scene = new Scene(root, 1440, 850);
         stage = new Stage();
-        stage.setTitle("Game Board");
+        stage.setTitle("ERYANTIS");
         stage.setScene(scene);
         stage.show();
+
 
 
 
