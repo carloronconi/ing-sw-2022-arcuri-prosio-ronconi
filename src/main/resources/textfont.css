@@ -1,0 +1,11 @@
+.message{
+    -fx-font-family: "Calisto MT";
+    -fx-font-size: 17px;
+    -fx-fill: "gold";
+    -fx-effect: dropshadow(gaussian, skyblue, 8, 0.5, 8, 8);
+    -fx-font-weight: 700;
+}
+
+.box{
+    -fx-effect: dropshadow(gaussian, skyblue, 8, 0.5, 8, 8);
+}
