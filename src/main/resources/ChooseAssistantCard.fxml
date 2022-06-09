@@ -29,7 +29,9 @@
                                     <Rectangle fx:id="8" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                     <Rectangle fx:id="9" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                     <Rectangle fx:id="10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-               <ImageView fitHeight="250.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card1" fitHeight="250.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true"
+                          onMouseClicked="#chosenCard"
+               >
                   <image>
                      <Image url="@Assistente(1)-min.png" />
                   </image>
@@ -86,9 +88,10 @@
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="409.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-                  <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="lastPlayed1" fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true" />
                </children>
+
                <padding>
                   <Insets bottom="150.0" />
                </padding>
