@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="266.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" style="-fx-background-color: #6abade;"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<AnchorPane prefHeight="266.0" prefWidth="600.0" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
+   <stylesheets>
+      <URL value="@textfont.css" />
+   </stylesheets>
    <children>
-      <Label layoutX="91.0" layoutY="74.0" text="CHOOSE NUMBER OF PLAYERS:" />
-      <Label layoutX="147.0" layoutY="162.0" text="CHOOSE GAME MODE:" />
-      <RadioButton fx:id="buttonEasy" layoutX="300.0" layoutY="148.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" text="EASY" />
-      <RadioButton fx:id="buttonHard" layoutX="382.0" layoutY="148.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="94.0" text="HARD" />
-      <RadioButton fx:id="button3" layoutX="383.0" layoutY="60.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" text="3" />
-      <RadioButton fx:id="button2" layoutX="300.0" layoutY="60.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" text="2" />
-      <Button fx:id="generalButton" layoutX="506.0" layoutY="212.0" mnemonicParsing="false" text="Button"
-              onAction="#buttonClick"
-      />
+      <ImageView fitHeight="1560.0" fitWidth="900.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@sfondo2.gif" />
+         </image>
+      </ImageView>
+      <Label layoutX="20.0" layoutY="74.0" styleClass="message" text="CHOOSE NUMBER OF PLAYERS:" />
+      <Label layoutX="97.0" layoutY="162.0" styleClass="message" text="CHOOSE GAME MODE:" />
+      <RadioButton fx:id="buttonEasy" layoutX="300.0" layoutY="148.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" styleClass="message" text="EASY" />
+      <RadioButton fx:id="buttonHard" layoutX="382.0" layoutY="148.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="94.0" styleClass="message" text="HARD" />
+      <RadioButton fx:id="button3" layoutX="383.0" layoutY="60.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" styleClass="message" text="3" />
+      <RadioButton fx:id="button2" layoutX="300.0" layoutY="60.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" styleClass="message" text="2" />
+      <Button fx:id="generalButton" layoutX="506.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClick" styleClass="box" text="Button" />
    </children>
 </AnchorPane>
