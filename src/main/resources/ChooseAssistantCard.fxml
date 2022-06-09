@@ -1,55 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gameBoardController">
-<children>
-    <VBox fx:id="vbox" prefHeight="700.0" prefWidth="1440.0">
-        <children>
-            <Pane fx:id="cardsPane">
-                <children>
-                    <Group fx:id="rectangleGroup">
-                        <children>
-                            <Pane fx:id="row0">
-                                <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="sq1_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="sq3_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="sq5_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="sq7_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="sq9_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.chooseAssistantController">
 
-                                </children>
+    <VBox fx:id="vbox" prefHeight="700.0" prefWidth="1440.0">
+
+            <Pane fx:id="cardsPane">
+
+                    <Group fx:id="rectangleGroup">
+
+                            <Pane fx:id="myCards" layoutY="450.0">
+
+                                    <Rectangle fx:id="1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="4" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="8" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="9" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle fx:id="10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+               <ImageView fitHeight="250.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(1)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="144.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(2)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="288.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(3)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="432.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(4)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="576.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(5)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="720.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(6)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="864.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(7)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="1008.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(8)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="1152.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(9)-min.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="1296.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Assistente(10)-min.png" />
+                  </image>
+               </ImageView>
+               <Button fx:id="button" layoutX="1283.0" layoutY="218.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="25.0" prefWidth="150.0" text="GAME BOARD" />
+
                             </Pane>
-                        <Pane fx:id="row01" layoutY="450.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle fx:id="sq1_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle fx:id="sq3_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle fx:id="sq5_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle fx:id="sq7_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                              <Rectangle fx:id="sq9_01" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                           </children>
-                        </Pane>
-                        <TextField layoutY="425.0"  prefWidth="Infinity" text="YOUR CARDS" />
-                        <TextField layoutY="250.0" prefWidth="Infinity" text="YOUR OPPONENT'S CARDS" />
-                        </children>
-                    </Group>
-                </children>
+            <Pane layoutX="401.0" layoutY="60.0" prefHeight="300.0" prefWidth="609.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="409.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <padding>
+                  <Insets bottom="150.0" />
+               </padding>
             </Pane>
-        </children>
+                           
+
+                    </Group>
+
+            </Pane>
+
     </VBox>
-</children>
+
 </VBox>
