@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.chooseAssistantController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ChooseAssistantController">
 
     <VBox fx:id="vbox" prefHeight="700.0" prefWidth="1440.0">
 
@@ -19,64 +19,72 @@
 
                             <Pane fx:id="myCards" layoutY="450.0">
 
-                                    <Rectangle fx:id="1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="4" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="8" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="9" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                    <Rectangle fx:id="10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                    <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                <ImageView fx:id="card1" fitHeight="250.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true"
-                          onMouseClicked="#chosenCard"
-               >
-                  <image>
-                     <Image url="@Assistente(1)-min.png" />
-                  </image>
+                          onMouseClicked="#chosenCard1">
+                   <image>
+                       <Image url="Assistente(1)-min.png"/>
+                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="144.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card2" onMouseClicked="#chosenCard2"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="144.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(2)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="288.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card3" onMouseClicked="#chosenCard3"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="288.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(3)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="432.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card4" onMouseClicked="#chosenCard4"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="432.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(4)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="576.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card5" onMouseClicked="#chosenCard5"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="576.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(5)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="720.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card6" onMouseClicked="#chosenCard6"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="720.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(6)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="864.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card7" onMouseClicked="#chosenCard7"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="864.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(7)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="1008.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card8" onMouseClicked="#chosenCard8"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="1008.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(8)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="1152.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card9" onMouseClicked="#chosenCard9"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="1152.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(9)-min.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="250.0" fitWidth="144.0" layoutX="1296.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="card10" onMouseClicked="#chosenCard10"
+                          fitHeight="250.0" fitWidth="144.0" layoutX="1296.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Assistente(10)-min.png" />
                   </image>
