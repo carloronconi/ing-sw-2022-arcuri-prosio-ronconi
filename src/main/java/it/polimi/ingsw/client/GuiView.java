@@ -4,6 +4,7 @@ import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
 import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
@@ -72,6 +73,10 @@ public class GuiView implements ViewInterface {
     @Override
     public void getAssistantCard() {
 
+    }
+
+    public void getAssistantCard(int cardNumber){
+           eventManager.notify(new SetAssistantCard(cardNumber));
     }
 
     @Override
