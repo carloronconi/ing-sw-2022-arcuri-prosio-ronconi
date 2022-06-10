@@ -1,36 +1,21 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.shape.Rectangle;
 
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.URL;
-import java.sql.PseudoColumnUsage;
-import java.util.ResourceBundle;
 
 
 public class ClientGUIFirst extends Application implements Runnable{
@@ -38,7 +23,7 @@ public class ClientGUIFirst extends Application implements Runnable{
     private ClientGUI clientGUI;
     private Socket server;
     private static GuiView guiView;
-
+    private static ChooseAssistantController chooseAssistantController;
 
     public static void main(String[] args){  launch(args);  }
 
@@ -100,6 +85,8 @@ public class ClientGUIFirst extends Application implements Runnable{
 
         Thread serverHandlerThread = new Thread(serverHandlerGUI, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
+
+
 
 
     }
@@ -183,7 +170,9 @@ public class ClientGUIFirst extends Application implements Runnable{
         if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
         guiView.getPreferences(numOfPlayersG, gameModeG);
 
-        chooseAssistantController c = new chooseAssistantController();
+
+        chooseAssistantController = new ChooseAssistantController();
+
 
         root = FXMLLoader.load(getClass().getResource("/ChooseAssistantCard.fxml"));
         scene = new Scene(root, 1440, 850);
@@ -194,7 +183,13 @@ public class ClientGUIFirst extends Application implements Runnable{
 
 
 
+    }
 
+    public void updateChosenAssistant(){
+        int cardNumber = chooseAssistantController.getCardNumber();
+        guiView.getAssistantCard(cardNumber);
+        System.out.println("tutto ok "+cardNumber);
+        //TODO: interleave this method to ChooseAssistantController
     }
 
 
