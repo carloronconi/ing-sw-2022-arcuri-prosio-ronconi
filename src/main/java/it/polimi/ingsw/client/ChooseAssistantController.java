@@ -23,6 +23,10 @@ public class ChooseAssistantController {
     private Scene scene;
     private Parent root;
 
+    //TODO: inteleave this with only one instance of ClientGUIFirst
+    private final ClientGUIFirst clientGUIFirst = new ClientGUIFirst();
+
+
 
     @FXML
     Button button;
@@ -66,51 +70,61 @@ public class ChooseAssistantController {
         number(card1);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(1)-min.png"))));
         card1.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard2(){
         number(card2);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(2)-min.png"))));
         card2.setOpacity(0.4d);
+       clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard3(){
         number(card3);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(3)-min.png"))));
         card3.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard4(){
         number(card4);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(4)-min.png"))));
         card4.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard5(){
         number(card5);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(5)-min.png"))));
         card5.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard6(){
         number(card6);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(6)-min.png"))));
         card6.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard7(){
         number(card7);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(7)-min.png"))));
         card7.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard8(){
         number(card8);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(8)-min.png"))));
         card8.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard9(){
         number(card9);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(9)-min.png"))));
         card9.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
     public void chosenCard10(){
         number(card10);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(10)-min.png"))));
         card10.setOpacity(0.4d);
+        clientGUIFirst.updateChosenAssistant();
     }
 
     private int cardNumber;
@@ -129,7 +143,6 @@ public class ChooseAssistantController {
     public int getCardNumber(){
         return cardNumber;
     }
-
 
 
 
