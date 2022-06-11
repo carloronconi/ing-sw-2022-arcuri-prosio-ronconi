@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.controller.GameMode;
+import it.polimi.ingsw.networkmessages.GenericEvent;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -165,16 +169,25 @@ public class ClientGUIFirst extends Application implements Runnable{
         return false;
     }
 
+
+
     public void buttonClick(ActionEvent event) throws IOException{
         if(playersSelectedTwo()) numOfPlayersG = 2; else numOfPlayersG = 3;
         if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
         guiView.getPreferences(numOfPlayersG, gameModeG);
 
+        ChooseAssistantController chooseAssistantController = new ChooseAssistantController(this);
 
-        chooseAssistantController = new ChooseAssistantController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChooseAssistantCard.fxml"));
+        loader.setController(chooseAssistantController);
+
+        root = loader.load();
 
 
-        root = FXMLLoader.load(getClass().getResource("/ChooseAssistantCard.fxml"));
+
+
+
+        //root = FXMLLoader.load(getClass().getResource("/ChooseAssistantCard.fxml"));
         scene = new Scene(root, 1440, 850);
         stage = new Stage();
         stage.setTitle("ERYANTIS");
@@ -185,12 +198,19 @@ public class ClientGUIFirst extends Application implements Runnable{
 
     }
 
-    public void updateChosenAssistant(){
-        int cardNumber = chooseAssistantController.getCardNumber();
-        guiView.getAssistantCard(cardNumber);
-        System.out.println("tutto ok "+cardNumber);
+
+    public void updateChosenAssistant(int numOfAssistant){
+        guiView.getAssistantCard(numOfAssistant);
+        System.out.println("tutto ok "+numOfAssistant);
         //TODO: interleave this method to ChooseAssistantController
     }
+
+
+  /*  @Override
+    public void update(Integer integer) {
+        guiView.getAssistantCard(integer);
+        System.out.println("tutto ok"+integer);
+    }*/
 
 
 
