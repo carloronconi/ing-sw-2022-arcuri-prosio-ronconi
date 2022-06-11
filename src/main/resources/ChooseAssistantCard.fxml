@@ -9,8 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ChooseAssistantController">
-
+<?import javafx.scene.control.Label?>
+<?import java.net.URL?>
+<VBox fx:id="tab" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;"
+      xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@textfont.css" />
+    </stylesheets>
     <VBox fx:id="vbox" prefHeight="700.0" prefWidth="1440.0">
 
             <Pane fx:id="cardsPane">
@@ -29,8 +34,8 @@
                                     <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                     <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                     <Rectangle  arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="250.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-               <ImageView fx:id="card1" fitHeight="250.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true"
-                          onMouseClicked="#chosenCard1">
+               <ImageView fx:id="card1" onMouseClicked="#chosenCard1" fitHeight="250.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true"
+                          >
                    <image>
                        <Image url="Assistente(1)-min.png"/>
                    </image>
@@ -89,7 +94,7 @@
                      <Image url="@Assistente(10)-min.png" />
                   </image>
                </ImageView>
-               <Button fx:id="button" layoutX="1283.0" layoutY="218.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="25.0" prefWidth="150.0" text="GAME BOARD" />
+               <Button fx:id="button" onAction="#clickedButton" layoutX="1283.0" layoutY="218.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="150.0" text="GAME BOARD" />
 
                             </Pane>
             <Pane layoutX="401.0" layoutY="60.0" prefHeight="300.0" prefWidth="609.0">
@@ -97,7 +102,11 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="409.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                   <ImageView fx:id="lastPlayed1" fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true" />
+                   <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true" />
+                   <Label layoutX="20.0" layoutY="5.0" styleClass="message" text="PLAYER1"  />
+                   <Label layoutX="420.0" layoutY="5.0" styleClass="message" text="PLAYER2"  />
+
+
                </children>
 
                <padding>
