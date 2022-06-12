@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.EventManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -57,7 +56,7 @@ public class ChooseAssistantController {
 
     public void clickedButton(ActionEvent e) throws IOException {
 
-        gameBoardController c = new gameBoardController();
+        GameBoardController c = new GameBoardController();
 
 
 
