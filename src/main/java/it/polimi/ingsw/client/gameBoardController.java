@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.effect.Shadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -19,45 +17,53 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
-public class gameBoardController {
+public class GameBoardController {
+    @FXML
+    Pane boardPane;
+
+    @FXML
+    Group rectangleGroup;
 
     @FXML
     VBox vbox;
-    @FXML
-    Pane schoolBoard;
-    @FXML
-    Pane boardPane;
-    @FXML
-    Circle circle;
-     @FXML
-    Group rectangleGroup;
-    @FXML
-    Group squaresGroup;
 
     @FXML
-    Pane firstRow;
-    @FXML
-    Rectangle tile01;
-    @FXML
-    Rectangle tile02;
+    Circle circle;
+
+    @FXML Pane island0;
+    @FXML Pane island1;
+    @FXML Pane island2;
+    @FXML Pane school0;
+    @FXML Pane school1;
+    @FXML Pane school2;
+    @FXML Pane school3;
+    @FXML Pane school4;
+
 
     private final List<Pane> panes = new ArrayList<>();
 
     @FXML
     public void initialize(){
-        panes.add(firstRow);
+        panes.add(island0);
+        panes.add(island1);
+        panes.add(island2);
+        panes.add(school0);
+        panes.add(school1);
+        panes.add(school2);
+        panes.add(school3);
+        panes.add(school4);
 
-        schoolBoard.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
-        schoolBoard.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
         boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
         boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
+        /*schoolBoard.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
+        schoolBoard.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
+        boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
+        boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);*/
 
 
-        vbox.setMaxWidth(1556.0d);
+        vbox.setMaxWidth(1500.0d);
     }
 
     private Rectangle currRect;
@@ -83,8 +89,7 @@ public class gameBoardController {
 
             timeline.getKeyFrames().add(
                     new KeyFrame(Duration.millis(200),
-
-                            new KeyValue(circle.layoutXProperty(), circle.getLayoutX()),
+                    new KeyValue(circle.layoutXProperty(), circle.getLayoutX()),
                     new KeyValue(circle.layoutYProperty(), circle.getLayoutY()),
                     new KeyValue(circle.opacityProperty(), 1.0d))
 
@@ -119,12 +124,12 @@ public class gameBoardController {
     }
 
     private boolean inBoard(Point2D pt){
-        Point2D panePt = schoolBoard.sceneToLocal(pt);
-       // Point2D panePtIsle = boardPane.sceneToLocal(pt); implement method for island
+        Point2D panePt = boardPane.sceneToLocal(pt);
+        //Point2D panePtIsle = boardPane.sceneToLocal(pt);
         return (panePt.getX()-offset.getX() >=0.0d
                 && panePt.getY()-offset.getY() >= 0.0d
-                && panePt.getX() <= schoolBoard.getWidth()
-                && panePt.getY() <= schoolBoard.getHeight());
+                && panePt.getX() <= boardPane.getWidth()
+                && panePt.getY() <= boardPane.getHeight());
     }
 
     public void finishMovingPiece(MouseEvent evt){
@@ -141,7 +146,7 @@ public class gameBoardController {
 
         if(r!=null){
             Point2D rectScene = r.localToScene(r.getX(), r.getY());
-            Point2D parent = schoolBoard.sceneToLocal(rectScene.getX(), rectScene.getY());
+            Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
 
             timeline.getKeyFrames().add(
                     new KeyFrame(Duration.millis(100),
