@@ -58,11 +58,9 @@ public class ChooseAssistantController {
 
         GameBoardController c = new GameBoardController();
 
-
-
         root = FXMLLoader.load(getClass().getResource("/GameBoard2.fxml"));
 
-        scene = new Scene(root, 1560, 900);
+        scene = new Scene(root, 1500, 900);
         scene.setOnMouseMoved((evt) -> c.mouseMoved(evt));
         scene.setOnMouseDragged((evt)->c.mouseMoved(evt));
         stage = new Stage();
