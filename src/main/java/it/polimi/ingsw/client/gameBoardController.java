@@ -32,9 +32,9 @@ public class GameBoardController {
     @FXML
     Circle circle;
 
-    @FXML Pane island0;
-    @FXML Pane island1;
-    @FXML Pane island2;
+    @FXML Pane islandRow0;
+    @FXML Pane islandRow1;
+    @FXML Pane islandRow2;
     @FXML Pane school0;
     @FXML Pane school1;
     @FXML Pane school2;
@@ -46,9 +46,9 @@ public class GameBoardController {
 
     @FXML
     public void initialize(){
-        panes.add(island0);
-        panes.add(island1);
-        panes.add(island2);
+        panes.add(islandRow0);
+        panes.add(islandRow1);
+        panes.add(islandRow2);
         panes.add(school0);
         panes.add(school1);
         panes.add(school2);
@@ -57,13 +57,21 @@ public class GameBoardController {
 
         boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
         boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
-        /*schoolBoard.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
-        schoolBoard.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
-        boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
-        boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);*/
-
 
         vbox.setMaxWidth(1500.0d);
+
+        islands.add(island1);
+        islands.add(island2);
+        islands.add(island3);
+        islands.add(island4);
+        islands.add(island5);
+        islands.add(island6);
+        islands.add(island7);
+        islands.add(island8);
+        islands.add(island9);
+        islands.add(island10);
+        islands.add(island11);
+        islands.add(island12);
     }
 
     private Rectangle currRect;
@@ -132,7 +140,7 @@ public class GameBoardController {
                 && panePt.getY() <= boardPane.getHeight());
     }
 
-    public void finishMovingPiece(MouseEvent evt){
+    public Rectangle finishMovingPiece(MouseEvent evt){
         offset = new Point2D(0.0d, 0.0d);
 
         Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
@@ -165,7 +173,58 @@ public class GameBoardController {
 
         movingPiece=false;
 
+        printWhere(circle.getLayoutX(), circle.getLayoutY());
+
+        return currRect;
+
     }
+
+    @FXML Rectangle island1;
+    @FXML Rectangle island2;
+    @FXML Rectangle island3;
+    @FXML Rectangle island4;
+    @FXML Rectangle island5;
+    @FXML Rectangle island6;
+    @FXML Rectangle island7;
+    @FXML Rectangle island8;
+    @FXML Rectangle island9;
+    @FXML Rectangle island10;
+    @FXML Rectangle island11;
+    @FXML Rectangle island12;
+    @FXML Rectangle cloud1;
+    @FXML Rectangle cloud2;
+    @FXML Rectangle bag;
+
+
+    private final List<Rectangle> islands = new ArrayList<>();
+
+    public void print(){
+            double circX = circle.getLayoutX();
+            double circY = circle.getLayoutY();
+
+
+
+
+             //System.out.println(" "+ isle.getLayoutY());
+            // System.out.println("circle: " + circle.getLayoutY());
+
+       // if(circle.getLayoutX() >= sq3_2.getLayoutX()) System.out.println("new place: " +sq3_2.getId());
+            //System.out.println("New coordinates:" + circle.getLayoutX());
+            //System.out.println("\n sq3 coordinates: " + sq3_2.getLayoutX());
+    }
+
+    public void printWhere(Double x, Double y) {
+        for (Rectangle rect : islands) {
+            if (rect.getLayoutX() <= x && x <= (rect.getLayoutX() + rect.getWidth())) {
+                if (rect.getParent().getLayoutY() <= y && y < (rect.getParent().getLayoutY() + rect.getHeight())) {
+                    System.out.println("ISLAND: " + rect.getId() + " " + rect.getLayoutX() + " " + rect.getParent().getLayoutY() + " " + x + " " + y);
+                }
+            }
+        }
+    }
+
+
+
 
     public void mouseMoved(MouseEvent evt){
         Rectangle r = pickRectangle(evt);
