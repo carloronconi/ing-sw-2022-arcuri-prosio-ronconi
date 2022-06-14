@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.networkmessages.ReceivedByClient;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.Handshake;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
@@ -15,6 +16,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class ServerHandlerGUI implements Runnable, EventListener<ViewEvent> {
@@ -25,6 +27,7 @@ public class ServerHandlerGUI implements Runnable, EventListener<ViewEvent> {
     private ClientGUIFirst owner;
     private ViewInterface view;
     private EventManager<ModelEvent> eventManager;
+    private AtomicBoolean shouldStop = new AtomicBoolean(false);
 
     public ServerHandlerGUI(Socket server, ClientGUIFirst owner){
         this.server = server;
@@ -33,7 +36,7 @@ public class ServerHandlerGUI implements Runnable, EventListener<ViewEvent> {
 
     }
 
-    //TODO: restructure ServerHander so it can be applied both to CLI and GUI
+    //TODO: restructure ServerHandler so it can be applied both to CLI and GUI
 
     public void linkGuiView(ViewInterface view){
         this.view = view;
@@ -50,26 +53,40 @@ public class ServerHandlerGUI implements Runnable, EventListener<ViewEvent> {
             e.printStackTrace();
         }
         try {
-            output.writeObject(new Handshake());
+            handleConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-            handleConnection();
 
 
     }
 
-    public void forwardMessage(String s) throws IOException {
-        Object object = s;
-        output.writeObject(object);
-    }
 
-    public void handleConnection(){
+    public void handleConnection() throws IOException{
         try {
             boolean stop = false;
             output.writeObject(new Handshake());
-        } catch (IOException e) {
+
+            while(!stop){
+                try {
+                    Object next = input.readObject();
+                    ReceivedByClient message = (ReceivedByClient) next;
+                    message.processMessage(view, eventManager);
+                } catch (IOException e) {
+                    /* Check if we were interrupted because another thread has asked us to stop */
+                    if (shouldStop.get()) {
+                        /* Yes, exit the loop gracefully */
+                        stop = true;
+                    } else {
+                        /* No, rethrow the exception */
+                        throw e;
+                    }
+                }
+
+            }
+
+        } catch (ClassNotFoundException | ClassCastException e) {
             e.printStackTrace();
         }
 
