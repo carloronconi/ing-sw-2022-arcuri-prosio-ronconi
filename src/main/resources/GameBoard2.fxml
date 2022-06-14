@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -8,9 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="it.polimi.ingsw.client.GameBoardController" style="-fx-background-color: #6abade"
->
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameBoardController">
     <children>
         <VBox fx:id="vbox" prefHeight="900.0" prefWidth="1584.0">
             <children>
@@ -18,18 +17,18 @@
                     <children>
                         <Group fx:id="rectangleGroup">
                             <children>
-                                <Pane fx:id="island0">
+                                <Pane fx:id="islandRow0">
                                     <children>
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq1_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" width="144.0" />
+                                        <Rectangle fx:id="island1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq3_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq5_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq7_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island4" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq9_0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="116.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -58,19 +57,19 @@
                               </ImageView>
                                     </children>
                                 </Pane>
-                                <Pane fx:id="island1" layoutY="180.0">
+                                <Pane fx:id="islandRow1" layoutY="180.0" prefHeight="180.0" prefWidth="1584.0">
                                     <children>
-                                        <Rectangle fx:id="sq0_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="s1_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq2_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq3_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island12" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="cloud1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="cloud2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq6_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="bag" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq10_1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                               <ImageView fitHeight="146.0" fitWidth="174.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@tile1.png" />
@@ -96,21 +95,21 @@
                                     <Image url="@bag2.png" />
                                  </image>
                               </ImageView>
-                                    </children>
+                                   </children>
                                 </Pane>
-                                <Pane fx:id="island2" layoutY="360.0">
+                                <Pane fx:id="islandRow2" layoutY="360.0" prefHeight="179.0" prefWidth="1584.0">
                                     <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq1_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island11" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq3_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="179.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq5_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island9" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq7_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island8" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq9_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="sq10_2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1268.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@tile2.png" />
@@ -333,6 +332,7 @@
                   </ImageView>
                         <Circle fx:id="circle" centerX="50.0" centerY="50.0" fill="#dd0b0b" layoutX="40.0" layoutY="550.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
 
+                        <Button layoutX="1198.0" layoutY="80.0" mnemonicParsing="false" onAction="#print" text="CLICK" />
 
                     </children>
 
