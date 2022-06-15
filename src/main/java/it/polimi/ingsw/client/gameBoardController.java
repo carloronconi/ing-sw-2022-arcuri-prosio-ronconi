@@ -259,6 +259,11 @@ public class GameBoardController {
 
 
     }
+    int numOfRed =0;
+    int numOfGreen =0;
+    int numOfYellow =0;
+    int numOfBlue =0;
+    int numOfPurple =0;
 
     public void printWhere(Double x, Double y) {
         for (Pane p : islands) {
@@ -281,11 +286,7 @@ public class GameBoardController {
 
             int a =0;
 
-             int numOfRed =0;
-             int numOfGreen =0;
-             int numOfYellow =0;
-             int numOfBlue =0;
-             int numOfPurple =0;
+
 
             if (y >= p2.getLayoutY() && y <= (p2.getLayoutY() + 60)) {
                 System.out.println("green");
