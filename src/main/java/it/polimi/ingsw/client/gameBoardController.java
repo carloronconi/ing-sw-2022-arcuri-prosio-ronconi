@@ -15,8 +15,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -208,8 +210,23 @@ public class GameBoardController {
 
     //private final List<Rectangle> islands = new ArrayList<>();
 
-    public void switchToAssistant() {
-        //Assistant scene
+
+
+    public void updateView() {
+        Circle c = new Circle();
+        c.setCenterX(50.0);
+        c.setCenterY(50.0);
+        c.setLayoutX(40.0);
+        c.setLayoutY(602.0);
+        c.setFill(Color.RED);
+        c.setRadius(16.0);
+        c.setStroke(Color.BLACK);
+        c.setStrokeType(StrokeType.INSIDE);
+
+        rectangleGroup.getChildren().add(c);
+
+
+
     }
 
     public void printWhere(Double x, Double y) {
