@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.shape.Rectangle?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameBoardController">
@@ -204,8 +205,9 @@
                                 </GridPane>
 
                             <Circle fx:id="circle" centerX="50.0" centerY="50.0" fill="#dd0b0b" layoutX="40.0" layoutY="602.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
+                            <Ellipse fill="#ff9d21" layoutX="109.0" layoutY="60.0" radiusX="44.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
 
-                     <rotationAxis>
+                            <rotationAxis>
                         <Point3D />
                      </rotationAxis>
 
