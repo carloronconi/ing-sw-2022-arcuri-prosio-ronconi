@@ -53,6 +53,10 @@ public class GameBoardController {
 
     private final List<Pane> islands = new ArrayList<>();
     private final List<GridPane> board = new ArrayList<>();
+    private final int MAX_SIZE = 130;
+    private ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
+
+
 
     @FXML
     public void initialize() {
@@ -71,8 +75,30 @@ public class GameBoardController {
 
         pawns.add(circle);
 
+        for (int i = 0; i < 26; i++) {
+            Circle c = new Circle();
+            c.setFill(Color.RED);
+            bag.add(c);
+            Circle c1 = new Circle();
+            c1.setFill(Color.BLUE);
+            bag.add(c1);
+            Circle c2 = new Circle();
+            c2.setFill(Color.GREEN);
+            bag.add(c2);
+            Circle c3 = new Circle();
+            c3.setFill(Color.YELLOW);
+            bag.add(c3);
+            Circle c4 = new Circle();
+            c4.setFill(Color.PURPLE);
+            bag.add(c4);
 
-    }
+        }
+
+
+        }
+
+
+
 
     private Rectangle currRect;
 
@@ -228,7 +254,7 @@ public class GameBoardController {
     @FXML
     Rectangle cloud2;
     @FXML
-    Rectangle bag;
+    Rectangle bag1;
 
 
     //private final List<Rectangle> islands = new ArrayList<>();
@@ -236,6 +262,7 @@ public class GameBoardController {
     private ArrayList<Circle> pawns = new ArrayList<>();
     private Circle c;
 
+    //implementation swap pieces for update - diminish bag and update
 
     public void updateView() {
         c = new Circle();
@@ -243,7 +270,7 @@ public class GameBoardController {
         c.setCenterY(50.0);
         c.setLayoutX(entrance1.getLayoutX()+ (((entrance1.getLayoutX()+entrance1.getPrefWidth())/(entrance1.getColumnCount()))/2));
         c.setLayoutY(entrance1.getLayoutY()+ (((entrance1.getLayoutY()+entrance1.getPrefHeight())/(entrance1.getRowCount()))/2));
-        c.setFill(Color.RED);
+        c.setFill(Color.valueOf("#dd0b0b"));
         c.setRadius(16.0);
         c.setStroke(Color.BLACK);
         c.setStrokeType(StrokeType.INSIDE);
@@ -255,7 +282,7 @@ public class GameBoardController {
         pawns.add(c);
 
         System.out.println(" "+ pawns.size());
-
+        System.out.println(bag.size());
 
 
     }
