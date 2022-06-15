@@ -17,6 +17,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
@@ -74,7 +75,6 @@ public class GameBoardController {
         vbox.setMaxWidth(1500.0d);
 
         pawns.add(circle);
-
         for (int i = 0; i < 26; i++) {
             Circle c = new Circle();
             c.setFill(Color.RED);
@@ -94,12 +94,53 @@ public class GameBoardController {
 
         }
 
+        initializeBoard();
         //TODO: initialization: 10 students from bag to the island tiles, seven student in entrances - towers and professors also
         //take a random circle from bag and put in the coordinates of the island tile / of the entrance
 
 
         }
 
+    private Ellipse motherNature;
+
+    //TODO: set random
+
+        private void initializeBoard(){
+          for(Pane p : islands) {
+              for(Node rect : p.getChildrenUnmodifiable()) {
+                  if(rect.getId()!=null && !rect.getId().toString().contains("12") && !rect.getId().toString().contains("6") &&
+                          !rect.getId().toString().contains("bag") && !rect.getId().toString().contains("cloud")
+                  ) {
+                      Circle c = bag.get(0);
+                      c.setCenterX(50.0);
+                      c.setCenterY(50.0);
+                      c.setLayoutX(rect.getLayoutX());
+                      c.setLayoutY(rect.getParent().getLayoutY());
+                      c.setRadius(16.0);
+                      c.setStroke(Color.BLACK);
+                      c.setStrokeType(StrokeType.INSIDE);
+
+                      rectangleGroup.getChildren().add(c);
+                      pawns.add(c);
+                      bag.remove(c);
+                  }
+              }
+          }
+
+         /* motherNature = new Ellipse(44.0,26.0);
+          motherNature.setFill(Color.valueOf("#ff9d21"));
+          motherNature.setStroke(Color.BLACK);
+          motherNature.setStrokeType(StrokeType.INSIDE);
+          motherNature.setLayoutX(island12.getLayoutX());
+          motherNature.setLayoutY(island12.getParent().getLayoutY());
+            motherNature.setOnMouseDragged(this::movePiece);
+            motherNature.setOnMousePressed(this::startMovingPiece);
+            motherNature.setOnMouseReleased(this::finishMovingPiece);
+            rectangleGroup.getChildren().add(motherNature);
+            */  //mother nature line in fxml
+
+
+        }
 
 
 
