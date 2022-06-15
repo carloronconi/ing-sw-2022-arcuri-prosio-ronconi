@@ -94,6 +94,9 @@ public class GameBoardController {
 
         }
 
+        //TODO: initialization: 10 students from bag to the island tiles, seven student in entrances - towers and professors also
+        //take a random circle from bag and put in the coordinates of the island tile / of the entrance
+
 
         }
 
@@ -265,12 +268,11 @@ public class GameBoardController {
     //implementation swap pieces for update - diminish bag and update
 
     public void updateView() {
-        c = new Circle();
+        Circle c = bag.get(15);
         c.setCenterX(50.0);
         c.setCenterY(50.0);
         c.setLayoutX(entrance1.getLayoutX()+ (((entrance1.getLayoutX()+entrance1.getPrefWidth())/(entrance1.getColumnCount()))/2));
         c.setLayoutY(entrance1.getLayoutY()+ (((entrance1.getLayoutY()+entrance1.getPrefHeight())/(entrance1.getRowCount()))/2));
-        c.setFill(Color.valueOf("#dd0b0b"));
         c.setRadius(16.0);
         c.setStroke(Color.BLACK);
         c.setStrokeType(StrokeType.INSIDE);
@@ -280,8 +282,9 @@ public class GameBoardController {
 
         rectangleGroup.getChildren().add(c);
         pawns.add(c);
+        bag.remove(c);
 
-        System.out.println(" "+ pawns.size());
+        System.out.println(pawns.size());
         System.out.println(bag.size());
 
 
