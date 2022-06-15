@@ -69,6 +69,8 @@ public class GameBoardController {
 
         vbox.setMaxWidth(1500.0d);
 
+        pawns.add(circle);
+
 
     }
 
@@ -87,92 +89,113 @@ public class GameBoardController {
     }
 
     public void leaveBoard(MouseEvent evt) {
-        if (movingPiece) {
-            final Timeline timeline = new Timeline();
+        if(pawns.contains(evt.getSource())) {
+            Circle circle = (Circle) evt.getSource();
+            if (movingPiece) {
+                final Timeline timeline = new Timeline();
 
-            offset = new Point2D(0.0d, 0.0d);
-            movingPiece = false;
+                offset = new Point2D(0.0d, 0.0d);
+                movingPiece = false;
 
-            timeline.getKeyFrames().add(
-                    new KeyFrame(Duration.millis(200),
-                            new KeyValue(circle.layoutXProperty(), circle.getLayoutX()),
-                            new KeyValue(circle.layoutYProperty(), circle.getLayoutY()),
-                            new KeyValue(circle.opacityProperty(), 1.0d))
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.millis(200),
+                                new KeyValue(circle.layoutXProperty(), circle.getLayoutX()),
+                                new KeyValue(circle.layoutYProperty(), circle.getLayoutY()),
+                                new KeyValue(circle.opacityProperty(), 1.0d))
 
 
-            );
-            timeline.play();
+                );
+                timeline.play();
+            }
         }
-    }
+        }
+
+
+    private Circle c2;
 
     @FXML
     public void startMovingPiece(MouseEvent evt) {
-        circle.setOpacity(0.4d);
-        offset = new Point2D(evt.getX(), evt.getY());
+        if(pawns.contains(evt.getSource())) {
+            Circle circle = (Circle) evt.getSource();
+            circle.setOpacity(0.4d);
+            offset = new Point2D(evt.getX(), evt.getY());
 
-        movingPiece = true;
+            movingPiece = true;
+        }
     }
 
     @FXML
     public void movePiece(MouseEvent evt) {
+            if(pawns.contains(evt.getSource())) {
+                Circle circle = (Circle) evt.getSource();
+                Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
+                Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
 
-        Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
-        Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
+                if (!inBoard(mousePoint_s)) {
+                    return;
+                }
 
-        if (!inBoard(mousePoint_s)) {
-            return;
-        }
+                Point2D mousePoint_p = circle.localToParent(mousePoint);
+                circle.relocate(mousePoint_p.getX() - offset.getX(), mousePoint_p.getY() - offset.getY());
 
-        Point2D mousePoint_p = circle.localToParent(mousePoint);
-        circle.relocate(mousePoint_p.getX() - offset.getX(), mousePoint_p.getY() - offset.getY());
-
+            }
     }
 
     private boolean inBoard(Point2D pt) {
-        Point2D panePt = boardPane.sceneToLocal(pt);
-        //Point2D panePtIsle = boardPane.sceneToLocal(pt);
-        return (panePt.getX() - offset.getX() >= 0.0d
-                && panePt.getY() - offset.getY() >= 0.0d
-                && panePt.getX() <= boardPane.getWidth()
-                && panePt.getY() <= boardPane.getHeight());
+
+            Point2D panePt = boardPane.sceneToLocal(pt);
+            //Point2D panePtIsle = boardPane.sceneToLocal(pt);
+            return (panePt.getX() - offset.getX() >= 0.0d
+                    && panePt.getY() - offset.getY() >= 0.0d
+                    && panePt.getX() <= boardPane.getWidth()
+                    && panePt.getY() <= boardPane.getHeight());
+
     }
 
     public Rectangle finishMovingPiece(MouseEvent evt) {
-        offset = new Point2D(0.0d, 0.0d);
 
-        Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
-        Point2D mousePointScene = circle.localToScene(mousePoint);
+        if(pawns.contains(evt.getSource())) {
 
-        Rectangle r = pickRectangle(mousePointScene.getX(), mousePointScene.getY());
+            Circle circle = (Circle) evt.getSource();
+            offset = new Point2D(0.0d, 0.0d);
 
-        final Timeline timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(false);
+            Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
+            Point2D mousePointScene = circle.localToScene(mousePoint);
 
-        if (r != null) {
-            Point2D rectScene = r.localToScene(r.getX(), r.getY());
-            Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
+            Rectangle r = pickRectangle(mousePointScene.getX(), mousePointScene.getY());
 
-            timeline.getKeyFrames().add(
-                    new KeyFrame(Duration.millis(100),
-                            new KeyValue(circle.layoutXProperty(), parent.getX()),
-                            new KeyValue(circle.layoutYProperty(), parent.getY()),
-                            new KeyValue(circle.opacityProperty(), 1.0d))
-            );
+            final Timeline timeline = new Timeline();
+            timeline.setCycleCount(1);
+            timeline.setAutoReverse(false);
 
-        } else {
-            timeline.getKeyFrames().add(
-                    new KeyFrame(Duration.millis(100),
-                            new KeyValue(circle.opacityProperty(), 1.0d))
-            );
+            if (r != null) {
+                Point2D rectScene = r.localToScene(r.getX(), r.getY());
+                Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
+
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.millis(100),
+                                new KeyValue(circle.layoutXProperty(), parent.getX()),
+                                new KeyValue(circle.layoutYProperty(), parent.getY()),
+                                new KeyValue(circle.opacityProperty(), 1.0d))
+                );
+
+            } else {
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.millis(100),
+                                new KeyValue(circle.opacityProperty(), 1.0d))
+                );
+            }
+            timeline.play();
+
+            movingPiece = false;
+
+            printWhere(circle.getLayoutX(), circle.getLayoutY());
+
         }
-        timeline.play();
 
-        movingPiece = false;
-
-        printWhere(circle.getLayoutX(), circle.getLayoutY());
 
         return currRect;
+
 
     }
 
@@ -210,20 +233,28 @@ public class GameBoardController {
 
     //private final List<Rectangle> islands = new ArrayList<>();
 
+    private ArrayList<Circle> pawns = new ArrayList<>();
+    private Circle c;
 
 
     public void updateView() {
-        Circle c = new Circle();
+        c = new Circle();
         c.setCenterX(50.0);
         c.setCenterY(50.0);
-        c.setLayoutX(40.0);
-        c.setLayoutY(602.0);
+        c.setLayoutX(entrance1.getLayoutX()+ (((entrance1.getLayoutX()+entrance1.getPrefWidth())/(entrance1.getColumnCount()))/2));
+        c.setLayoutY(entrance1.getLayoutY()+ (((entrance1.getLayoutY()+entrance1.getPrefHeight())/(entrance1.getRowCount()))/2));
         c.setFill(Color.RED);
         c.setRadius(16.0);
         c.setStroke(Color.BLACK);
         c.setStrokeType(StrokeType.INSIDE);
+        c.setOnMouseDragged(this::movePiece);
+        c.setOnMousePressed(this::startMovingPiece);
+        c.setOnMouseReleased(this::finishMovingPiece);
 
         rectangleGroup.getChildren().add(c);
+        pawns.add(c);
+
+        System.out.println(" "+ pawns.size());
 
 
 
