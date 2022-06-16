@@ -18,7 +18,7 @@ public class CentaurTest {
         IslandManager islandManager = new IslandManager(bag, professorManager);
         centaur = new Centaur(islandManager);
 
-        assertEquals(3, centaur.getCost());
+        assertEquals(3, centaur.getCurrentCost());
         assertFalse(centaur.isCostIncreased());
         assertEquals(AvailableCharacter.CENTAUR, centaur.getValue());
     }

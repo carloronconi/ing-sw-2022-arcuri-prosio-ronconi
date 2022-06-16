@@ -1,6 +1,8 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
 import it.polimi.ingsw.ViewInterface;
+import it.polimi.ingsw.controller.GameMode;
+import it.polimi.ingsw.controller.TurnState;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
@@ -30,10 +32,41 @@ public class SetAssistantCard implements Serializable, GameViewEvent {
         virtualView.notifyController(this);
 
         synchronized (ReadyToPlay.class){
-            //temporarily have turn finish after just setting the assistant card
+            //turn ends after setting the assistant card
             virtualView.playerFinishedTurn();
             ReadyToPlay.class.notifyAll();
         }
+
+        synchronized (ChosenCloud.class){
+            ChosenCloud.class.notifyAll();
+        }
+
+        System.out.println("thread " + virtualView.getThisInstanceNumber() + " finished its turn in planning phase");
+
+        System.out.println("thread " + virtualView.getThisInstanceNumber() + " woke up to start action phase");
+
+        synchronized (SetAssistantCard.class){
+            SetAssistantCard.class.notifyAll();
+        }
+        if(!(virtualView.isItMyTurn() && virtualView.getTurnControllerState() == TurnState.ACTION)){
+            synchronized (SetAssistantCard.class){
+                while (!virtualView.isItMyTurn()) {
+                    try {
+                        SetAssistantCard.class.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        System.out.println("thread " + virtualView.getThisInstanceNumber() + " starts its turn in action phase");
+        if (virtualView.getGameMode() == GameMode.HARD){
+            virtualView.chooseCharacter();
+        } else {
+            virtualView.moveStudent();
+        }
+
     }
 
 

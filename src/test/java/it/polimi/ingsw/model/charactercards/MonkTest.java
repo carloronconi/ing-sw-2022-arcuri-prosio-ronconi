@@ -24,7 +24,7 @@ public class MonkTest {
         islandManager = new IslandManager(bag, professorManager);
         monk = new Monk(bag, islandManager);
 
-        assertEquals(1, monk.getCost());
+        assertEquals(1, monk.getCurrentCost());
         assertFalse(monk.isCostIncreased());
         assertEquals(116, bag.count());
     }

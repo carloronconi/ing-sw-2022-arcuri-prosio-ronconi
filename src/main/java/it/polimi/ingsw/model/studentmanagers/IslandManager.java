@@ -18,8 +18,8 @@ public class IslandManager extends StudentCounter {
     private final ProfessorManager professorManager;
     private Witch witch;
     private boolean centaurEffect;
-    private Player knightEffectPlayer;
-    private PawnColor mushroomMerchantEffect;
+    private Player knightEffectPlayer = null;
+    private PawnColor mushroomMerchantEffect = null;
 
     /**
      * Constructor draws 2 tiles for each color from the bag, then adds 12 islands and puts in the first 10
@@ -39,7 +39,7 @@ public class IslandManager extends StudentCounter {
         for (int i = 0; i < 12; i++) {
             IslandTile it;
 
-            if(i == 0 || i == 5){
+            if(i == 0 || i == 6){
                 it = new IslandTile();
             } else {
                 it = new IslandTile(this, 1);
@@ -74,7 +74,7 @@ public class IslandManager extends StudentCounter {
 
         //update mother nature position (id) using the index
         int motherNatureIndex = ConverterUtility.idToIndex(motherNaturePosition, islands);
-        if (motherNatureIndex + steps > islands.size()){
+        if (motherNatureIndex + steps >= islands.size()){
             motherNatureIndex = motherNatureIndex + steps - islands.size();
         } else {
             motherNatureIndex += steps;
@@ -118,16 +118,16 @@ public class IslandManager extends StudentCounter {
             nextIsland=currentIsland+1;
         }
 
+        if(islands.get(currentIsland).getOwner()==islands.get(nextIsland).getOwner()){
+            islands.get(currentIsland).moveAllPawnsFrom(islands.get(nextIsland));
+            islands.remove(nextIsland);
+        }
+
+        currentIsland = ConverterUtility.idToIndex(currentIslandId, islands);
         if(currentIsland==0){
             prevIsland=islands.size()-1;
         }else{
             prevIsland=currentIsland-1;
-        }
-
-
-        if(islands.get(currentIsland).getOwner()==islands.get(nextIsland).getOwner()){
-            islands.get(currentIsland).moveAllPawnsFrom(islands.get(nextIsland));
-            islands.remove(nextIsland);
         }
 
         if(islands.get(currentIsland).getOwner()==islands.get(prevIsland).getOwner()){
@@ -208,6 +208,6 @@ public class IslandManager extends StudentCounter {
     }
 
     public ArrayList<IslandTile> getIslands() {
-        return (ArrayList<IslandTile>) islands.clone();
+        return new ArrayList<>(islands);
     }
 }

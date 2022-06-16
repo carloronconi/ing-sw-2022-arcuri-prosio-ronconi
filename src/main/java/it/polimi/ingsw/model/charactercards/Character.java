@@ -1,10 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
-import it.polimi.ingsw.model.Identifiable;
-import it.polimi.ingsw.model.PawnColor;
-
 import java.util.Locale;
-import java.util.UUID;
 
 /**
  * Abstract class from which all character cards inherit
@@ -14,16 +10,16 @@ public abstract class Character{
      * has all attributes common to all character cards:
      * cost, unique id and boolean representing if any player as ever used the card: if yes, the cost has to be increased by one
      */
-    private int cost;
+    private int currentCost;
     private final AvailableCharacter characterValue;
     private boolean costIncreased;
 
     /**
      * creates character with unique id, costIncreased set to false and cost depending on specific subclass of character
-     * @param cost set by the subclasses
+     * @param initialCost set by the subclasses
      */
-    public Character(int cost) {
-        this.cost = cost;
+    public Character(int initialCost) {
+        this.currentCost = initialCost;
         String name = this.getClass().getName();
         name = name.toUpperCase(Locale.ROOT);
         name = name.substring(name.lastIndexOf(".") +1);
@@ -41,11 +37,11 @@ public abstract class Character{
     public void increaseCost(){
         if(costIncreased) throw new IllegalStateException("Cost already increased");
         costIncreased = true;
-        cost++;
+        currentCost++;
     }
 
-    public int getCost() {
-        return cost;
+    public int getCurrentCost() {
+        return currentCost;
     }
 
     public AvailableCharacter getValue(){ return characterValue;}

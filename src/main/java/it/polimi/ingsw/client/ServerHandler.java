@@ -25,7 +25,7 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private Client owner;
-    private AtomicBoolean shouldStop = new AtomicBoolean(false);
+    private boolean stop;
     private EventManager<ModelEvent> eventManager;
     private ViewInterface view;
 
@@ -74,12 +74,12 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
             handleClientConnection();
         } catch (IOException e) {
             System.out.println("server " + server.getInetAddress() + " connection dropped");
+            stopServer();
         }
 
         try {
             server.close();
         } catch (IOException e) { }
-        //owner.terminate();
     }
 
 
@@ -91,24 +91,15 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     private void handleClientConnection() throws IOException
     {
         try {
-            boolean stop = false;
             output.writeObject(new Handshake());
 
             while (!stop) {
-                /* read commands from the server and process them */
                 try {
                     Object next = input.readObject();
                     ReceivedByClient message = (ReceivedByClient) next;
                     message.processMessage(view, eventManager);
                 } catch (IOException e) {
-                    /* Check if we were interrupted because another thread has asked us to stop */
-                    if (shouldStop.get()) {
-                        /* Yes, exit the loop gracefully */
-                        stop = true;
-                    } else {
-                        /* No, rethrow the exception */
-                        throw e;
-                    }
+                    stop = true;
                 }
             }
         } catch (ClassNotFoundException | ClassCastException e) {
@@ -126,27 +117,17 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
         return owner;
     }
 
-
-
-    /**
-     * Requires the run() method to stop as soon as possible.
-     */
-    /*
-    public void stop()
-    {
-        shouldStop.set(true);
-        try {
-            server.shutdownInput();
-        } catch (IOException e) { }
+    public void stopServer(){
+        stop = true;
     }
-*/
     @Override
     public void update(ViewEvent viewEvent) {
         try {
             output.writeObject(viewEvent);
         } catch (IOException e) {
+            //e.printStackTrace();
             System.out.println("Communication error");
-            //owner.terminate();
+            stopServer();
         }
     }
 }

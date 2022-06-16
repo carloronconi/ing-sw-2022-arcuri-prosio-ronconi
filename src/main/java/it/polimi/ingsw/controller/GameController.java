@@ -2,18 +2,13 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.networkmessages.GenericEvent;
-import it.polimi.ingsw.networkmessages.controllercalls.GetAssistantCard;
-import it.polimi.ingsw.networkmessages.controllercalls.GetNickname;
-import it.polimi.ingsw.networkmessages.controllercalls.InvalidNickname;
-import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import it.polimi.ingsw.server.VirtualView;
 import it.polimi.ingsw.model.GameModel;
 
-import java.io.InvalidObjectException;
 import java.util.*;
 
 /**
@@ -25,7 +20,8 @@ public class GameController implements EventListener<ViewEvent> {
     private int numOfPlayers;
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
-    private List<VirtualView> virtualViews;
+    private final HashMap<Integer, String> mapOfPlayerNicknames = new HashMap<>();
+    private final List<VirtualView> virtualViews;
     private UUID id; //virtual view id
 
     private final EventManager<ModelEvent> modelEventEventManager;
@@ -33,7 +29,7 @@ public class GameController implements EventListener<ViewEvent> {
     private boolean playAgain = false;
 
     private final Object lock = new Object();
-    private int num=0;
+    private int numOfNicknamesAdded =0;
 
     public GameController(EventManager<ModelEvent> modelEventEventManager) {
         playerNicknames = new ArrayList<>();
@@ -55,14 +51,47 @@ public class GameController implements EventListener<ViewEvent> {
     }
 
     public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum) {
-        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
-        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
             return gameModel.isAssistantCardIllegal(playerId, card);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    public boolean isCharacterCardIllegal(AvailableCharacter card, int virtualViewInstanceNum){
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
+        try {
+            return gameModel.isCharacterCardIllegal(playerId, card);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isMNMoveIllegal(int steps, int virtualViewInstanceNum){
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
+        try {
+            return gameModel.isMNMoveIllegal(steps, playerId);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isStudentMoveIllegal(PawnColor color, int virtualViewInstanceNum){
+        UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
+        int available = gameModel.getEntrances().get(playerId).get(color);
+        return available <= 0;
+    }
+
+    private UUID virtualViewInstanceToId(int virtualViewInstanceNum){
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        UUID playerId = playerIds.get(virtualViewInstanceNum);
+        return playerId;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
     }
 
     /**
@@ -95,21 +124,23 @@ public class GameController implements EventListener<ViewEvent> {
         if (viewEvent instanceof SetNickname) {
             if(((SetNickname) viewEvent).getVirtualView().getThisInstanceNumber()>0){
                 synchronized (lock){
-                    num++;
+                    numOfNicknamesAdded++;
                     lock.notifyAll();
                 }
-            }else num++;
+            }else numOfNicknamesAdded++;
             String nickname = ((SetNickname) viewEvent).getNickname();
-            playerNicknames.add(nickname);
-            System.out.println(playerNicknames);
+            //playerNicknames.add(nickname);
+            //System.out.println(playerNicknames);
             VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
+            mapOfPlayerNicknames.put(virtualView.getThisInstanceNumber(), nickname);
+            System.out.println(mapOfPlayerNicknames);
             virtualViews.add(virtualView);
 
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
             gameMode = ((SetPreferences) viewEvent).getGameMode();
             synchronized (lock) {
-                while (num < numOfPlayers) {
+                while (numOfNicknamesAdded < numOfPlayers) {
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
@@ -118,24 +149,34 @@ public class GameController implements EventListener<ViewEvent> {
                 }
             }
 
-            if (playerNicknames.size() == numOfPlayers) {
+            if (numOfNicknamesAdded == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
+                Iterator<VirtualView> iterator = virtualViews.iterator();
+                while(iterator.hasNext()){
+                    VirtualView view = iterator.next();
+                    modelEventEventManager.subscribe(view);
+                }/*
                 for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
 
+                }*/
+                for (int i = 0; i<numOfPlayers; i++){
+                    playerNicknames.add(mapOfPlayerNicknames.get(i));
                 }
+
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
 
                 for (VirtualView v : virtualViews) {
 
-                    v.subscribeToEventManager(turnController);  //SUBSCRIBE TURN CONTROLLER AFTER SETUP. IN START GAME
-                    // RN THERE IS A CONFLICT BETWEEN TURN CONTROLLER AND GAME CONTROLLER
+                    v.subscribeToEventManager(turnController);
                     v.id = turnController.getPlayerId(v.getThisInstanceNumber());
 
 
                 }
+                turnController.firstOrderShuffle();
+
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();
             } else if(viewEvent instanceof ReadyToPlay){

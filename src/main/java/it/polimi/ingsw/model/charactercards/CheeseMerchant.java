@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 
 import java.util.UUID;
@@ -15,7 +14,7 @@ public class CheeseMerchant extends Character implements EffectWithPlayer {
      * @param gameModel needed for the special effect
      */
     protected CheeseMerchant(GameModel gameModel) {
-        super(2);
+        super(AvailableCharacter.CHEESEMERCHANT.getInitialCost());
         this.gameModel = gameModel;
     }
 

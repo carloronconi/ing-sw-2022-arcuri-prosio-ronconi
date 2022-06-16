@@ -29,7 +29,7 @@ public class KnightTest {
         players.add(player);
         knight = new Knight(islandManager, players);
 
-        assertEquals(2, knight.getCost());
+        assertEquals(2, knight.getCurrentCost());
         assertFalse(knight.isCostIncreased());
         assertEquals(AvailableCharacter.KNIGHT, knight.getValue());
     }

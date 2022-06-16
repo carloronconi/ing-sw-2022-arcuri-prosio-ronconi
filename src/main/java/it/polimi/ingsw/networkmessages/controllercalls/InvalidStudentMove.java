@@ -6,9 +6,9 @@ import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 
 import java.io.Serializable;
 
-public class GetColorChoice implements Serializable, RemoteMethodCall{
+public class InvalidStudentMove implements Serializable, RemoteMethodCall{
     @Override
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
-        viewInterface.getColorChoice();
+        viewInterface.invalidStudentMove();
     }
 }

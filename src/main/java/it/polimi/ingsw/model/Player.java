@@ -16,6 +16,8 @@ public class Player implements Identifiable{
     private TowerColor towerColor;
     private ArrayList<Integer> assistantDeck;
     private int coins;
+    private static int numberOfInstances = 0;
+    private final int thisInstanceNumber;
 
 
     public Player(Entrance entrance, DiningRoom diningRoom, String nickname) {
@@ -24,10 +26,22 @@ public class Player implements Identifiable{
         this.nickname = nickname;
         id=UUID.randomUUID();
         coins=0;
+        //TODO: remove this cheat code
+        if(nickname.equals("MONEY")) coins = 100;
+
         assistantDeck = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
             assistantDeck.add(i);
         }
+        thisInstanceNumber = numberOfInstances;
+        if (thisInstanceNumber==0){
+            towerColor=TowerColor.WHITE;
+        }else if (thisInstanceNumber==1){
+            towerColor=TowerColor.BLACK;
+        }else{
+            towerColor=TowerColor.GREY;
+        }
+        numberOfInstances++;
     }
 
     public Entrance getEntrance() {
@@ -52,14 +66,18 @@ public class Player implements Identifiable{
         return (ArrayList<Integer>) assistantDeck.clone();
     }
 
+    public TowerColor getTowerColor(){
+        return towerColor;
+    }
+
     /**
      * this method removes from the deck of available cards the card chosen by the player
      * and played in planning stages
      * @param cardNumber is the number of the card to be removed
      */
     public void playAssistantCard(int cardNumber){
-
-        assistantDeck.remove(cardNumber);
+        int index = assistantDeck.indexOf(cardNumber);
+        assistantDeck.remove(index);
     }
 
     /**

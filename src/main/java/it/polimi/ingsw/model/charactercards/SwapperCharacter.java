@@ -16,27 +16,6 @@ public abstract class SwapperCharacter extends Character {
     protected final ArrayList<ColorSwap> colorSwaps;
     private final int maxColorSwaps;
 
-    /**
-     * inner class used to create a more convenient data structure for colorSwaps
-     */
-    protected class ColorSwap {
-        private final PawnColor give;
-        private final PawnColor take;
-
-        public ColorSwap(PawnColor give, PawnColor take) {
-            this.give = give;
-            this.take = take;
-        }
-
-        public PawnColor getGive() {
-            return give;
-        }
-
-        public PawnColor getTake() {
-            return take;
-        }
-    }
-
     public SwapperCharacter(int cost, List<Player> players, int maxColorSwaps) {
         super(cost);
         this.players = players;
@@ -55,6 +34,4 @@ public abstract class SwapperCharacter extends Character {
         if (colorSwaps.size()>maxColorSwaps-1) throw new IllegalStateException("already set up maximum number of students to be swapped");
         colorSwaps.add(new ColorSwap(give, take));
     }
-
-
 }

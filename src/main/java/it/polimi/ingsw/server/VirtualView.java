@@ -4,7 +4,11 @@ import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.controller.TurnController;
+import it.polimi.ingsw.controller.TurnState;
+import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
@@ -24,6 +28,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private TurnController turnController ;
     public UUID id;
     private final ClientHandler clientHandler;
+    private final Server server;
 
    /* private void writeObject(RemoteMethodCall remoteMethodCall){
         try {
@@ -33,7 +38,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         }
     }*/
 
-    public VirtualView(GameController gameController, ClientHandler clientHandler) {
+    public VirtualView(GameController gameController, ClientHandler clientHandler, Server server) {
         //this.clientSocket = clientSocket;
         this.gameController = gameController;
         eventManager = new EventManager<>();
@@ -41,11 +46,19 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
         thisInstanceNumber = numberOfInstances;
         numberOfInstances++;
         this.clientHandler = clientHandler;
+        this.server = server;
     }
 
     public UUID getId(){
         return id;
     }
+
+    public static int getNumberOfInstances() {
+        return numberOfInstances;
+    }
+
+    public GameMode getGameMode(){return gameController.getGameMode();}
+    public TurnState getTurnControllerState(){ return turnController.getCurrentPhase();}
 
     public int getThisInstanceNumber() {
         return thisInstanceNumber;
@@ -73,6 +86,27 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     public boolean isAssistantCardIllegal(int card){
         return gameController.isAssistantCardIllegal(card, thisInstanceNumber);
     }
+
+    public boolean isCharacterCardIllegal(AvailableCharacter card){
+        return gameController.isCharacterCardIllegal(card, thisInstanceNumber);
+    }
+
+    public boolean isMNMoveIllegal(int steps){
+        return gameController.isMNMoveIllegal(steps, thisInstanceNumber);
+    }
+
+    public boolean isStudentMoveIllegal(PawnColor color){
+        return gameController.isStudentMoveIllegal(color, thisInstanceNumber);
+    }
+
+    public boolean isGameOver(){
+        return turnController.isGameOver();
+    }
+
+    public UUID getGameWinner(){
+        return turnController.getGameWinner();
+    }
+
 
     //@Override
     public void sendAcknowledgement() {
@@ -126,12 +160,12 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
     @Override
     public void invalidCharacterChoice() {
-
+        clientHandler.writeObject(new InvalidCharacterChoice());
     }
 
     @Override
     public void invalidMNMove() {
-
+        clientHandler.writeObject(new InvalidMNMove());
     }
 
     @Override
@@ -140,33 +174,28 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     }
 
     @Override
-    public void moveMotherNature() {
+    public void invalidStudentMove() {
+        clientHandler.writeObject(new InvalidStudentMove());
+    }
 
+    @Override
+    public void moveMotherNature() {
+        clientHandler.writeObject(new MoveMotherNature());
     }
 
     @Override
     public void moveStudent() {
-
+        clientHandler.writeObject(new MoveStudent());
     }
 
     @Override
-    public void gameOver() {
-
+    public void gameOver(UUID winner) {
+        server.gameIsOver(winner);
     }
 
     @Override
-    public void getColorSwap() {
-
-    }
-
-    @Override
-    public void getColorChoice() {
-
-    }
-
-    @Override
-    public void getIslandChoice() {
-
+    public void getCharacterSettings(AvailableCharacter forCharacter) {
+        clientHandler.writeObject(new GetCharacterSettings(forCharacter));
     }
 
     @Override

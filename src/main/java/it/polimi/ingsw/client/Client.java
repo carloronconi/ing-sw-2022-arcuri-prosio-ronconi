@@ -30,23 +30,24 @@ public class Client implements Runnable {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("IP address of server?");
-        String ip = scanner.nextLine();
-        System.out.println("Server port?");
-        int socketPort = Integer.parseInt(scanner.nextLine());
-
-
-        /* Open connection to the server and start a thread for handling
-         * communication. */
         Socket server;
-        try {
-            server = new Socket(ip, socketPort);
-        } catch (IOException e) {
-            System.out.println("server unreachable");
-            return;
+        while(true){
+            System.out.println("IP address of server?");
+            String ip = scanner.nextLine();
+            //String ip = "localhost";
+
+            System.out.println("Server port?");
+            int socketPort = Integer.parseInt(scanner.nextLine());
+            //int socketPort = 4999;
+
+            try {
+                server = new Socket(ip, socketPort);
+                break;
+            } catch (IOException e) {
+                System.out.println("Server unreachable! Try with different address/port:");
+            }
         }
-        //serverHandler = new ServerHandler(server, this, view);
+
         serverHandler = new ServerHandler(server, this);
 
 

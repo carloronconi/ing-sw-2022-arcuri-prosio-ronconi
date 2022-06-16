@@ -33,11 +33,11 @@ public class MusicianTest {
 
         players.add(player);
 
-        musician = new Musician(players);
+        musician = new Musician(players, null);
 
         assertEquals(123, bag.count());
         assertEquals(1, players.size());
-        assertEquals(1, musician.getCost());
+        assertEquals(1, musician.getCurrentCost());
         assertFalse(musician.isCostIncreased());
         assertEquals(AvailableCharacter.MUSICIAN, musician.getValue());
 
@@ -76,7 +76,7 @@ public class MusicianTest {
             fail();
         }
 
-        assertEquals(2, musician.getCost());
+        assertEquals(2, musician.getCurrentCost());
         assertEquals(numStudentsTake+1, player.getEntrance().count(colorTake));
         assertEquals(numStudentsGive-1, player.getEntrance().count(colorGive));
         assertTrue(musician.isCostIncreased());

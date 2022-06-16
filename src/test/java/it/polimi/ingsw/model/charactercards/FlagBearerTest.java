@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,7 +30,7 @@ public class FlagBearerTest {
 
 
 
-        assertEquals(3, flagBearer.getCost());
+        assertEquals(3, flagBearer.getCurrentCost());
         assertFalse(flagBearer.isCostIncreased());
         assertEquals(113, bag.count());
 
@@ -59,7 +58,7 @@ public class FlagBearerTest {
         assertSame(player, islandManager.getIsland(8).getOwner());
         assertEquals(12, islandManager.countIslands());
         assertTrue(flagBearer.isCostIncreased());
-        assertEquals(4, flagBearer.getCost());
+        assertEquals(4, flagBearer.getCurrentCost());
 
         try {
             islandManager.moveMotherNature(2);
@@ -84,7 +83,7 @@ public class FlagBearerTest {
         assertSame(player, islandManager.getIsland(8).getOwner());
         assertEquals(12, islandManager.countIslands());
         assertTrue(flagBearer.isCostIncreased());
-        assertEquals(4, flagBearer.getCost());
+        assertEquals(4, flagBearer.getCurrentCost());
 
         try {
             islandManager.moveMotherNature(2);

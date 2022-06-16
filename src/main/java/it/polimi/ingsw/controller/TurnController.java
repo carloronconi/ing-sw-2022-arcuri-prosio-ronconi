@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.GameModel;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Character;
+import it.polimi.ingsw.model.charactercards.ColorSwap;
 import it.polimi.ingsw.model.charactercards.SwapperCharacter;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
@@ -25,14 +26,22 @@ public class TurnController implements EventListener<ViewEvent> {
     private final GameModel gameModel;
     private final GameMode gameMode;
 
+    private Character lastCharacter;
+
 
     public TurnController(GameModel gameModel, GameMode gameMode) {
         this.gameModel = gameModel;
         this.gameMode = gameMode;
 
         playerOrder = new ArrayList<>(gameModel.getPlayerIds());
-        Collections.shuffle(playerOrder);
+        System.out.println("Player order at initialization:\n"+playerOrder);
+        //Collections.shuffle(playerOrder);
         currentPlayerIndex = 0;
+    }
+
+    public void firstOrderShuffle(){
+        Collections.shuffle(playerOrder);
+        System.out.println("Player order after shuffle:\n"+playerOrder);
     }
 
     public UUID getPlayerId(int index){
@@ -123,14 +132,75 @@ public class TurnController implements EventListener<ViewEvent> {
     }
      */
 
-    private boolean isGameOver(UUID player){
-        try {
-            if (gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
-                    gameModel.countStudentsInBag() == 0 || gameModel.getDeckSize(player) == 0) return true;
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+    public boolean isGameOver(){
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        for (UUID player: playerIds){
+            try {
+                int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
+                if (initialNumOfTowers - gameModel.getNumOfTowers(player) == 0 || gameModel.countIslands() == 3 ||
+                        gameModel.countStudentsInBag() == 0 || (gameModel.getDeckSize(player) == 0 && currentPlayerIndex < playerOrder.size()-1 && phase == TurnState.ACTION)) return true;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
         }
         return false;
+    }
+
+    public UUID getGameWinner(){
+        if (!isGameOver()) return null;
+        ArrayList<UUID> playerIds = gameModel.getPlayerIds();
+        for (UUID player: playerIds){
+            int initialNumOfTowers = gameModel.getPlayerIds().size() == 2? 8:6;
+            if(initialNumOfTowers - gameModel.getNumOfTowers(player)==0) return player;
+            else{
+                //return player with most towers or if tie player with most professors among the players with most towers
+                ArrayList<UUID> playersWithMostTowers = getPlayersWithMostTowers();
+                if (playersWithMostTowers.size() == 1) return playersWithMostTowers.get(0);
+                return getPlayerWithMostProfessors(playersWithMostTowers);
+            }
+        }
+        return null;
+    }
+
+    private ArrayList<UUID> getPlayersWithMostTowers(){
+        int maxTowers = 0;
+        boolean tie = false;
+        UUID maxPlayer = null;
+        for (UUID player : gameModel.getPlayerIds()){
+            int currTowers = gameModel.getNumOfTowers(player);
+            if (currTowers>maxTowers){
+                maxTowers = currTowers;
+                maxPlayer = player;
+                tie = false;
+            } else if (currTowers == maxTowers){
+                tie = true;
+            }
+        }
+        ArrayList<UUID> list = new ArrayList<>();
+        if (!tie) {
+            list.add(maxPlayer);
+        } else {
+            for (UUID player : gameModel.getPlayerIds()){
+                if (gameModel.getNumOfTowers(player) == maxTowers) list.add(player);
+            }
+        }
+        return list;
+    }
+
+    private UUID getPlayerWithMostProfessors(ArrayList<UUID> amongPlayers){
+        int maxProfessors = 0;
+        UUID maxPlayer = null;
+        for (UUID player : amongPlayers){
+            int currProfessors = 0;
+            for (PawnColor color: PawnColor.values()){
+                if (gameModel.getProfessorOwners().get(color).equals(player)) currProfessors++;
+            }
+            if (currProfessors>maxProfessors){
+                maxProfessors = currProfessors;
+                maxPlayer = player;
+            }
+        }
+        return maxPlayer;
     }
 /*
     private boolean startActionPhase(){
@@ -223,23 +293,80 @@ public class TurnController implements EventListener<ViewEvent> {
             } catch (NoSuchFieldException e) {
                 throw new RuntimeException(e);
             }
-            //lastPlayedAssistant = ((SetAssistantCard) modelEvent).getCard();
         } else if (modelEvent instanceof  ChosenCharacter){
+            AvailableCharacter character = ((ChosenCharacter) modelEvent).getChosenCharacter();
+
+            try {
+                lastCharacter = gameModel.payAndGetCharacter(getCurrentPlayer(), character);
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+
+            //TODO: just save the character somewhere and use it in new method after setting up player, island, color
             //lastPlayedCharacter = ((ChosenCharacter) modelEvent).getChosenCharacter();
         } else if (modelEvent instanceof MovedStudent){
+            UUID island = ((MovedStudent) modelEvent).getIslandId();
+            PawnColor color = ((MovedStudent) modelEvent).getColor();
+            if (island == null){
+                try {
+                    gameModel.moveStudentToDining(color, getCurrentPlayer());
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    gameModel.moveStudentToIsland(color, getCurrentPlayer(), island);
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            }
             //lastChosenStudent = ((MovedStudent) modelEvent).getColor();
             //lastChosenIsland = ((MovedStudent) modelEvent).getIslandId();
         } else if (modelEvent instanceof MovedMotherNature){
+            try {
+                gameModel.moveMotherNature(((MovedMotherNature) modelEvent).getMotherNatureSteps(), getCurrentPlayer());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
             //lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
         } else if (modelEvent instanceof  ChosenCloud){
+            try {
+                gameModel.moveCloudToEntrance(((ChosenCloud) modelEvent).getCloud(), getCurrentPlayer());
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            if(phase == TurnState.ACTION && currentPlayerIndex >= playerOrder.size()-1){
+                gameModel.fillAllClouds();
+                gameModel.clearPlayedAssistantCards();
+            }
             //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
-        } else if (modelEvent instanceof SetColorSwap){
-            //lastGivenSwap = ((SetColorSwap) modelEvent).getGive();
-            //lastTakenSwap = ((SetColorSwap) modelEvent).getTake();
-        } else if (modelEvent instanceof SetColorChoice){
-            //lastChosenColor = ((SetColorChoice) modelEvent).getColor();
-        } else if (modelEvent instanceof SetIslandChoice){
-            //lastEffectChosenIsland = ((SetIslandChoice) modelEvent).getIsland();
+        } else if (modelEvent instanceof SetCharacterSettings){
+            PawnColor color = ((SetCharacterSettings) modelEvent).getColor();
+            UUID island = ((SetCharacterSettings) modelEvent).getIsland();
+            ArrayList<ColorSwap> colorSwaps = ((SetCharacterSettings) modelEvent).getColorSwaps();
+
+            if (lastCharacter instanceof EffectWithColor){
+                ((EffectWithColor) lastCharacter).setEffectColor(color);
+            }
+            if (lastCharacter instanceof EffectWithIsland){
+                ((EffectWithIsland) lastCharacter).setEffectIsland(island);
+            }
+            if (lastCharacter instanceof EffectWithPlayer){
+                ((EffectWithPlayer) lastCharacter).setEffectPlayer(getCurrentPlayer());
+            }
+            if (lastCharacter instanceof SwapperCharacter){
+                for (ColorSwap swap : colorSwaps){
+                    ((SwapperCharacter) lastCharacter).setupColorSwaps(swap.getGive(), swap.getTake());
+                }
+
+            }
+
+
+            try {
+                lastCharacter.useEffect();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

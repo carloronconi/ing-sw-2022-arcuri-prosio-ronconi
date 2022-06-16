@@ -47,7 +47,7 @@ public class UsurerTest {
 
         assertEquals(116, bag.count());
         assertEquals(2, players.size());
-        assertEquals(3, usurer.getCost());
+        assertEquals(3, usurer.getCurrentCost());
         assertFalse(usurer.isCostIncreased());
         assertEquals(AvailableCharacter.USURER, usurer.getValue());
 

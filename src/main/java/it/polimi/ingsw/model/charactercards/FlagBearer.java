@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.charactercards;
 
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.ProfessorManager;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
@@ -16,7 +14,7 @@ public class FlagBearer extends Character implements EffectWithIsland {
      * @param islandManager needed for special effect
      */
     protected FlagBearer(IslandManager islandManager) {
-        super(3);
+        super(AvailableCharacter.FLAGBEARER.getInitialCost());
         this.islandManager = islandManager;
     }
 

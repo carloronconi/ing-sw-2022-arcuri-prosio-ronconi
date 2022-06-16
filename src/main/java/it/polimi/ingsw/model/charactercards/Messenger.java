@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.PawnColor;
-
-import java.util.UUID;
 
 public class Messenger extends Character {
     private final GameModel gameModel;
@@ -13,7 +10,7 @@ public class Messenger extends Character {
      * @param gameModel needed for the special effect
      */
     protected Messenger(GameModel gameModel) {
-        super(1);
+        super(AvailableCharacter.MESSENGER.getInitialCost());
         this.gameModel = gameModel;
     }
 

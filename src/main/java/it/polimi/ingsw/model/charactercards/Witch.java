@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.charactercards;
 
-import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithIsland;
 import it.polimi.ingsw.model.studentmanagers.IslandManager;
 
@@ -18,7 +17,7 @@ public class Witch extends Character implements EffectWithIsland {
      * @param islandManager to be used in useEffect
      */
     protected Witch(IslandManager islandManager) {
-        super(2);
+        super(AvailableCharacter.WITCH.getInitialCost());
         availableBans = 4;
         this.islandManager = islandManager;
     }

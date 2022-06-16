@@ -19,7 +19,7 @@ public class WitchTest {
         islandManager = new IslandManager(bag, professorManager);
         witch = new Witch(islandManager);
 
-        assertEquals(2, witch.getCost());
+        assertEquals(2, witch.getCurrentCost());
         assertFalse(witch.isCostIncreased());
         assertEquals(AvailableCharacter.WITCH, witch.getValue());
 
@@ -42,7 +42,7 @@ public class WitchTest {
         }
         assertTrue(islandManager.getIsland(2).ban);
         assertTrue(witch.isCostIncreased());
-        assertEquals(3, witch.getCost());
+        assertEquals(3, witch.getCurrentCost());
     }
 
 

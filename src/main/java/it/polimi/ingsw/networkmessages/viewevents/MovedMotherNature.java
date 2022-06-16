@@ -1,6 +1,5 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
-import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;
@@ -19,6 +18,16 @@ public class MovedMotherNature implements Serializable, GameViewEvent {
 
     @Override
     public void processMessage(VirtualView virtualView) throws InvalidObjectException {
+        if(virtualView.isMNMoveIllegal(motherNatureSteps)){
+            virtualView.invalidMNMove();
+            return;
+        }
 
+        virtualView.notifyController(this);
+        if (virtualView.isGameOver()){
+            virtualView.gameOver(virtualView.getGameWinner());
+        } else {
+            virtualView.chooseCloud();
+        }
     }
 }

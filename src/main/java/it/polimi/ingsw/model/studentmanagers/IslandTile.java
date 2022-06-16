@@ -43,6 +43,10 @@ public class IslandTile extends StudentCounter implements Identifiable {
         }
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public Player getOwner() {
         return owner;
     }
@@ -56,11 +60,14 @@ public class IslandTile extends StudentCounter implements Identifiable {
      * @param otherIsland is the island from which students are transferred
      */
     public void moveAllPawnsFrom(IslandTile otherIsland){
-        size++;
+        size+=otherIsland.size;
         for (PawnColor c: PawnColor.values()) {
+            while(otherIsland.count(c)>0){
+                movePawnFrom(otherIsland, c);
+            }/*
             for (int i = 0; i < otherIsland.count(c); i++) {
                 movePawnFrom(otherIsland,c);
-            }
+            }*/
         }
     }
 
@@ -82,6 +89,49 @@ public class IslandTile extends StudentCounter implements Identifiable {
           The Player-Integer pair is inserted into another supporting table.
          */
         HashMap<Player, Integer> playerPointsMap = new HashMap<>();
+
+        ArrayList<PawnColor> colorsOnIsland = new ArrayList<>();
+
+        for (PawnColor color: PawnColor.values()){
+            if (this.count(color)>0) colorsOnIsland.add(color);
+        }
+
+        if (mushroomMerchantEffect!=null) colorsOnIsland.remove(mushroomMerchantEffect);
+
+        for(PawnColor color : colorsOnIsland){
+            Player colorOwner = professorManager.getProfessorOwner(color);
+            if(colorOwner == null) continue;
+            playerPointsMap.merge(colorOwner, this.count(color), Integer::sum);
+        }
+
+        if(owner!=null &&!centaurEffect){
+            playerPointsMap.merge(owner, size, Integer::sum);
+        }
+
+        if(knightEffectOwner!=null){
+            if(!playerPointsMap.containsKey(knightEffectOwner)) playerPointsMap.put(knightEffectOwner, 2);
+            else playerPointsMap.put(knightEffectOwner, playerPointsMap.get(knightEffectOwner) +2);
+        }
+
+        if (playerPointsMap.isEmpty()) return null;
+
+        Player bestPlayer = null;
+        int bestScore = -1;
+        for (Player currPlayer : playerPointsMap.keySet()){
+            int currScore = playerPointsMap.get(currPlayer);
+            if (currScore>bestScore){
+                bestScore = currScore;
+                bestPlayer = currPlayer;
+            } else if (currScore == bestScore) {
+                if (currPlayer == owner || bestPlayer == owner) bestPlayer = owner;
+                else bestPlayer = null;
+            }
+        }
+
+        owner = bestPlayer;
+        return owner;
+
+/*
         for(Player player : professorManager.playersContained()){
             int numStudents=0;
             ArrayList<PawnColor> colors = professorManager.colorsAssociateToPlayer(player);
@@ -111,7 +161,7 @@ public class IslandTile extends StudentCounter implements Identifiable {
           because neither of them will own the island. However, the number of students will be saved
           because if the third player has more students than the other previous players,
           then this will be set as the player who will own the island.
-         */
+         *//*
         Player supportPlayer = null;
         int numInfluenceStudents=-1;
         for(Player player : playerPointsMap.keySet()){
@@ -126,7 +176,7 @@ public class IslandTile extends StudentCounter implements Identifiable {
 
         if (supportPlayer!= owner && supportPlayer!= null) owner=supportPlayer;
 
-        return owner;
+        return owner;*/
     }
 
 

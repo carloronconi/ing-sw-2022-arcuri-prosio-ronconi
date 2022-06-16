@@ -15,17 +15,20 @@ import java.util.UUID;
 import java.util.stream.IntStream;
 
 public class Juggler extends SwapperCharacter implements EffectWithPlayer {
-    private final CharacterStudentCounter studentCounter;
+    private static final CharacterStudentCounter studentCounter = new CharacterStudentCounter();
     private UUID player;
+    private GameModel gameModel;
+
+    private static final int maxColorSwaps = 3;
 
     /**
      * initialises parameters needed for effect, draws 6 students from the bag and initialises super with 3 maximum color swaps
      * @param players needed for special effect
      * @param bag needed to draw students
      */
-    public Juggler(Bag bag, List<Player> players) {
-        super(1, players, 3);
-        studentCounter = new CharacterStudentCounter();
+    public Juggler(Bag bag, List<Player> players, GameModel gameModel) {
+        super(AvailableCharacter.JUGGLER.getInitialCost(), players, maxColorSwaps);
+        this.gameModel = gameModel;
         IntStream.range(0,6).forEach(i -> studentCounter.takeStudentFrom(bag));
     }
 
@@ -41,6 +44,7 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());
         if (!isCostIncreased()) increaseCost();
         player = null;
+        if (gameModel!=null) gameModel.notifyListeners();
     }
 
     /**
@@ -55,5 +59,19 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
     @Override
     public void setEffectPlayer(UUID player) {
         this.player = player;
+    }
+
+    public static int getMaxColorSwaps() {
+        return maxColorSwaps;
+    }
+
+    public static ArrayList<PawnColor> getStudents(){
+        ArrayList<PawnColor> colors = new ArrayList<>();
+        for (PawnColor color : PawnColor.values()){
+            for (int i = 0; i<studentCounter.count(color); i++){
+                colors.add(color);
+            }
+        }
+        return colors;
     }
 }

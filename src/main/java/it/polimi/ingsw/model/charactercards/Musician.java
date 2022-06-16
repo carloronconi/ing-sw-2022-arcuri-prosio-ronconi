@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.charactercards;
 
 import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.charactercards.effectarguments.EffectWithPlayer;
 import it.polimi.ingsw.model.studentmanagers.DiningRoom;
@@ -13,13 +12,16 @@ import java.util.UUID;
 
 public class Musician extends SwapperCharacter implements EffectWithPlayer {
     private UUID player;
+    private static int maxColorSwaps = 2;
+    private GameModel gameModel;
 
     /**
      * initialises super with 2 maximum color swaps
      * @param players needed for special effect
      */
-    public Musician(List<Player> players) {
-        super(1, players, 2);
+    public Musician(List<Player> players, GameModel gameModel) {
+        super(AvailableCharacter.MUSICIAN.getInitialCost(), players, maxColorSwaps);
+        this.gameModel = gameModel;
     }
 
     /**
@@ -38,11 +40,17 @@ public class Musician extends SwapperCharacter implements EffectWithPlayer {
         for(ColorSwap cs: colorSwaps) entrance.swapStudent(diningRoom, cs.getGive(), cs.getTake());
         if(!isCostIncreased()) increaseCost();
         player = null;
+        gameModel.updateProfessorManager();
+        if (gameModel!=null) gameModel.notifyListeners();
     }
 
 
     @Override
     public void setEffectPlayer(UUID player) {
         this.player = player;
+    }
+
+    public static int getMaxColorSwaps() {
+        return maxColorSwaps;
     }
 }

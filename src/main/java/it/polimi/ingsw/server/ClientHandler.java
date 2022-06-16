@@ -9,15 +9,19 @@ import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private VirtualView virtualView;
+    private final Server server;
+    private boolean stop;
 
-    public ClientHandler(Socket clientSocket){
+    public ClientHandler(Socket clientSocket, Server server){
         this.clientSocket = clientSocket;
+        this.server = server;
     }
 
     public void assignVirtualView(VirtualView virtualView){
@@ -37,7 +41,7 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(remoteMethodCall);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -59,11 +63,12 @@ public class ClientHandler implements Runnable {
             System.out.println("input stream created");
         } catch (IOException e) {
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
+            e.printStackTrace();
             return;
         }
 
         try {
-            while (true) {
+            while (!stop) {
 
                 Object next = input.readObject();
                 ViewEvent message = (ViewEvent) next;
@@ -83,8 +88,8 @@ public class ClientHandler implements Runnable {
         } catch (ClassNotFoundException | ClassCastException e) {
             System.out.println("invalid stream from client");
         } catch (IOException e) {
+            server.gameIsOver(null);
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
-            return;
         }
 
         try {
@@ -94,5 +99,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
-
+    public void stopClient(){
+        stop = true;
+    }
 }

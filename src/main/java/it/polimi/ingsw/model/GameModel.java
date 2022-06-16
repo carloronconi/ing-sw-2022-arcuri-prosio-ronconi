@@ -68,6 +68,10 @@ public class GameModel {
 
     }
 
+    public ArrayList<Player> getPlayers(){
+        return new ArrayList<>(players);
+    }
+
     /**
      * transfers a student of a certain color from a player's entrance to the corresponding diningRoom.
      * If the bank has a number of coins greater than 0 and the number of students of that color is multiples of 3,
@@ -88,7 +92,7 @@ public class GameModel {
     /**
      * Updates the correspondence between teachers and players in professorManager
      */
-    private void updateProfessorManager(){
+    public void updateProfessorManager(){
 
         Player supportPlayer =null;
         for(PawnColor pawnColor : PawnColor.values()){
@@ -183,8 +187,23 @@ public class GameModel {
     }
 
     public boolean isAssistantCardIllegal(UUID idPlayer, int cardNumber) throws NoSuchFieldException {
+        Player player = ConverterUtility.idToElement(idPlayer, players);
+        if (!player.getDeck().contains(cardNumber)) return true; //the card is not contained in the player's deck
+        else{ //the card is contained in the player's deck
+            if(!playedCards.containsValue(cardNumber)) return false; //the card has not been played by other player in same turn
+            else{ //the card is contained in the player's deck and has been played by other player in same turn
+                for (int card : player.getDeck()){
+                    if (card == cardNumber) continue;
+                    if (!playedCards.containsValue(card)) return true; //there is a card in the deck, different from cardNumber,
+                                                                       //that has not been played by other player in the same turn
+                }
+                return false;
+            }
+        }
+
+        /*
         for (Integer playedCard : playedCards.values()) {
-            Player player = ConverterUtility.idToElement(idPlayer, players);
+
             boolean noAlternative = true;
             for (int card : player.getDeck()){
                 if (!playedCards.containsValue(card)) {
@@ -196,26 +215,30 @@ public class GameModel {
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 
     /**
      * returns the number of towers owned by the player passed in as input
      * @param idPlayer id of the player on which the number of towers will be checked
-     * @return number of towers remaining
+     * @return number of towers already placed by the player
      */
     public int getNumOfTowers(UUID idPlayer){
-        int howManyPlayers=0;
-        for(Player player : players){
-            if(player.getId().equals(idPlayer)){
-                howManyPlayers++;
+        Player player;
+        try {
+            player = ConverterUtility.idToElement(idPlayer, players);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        int howManyIslands=0;
+        for(IslandTile islandTile : islandManager.getIslands()){
+            if (islandTile.getOwner()!=null) {
+                if (islandTile.getOwner().equals(player)) {
+                    howManyIslands += islandTile.getSize();
+                }
             }
         }
-        if(players.size()==3){
-            return 6-howManyPlayers;
-        }else{
-            return 8-howManyPlayers;
-        }
+        return howManyIslands;
 
     }
 
@@ -253,6 +276,25 @@ public class GameModel {
      */
     public int countIslands(){
         return islandManager.countIslands();
+    }
+
+    public LinkedHashMap<UUID, Integer> islandsSize(){
+        LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
+
+        for (int i=0; i<islandManager.getIslands().size(); i++){
+            map.put(islandManager.getIsland(i).getId(), islandManager.getIsland(i).getSize());
+        }
+
+        return map;
+    }
+
+    public LinkedHashMap<UUID, Boolean> banOnIslands(){
+        LinkedHashMap<UUID, Boolean> map = new LinkedHashMap<>();
+        for (int i=0; i<islandManager.getIslands().size(); i++){
+            map.put(islandManager.getIsland(i).getId(), islandManager.getIsland(i).ban);
+        }
+
+        return map;
     }
 
     /**
@@ -302,13 +344,39 @@ public class GameModel {
         if (characterIndex == -1) throw new NoSuchFieldException();
         Character c = characters.get(characterIndex);
 
-        if (p.getNumOfCoins()<c.getCost()) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
-        p.payCoins(c.getCost());
-        bank+=c.getCost();
+        if (isCharacterCardIllegal(player, character)) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
+        p.payCoins(c.getCurrentCost());
+        bank+=c.getCurrentCost();
         eventManager.notify(new GameState(this));
         return c;
 
     }
+
+    public boolean isCharacterCardIllegal(UUID player, AvailableCharacter character) throws NoSuchFieldException{
+        int playerIndex = ConverterUtility.idToIndex(player, players);
+        Player p = players.get(playerIndex);
+        int characterIndex = -1;
+        for (int i = 0; i<characters.size(); i++){
+            Character c = characters.get(i);
+            if (c.getValue() == character) characterIndex = i;
+        }
+        if (characterIndex == -1) throw new NoSuchFieldException();
+        Character c = characters.get(characterIndex);
+
+        return (p.getNumOfCoins()<c.getCurrentCost()) ;
+    }
+
+    /*
+    public int getCurrentCharacterPrice(AvailableCharacter character) throws NoSuchFieldException{
+        int characterIndex = -1;
+        for (int i = 0; i<characters.size(); i++){
+            Character c = characters.get(i);
+            if (c.getValue() == character) characterIndex = i;
+        }
+        if (characterIndex == -1) throw new NoSuchFieldException();
+        Character c = characters.get(characterIndex);
+        return c.getCost();
+    }*/
 
     /**
      * called only by cheese merchant card
@@ -326,16 +394,24 @@ public class GameModel {
      * @throws NoSuchFieldException if the player hasn't played a card with enough steps
      */
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
+        if (isMNMoveIllegal(steps, playerId)) throw new IllegalArgumentException("Not enough steps in the card played");
         Player player = ConverterUtility.idToElement(playerId,players);
-        if (playedCards.get(player) + messengerEffect < steps) throw new IllegalArgumentException("Not enough steps in the card played");
         islandManager.moveMotherNature(steps);
         messengerEffect = 0;
-
+        System.out.println("moved mother nature");
         eventManager.notify(new GameState(this));
+    }
+
+    public boolean isMNMoveIllegal(int steps, UUID playerId) throws NoSuchFieldException {
+        Player player = ConverterUtility.idToElement(playerId,players);
+        int cardValue = playedCards.get(player)/2;
+        if(playedCards.get(player)%2 !=0) cardValue++;
+        return (cardValue + messengerEffect < steps);
     }
 
     public void clearPlayedAssistantCards(){
         playedCards.clear();
+        eventManager.notify(new GameState(this));
     }
 
     public EnumMap<PawnColor, UUID> getProfessorOwners(){
@@ -349,10 +425,9 @@ public class GameModel {
         return map;
     }
 
-    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getClouds(){
-        ArrayList<HashMap<UUID, ArrayList<PawnColor>>> list = new ArrayList<>();
+    public LinkedHashMap<UUID, ArrayList<PawnColor>> getClouds(){
+        LinkedHashMap<UUID, ArrayList<PawnColor>> map = new LinkedHashMap<>();
         for (Cloud cloud: clouds){
-            HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
             ArrayList<PawnColor> colors = new ArrayList<>();
             ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
             for (PawnColor color: PawnColor.values()){
@@ -364,29 +439,44 @@ public class GameModel {
                 }
             }
             map.put(cloud.getId(),colors);
-            list.add(map);
+
         }
-        return list;
+        return map;
     }
 
-    public ArrayList<HashMap<UUID, ArrayList<PawnColor>>> getIslands(){
-        ArrayList<HashMap<UUID, ArrayList<PawnColor>>> list = new ArrayList<>();
+    public LinkedHashMap<UUID, ArrayList<PawnColor>> getIslands(){
+        LinkedHashMap<UUID, ArrayList<PawnColor>> map = new LinkedHashMap<>();
         for (IslandTile island: islandManager.getIslands()){
-            HashMap<UUID, ArrayList<PawnColor>> map = new HashMap<>();
             ArrayList<PawnColor> colors = new ArrayList<>();
-            ArrayList<PawnColor> colorsInCloud = new ArrayList<>();
+            ArrayList<PawnColor> colorsInIsland = new ArrayList<>();
             for (PawnColor color: PawnColor.values()){
-                if (island.count(color)>0) colorsInCloud.add(color);
+                if (island.count(color)>0) colorsInIsland.add(color);
             }
-            for (PawnColor color: colorsInCloud){
+            for (PawnColor color: colorsInIsland){
                 for (int i = 0; i < island.count(color); i++) {
                     colors.add(color);
                 }
             }
             map.put(island.getId(),colors);
-            list.add(map);
+
         }
-        return list;
+        return map;
+    }
+
+    public LinkedHashMap<UUID, Integer> getIslandSizes(){
+        LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
+        for (IslandTile island : islandManager.getIslands()){
+            map.put(island.getId(), island.getSize());
+        }
+        return map;
+    }
+
+    public ArrayList<UUID> getWhichIslandsHaveBan(){
+        ArrayList<UUID> islandsWithBan = new ArrayList<>();
+        for (IslandTile island: islandManager.getIslands()){
+            if (island.ban) islandsWithBan.add(island.getId());
+        }
+        return islandsWithBan;
     }
 
     public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances(){
@@ -452,12 +542,12 @@ public class GameModel {
         return map;
     }
 
-    public ArrayList<String> getPlayerNicknames(){
-        ArrayList<String> list = new ArrayList<>();
+    public LinkedHashMap<UUID, String> getPlayerNicknames(){
+        LinkedHashMap<UUID, String> map = new LinkedHashMap<>();
         for (Player p : players){
-            list.add(p.getNickname());
+            map.put(p.getId(), p.getNickname());
         }
-        return list;
+        return map;
     }
 
     public String toString(){
@@ -491,5 +581,9 @@ public class GameModel {
         }
 
         return list;
+    }
+
+    public void notifyListeners(){
+        eventManager.notify(new GameState(this));
     }
 }
