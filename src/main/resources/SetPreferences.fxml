@@ -6,7 +6,7 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<AnchorPane prefHeight="266.0" prefWidth="600.0" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
+<AnchorPane prefHeight="266.0" prefWidth="600.0" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ClientGui">
    <stylesheets>
       <URL value="@textfont.css" />
    </stylesheets>

@@ -22,9 +22,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
-public class ClientGUIFirst extends Application implements Runnable{
-    private ServerHandlerGUI serverHandlerGUI;
-    private ClientGUI clientGUI;
+public class ClientGui extends Application implements Runnable{
+    private ServerHandler serverHandler;
     private Socket server;
     private static GuiView guiView;
     private static ChooseAssistantController chooseAssistantController;
@@ -51,7 +50,6 @@ public class ClientGUIFirst extends Application implements Runnable{
 
     private ObjectInputStream input;
     private ObjectOutputStream output;
-    private ServerHandler serverHandler;
 
 
     private String message = "";
@@ -82,12 +80,12 @@ public class ClientGUIFirst extends Application implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        serverHandlerGUI = new ServerHandlerGUI(server, this);
+        serverHandler = new ServerHandler(server);
 
-        guiView = new GuiView(serverHandlerGUI, this);
-        serverHandlerGUI.linkGuiView(guiView);
+        guiView = new GuiView(serverHandler, this);
+        serverHandler.linkView(guiView);
 
-        Thread serverHandlerThread = new Thread(serverHandlerGUI, "server_" + server.getInetAddress().getHostAddress());
+        Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
 
 

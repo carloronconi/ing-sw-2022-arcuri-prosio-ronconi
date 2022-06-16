@@ -23,10 +23,10 @@ public class ChooseAssistantController {
     private Scene scene;
     private Parent root;
 
-    private ClientGUIFirst clientGUIFirst;
+    private ClientGui clientGui;
 
-    public ChooseAssistantController(ClientGUIFirst clientGUIFirst){
-        this.clientGUIFirst = clientGUIFirst;
+    public ChooseAssistantController(ClientGui clientGui){
+        this.clientGui = clientGui;
 
 
 
@@ -135,7 +135,7 @@ public class ChooseAssistantController {
         while (m.find()) {
             cardNumber = Integer.parseInt(m.group());
             System.out.println("" + cardNumber);
-            clientGUIFirst.updateChosenAssistant(cardNumber);
+            clientGui.updateChosenAssistant(cardNumber);
 
         }
 

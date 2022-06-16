@@ -4,18 +4,14 @@ import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.networkmessages.ReceivedByClient;
-import it.polimi.ingsw.networkmessages.controllercalls.RemoteMethodCall;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.Handshake;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
-import it.polimi.ingsw.server.ClientHandler;
-import it.polimi.ingsw.server.VirtualView;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A class that represents the server inside the client.
@@ -24,7 +20,6 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     private Socket server;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private Client owner;
     private boolean stop;
     private EventManager<ModelEvent> eventManager;
     private ViewInterface view;
@@ -38,10 +33,9 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
      * a server.
      * @param server The socket connection to the server.
      */
-    public ServerHandler(Socket server, Client owner)
+    public ServerHandler(Socket server)
     {
         this.server = server;
-        this.owner = owner;
         eventManager = new EventManager<>();
 
     }
@@ -107,15 +101,6 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
         }
     }
 
-
-    /**
-     * The game instance associated with this client.
-     * @return The game instance.
-     */
-    public Client getClient()
-    {
-        return owner;
-    }
 
     public void stopServer(){
         stop = true;

@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0"
             prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="it.polimi.ingsw.client.ClientGUIFirst">
+fx:controller="it.polimi.ingsw.client.ClientGui">
    <children>
       <ImageView fx:id="eryantis3" fitHeight="542.0" fitWidth="819.0" layoutX="-9.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>

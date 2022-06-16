@@ -1,8 +1,6 @@
 package it.polimi.ingsw.server;
 
-import com.sun.security.jgss.GSSUtil;
 import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.networkmessages.controllercalls.GameOver;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
@@ -10,12 +8,9 @@ import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
-
-import static java.lang.Thread.currentThread;
 
 public class Server {
     private ArrayList<ClientHandler> clientHandlers = new ArrayList<>();

@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
+import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
@@ -20,11 +21,12 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class GuiView implements ViewInterface {
           private EventManager<ViewEvent> eventManager;
           private Scanner scanner;
-          private ClientGUIFirst clientGUIFirst;
+          private ClientGui clientGui;
 
           //private JTextField introductionField;
           //private JTextArea screenArea;
@@ -32,12 +34,12 @@ public class GuiView implements ViewInterface {
          // private String serverChat;
 
 
-   public GuiView(ServerHandlerGUI serverHandlerGUI, ClientGUIFirst clientGUIFirst){
+   public GuiView(ServerHandler serverHandler, ClientGui clientGui){
     eventManager = new EventManager<>();
-    eventManager.subscribe(serverHandlerGUI);
+    eventManager.subscribe(serverHandler);
     scanner = new Scanner(System.in);
 
-    this.clientGUIFirst = clientGUIFirst;
+    this.clientGui = clientGui;
 
     //introductionField = new JTextField();
    // introductionField.setEditable( false );
@@ -130,7 +132,12 @@ public class GuiView implements ViewInterface {
 
     }
 
-    @Override
+ @Override
+ public void invalidStudentMove() {
+
+ }
+
+ @Override
     public void moveMotherNature() {
 
     }
@@ -140,25 +147,17 @@ public class GuiView implements ViewInterface {
 
     }
 
-    @Override
-    public void gameOver() {
+ @Override
+ public void gameOver(UUID winner) {
 
-    }
+ }
 
-    @Override
-    public void getColorSwap() {
+ @Override
+ public void getCharacterSettings(AvailableCharacter forCharacter) {
 
-    }
+ }
 
-    @Override
-    public void getColorChoice() {
 
-    }
-
-    @Override
-    public void getIslandChoice() {
-
-    }
 
 
 

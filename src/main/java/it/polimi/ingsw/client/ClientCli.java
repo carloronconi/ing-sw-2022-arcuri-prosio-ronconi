@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.client.ServerHandler;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -11,7 +10,7 @@ import java.util.Scanner;
 /**
  * Client for the Mastermind game.
  */
-public class Client implements Runnable {
+public class ClientCli implements Runnable {
     private ServerHandler serverHandler;
     private boolean shallTerminate;
     private ViewInterface view;
@@ -21,7 +20,7 @@ public class Client implements Runnable {
     public static void main(String[] args) {
         /* Instantiate a new Client. The main thread will become the
          * thread where user interaction is handled. */
-        Client client = new Client();
+        ClientCli client = new ClientCli();
         client.run();
 
     }
@@ -48,7 +47,7 @@ public class Client implements Runnable {
             }
         }
 
-        serverHandler = new ServerHandler(server, this);
+        serverHandler = new ServerHandler(server);
 
 
             view = new CliView(serverHandler);
