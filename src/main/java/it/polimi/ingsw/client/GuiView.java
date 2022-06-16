@@ -84,7 +84,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getNickname(){
-        clientGui.assertServerIsReady();
+        clientGui.setNextSceneName("/SetNickname.fxml");
     }
 
     /*
@@ -93,13 +93,14 @@ public class GuiView implements ViewInterface {
 
     }*/
 
+    /*
     public void getPreferences(int players, GameMode mode){
       eventManager.notify(new SetPreferences(players, mode));
-    }
+    }*/
 
     @Override
     public void getPreferences() {
-
+        clientGui.setNextSceneName("/SetPreferences.fxml");
     }
 
     @Override

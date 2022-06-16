@@ -32,8 +32,7 @@ public class ClientGui extends Application implements Runnable{
     private Parent root;
     private Scene scene;
     private Stage stage;
-
-    private static boolean serverIsReady;
+    private static String nextSceneName;
 
     public static void main(String[] args){  launch(args);  }
 
@@ -104,58 +103,51 @@ public class ClientGui extends Application implements Runnable{
     }
 
     public void starting() throws IOException { //button at the end of eryantisFirstScene
-        synchronized (ClientGui.class){
-            while(!serverIsReady){ //wait until the server asks for a nickname
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            serverIsReady = false;
-            ClientGui.class.notifyAll();
-        }
-
-        root = FXMLLoader.load(getClass().getResource("/SetNickname.fxml")); //show setNickname scene
-        scene = new Scene(root, 800, 530);
-        stage = new Stage();
-        stage.setTitle("Nickname");
-        stage.setScene(scene);
-        stage.show();
+        nextScene();
     }
-
-
-    public void assertServerIsReady() { //called when the server is ready and the scene can be changed to the next one
-        synchronized (ClientGui.class) {
-            while (serverIsReady) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            serverIsReady = true;
-            ClientGui.class.notifyAll();
-        }
-    }
-
 
     public synchronized void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
         guiView.notifyEventManager(new SetNickname(nickname.getText()));
-       /*String s = nickname.getText();
-       guiView.getNickname(s);
+        nextScene();
+    }
 
 
-        root = FXMLLoader.load(getClass().getResource("/SetPreferences.fxml"));
+    public void setNextSceneName(String nextScene) { //called when the server is ready and the scene can be changed to the next one
+        synchronized (ClientGui.class) {
+            while (nextSceneName!=null) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            nextSceneName = nextScene;
+            ClientGui.class.notifyAll();
+        }
+    }
+
+    private void nextScene() throws IOException {
+        synchronized (ClientGui.class){
+            while(nextSceneName==null){ //wait until the serverHandler allows to go to the next scene
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            root = FXMLLoader.load(getClass().getResource(nextSceneName)); //show next scene with the name selected by serverHandler
+            nextSceneName = null;
+            ClientGui.class.notifyAll();
+        }
+
+
         scene = new Scene(root, 800, 530);
         stage = new Stage();
-        stage.setTitle("Nickname");
+        //stage.setTitle("Nickname");
         stage.setScene(scene);
         stage.show();
-        */
-
-
     }
+
     public int numOfPlayersG;
     public GameMode gameModeG;
 
@@ -186,7 +178,7 @@ public class ClientGui extends Application implements Runnable{
     public void buttonClick(ActionEvent event) throws IOException{
         if(playersSelectedTwo()) numOfPlayersG = 2; else numOfPlayersG = 3;
         if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
-        guiView.getPreferences(numOfPlayersG, gameModeG);
+        //guiView.getPreferences(numOfPlayersG, gameModeG);
 
         ChooseAssistantController chooseAssistantController = new ChooseAssistantController(this);
 
