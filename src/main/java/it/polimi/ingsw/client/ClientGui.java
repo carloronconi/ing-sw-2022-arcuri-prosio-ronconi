@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.EventListener;
 import it.polimi.ingsw.controller.GameMode;
-import it.polimi.ingsw.networkmessages.GenericEvent;
+import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
@@ -28,14 +23,27 @@ public class ClientGui extends Application implements Runnable{
     private static GuiView guiView;
     private static ChooseAssistantController chooseAssistantController;
 
+    @FXML
+    private TextField serverIpBox;
+    @FXML
+    private TextField serverPortBox;
+    @FXML
+    private TextField nickname;
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
+
+    private static boolean serverIsReady;
+
     public static void main(String[] args){  launch(args);  }
 
 
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginScene.fxml"));
-        Scene scene = new Scene(root, 800, 530);
+        this.stage = stage;
+        root = FXMLLoader.load(getClass().getResource("/LoginScene.fxml")); //scene with id and port
+        scene = new Scene(root, 800, 530);
         stage.setTitle("ERYANTIS");
         stage.setScene(scene);
         stage.show();
@@ -43,16 +51,6 @@ public class ClientGui extends Application implements Runnable{
 
     }
 
-    @FXML
-    private TextField serverIpBox;
-    @FXML
-    private TextField serverPortBox;
-
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
-
-
-    private String message = "";
 
     public String ipSet(){
         return serverIpBox.getText();
@@ -62,13 +60,6 @@ public class ClientGui extends Application implements Runnable{
         return Integer.parseInt(serverPortBox.getText());
     }
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-  /*  public void setConnection(){
-        serverHandlerGUI.openConnection(ipSet(),portSet());
-    } */
 
     @Override
     public void run() {
@@ -94,10 +85,15 @@ public class ClientGui extends Application implements Runnable{
     }
 
 
-    public void connectButtonClicked(ActionEvent event) throws IOException
+    public void connectButtonClicked(ActionEvent event) //button at the end of loginScene
     {
         run();
-        root = FXMLLoader.load(getClass().getResource("/eryantisFirstScene.fxml"));
+
+        try {
+            root = FXMLLoader.load(getClass().getResource("/eryantisFirstScene.fxml")); //show LET'S PLAY scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         scene = new Scene(root, 800, 530);
         stage = new Stage();
         stage.setTitle("ERYANTIS");
@@ -107,9 +103,20 @@ public class ClientGui extends Application implements Runnable{
 
     }
 
-    public void starting() throws IOException {
+    public void starting() throws IOException { //button at the end of eryantisFirstScene
+        synchronized (ClientGui.class){
+            while(!serverIsReady){ //wait until the server asks for a nickname
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            serverIsReady = false;
+            ClientGui.class.notifyAll();
+        }
 
-        root = FXMLLoader.load(getClass().getResource("/SetNickname.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/SetNickname.fxml")); //show setNickname scene
         scene = new Scene(root, 800, 530);
         stage = new Stage();
         stage.setTitle("Nickname");
@@ -118,17 +125,24 @@ public class ClientGui extends Application implements Runnable{
     }
 
 
-    @FXML
-    private TextField nickname;
-
-    public String selectNickname(){
-        return nickname.getText();
+    public void assertServerIsReady() { //called when the server is ready and the scene can be changed to the next one
+        synchronized (ClientGui.class) {
+            while (serverIsReady) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            serverIsReady = true;
+            ClientGui.class.notifyAll();
+        }
     }
 
 
-
-    public void buttonSetNickname(ActionEvent event) throws IOException {
-       String s = selectNickname();
+    public synchronized void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
+        guiView.notifyEventManager(new SetNickname(nickname.getText()));
+       /*String s = nickname.getText();
        guiView.getNickname(s);
 
 
@@ -138,7 +152,7 @@ public class ClientGui extends Application implements Runnable{
         stage.setTitle("Nickname");
         stage.setScene(scene);
         stage.show();
-
+        */
 
 
     }

@@ -26,25 +26,21 @@ import java.util.UUID;
 public class GuiView implements ViewInterface {
           private EventManager<ViewEvent> eventManager;
           private Scanner scanner;
-          private ClientGui clientGui;
+          private final ClientGui clientGui;
 
           //private JTextField introductionField;
           //private JTextArea screenArea;
          // private String message = "";
          // private String serverChat;
+    public GuiView(ServerHandler serverHandler, ClientGui clientGui){
+        eventManager = new EventManager<>();
+        eventManager.subscribe(serverHandler);
+        scanner = new Scanner(System.in);
 
-
-   public GuiView(ServerHandler serverHandler, ClientGui clientGui){
-    eventManager = new EventManager<>();
-    eventManager.subscribe(serverHandler);
-    scanner = new Scanner(System.in);
-
-    this.clientGui = clientGui;
+        this.clientGui = clientGui;
 
     //introductionField = new JTextField();
    // introductionField.setEditable( false );
-
-
 
    }
     @Override
@@ -54,7 +50,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void sendAcknowledgement() {
-
+        System.out.println("Acknowledgement received by server on guiView");
     }
 
     @Override
@@ -88,15 +84,14 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getNickname(){
-    //  String name = clientGUIFirst.selectNickname();
-     // eventManager.notify(new SetNickname(name));
-
+        clientGui.assertServerIsReady();
     }
 
+    /*
     public void getNickname(String s) {
       eventManager.notify(new SetNickname(s));
 
-    }
+    }*/
 
     public void getPreferences(int players, GameMode mode){
       eventManager.notify(new SetPreferences(players, mode));
@@ -132,12 +127,12 @@ public class GuiView implements ViewInterface {
 
     }
 
- @Override
- public void invalidStudentMove() {
+    @Override
+    public void invalidStudentMove() {
 
- }
+    }
 
- @Override
+    @Override
     public void moveMotherNature() {
 
     }
@@ -147,16 +142,19 @@ public class GuiView implements ViewInterface {
 
     }
 
- @Override
- public void gameOver(UUID winner) {
+    @Override
+    public void gameOver(UUID winner) {
 
- }
+    }
 
- @Override
- public void getCharacterSettings(AvailableCharacter forCharacter) {
+    @Override
+    public void getCharacterSettings(AvailableCharacter forCharacter) {
 
- }
+    }
 
+    public void notifyEventManager(ViewEvent event){
+        eventManager.notify(event);
+    }
 
 
 
