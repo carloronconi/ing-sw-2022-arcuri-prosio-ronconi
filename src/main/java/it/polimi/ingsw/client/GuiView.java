@@ -76,7 +76,8 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void invalidAssistantCard() {
-
+        System.out.println("Invalid assistant card");
+        getAssistantCard();
     }
 
     @Override
