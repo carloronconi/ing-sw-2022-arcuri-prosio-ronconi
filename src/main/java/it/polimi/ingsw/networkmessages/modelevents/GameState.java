@@ -123,6 +123,10 @@ public class GameState implements Serializable, ModelEvent {
         return new HashMap<>(diningRooms);
     }
 
+    public HashMap<UUID, Integer> getPlayedAssistantCards() {
+        return new HashMap<>(playedAssistantCards);
+    }
+
     @Override
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
         eventManager.notify(this);

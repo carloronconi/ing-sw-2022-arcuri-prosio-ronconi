@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0"
             prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.client.ChooseAssistantController">
+            fx:controller="it.polimi.ingsw.client.ClientGui">
 
     <VBox fx:id="tab" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;"
           xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
@@ -107,7 +107,7 @@
                             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="409.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                             <ImageView fx:id="lastPlayed1" fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
-                            <ImageView fitHeight="300.0" fitWidth="200.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true" />
+                            <ImageView fx:id="playedByOther" fitHeight="300.0" fitWidth="200.0" layoutX="409.0" pickOnBounds="true" preserveRatio="true" />
                             <Label layoutX="20.0" layoutY="5.0" styleClass="message" text="PLAYER1"  />
                             <Label layoutX="420.0" layoutY="5.0" styleClass="message" text="PLAYER2"  />
 

@@ -4,6 +4,7 @@ import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import javafx.application.Application;
@@ -17,6 +18,7 @@ import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -24,6 +26,7 @@ public class GuiView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
     private Scanner scanner;
     private final ClientGui clientGui;
+    private GameState gameState;
 
     //private JTextField introductionField;
     //private JTextArea screenArea;
@@ -40,9 +43,9 @@ public class GuiView implements ViewInterface {
         // introductionField.setEditable( false );
 
     }
-    @Override
-    public void update(ModelEvent modelEvent) {
 
+    public GameState getGameState() {
+        return gameState;
     }
 
     @Override
@@ -71,10 +74,6 @@ public class GuiView implements ViewInterface {
 
     }
 
-    public void getAssistantCard(int cardNumber){
-        eventManager.notify(new SetAssistantCard(cardNumber));
-    }
-
     @Override
     public void invalidAssistantCard() {
 
@@ -84,17 +83,6 @@ public class GuiView implements ViewInterface {
     public void getNickname(){
         clientGui.setNextSceneName("/SetNickname.fxml");
     }
-
-    /*
-    public void getNickname(String s) {
-      eventManager.notify(new SetNickname(s));
-
-    }*/
-
-    /*
-    public void getPreferences(int players, GameMode mode){
-      eventManager.notify(new SetPreferences(players, mode));
-    }*/
 
     @Override
     public void getPreferences() {
@@ -156,8 +144,8 @@ public class GuiView implements ViewInterface {
         eventManager.notify(event);
     }
 
-
-
-
-
+    @Override
+    public void update(ModelEvent modelEvent) {
+        gameState = (GameState) modelEvent;
+    }
 }
