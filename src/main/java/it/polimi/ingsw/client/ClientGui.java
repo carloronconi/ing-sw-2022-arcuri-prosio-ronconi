@@ -139,7 +139,7 @@ public class ClientGui extends Application implements Runnable{
         }
     }
 
-    private void nextScene() throws IOException {
+    private Object nextScene() throws IOException {
         boolean isAssistantScene;
         FXMLLoader fxmlLoader;
         synchronized (ClientGui.class){
@@ -167,6 +167,7 @@ public class ClientGui extends Application implements Runnable{
             ClientGui controllerInstance = (ClientGui) fxmlLoader.getController();
             additionalAssistantCardSetup(controllerInstance);
         }
+        return fxmlLoader.getController();
     }
 
     private void additionalAssistantCardSetup(ClientGui controllerInstance){
@@ -244,7 +245,9 @@ public class ClientGui extends Application implements Runnable{
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
         guiView.notifyEventManager(new SetAssistantCard(cardNumber));
-        nextScene();
+        GameBoardController controller = (GameBoardController) nextScene();
+        //TODO: set up game board by using its instance of the controller
+
         /*GameBoardController c = new GameBoardController();
 
         root = FXMLLoader.load(getClass().getResource("/GameBoard2.fxml"));
