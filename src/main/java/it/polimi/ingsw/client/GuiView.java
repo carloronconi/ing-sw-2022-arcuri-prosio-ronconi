@@ -128,7 +128,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void moveStudent() {
-
+        clientGui.setNextSceneName("/GameBoard2.fxml");
     }
 
     @Override
