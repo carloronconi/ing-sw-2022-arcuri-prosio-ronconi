@@ -72,6 +72,7 @@ public class ClientGui extends Application implements Runnable{
     private ImageView lastPlayed1;
     @FXML
     public ImageView playedByOther;
+    static ArrayList<String> playedByOtherResources = new ArrayList<>();
 
     private Parent root;
     private Scene scene;
@@ -140,6 +141,7 @@ public class ClientGui extends Application implements Runnable{
 
     private void nextScene() throws IOException {
         boolean isAssistantScene;
+        FXMLLoader fxmlLoader;
         synchronized (ClientGui.class){
             while(nextSceneName.isEmpty()){ //wait until the serverHandler allows to go to the next scene
                 try {
@@ -148,7 +150,8 @@ public class ClientGui extends Application implements Runnable{
                     throw new RuntimeException(e);
                 }
             }
-            root = FXMLLoader.load(getClass().getResource(nextSceneName)); //show next scene with the name selected by serverHandler
+            fxmlLoader = new FXMLLoader(getClass().getResource(nextSceneName));
+            root = fxmlLoader.load(); //show next scene with the name selected by serverHandler
             isAssistantScene= nextSceneName.equals("/ChooseAssistantCard.fxml");
             nextSceneName = "";
             ClientGui.class.notifyAll();
@@ -162,11 +165,12 @@ public class ClientGui extends Application implements Runnable{
         stage.show();
 
         if (isAssistantScene){
-            additionalAssistantCardSetup();
+            ClientGui controllerInstance = (ClientGui) fxmlLoader.getController();
+            additionalAssistantCardSetup(controllerInstance);
         }
     }
 
-    private void additionalAssistantCardSetup(){
+    private void additionalAssistantCardSetup(ClientGui controllerInstance){
         GameState gameState = guiView.getGameState();
         HashMap<UUID, String> nicknames = gameState.getNicknames();
 
@@ -186,12 +190,19 @@ public class ClientGui extends Application implements Runnable{
         }
         if (otherCards.isEmpty()) return; //it means it is the first player that is choosing the assistant
 
-        String playedByOtherResource1 = "/Assistente(" + otherCards.get(0) + ")-min.png";
+        playedByOtherResources.add("/Assistente(" + otherCards.get(0) + ")-min.png");
         //TODO: do the same for otherPlayer2 when there are 3 players
 
-        //TODO: fix this error playedByOther is null
-        playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResource1))));
+        controllerInstance.addPlayedAssistantCards();
+        //playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResource1))));
         //card10.setOpacity(0.4d); would be nice to make the cards played by others opaque so that it's clear that you can't choose it
+    }
+
+    private void addPlayedAssistantCards(){
+        if (playedByOther!=null && !playedByOtherResources.isEmpty()) {
+            //TODO: for 3 player game also set the other image
+            playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResources.get(0)))));
+        }
     }
 
 
