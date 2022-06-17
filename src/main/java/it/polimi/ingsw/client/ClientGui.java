@@ -76,7 +76,7 @@ public class ClientGui extends Application implements Runnable{
 
     private Parent root;
     private Scene scene;
-    private Stage stage;
+    private static Stage stage;
     private static String nextSceneName = "";
 
     public static void main(String[] args){  launch(args);  }
@@ -159,7 +159,6 @@ public class ClientGui extends Application implements Runnable{
 
 
         scene = new Scene(root, 800, 530);
-        stage = new Stage();
         //stage.setTitle("Nickname");
         stage.setScene(scene);
         stage.show();
@@ -209,14 +208,13 @@ public class ClientGui extends Application implements Runnable{
     public void connectButtonClicked(ActionEvent event) //button at the end of loginScene
     {
         run();
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/eryantisFirstScene.fxml"));
         try {
-            root = FXMLLoader.load(getClass().getResource("/eryantisFirstScene.fxml")); //show LET'S PLAY scene
+            root = loader.load(); //show LET'S PLAY scene
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         scene = new Scene(root, 800, 530);
-        stage = new Stage();
         stage.setTitle("ERYANTIS");
         stage.setScene(scene);
         stage.show();
