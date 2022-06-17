@@ -5,10 +5,7 @@ import it.polimi.ingsw.ViewInterface;
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
-import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
-import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
-import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
-import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
+import it.polimi.ingsw.networkmessages.viewevents.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,14 +21,14 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class GuiView implements ViewInterface {
-          private EventManager<ViewEvent> eventManager;
-          private Scanner scanner;
-          private final ClientGui clientGui;
+    private EventManager<ViewEvent> eventManager;
+    private Scanner scanner;
+    private final ClientGui clientGui;
 
-          //private JTextField introductionField;
-          //private JTextArea screenArea;
-         // private String message = "";
-         // private String serverChat;
+    //private JTextField introductionField;
+    //private JTextArea screenArea;
+    // private String message = "";
+    // private String serverChat;
     public GuiView(ServerHandler serverHandler, ClientGui clientGui){
         eventManager = new EventManager<>();
         eventManager.subscribe(serverHandler);
@@ -39,10 +36,10 @@ public class GuiView implements ViewInterface {
 
         this.clientGui = clientGui;
 
-    //introductionField = new JTextField();
-   // introductionField.setEditable( false );
+        //introductionField = new JTextField();
+        // introductionField.setEditable( false );
 
-   }
+    }
     @Override
     public void update(ModelEvent modelEvent) {
 
@@ -70,11 +67,12 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getAssistantCard() {
+        clientGui.setNextSceneName("/ChooseAssistantCard.fxml");
 
     }
 
     public void getAssistantCard(int cardNumber){
-           eventManager.notify(new SetAssistantCard(cardNumber));
+        eventManager.notify(new SetAssistantCard(cardNumber));
     }
 
     @Override
@@ -105,7 +103,8 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void letsPlay() {
-
+        System.out.println("Waiting for other players...");
+        notifyEventManager(new ReadyToPlay());
     }
 
     @Override
@@ -125,7 +124,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void invalidNickname() {
-
+        getNickname();
     }
 
     @Override

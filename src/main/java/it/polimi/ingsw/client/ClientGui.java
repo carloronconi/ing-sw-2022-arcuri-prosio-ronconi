@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.networkmessages.viewevents.SetNickname;
+import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class ClientGui extends Application implements Runnable{
     private Parent root;
     private Scene scene;
     private Stage stage;
-    private static String nextSceneName;
+    private static String nextSceneName = "";
 
     public static void main(String[] args){  launch(args);  }
 
@@ -102,11 +103,11 @@ public class ClientGui extends Application implements Runnable{
 
     }
 
-    public void starting() throws IOException { //button at the end of eryantisFirstScene
+    public void starting() throws IOException { //button at the end of eryantisFirstScene - the one with let's play
         nextScene();
     }
 
-    public synchronized void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
+    public void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
         guiView.notifyEventManager(new SetNickname(nickname.getText()));
         nextScene();
     }
@@ -114,9 +115,9 @@ public class ClientGui extends Application implements Runnable{
 
     public void setNextSceneName(String nextScene) { //called when the server is ready and the scene can be changed to the next one
         synchronized (ClientGui.class) {
-            while (nextSceneName!=null) {
+            while (!nextSceneName.isEmpty()) {
                 try {
-                    wait();
+                    ClientGui.class.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -128,15 +129,15 @@ public class ClientGui extends Application implements Runnable{
 
     private void nextScene() throws IOException {
         synchronized (ClientGui.class){
-            while(nextSceneName==null){ //wait until the serverHandler allows to go to the next scene
+            while(nextSceneName.isEmpty()){ //wait until the serverHandler allows to go to the next scene
                 try {
-                    wait();
+                    ClientGui.class.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
             root = FXMLLoader.load(getClass().getResource(nextSceneName)); //show next scene with the name selected by serverHandler
-            nextSceneName = null;
+            nextSceneName = "";
             ClientGui.class.notifyAll();
         }
 
@@ -148,8 +149,6 @@ public class ClientGui extends Application implements Runnable{
         stage.show();
     }
 
-    public int numOfPlayersG;
-    public GameMode gameModeG;
 
 
     @FXML
@@ -163,10 +162,6 @@ public class ClientGui extends Application implements Runnable{
 
 
 
-    public boolean playersSelectedTwo(){
-        if(button2.isSelected()) return true;
-        return false;
-    }
 
     public boolean gameModeSelectedEasy(){
         if(buttonEasy.isSelected()) return true;
@@ -175,33 +170,14 @@ public class ClientGui extends Application implements Runnable{
 
 
 
-    public void buttonClick(ActionEvent event) throws IOException{
-        if(playersSelectedTwo()) numOfPlayersG = 2; else numOfPlayersG = 3;
-        if(gameModeSelectedEasy()) gameModeG = GameMode.EASY; else gameModeG = GameMode.HARD;
-        //guiView.getPreferences(numOfPlayersG, gameModeG);
-
-        ChooseAssistantController chooseAssistantController = new ChooseAssistantController(this);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChooseAssistantCard.fxml"));
-        loader.setController(chooseAssistantController);
-
-        root = loader.load();
-
-
-
-
-
-        //root = FXMLLoader.load(getClass().getResource("/ChooseAssistantCard.fxml"));
-        scene = new Scene(root, 1440, 850);
-        stage = new Stage();
-        stage.setTitle("ERYANTIS");
-        stage.setScene(scene);
-        stage.show();
-
-
-
+    public void buttonClick(ActionEvent event) throws IOException { //button at the end of set preferences scene
+        int numOfPlayers;
+        GameMode gameMode;
+        numOfPlayers = button2.isSelected() ? 2 : 3;
+        gameMode = buttonEasy.isSelected() ? GameMode.EASY : GameMode.HARD;
+        guiView.notifyEventManager(new SetPreferences(numOfPlayers, gameMode));
+        nextScene();
     }
-
 
     public void updateChosenAssistant(int numOfAssistant){
         guiView.getAssistantCard(numOfAssistant);
