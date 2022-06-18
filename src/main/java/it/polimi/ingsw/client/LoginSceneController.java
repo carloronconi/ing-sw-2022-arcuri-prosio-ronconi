@@ -10,16 +10,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginSceneController {
-    private ClientGui clientGui;
+public class LoginSceneController extends SceneController{
     @FXML
     private TextField serverIpBox;
     @FXML
     private TextField serverPortBox;
-
-    public void setClientGui(ClientGui clientGui) {
-        this.clientGui = clientGui;
-    }
 
     public String ipSet(){
         return serverIpBox.getText();
@@ -32,14 +27,16 @@ public class LoginSceneController {
 
     public void connectButtonClicked(ActionEvent event) //button at the end of loginScene
     {
-        clientGui.setIp(ipSet());
-        clientGui.setPort(portSet());
-        clientGui.run();
+        getClientGui().setIp(ipSet());
+        getClientGui().setPort(portSet());
+        getClientGui().run();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/eryantisFirstScene.fxml"));
         try {
             Parent root = loader.load(); //show LET'S PLAY scene
+            LetsPlaySceneController controller = loader.getController();
+            controller.setClientGui(getClientGui());
             Scene scene = new Scene(root, 800, 530);
-            Stage stage = clientGui.getStage();
+            Stage stage = getClientGui().getStage();
             stage.setTitle("ERYANTIS");
             stage.setScene(scene);
             stage.show();

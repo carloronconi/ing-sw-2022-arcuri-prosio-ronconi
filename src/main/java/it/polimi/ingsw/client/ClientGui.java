@@ -34,9 +34,6 @@ public class ClientGui extends Application implements Runnable{
     private String ip;
     private int port;
 
-    //Nickname view
-    @FXML
-    private TextField nickname;
     private static String finalNickname;
 
     //Preferences view
@@ -98,14 +95,13 @@ public class ClientGui extends Application implements Runnable{
         return stage;
     }
 
-    /*
-    public String ipSet(){
-        return serverIpBox.getText();
+    public static void setFinalNickname(String finalNickname) {
+        ClientGui.finalNickname = finalNickname;
     }
 
-    public int portSet(){
-        return Integer.parseInt(serverPortBox.getText());
-    }*/
+    public GuiView getGuiView(){
+        return guiView;
+    }
 
     public void setIp(String ip) {
         this.ip = ip;
@@ -149,7 +145,7 @@ public class ClientGui extends Application implements Runnable{
         }
     }
 
-    private Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
+    public Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
         boolean isAssistantScene;
         FXMLLoader fxmlLoader;
         synchronized (ClientGui.class){
@@ -215,17 +211,6 @@ public class ClientGui extends Application implements Runnable{
             playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResources.get(0)))));
         }
     }
-
-    public void starting() throws IOException { //button at the end of eryantisFirstScene - the one with let's play
-        nextScene(800, 530, "ERYANTIS", (s, c)->{});
-    }
-
-    public void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
-        finalNickname = nickname.getText();
-        guiView.notifyEventManager(new SetNickname(finalNickname));
-        nextScene(800, 530, "ERYANTIS", (s, c)->{});
-    }
-
 
     public void buttonClick(ActionEvent event) throws IOException { //button at the end of set preferences scene
         int numOfPlayers;
