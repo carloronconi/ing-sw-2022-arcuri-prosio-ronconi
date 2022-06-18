@@ -453,22 +453,27 @@ public class GameBoardController {
 
             if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
                 System.out.println("green");
+                break;
 
                 //add method to count number of pawns in rectangle for island, in row for dining
                 //for cycle should suffice
             } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
                 System.out.println(" red ");
+                break;
 
             } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
                 System.out.println("yellow");
+                break;
 
 
             } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
                 System.out.println("purple");
+                break;
 
 
             } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
                 System.out.println("blue");
+                break;
             }
 
         }
