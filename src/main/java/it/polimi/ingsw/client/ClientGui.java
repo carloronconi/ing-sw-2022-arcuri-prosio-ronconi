@@ -31,12 +31,8 @@ public class ClientGui extends Application implements Runnable{
     private ServerHandler serverHandler;
     private Socket server;
     private static GuiView guiView;
-
-    //Login view
-    @FXML
-    private TextField serverIpBox;
-    @FXML
-    private TextField serverPortBox;
+    private String ip;
+    private int port;
 
     //Nickname view
     @FXML
@@ -86,7 +82,10 @@ public class ClientGui extends Application implements Runnable{
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
-        root = FXMLLoader.load(getClass().getResource("/LoginScene.fxml")); //scene with id and port
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginScene.fxml"));
+        root = loader.load(); //scene with id and port
+        LoginSceneController controller = loader.getController();
+        controller.setClientGui(this);
         scene = new Scene(root, 800, 530);
         stage.setTitle("ERYANTIS");
         stage.setScene(scene);
@@ -95,20 +94,31 @@ public class ClientGui extends Application implements Runnable{
 
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
 
+    /*
     public String ipSet(){
         return serverIpBox.getText();
     }
 
     public int portSet(){
         return Integer.parseInt(serverPortBox.getText());
+    }*/
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     @Override
     public void run() {
-        String ip = ipSet();
-        int port = portSet();
+        //String ip = ipSet();
+        //int port = portSet();
 
         try {
             server = new Socket(ip, port);
@@ -204,24 +214,6 @@ public class ClientGui extends Application implements Runnable{
             //TODO: for 3 player game also set the other image
             playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResources.get(0)))));
         }
-    }
-
-
-    public void connectButtonClicked(ActionEvent event) //button at the end of loginScene
-    {
-        run();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/eryantisFirstScene.fxml"));
-        try {
-            root = loader.load(); //show LET'S PLAY scene
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        scene = new Scene(root, 800, 530);
-        stage.setTitle("ERYANTIS");
-        stage.setScene(scene);
-        stage.show();
-
-
     }
 
     public void starting() throws IOException { //button at the end of eryantisFirstScene - the one with let's play
