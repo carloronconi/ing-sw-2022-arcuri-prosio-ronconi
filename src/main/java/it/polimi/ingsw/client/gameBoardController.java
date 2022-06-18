@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -450,31 +451,33 @@ public class GameBoardController {
 
         for(Rectangle r1 : diningTables) {
             //  if( r1.getLayoutY() <= y ) System.out.println(" \n" + r1.getParent().getLayoutY() + " \n" + r1.getParent().getLayoutX() + " \n" + r1.getLayoutY() );
+            //if(r1.getId()!=null) { - use parse to recognize only rectangle with a "dining" in name (to differentiate to
+            //entrace, professor and towers)
+                if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
+                    System.out.println("green");
+                    break;
 
-            if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
-                System.out.println("green");
-                break;
+                    //add method to count number of pawns in rectangle for island, in row for dining
+                    //for cycle should suffice
+                } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
+                    System.out.println(" red ");
+                    break;
 
-                //add method to count number of pawns in rectangle for island, in row for dining
-                //for cycle should suffice
-            } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
-                System.out.println(" red ");
-                break;
-
-            } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
-                System.out.println("yellow");
-                break;
-
-
-            } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
-                System.out.println("purple");
-                break;
+                } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
+                    System.out.println("yellow");
+                    break;
 
 
-            } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
-                System.out.println("blue");
-                break;
-            }
+                } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
+                    System.out.println("purple");
+                    break;
+
+
+                } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
+                    System.out.println("blue");
+                    break;
+                }
+           // }
 
         }
 
@@ -623,6 +626,20 @@ public class GameBoardController {
     students (aka entrance to islands and entrance to dining.
     For now no game rules, just allowed movements.
      */
+
+    public void updateBoard(GameState gameState){
+        for(Pane p : islands){
+            for(Node r : p.getChildrenUnmodifiable()){
+                for (int i = 0; i < gameState.getIslands().size(); i++) {
+                    String islandName = gameState.getIslands().get(i).toString();
+                    if(r.getId()!=null && r.getId().contains(islandName)){
+
+                    }
+                }
+
+            }
+        }
+    }
 
 
 
