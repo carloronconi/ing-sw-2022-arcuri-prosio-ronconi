@@ -139,7 +139,7 @@ public class ClientGui extends Application implements Runnable{
         }
     }
 
-    private Object nextScene() throws IOException {
+    private Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
         boolean isAssistantScene;
         FXMLLoader fxmlLoader;
         synchronized (ClientGui.class){
@@ -158,8 +158,9 @@ public class ClientGui extends Application implements Runnable{
         }
 
 
-        scene = new Scene(root, 800, 530);
-        //stage.setTitle("Nickname");
+        scene = new Scene(root, sceneWidth, sceneHeight);
+        initializer.initializeScene(scene, fxmlLoader.getController());
+        stage.setTitle(stageTitle);
         stage.setScene(scene);
         stage.show();
 
@@ -224,13 +225,13 @@ public class ClientGui extends Application implements Runnable{
     }
 
     public void starting() throws IOException { //button at the end of eryantisFirstScene - the one with let's play
-        nextScene();
+        nextScene(800, 530, "ERYANTIS", (s, c)->{});
     }
 
     public void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
         finalNickname = nickname.getText();
         guiView.notifyEventManager(new SetNickname(finalNickname));
-        nextScene();
+        nextScene(800, 530, "ERYANTIS", (s, c)->{});
     }
 
 
@@ -240,12 +241,16 @@ public class ClientGui extends Application implements Runnable{
         numOfPlayers = button2.isSelected() ? 2 : 3;
         gameMode = buttonEasy.isSelected() ? GameMode.EASY : GameMode.HARD;
         guiView.notifyEventManager(new SetPreferences(numOfPlayers, gameMode));
-        nextScene();
+        nextScene(1500, 876, "ERYANTIS", (s, c)->{});
     }
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
         guiView.notifyEventManager(new SetAssistantCard(cardNumber));
-        GameBoardController controller = (GameBoardController) nextScene();
+        GameBoardController controller = (GameBoardController) nextScene(1500, 876, "ERYANTIS", (s, c)->{
+            GameBoardController boardController = (GameBoardController) c;
+            s.setOnMouseMoved(boardController::mouseMoved);
+            s.setOnMouseDragged(boardController::mouseMoved);
+        });
         //TODO: set up game board by using its instance of the controller
 
         /*GameBoardController c = new GameBoardController();
