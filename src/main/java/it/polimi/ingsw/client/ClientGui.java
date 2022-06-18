@@ -33,32 +33,7 @@ public class ClientGui extends Application implements Runnable{
     private static GuiView guiView;
     private String ip;
     private int port;
-
     private static String finalNickname;
-
-    //Set assistant card view
-    int cardNumber;
-    @FXML
-    Button button;
-    @FXML
-    ImageView card1;
-    @FXML ImageView card2;
-    @FXML ImageView card3;
-    @FXML ImageView card4;
-    @FXML ImageView card5;
-    @FXML ImageView card6;
-    @FXML ImageView card7;
-    @FXML ImageView card8;
-    @FXML ImageView card9;
-    @FXML ImageView card10;
-    @FXML
-    private ImageView lastPlayed1;
-    @FXML
-    public ImageView playedByOther;
-    static ArrayList<String> playedByOtherResources = new ArrayList<>();
-
-    private Parent root;
-    private Scene scene;
     private static Stage stage;
     private static String nextSceneName = "";
 
@@ -70,10 +45,10 @@ public class ClientGui extends Application implements Runnable{
     public void start(Stage stage) throws IOException {
         this.stage = stage;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginScene.fxml"));
-        root = loader.load(); //scene with id and port
+        Parent root = loader.load(); //scene with id and port
         LoginSceneController controller = loader.getController();
         controller.setClientGui(this);
-        scene = new Scene(root, 800, 530);
+        Scene scene = new Scene(root, 800, 530);
         stage.setTitle("ERYANTIS");
         stage.setScene(scene);
         stage.show();
@@ -136,7 +111,7 @@ public class ClientGui extends Application implements Runnable{
     }
 
     public Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
-        boolean isAssistantScene;
+        Parent root;
         FXMLLoader fxmlLoader;
         synchronized (ClientGui.class){
             while(nextSceneName.isEmpty()){ //wait until the serverHandler allows to go to the next scene
@@ -148,13 +123,12 @@ public class ClientGui extends Application implements Runnable{
             }
             fxmlLoader = new FXMLLoader(getClass().getResource(nextSceneName));
             root = fxmlLoader.load(); //show next scene with the name selected by serverHandler
-            isAssistantScene= nextSceneName.equals("/ChooseAssistantCard.fxml");
             nextSceneName = "";
             ClientGui.class.notifyAll();
         }
 
 
-        scene = new Scene(root, sceneWidth, sceneHeight);
+        Scene scene = new Scene(root, sceneWidth, sceneHeight);
         initializer.initializeScene(scene, fxmlLoader.getController());
         stage.setTitle(stageTitle);
         stage.setScene(scene);
