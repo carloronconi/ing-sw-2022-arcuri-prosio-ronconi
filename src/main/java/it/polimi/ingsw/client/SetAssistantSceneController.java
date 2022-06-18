@@ -33,16 +33,6 @@ public class SetAssistantSceneController extends SceneController {
     private ImageView playedByOther;
     static ArrayList<String> playedByOtherResources = new ArrayList<>();
 
-    /*
-    @FXML
-    public void initialize(){
-        ArrayList<String> resources = getClientGui().getPlayedByOtherResources();
-        if (!resources.isEmpty()){
-            //TODO: for 3 player game also set the other image
-            playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResources.get(0)))));
-        }
-    }*/
-
     public ImageView getPlayedByOther() {
         return playedByOther;
     }
