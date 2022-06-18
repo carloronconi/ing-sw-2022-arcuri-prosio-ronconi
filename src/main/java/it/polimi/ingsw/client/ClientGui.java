@@ -160,15 +160,13 @@ public class ClientGui extends Application implements Runnable{
         stage.setScene(scene);
         stage.show();
 
-        if (isAssistantScene){
-            ClientGui controllerInstance = (ClientGui) fxmlLoader.getController();
-            additionalAssistantCardSetup(controllerInstance);
-        }
         if (fxmlLoader.getController() instanceof SceneController) ((SceneController) fxmlLoader.getController()).setClientGui(this);
         return fxmlLoader.getController();
     }
 
-    private void additionalAssistantCardSetup(ClientGui controllerInstance){
+    public ArrayList<String> getPlayedByOtherResources(){
+        ArrayList<String> resources = new ArrayList<>();
+
         GameState gameState = guiView.getGameState();
         HashMap<UUID, String> nicknames = gameState.getNicknames();
 
@@ -186,111 +184,10 @@ public class ClientGui extends Application implements Runnable{
         for (UUID id : otherIds){
             if (playedAssistantCards.get(id)!=null) otherCards.add(gameState.getPlayedAssistantCards().get(id));
         }
-        if (otherCards.isEmpty()) return; //it means it is the first player that is choosing the assistant
-
-        playedByOtherResources.add("/Assistente(" + otherCards.get(0) + ")-min.png");
-        //TODO: do the same for otherPlayer2 when there are 3 players
-
-        controllerInstance.addPlayedAssistantCards();
-        //playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResource1))));
-        //card10.setOpacity(0.4d); would be nice to make the cards played by others opaque so that it's clear that you can't choose it
-    }
-
-    private void addPlayedAssistantCards(){
-        if (playedByOther!=null && !playedByOtherResources.isEmpty()) {
-            //TODO: for 3 player game also set the other image
-            playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResources.get(0)))));
+        if (!otherCards.isEmpty()) { //it means it is the first player that is choosing the assistant
+            resources.add("/Assistente(" + otherCards.get(0) + ")-min.png");
         }
-    }
-
-    public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
-        guiView.notifyEventManager(new SetAssistantCard(cardNumber));
-        GameBoardController controller = (GameBoardController) nextScene(1500, 876, "ERYANTIS", (s, c)->{
-            GameBoardController boardController = (GameBoardController) c;
-            s.setOnMouseMoved(boardController::mouseMoved);
-            s.setOnMouseDragged(boardController::mouseMoved);
-        });
-        //TODO: set up game board by using its instance of the controller
-
-        /*GameBoardController c = new GameBoardController();
-
-        root = FXMLLoader.load(getClass().getResource("/GameBoard2.fxml"));
-
-        scene = new Scene(root, 1500, 876);
-        scene.setOnMouseMoved((evt) -> c.mouseMoved(evt));
-        scene.setOnMouseDragged((evt)->c.mouseMoved(evt));
-        stage = new Stage();
-        stage.setTitle("Game Board");
-        stage.setScene(scene);
-        stage.show();*/
-
-
-    }
-
-
-
-
-
-    public void chosenCard1(){
-        number(card1);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(1)-min.png"))));
-        card1.setOpacity(0.4d);
-    }
-    public void chosenCard2(){
-        number(card2);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(2)-min.png"))));
-        card2.setOpacity(0.4d);
-    }
-    public void chosenCard3(){
-        number(card3);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(3)-min.png"))));
-        card3.setOpacity(0.4d);
-    }
-    public void chosenCard4(){
-        number(card4);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(4)-min.png"))));
-        card4.setOpacity(0.4d);
-    }
-    public void chosenCard5(){
-        number(card5);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(5)-min.png"))));
-        card5.setOpacity(0.4d);
-    }
-    public void chosenCard6(){
-        number(card6);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(6)-min.png"))));
-        card6.setOpacity(0.4d);
-    }
-    public void chosenCard7(){
-        number(card7);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(7)-min.png"))));
-        card7.setOpacity(0.4d);
-    }
-    public void chosenCard8(){
-        number(card8);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(8)-min.png"))));
-        card8.setOpacity(0.4d);
-    }
-    public void chosenCard9(){
-        number(card9);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(9)-min.png"))));
-        card9.setOpacity(0.4d);
-    }
-    public void chosenCard10(){
-        number(card10);
-        lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(10)-min.png"))));
-        card10.setOpacity(0.4d);
-    }
-
-    private void number(ImageView imageView) {
-        Pattern p = Pattern.compile("\\d+");
-        Matcher m = p.matcher(imageView.toString());
-        while (m.find()) {
-            cardNumber = Integer.parseInt(m.group());
-            System.out.println(cardNumber);
-
-        }
-
+        return resources;
     }
 
 
