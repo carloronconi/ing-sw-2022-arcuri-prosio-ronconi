@@ -36,16 +36,6 @@ public class ClientGui extends Application implements Runnable{
 
     private static String finalNickname;
 
-    //Preferences view
-    @FXML
-    private RadioButton button2;
-    @FXML
-    private RadioButton button3;
-    @FXML
-    private RadioButton buttonEasy;
-    @FXML
-    private RadioButton buttonHard;
-
     //Set assistant card view
     int cardNumber;
     @FXML
@@ -174,6 +164,7 @@ public class ClientGui extends Application implements Runnable{
             ClientGui controllerInstance = (ClientGui) fxmlLoader.getController();
             additionalAssistantCardSetup(controllerInstance);
         }
+        if (fxmlLoader.getController() instanceof SceneController) ((SceneController) fxmlLoader.getController()).setClientGui(this);
         return fxmlLoader.getController();
     }
 
@@ -210,15 +201,6 @@ public class ClientGui extends Application implements Runnable{
             //TODO: for 3 player game also set the other image
             playedByOther.setImage(new Image(String.valueOf(getClass().getResource(playedByOtherResources.get(0)))));
         }
-    }
-
-    public void buttonClick(ActionEvent event) throws IOException { //button at the end of set preferences scene
-        int numOfPlayers;
-        GameMode gameMode;
-        numOfPlayers = button2.isSelected() ? 2 : 3;
-        gameMode = buttonEasy.isSelected() ? GameMode.EASY : GameMode.HARD;
-        guiView.notifyEventManager(new SetPreferences(numOfPlayers, gameMode));
-        nextScene(1500, 876, "ERYANTIS", (s, c)->{});
     }
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
