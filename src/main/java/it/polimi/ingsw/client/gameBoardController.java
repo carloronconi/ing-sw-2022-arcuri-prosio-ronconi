@@ -431,7 +431,11 @@ public class GameBoardController {
             for (Node cell : p.getChildrenUnmodifiable()) {
                 if (cell.getLayoutX() <= x && x <= (cell.getLayoutX() + 144.0)) {
                     if (cell.getParent().getLayoutY() <= y && y <= (cell.getParent().getLayoutY() + 180.0)) {
-                        System.out.println("NOW ISLAND: " + cell.getId());
+                        if(cell.getId()!=null) {
+                            System.out.println("NOW ISLAND: " + cell.getId());
+                            System.out.println(x);
+                            System.out.println(y);
+                        }
                     }
 
                     //for(Node cell2 : panes.get(4).getChildrenUnmodifiable()){
@@ -444,8 +448,8 @@ public class GameBoardController {
 
 
 
-        for(Rectangle r1 : diningTables){
-          //  if( r1.getLayoutY() <= y ) System.out.println(" \n" + r1.getParent().getLayoutY() + " \n" + r1.getParent().getLayoutX() + " \n" + r1.getLayoutY() );
+        for(Rectangle r1 : diningTables) {
+            //  if( r1.getLayoutY() <= y ) System.out.println(" \n" + r1.getParent().getLayoutY() + " \n" + r1.getParent().getLayoutX() + " \n" + r1.getLayoutY() );
 
             if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
                 System.out.println("green");
@@ -465,9 +469,9 @@ public class GameBoardController {
 
             } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
                 System.out.println("blue");
-
-
             }
+
+        }
 
                 //System.out.println(" "+ r1.getParent().getLayoutY()+ " " + r1.getLayoutY() + " " + r1.getBoundsInLocal().getHeight());
                 //System.out.println(" "+ r1.getBoundsInLocal()+" "+ r1.getId());
@@ -485,7 +489,7 @@ public class GameBoardController {
                         r.getParent().getLayoutX() >= x ){
                     System.out.println(r.getId());
                 } */
-            }
+
 
         }
          /*for (Pane p2 : board) {
