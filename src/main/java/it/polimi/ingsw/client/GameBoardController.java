@@ -156,6 +156,36 @@ public class GameBoardController {
             }
         }
 
+        for(Pane p : islands){
+            for(Node r: p.getChildrenUnmodifiable()){
+                for(int i=0; i<gameState.getClouds().size(); i++){
+                    int cloudNumber = i+1;
+                    String cloudName = "cloud" + cloudNumber;
+                    if(r.getId()!=null && r.getId().contains(cloudName)){
+                        HashMap<UUID, ArrayList<PawnColor>> cloudIGameModel = gameState.getClouds();
+                        UUID cloudID = converter.nameToId(cloudName, CliViewIdConverter.converterSetting.CLOUD);
+                        for(int j = 0; j<3; j++){
+                                Circle c = new Circle();
+                                c.setCenterX(50.0);
+                                c.setCenterY(50.0);
+                                c.setLayoutX(r.getLayoutX());
+                                c.setLayoutY(r.getParent().getLayoutY());
+                                c.setRadius(16.0);
+                                c.setStroke(Color.BLACK);
+                                c.setStrokeType(StrokeType.INSIDE);
+                                c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
+
+                                boardPane.getChildren().add(c);
+
+
+                        }
+
+
+                    }
+                }
+            }
+        }
+
         /*
         //fill islands with same pawns as in gameState
         for (Pane pane : islands){
