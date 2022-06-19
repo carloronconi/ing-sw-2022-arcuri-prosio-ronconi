@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import javafx.animation.KeyFrame;
@@ -22,8 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class GameBoardController extends SceneController{
@@ -108,6 +108,38 @@ public class GameBoardController extends SceneController{
     }
 
     public void updateBoard(GameState gameState){ //call it from lambda expression in previous controller nextScene
+
+        int bag = gameState.getBag();
+        CliViewIdConverter converter = new CliViewIdConverter(gameState);
+
+        for (Pane p : islands){
+            for (Node r: p.getChildrenUnmodifiable()){
+                for (int i = 0; i<gameState.getIslands().size(); i++){
+                    int islandNumber = i+1;
+                    String islandName = "island" + islandNumber;
+                    if (r.getId()!=null && r.getId().contains(islandName)){
+                        LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
+                        UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
+                        for(int j = 0; j<islandIGameModel.get(islandId).size(); j++){
+                            Circle c = new Circle();
+                            c.setCenterX(50.0);
+                            c.setCenterY(50.0);
+                            c.setLayoutX(r.getLayoutX());
+                            c.setLayoutY(r.getParent().getLayoutY());
+                            c.setRadius(16.0);
+                            c.setStroke(Color.BLACK);
+                            c.setStrokeType(StrokeType.INSIDE);
+                            c.setFill(Color.valueOf(islandIGameModel.get(islandId).get(j).toString()));
+
+                            boardPane.getChildren().add(c);
+
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
         //fill islands with same pawns as in gameState
         for (Pane pane : islands){
             for (Node island : pane.getChildrenUnmodifiable()) {
@@ -117,7 +149,7 @@ public class GameBoardController extends SceneController{
                 Circle student = makeCircle(PawnColor.RED);
 
             }
-        }
+        }*/
     }
 
     private Ellipse motherNature;
