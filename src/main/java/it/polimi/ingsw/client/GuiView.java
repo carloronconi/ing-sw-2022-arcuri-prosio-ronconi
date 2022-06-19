@@ -60,7 +60,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
-
+        clientGui.setNextSceneName("/GameBoard2.fxml");
     }
 
     @Override
@@ -103,27 +103,31 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void invalidCharacterChoice() {
-
+        System.out.println("invalid character choice");
+        chooseCharacter();
     }
 
     @Override
     public void invalidMNMove() {
-
+        System.out.println("invalid mother nature move");
+        moveMotherNature();
     }
 
     @Override
     public void invalidNickname() {
+        System.out.println("invalid nickname");
         getNickname();
     }
 
     @Override
     public void invalidStudentMove() {
-
+        System.out.println("invalid student move");
+        moveStudent();
     }
 
     @Override
     public void moveMotherNature() {
-
+        clientGui.setNextSceneName("/GameBoard2.fxml");
     }
 
     @Override
