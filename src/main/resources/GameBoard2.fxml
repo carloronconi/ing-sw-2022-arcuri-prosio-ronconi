@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Point3D?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Ellipse?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameBoardController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1586.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameBoardController">
     <children>
-        <VBox fx:id="vbox" prefHeight="876.0" prefWidth="1584.0">
+        <VBox fx:id="vbox" prefHeight="876.0" prefWidth="1500.0">
             <children>
-                <Pane fx:id="boardPane" prefHeight="876.0" prefWidth="1584.0">
-                    <children>
-                        <Group fx:id="rectangleGroup">
-                                <Pane fx:id="islandRow0">
+                <Pane fx:id="boardPane" prefHeight="876.0" prefWidth="1500.0">
+
+                                <Pane fx:id="islandRow0" prefHeight="180.0" prefWidth="1586.0">
                                     <children>
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" width="144.0" />
-                                        <Rectangle fx:id="island1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" width="144.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="144.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="288.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle fx:id="island2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="432.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="576.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
@@ -73,7 +63,7 @@
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1296.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle fx:id="island6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1440.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
+                                        <Rectangle fx:id="island6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1350.0" stroke="#6abade" strokeType="INSIDE" width="236.0" />
                                         <ImageView fitHeight="146.0" fitWidth="174.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@tile1.png" />
@@ -139,83 +129,99 @@
                                                 <Image url="@tile3.png" />
                                             </image>
                                         </ImageView>
+      
+                                      <Button layoutX="1189.0" layoutY="76.0" mnemonicParsing="false" onAction="#updateView" text="CLICK" />
                                     </children>
                                 </Pane>
 
-                                <ImageView fitHeight="336.0" fitWidth="806.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@PLANCIAGIOCO.png" />
-                                    </image>
-                                </ImageView>
+                               <Pane fx:id="entrance2" layoutX="775.0" layoutY="541.0" prefHeight="336.0" prefWidth="162.0">
+                                  <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="162.0" />
+                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
+                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="201.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
+                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="255.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="101.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutX="101.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="101.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutX="101.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                    </children>
+                                </Pane>
+                                <Pane fx:id="dinings2" layoutX="937.0" layoutY="541.0" prefHeight="335.0" prefWidth="407.0">
+                                    <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="201.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                     </children>
+                                </Pane>
+                                <Pane fx:id="professors2" layoutX="1344.0" layoutY="542.0" prefHeight="335.0" prefWidth="66.0">
+                                    <children>
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                    </children>
+                                </Pane>
+                                 <Pane fx:id="towers2" layoutX="1410.0" layoutY="540.0" prefHeight="335.0" prefWidth="175.0">
+                                    <children>
+                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="334.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="174.0" />
+                                     </children>
+                                 </Pane>
+                                <Pane fx:id="entrance1" layoutX="2.0" layoutY="539.0" prefHeight="336.0" prefWidth="125.0">
+                                     <children>
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="121.0" />
+                                           <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle fx:id="r3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="201.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="255.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle fx:id="r4" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="61.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle fx:id="r5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutX="61.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle fx:id="r6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="61.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                           <Rectangle fx:id="r7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutX="61.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                     </children>
+                                 </Pane>
+                                 <Pane fx:id="dinings1" layoutX="121.0" layoutY="540.0" prefHeight="335.0" prefWidth="407.0">
+                                    <children>
+                                       <Rectangle fx:id="green1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                       <Rectangle fx:id="red1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                       <Rectangle fx:id="yellow1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                        <Rectangle fx:id="purple1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="201.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+                                        <Rectangle fx:id="blue1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
+
+                                    </children>
+                                 </Pane>
+                                 <Pane fx:id="professors1" layoutX="528.0" layoutY="540.0" prefHeight="335.0" prefWidth="66.0">
+                                        <children>
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        </children>
+                                 </Pane>
+                                <Pane fx:id="towers1" layoutX="598.0" layoutY="540.0" prefHeight="335.0" prefWidth="175.0">
+                                        <children>
+                                             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="334.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="174.0" />
+                                        </children>
+                                 </Pane>
+
+
+                            <ImageView fitHeight="336.0" fitWidth="806.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@PLANCIAGIOCO.png" />
+                                </image>
+                            </ImageView>
                                 <ImageView fitHeight="336.0" fitWidth="774.0" layoutX="810.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@PLANCIAGIOCO.png" />
                                     </image>
                                 </ImageView>
-
-                                <Button layoutX="1198.0" layoutY="80.0" mnemonicParsing="false" onAction="#updateView" text="CLICK" />
-                                <GridPane fx:id="entrance1" alignment="BASELINE_LEFT" layoutY="540.0" prefHeight="336.0" prefWidth="118.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints maxHeight="87.5" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="60.5" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="99.5" minHeight="10.0" prefHeight="58.5" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="84.0" minHeight="0.5" prefHeight="56.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="84.5" minHeight="10.0" prefHeight="84.5" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                </GridPane>
-                                <GridPane fx:id="dinings" alignment="TOP_CENTER" layoutX="138.0" layoutY="540.0" prefHeight="334.0" prefWidth="399.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints fx:id="green" maxHeight="83.5" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                        <RowConstraints fx:id="red" maxHeight="67.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-                                        <RowConstraints fx:id="yellow" maxHeight="66.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                                        <RowConstraints fx:id="purple" maxHeight="73.5" minHeight="10.0" prefHeight="56.5" vgrow="SOMETIMES" />
-                                        <RowConstraints fx:id="blue" maxHeight="86.5" minHeight="10.0" prefHeight="84.5" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                </GridPane>
-                                <GridPane fx:id="professors" layoutX="528.0" layoutY="535.0" prefHeight="321.0" prefWidth="76.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="87.5" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="56.5" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="114.5" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="89.5" minHeight="10.0" prefHeight="58.5" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="71.5" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                </GridPane>
-                                <GridPane fx:id="towers" layoutX="595.0" layoutY="541.0" prefHeight="336.0" prefWidth="180.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                </GridPane>
-
-                            <Circle fx:id="circle" centerX="50.0" centerY="50.0" fill="#dd0b0b" layoutX="40.0" layoutY="602.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
-                            <Ellipse fill="#ff9d21" layoutX="109.0" layoutY="60.0" radiusX="44.0" radiusY="26.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" />
-
-                            <rotationAxis>
-                        <Point3D />
-                     </rotationAxis>
+                                <Circle fx:id="circle" centerX="50.0" centerY="50.0" fill="#dd0b0b" layoutX="40.0" layoutY="602.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
 
 
-                        </Group>
-
-
-                    </children>
 
                 </Pane>
 
