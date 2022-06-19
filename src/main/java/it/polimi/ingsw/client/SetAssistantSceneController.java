@@ -43,6 +43,7 @@ public class SetAssistantSceneController extends SceneController {
             GameBoardController boardController = (GameBoardController) c;
             s.setOnMouseMoved(boardController::mouseMoved);
             s.setOnMouseDragged(boardController::mouseMoved);
+            boardController.updateBoard(getClientGui().getGuiView().getGameState());
         });
         //TODO: set up game board by using its instance of the controller
 

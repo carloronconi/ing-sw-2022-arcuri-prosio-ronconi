@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -13,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GameBoardController {
+public class GameBoardController extends SceneController{
     @FXML
     Pane boardPane;
     @FXML
@@ -91,12 +94,31 @@ public class GameBoardController {
 
         }
 
-        initializeBoard();
+        //initializeBoard();
         //TODO: initialization: 10 students from bag to the island tiles, seven student in entrances - towers and professors also
         //take a random circle from bag and put in the coordinates of the island tile / of the entrance
 
 
+    }
+
+    private Circle makeCircle(PawnColor color){
+        Circle circle = new Circle();
+        circle.setFill(Paint.valueOf(color.name()));
+        return circle;
+    }
+
+    public void updateBoard(GameState gameState){ //call it from lambda expression in previous controller nextScene
+        //fill islands with same pawns as in gameState
+        for (Pane pane : islands){
+            for (Node island : pane.getChildrenUnmodifiable()) {
+                String islandId = island.getId();
+                if (islandId==null || islandId.contains("bag") || islandId.contains("cloud")) continue;
+                //TODO: use makeCircle to create student with color based on gameState and add the circle to the island
+                Circle student = makeCircle(PawnColor.RED);
+
+            }
         }
+    }
 
     private Ellipse motherNature;
 
