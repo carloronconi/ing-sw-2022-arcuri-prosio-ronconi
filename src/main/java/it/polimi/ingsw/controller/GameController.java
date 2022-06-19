@@ -134,7 +134,9 @@ public class GameController implements EventListener<ViewEvent> {
             VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
             mapOfPlayerNicknames.put(virtualView.getThisInstanceNumber(), nickname);
             System.out.println(mapOfPlayerNicknames);
-            virtualViews.add(virtualView);
+            synchronized (virtualViews){
+                virtualViews.add(virtualView);
+            }
 
         } else if (viewEvent instanceof SetPreferences) {
             numOfPlayers = ((SetPreferences) viewEvent).getNumOfPlayers();
@@ -151,11 +153,14 @@ public class GameController implements EventListener<ViewEvent> {
 
             if (numOfNicknamesAdded == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
-                Iterator<VirtualView> iterator = virtualViews.iterator();
-                while(iterator.hasNext()){
-                    VirtualView view = iterator.next();
-                    modelEventEventManager.subscribe(view);
-                }/*
+                synchronized (virtualViews){
+                    Iterator<VirtualView> iterator = virtualViews.iterator();
+                    while(iterator.hasNext()){
+                        VirtualView view = iterator.next();
+                        modelEventEventManager.subscribe(view);
+                    }
+                }
+                /*
                 for (VirtualView v : virtualViews) {
                     modelEventEventManager.subscribe(v);
 
@@ -167,13 +172,14 @@ public class GameController implements EventListener<ViewEvent> {
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
+                synchronized (virtualViews){
+                    for (VirtualView v : virtualViews) {
 
-                for (VirtualView v : virtualViews) {
-
-                    v.subscribeToEventManager(turnController);
-                    v.id = turnController.getPlayerId(v.getThisInstanceNumber());
+                        v.subscribeToEventManager(turnController);
+                        v.id = turnController.getPlayerId(v.getThisInstanceNumber());
 
 
+                    }
                 }
                 turnController.firstOrderShuffle();
 
