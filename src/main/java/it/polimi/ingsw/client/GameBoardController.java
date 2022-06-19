@@ -36,6 +36,10 @@ public class GameBoardController {
     @FXML Pane dinings1;
     @FXML Pane professors1;
     @FXML Pane towers1;
+    @FXML Pane entrance2;
+    @FXML Pane dinings2;
+    @FXML Pane professors2;
+    @FXML Pane towers2;
 
 
     private final List<Pane> islands = new ArrayList<>();
@@ -71,6 +75,7 @@ public class GameBoardController {
         pawnsInDining.put(purple, 0);
 
         entr.add(entrance1);
+        entr.add(entrance2);
         islands.add(islandRow0);
         islands.add(islandRow1);
         islands.add(islandRow2);
@@ -129,6 +134,8 @@ public class GameBoardController {
         int bag = gameState.getBag();
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
 
+        //ISLANDS
+
         for (Pane p : islands){
             for (Node r: p.getChildrenUnmodifiable()){
                 for (int i = 0; i<gameState.getIslands().size(); i++){
@@ -156,6 +163,8 @@ public class GameBoardController {
             }
         }
 
+        //CLOUDS
+
         for(Pane p : islands){
             for(Node r: p.getChildrenUnmodifiable()){
                 for(int i=0; i<gameState.getClouds().size(); i++){
@@ -164,18 +173,24 @@ public class GameBoardController {
                     if(r.getId()!=null && r.getId().contains(cloudName)){
                         HashMap<UUID, ArrayList<PawnColor>> cloudIGameModel = gameState.getClouds();
                         UUID cloudID = converter.nameToId(cloudName, CliViewIdConverter.converterSetting.CLOUD);
-                        for(int j = 0; j<3; j++){
+                        for(int j = 0; j<cloudIGameModel.get(cloudID).toArray().length; j++){
                                 Circle c = new Circle();
                                 c.setCenterX(50.0);
                                 c.setCenterY(50.0);
-                                c.setLayoutX(r.getLayoutX());
-                                c.setLayoutY(r.getParent().getLayoutY());
+                                c.setLayoutX(r.getLayoutX()+(j*30.0));
+                                c.setLayoutY(r.getParent().getLayoutY()+(j*35.0));
                                 c.setRadius(16.0);
                                 c.setStroke(Color.BLACK);
                                 c.setStrokeType(StrokeType.INSIDE);
                                 c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
 
+                                c.setOnMouseDragged(this::movePiece);
+                                c.setOnMousePressed(this::startMovingPiece);
+                                c.setOnMouseReleased(this::finishMovingPiece);
+
                                 boardPane.getChildren().add(c);
+                                pawns.add(c);
+
 
 
                         }
@@ -185,6 +200,39 @@ public class GameBoardController {
                 }
             }
         }
+
+        //ENTRANCES
+        for(Pane p : entr){
+            for(Node rect : p.getChildrenUnmodifiable()){
+                if(rect.getId()!=null){
+                    //interleave with game state
+
+                    /*Circle c = bag.get(index);
+                    c.setCenterX(50.0);
+                    c.setCenterY(50.0);
+                    c.setLayoutX(rect.getLayoutX() - 15.0);
+                    c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                    c.setRadius(16.0);
+                    c.setStroke(Color.BLACK);
+                    c.setStrokeType(StrokeType.INSIDE);
+
+                    c.setOnMouseDragged(this::movePiece);
+                    c.setOnMousePressed(this::startMovingPiece);
+                    c.setOnMouseReleased(this::finishMovingPiece);
+
+
+
+                    boardPane.getChildren().add(c); //rectangleGroup
+                    pawns.add(c);
+                    bag.remove(c); */
+
+
+                }
+            }
+
+
+        }
+
 
         /*
         //fill islands with same pawns as in gameState
