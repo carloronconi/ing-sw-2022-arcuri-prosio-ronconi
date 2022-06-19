@@ -12,11 +12,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.effect.Shadow;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
@@ -26,53 +24,78 @@ import javafx.util.Duration;
 import java.util.*;
 
 
-public class GameBoardController extends SceneController{
-    @FXML
-    Pane boardPane;
-    @FXML
-    Group rectangleGroup;
-    @FXML
-    VBox vbox;
-    @FXML
-    Circle circle;
-    @FXML
-    Pane islandRow0;
-    @FXML
-    Pane islandRow1;
-    @FXML
-    Pane islandRow2;
-
-    @FXML
-    GridPane entrance1;
-    @FXML
-    GridPane dinings;
-    @FXML
-    GridPane professors;
-    @FXML
-    GridPane towers;
+public class GameBoardController {
+    @FXML Pane boardPane;
+    @FXML Group rectangleGroup;
+    @FXML VBox vbox;
+    @FXML Circle circle;
+    @FXML Pane islandRow0;
+    @FXML Pane islandRow1;
+    @FXML Pane islandRow2;
+    @FXML Pane entrance1;
+    @FXML Pane dinings1;
+    @FXML Pane professors1;
+    @FXML Pane towers1;
 
 
     private final List<Pane> islands = new ArrayList<>();
-    private final List<GridPane> board = new ArrayList<>();
+    private final List<Pane> board = new ArrayList<>();
     private final int MAX_SIZE = 130;
-    private ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
+    private final ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
+    private final List<Pane> entr = new ArrayList<>();
+
+    //private ArrayList<Integer> numOfPawnsInDining;
+    private HashMap<String, Integer> pawnsInDining;
+
+    String red;
+    String yellow;
+    String blue;
+    String green;
+    String purple;
+
+    private List<Pane> panes = new ArrayList<>();
+
 
 
 
     @FXML
     public void initialize() {
+        System.out.println(boardPane.getChildren());
+        System.out.println(islandRow0.getChildren());
+        pawnsInDining = new HashMap<>();
+        //numOfPawnsInDining = new ArrayList<>();
+        pawnsInDining.put(red, 0);
+        pawnsInDining.put(yellow,0);
+        pawnsInDining.put(green,0);
+        pawnsInDining.put(blue,0);
+        pawnsInDining.put(purple, 0);
+
+        entr.add(entrance1);
         islands.add(islandRow0);
         islands.add(islandRow1);
         islands.add(islandRow2);
         //board.add(entrance1);
-        board.add(dinings);
+        board.add(dinings1);
+
+        panes.add(islandRow0);
+        panes.add(islandRow1);
+        panes.add(islandRow2);
+        panes.add(entrance1);
+        panes.add(dinings1);
+
         //board.add(professors);
         // board.add(towers);
 
-        boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
-        boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
+        // boardPane.addEventFilter(MouseEvent.MOUSE_EXITED, this::leaveBoard);
+        // boardPane.addEventFilter(MouseEvent.MOUSE_RELEASED, this::checkReleaseOutOfBoard);
 
         vbox.setMaxWidth(1500.0d);
+
+        diningTables.add(green1);
+        diningTables.add(red1);
+        diningTables.add(yellow1);
+        diningTables.add(purple1);
+        diningTables.add(blue1);
 
         pawns.add(circle);
         for (int i = 0; i < 26; i++) {
@@ -99,12 +122,6 @@ public class GameBoardController extends SceneController{
         //take a random circle from bag and put in the coordinates of the island tile / of the entrance
 
 
-    }
-
-    private Circle makeCircle(PawnColor color){
-        Circle circle = new Circle();
-        circle.setFill(Paint.valueOf(color.name()));
-        return circle;
     }
 
     public void updateBoard(GameState gameState){ //call it from lambda expression in previous controller nextScene
@@ -152,17 +169,35 @@ public class GameBoardController extends SceneController{
         }*/
     }
 
-    private Ellipse motherNature;
+    private final Ellipse motherNature = new Ellipse();
 
     //TODO: set random
 
-        private void initializeBoard(){
-          for(Pane p : islands) {
-              for(Node rect : p.getChildrenUnmodifiable()) {
-                  if(rect.getId()!=null && !rect.getId().toString().contains("12") && !rect.getId().toString().contains("6") &&
-                          !rect.getId().toString().contains("bag") && !rect.getId().toString().contains("cloud")
-                  ) {
-                      Circle c = bag.get(0);
+    private void initializeBoard(){
+        for(Pane p : islands) {
+            for(Node rect : p.getChildrenUnmodifiable()) {
+                if(rect.getId()!=null && !rect.getId().toString().contains("12") && !rect.getId().toString().contains("6") &&
+                        !rect.getId().toString().contains("bag") && !rect.getId().toString().contains("cloud")
+                ) {
+                    Random random = new Random();
+                    int index = random.nextInt(bag.size());
+                    Circle c = bag.get(index);
+                    c.setCenterX(50.0);
+                    c.setCenterY(50.0);
+                    c.setLayoutX(rect.getLayoutX());
+                    c.setLayoutY(rect.getParent().getLayoutY());
+                    c.setRadius(16.0);
+                    c.setStroke(Color.BLACK);
+                    c.setStrokeType(StrokeType.INSIDE);
+
+
+                    boardPane.getChildren().add(c);  //rectangleGroup
+                    pawns.add(c);
+                    bag.remove(c);
+
+
+
+                     /* Circle c = bag.get(0);
                       c.setCenterX(50.0);
                       c.setCenterY(50.0);
                       c.setLayoutX(rect.getLayoutX());
@@ -173,10 +208,18 @@ public class GameBoardController extends SceneController{
 
                       rectangleGroup.getChildren().add(c);
                       pawns.add(c);
-                      bag.remove(c);
-                  }
-              }
-          }
+                      bag.remove(c); */
+                }
+
+
+
+            }
+
+        }
+
+        System.out.println(bag.size());
+
+
 
          /* motherNature = new Ellipse(44.0,26.0);
           motherNature.setFill(Color.valueOf("#ff9d21"));
@@ -191,7 +234,7 @@ public class GameBoardController extends SceneController{
             */  //mother nature line in fxml
 
 
-        }
+    }
 
 
 
@@ -200,14 +243,14 @@ public class GameBoardController extends SceneController{
     private Point2D offset = new Point2D(0.0d, 0.0d);
     private boolean movingPiece = false;
 
-    public void checkReleaseOutOfBoard(MouseEvent evt) {
+   /* public void checkReleaseOutOfBoard(MouseEvent evt) {
         Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
         if (!inBoard(mousePoint_s)) {
             leaveBoard(evt);
             evt.consume();
         }
 
-    }
+    } */
 
     public void leaveBoard(MouseEvent evt) {
         if(pawns.contains(evt.getSource())) {
@@ -229,7 +272,7 @@ public class GameBoardController extends SceneController{
                 timeline.play();
             }
         }
-        }
+    }
 
 
     private Circle c2;
@@ -247,31 +290,33 @@ public class GameBoardController extends SceneController{
 
     @FXML
     public void movePiece(MouseEvent evt) {
-            if(pawns.contains(evt.getSource())) {
-                Circle circle = (Circle) evt.getSource();
-                Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
-                Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
+        if(pawns.contains(evt.getSource())) {
+            Circle circle = (Circle) evt.getSource();
+            Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
+            Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
 
-                if (!inBoard(mousePoint_s)) {
+               /* if (!inBoard(mousePoint_s)) {
                     return;
-                }
+                }  */
 
-                Point2D mousePoint_p = circle.localToParent(mousePoint);
-                circle.relocate(mousePoint_p.getX() - offset.getX(), mousePoint_p.getY() - offset.getY());
+            Point2D mousePoint_p = circle.localToParent(mousePoint);
+            circle.relocate(mousePoint_p.getX() - offset.getX(), mousePoint_p.getY() - offset.getY());
 
-            }
+        }
     }
 
-    private boolean inBoard(Point2D pt) {
+   /* private boolean inBoard(Point2D pt) {
 
-            Point2D panePt = boardPane.sceneToLocal(pt);
+
+
+            Point2D panePt = boardPane.sceneToLocal(pt); //boardPane
             //Point2D panePtIsle = boardPane.sceneToLocal(pt);
             return (panePt.getX() - offset.getX() >= 0.0d
                     && panePt.getY() - offset.getY() >= 0.0d
                     && panePt.getX() <= boardPane.getWidth()
                     && panePt.getY() <= boardPane.getHeight());
 
-    }
+    } */
 
     public Rectangle finishMovingPiece(MouseEvent evt) {
 
@@ -283,32 +328,44 @@ public class GameBoardController extends SceneController{
             Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
             Point2D mousePointScene = circle.localToScene(mousePoint);
 
-            Rectangle r = pickRectangle(mousePointScene.getX(), mousePointScene.getY());
-
             final Timeline timeline = new Timeline();
             timeline.setCycleCount(1);
             timeline.setAutoReverse(false);
 
-            if (r != null) {
-                Point2D rectScene = r.localToScene(r.getX(), r.getY());
-                Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
+            timeline.getKeyFrames().add(
+                    new KeyFrame(Duration.millis(100),
+                            new KeyValue(circle.layoutXProperty(), circle.getLayoutX()),
+                            new KeyValue(circle.layoutYProperty(), circle.getLayoutY()),
+                            new KeyValue(circle.opacityProperty(), 1.0d))
+            );
 
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.millis(100),
-                                new KeyValue(circle.layoutXProperty(), parent.getX()),
-                                new KeyValue(circle.layoutYProperty(), parent.getY()),
-                                new KeyValue(circle.opacityProperty(), 1.0d))
-                );
 
-            } else {
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.millis(100),
-                                new KeyValue(circle.opacityProperty(), 1.0d))
-                );
+
+            //Rectangle r = pickRectangle(mousePointScene.getX(), mousePointScene.getY());
+
+
+
+            for(Pane p : panes) {
+                for(Node rect : p.getChildrenUnmodifiable()) {
+                    if (rect != null) {
+
+                        Point2D rectScene = rect.localToScene(rect.getLayoutX(), rect.getLayoutY());
+                        Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
+
+
+
+                    } else {
+                        timeline.getKeyFrames().add(
+                                new KeyFrame(Duration.millis(100),
+                                        new KeyValue(circle.opacityProperty(), 1.0d))
+                        );
+                    }
+                    timeline.play();
+
+                    movingPiece = false;
+                }
             }
-            timeline.play();
 
-            movingPiece = false;
 
             printWhere(circle.getLayoutX(), circle.getLayoutY());
 
@@ -320,47 +377,75 @@ public class GameBoardController extends SceneController{
 
     }
 
-    @FXML
-    Rectangle island1;
-    @FXML
-    Rectangle island2;
-    @FXML
-    Rectangle island3;
-    @FXML
-    Rectangle island4;
-    @FXML
-    Rectangle island5;
-    @FXML
-    Rectangle island6;
-    @FXML
-    Rectangle island7;
-    @FXML
-    Rectangle island8;
-    @FXML
-    Rectangle island9;
-    @FXML
-    Rectangle island10;
-    @FXML
-    Rectangle island11;
-    @FXML
-    Rectangle island12;
-    @FXML
-    Rectangle cloud1;
-    @FXML
-    Rectangle cloud2;
-    @FXML
-    Rectangle bag1;
+
 
 
     //private final List<Rectangle> islands = new ArrayList<>();
 
     private ArrayList<Circle> pawns = new ArrayList<>();
-    private Circle c;
+
 
     //implementation swap pieces for update - diminish bag and update
 
     public void updateView() {
-        Circle c = bag.get(15);
+
+        for(Pane p : entr){
+            for(Node rect : p.getChildrenUnmodifiable()){
+                if(rect.getId()!=null){
+
+                    Random rand = new Random();
+                    int index = rand.nextInt(bag.size());
+                    Circle c = bag.get(index);
+                    c.setCenterX(50.0);
+                    c.setCenterY(50.0);
+                    c.setLayoutX(rect.getLayoutX() - 15.0);
+                    c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                    c.setRadius(16.0);
+                    c.setStroke(Color.BLACK);
+                    c.setStrokeType(StrokeType.INSIDE);
+
+                    c.setOnMouseDragged(this::movePiece);
+                    c.setOnMousePressed(this::startMovingPiece);
+                    c.setOnMouseReleased(this::finishMovingPiece);
+
+
+
+                    boardPane.getChildren().add(c); //rectangleGroup
+                    pawns.add(c);
+                    bag.remove(c);
+
+
+                }
+            }
+
+            System.out.println(bag.size());
+        }
+
+        /*for(Node rect : entrance1.getChildrenUnmodifiable()) {
+
+            for (int i = 0; i < 7; i++) {
+                int index = rand.nextInt(bag.size());
+                Circle circle = bag.get(index);
+                circle.setCenterX(50.0);
+                circle.setCenterY(50.0);
+                circle.setLayoutX(rect.getLayoutX() + (rect.getBoundsInLocal().getCenterX()));
+                circle.setLayoutY(rect.getParent().getLayoutY() + (rect.getBoundsInLocal().getCenterY()));
+                circle.setRadius(16.0);
+                circle.setStroke(Color.BLACK);
+                circle.setStrokeType(StrokeType.INSIDE);
+                circle.setOnMouseDragged(this::movePiece);
+                circle.setOnMousePressed(this::startMovingPiece);
+                circle.setOnMouseReleased(this::finishMovingPiece);
+                rectangleGroup.getChildren().add(circle);
+                pawns.add(circle);
+                bag.remove(circle);
+
+            }
+
+
+        } */
+
+       /* Circle c = bag.get(15);
         c.setCenterX(50.0);
         c.setCenterY(50.0);
         c.setLayoutX(entrance1.getLayoutX()+ (((entrance1.getLayoutX()+entrance1.getPrefWidth())/(entrance1.getColumnCount()))/2));
@@ -377,22 +462,28 @@ public class GameBoardController extends SceneController{
         bag.remove(c);
 
         System.out.println(pawns.size());
-        System.out.println(bag.size());
+        System.out.println(bag.size()); */
 
 
     }
-    int numOfRed =0;
-    int numOfGreen =0;
-    int numOfYellow =0;
-    int numOfBlue =0;
-    int numOfPurple =0;
+
+    private ArrayList<Rectangle> diningTables = new ArrayList<>();
+    @FXML Rectangle green1;
+    @FXML Rectangle red1;
+    @FXML Rectangle yellow1;
+    @FXML Rectangle purple1;
+    @FXML Rectangle blue1;
 
     public void printWhere(Double x, Double y) {
         for (Pane p : islands) {
             for (Node cell : p.getChildrenUnmodifiable()) {
                 if (cell.getLayoutX() <= x && x <= (cell.getLayoutX() + 144.0)) {
                     if (cell.getParent().getLayoutY() <= y && y <= (cell.getParent().getLayoutY() + 180.0)) {
-                        System.out.println("NOW ISLAND: " + cell.getId());
+                        if(cell.getId()!=null) {
+                            System.out.println("NOW ISLAND: " + cell.getId());
+                            System.out.println(x);
+                            System.out.println(y);
+                        }
                     }
 
                     //for(Node cell2 : panes.get(4).getChildrenUnmodifiable()){
@@ -402,48 +493,129 @@ public class GameBoardController extends SceneController{
                 }
             }
         }
-        for (GridPane p2 : board) {
-            System.out.println(" " + p2.getRowCount() + " " + p2.getColumnCount());
+
+
+
+        for(Rectangle r1 : diningTables) {
+            //  if( r1.getLayoutY() <= y ) System.out.println(" \n" + r1.getParent().getLayoutY() + " \n" + r1.getParent().getLayoutX() + " \n" + r1.getLayoutY() );
+            //if(r1.getId()!=null) { - use parse to recognize only rectangle with a "dining" in name (to differentiate to
+            //entrace, professor and towers)
+            if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
+                System.out.println("green");
+                break;
+
+                //add method to count number of pawns in rectangle for island, in row for dining
+                //for cycle should suffice
+            } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
+                System.out.println(" red ");
+                break;
+
+            } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
+                System.out.println("yellow");
+                break;
+
+
+            } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
+                System.out.println("purple");
+                break;
+
+
+            } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
+                System.out.println("blue");
+                break;
+            }
+            // }
+
+        }
+
+        //System.out.println(" "+ r1.getParent().getLayoutY()+ " " + r1.getLayoutY() + " " + r1.getBoundsInLocal().getHeight());
+        //System.out.println(" "+ r1.getBoundsInLocal()+" "+ r1.getId());
+               /* if((r1.getParent().getLayoutY() + i*60.0) <= y && y<= (r1.getParent().getLayoutY()+r1.getLayoutY() + r1.getBoundsInLocal().getHeight())
+                        && x<= r1.getParent().getLayoutX()){
+                    System.out.println(r1.getId());
+
+                } */
+
+
+        //Rectangle r = (Rectangle) r1;
+        //System.out.println(x);
+        //System.out.println(y);
+              /*  if((r.getParent().getLayoutY() + r.getLayoutY()) < y && y< (r.getParent().getLayoutY() + r.getLayoutY() + r.getHeight()) &&
+                        r.getParent().getLayoutX() >= x ){
+                    System.out.println(r.getId());
+                } */
+
+
+    }
+         /*for (Pane p2 : board) {
+            //System.out.println(" " + p2.getRowCount() + " " + p2.getColumnCount());
             System.out.println(" " + y);
+            for(Node rect : p2.getChildrenUnmodifiable()){
 
-            int a =0;
+               //Rectangle row = (Rectangle) rect;
+
+                if(x >= (rect.getParent().getLayoutX()) && x<= (rect.getParent().getLayoutX()+407.0) &&
+                       y >= (rect.getLayoutY() + rect.getParent().getLayoutY()) && y<=(rect.getLayoutY()+rect.getParent().getLayoutY()+ 70.0)) {
+                   System.out.println(rect.getId().toString());
+                   System.out.println(rect.getLayoutX());
+                   System.out.println((x));
+                   String diningColor = rect.getId();
+                   for (int i = 0; i < pawnsInDining.size(); i++) {
+                       if (pawnsInDining.containsKey(diningColor)) {
+                           pawnsInDining.put(diningColor, pawnsInDining.get(diningColor) + 1);
+                           System.out.println(pawnsInDining.toString());
+                       }
+
+                   }
+               }
 
 
 
-            if (y >= p2.getLayoutY() && y <= (p2.getLayoutY() + 60)) {
+            /*   if (y >= p2.getLayoutY() && y <= (p2.getLayoutY() + 60)) {
                 System.out.println("green");
                 a = 1;
                 //add method to count number of pawns in rectangle for island, in row for dining
                 //for cycle should suffice
-            }else if (y > (p2.getLayoutY() + 60) && y <= (p2.getLayoutY() + 100)) {
+            } else if (y > (p2.getLayoutY() + 60) && y <= (p2.getLayoutY() + 100)) {
                 System.out.println(" red ");
-                a=2;
-            }else if (y > (p2.getLayoutY() + 100) && y <= (p2.getLayoutY() + 140)) {
+                a = 2;
+            } else if (y > (p2.getLayoutY() + 100) && y <= (p2.getLayoutY() + 140)) {
                 System.out.println("yellow");
-                a=3;
-            }else if(y>(p2.getLayoutY()+140)&&y<=(p2.getLayoutY()+180)){
+                a = 3;
+            } else if (y > (p2.getLayoutY() + 140) && y <= (p2.getLayoutY() + 180)) {
                 System.out.println("purple");
-                a=4;
-            } else if(y> (p2.getLayoutY()+180) && y<(p2.getLayoutY()+300)){
+                a = 4;
+            } else if (y > (p2.getLayoutY() + 180) && y < (p2.getLayoutY() + 300)) {
                 System.out.println("blue");
-                a=5;
-            }
+                a = 5;
+            } */
 
-                switch(a){
-                    case 1: numOfGreen++; break;
-                    case 2: numOfRed++; break;
-                    case 3: numOfYellow++; break;
-                    case 4: numOfPurple++; break;
-                    case 5: numOfBlue++; break;
+           /* switch (a) {
+                case 1:
+                    numOfGreen++;
+                    break;
+                case 2:
+                    numOfRed++;
+                    break;
+                case 3:
+                    numOfYellow++;
+                    break;
+                case 4:
+                    numOfPurple++;
+                    break;
+                case 5:
+                    numOfBlue++;
+                    break;
 
-                }
-                System.out.println(" "+numOfRed); //numOf
-            }
+            }*/
+    // System.out.println(" " + numOfRed); //numOf
+    //  }
+    //     } */
 
-            }
 
 
-    public void mouseMoved(MouseEvent evt){
+
+    /*public void mouseMoved(MouseEvent evt){
         Rectangle r = pickRectangle(evt);
 
         if(r==null) {
@@ -464,13 +636,13 @@ public class GameBoardController extends SceneController{
         }
 
 
-    }
+    }  */
 
-    private Rectangle pickRectangle(MouseEvent evt){
+   /* private Rectangle pickRectangle(MouseEvent evt){
         return pickRectangle(evt.getSceneX(), evt.getSceneY());
-    }
+    } */
 
-    private Rectangle pickRectangle(double sceneX, double sceneY){
+   /* private Rectangle pickRectangle(double sceneX, double sceneY){
         Rectangle pickedRectangle = null;
         for(Pane row : islands){
             Point2D mousePoint = new Point2D(sceneX, sceneY);
@@ -493,7 +665,7 @@ public class GameBoardController extends SceneController{
         }
 
         return pickedRectangle;
-    }
+    } */
 
 
 
@@ -506,3 +678,4 @@ public class GameBoardController extends SceneController{
 
 
 }
+

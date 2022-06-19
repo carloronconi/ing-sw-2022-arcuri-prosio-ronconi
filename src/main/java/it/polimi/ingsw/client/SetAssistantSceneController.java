@@ -41,8 +41,8 @@ public class SetAssistantSceneController extends SceneController {
         getClientGui().getGuiView().notifyEventManager(new SetAssistantCard(cardNumber));
         GameBoardController controller = (GameBoardController) getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
             GameBoardController boardController = (GameBoardController) c;
-            s.setOnMouseMoved(boardController::mouseMoved);
-            s.setOnMouseDragged(boardController::mouseMoved);
+            //s.setOnMouseMoved(boardController::mouseMoved);
+            //s.setOnMouseDragged(boardController::mouseMoved);
             boardController.updateBoard(getClientGui().getGuiView().getGameState());
         });
         //TODO: set up game board by using its instance of the controller
