@@ -39,25 +39,10 @@ public class SetAssistantSceneController extends SceneController {
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
         getClientGui().getGuiView().notifyEventManager(new SetAssistantCard(cardNumber));
-        GameBoardController controller = (GameBoardController) getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
+        getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
             GameBoardController boardController = (GameBoardController) c;
-            //s.setOnMouseMoved(boardController::mouseMoved);
-            //s.setOnMouseDragged(boardController::mouseMoved);
             boardController.updateBoard(getClientGui().getGuiView().getGameState());
         });
-        //TODO: set up game board by using its instance of the controller
-
-        /*GameBoardController c = new GameBoardController();
-
-        root = FXMLLoader.load(getClass().getResource("/GameBoard2.fxml"));
-
-        scene = new Scene(root, 1500, 876);
-        //scene.setOnMouseMoved((evt) -> c.mouseMoved(evt));
-        //scene.setOnMouseDragged((evt)->c.mouseMoved(evt));
-        stage = new Stage();
-        stage.setTitle("Game Board");
-        stage.setScene(scene);
-        stage.show();*/
 
 
     }

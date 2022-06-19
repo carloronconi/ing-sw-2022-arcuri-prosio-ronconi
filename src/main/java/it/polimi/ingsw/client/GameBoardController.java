@@ -3,6 +3,8 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.networkmessages.viewevents.MovedStudent;
+import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -21,10 +23,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.*;
 
 
-public class GameBoardController {
+public class GameBoardController extends SceneController{
     @FXML Pane boardPane;
     @FXML Group rectangleGroup;
     @FXML VBox vbox;
@@ -367,7 +370,36 @@ public class GameBoardController {
             }
 
 
-            printWhere(circle.getLayoutX(), circle.getLayoutY());
+            try {
+                Color c = (Color) circle.getFill();
+                String hex = String.format( "#%02X%02X%02X",
+                        (int)( c.getRed() * 255 ),
+                        (int)( c.getGreen() * 255 ),
+                        (int)( c.getBlue() * 255 ) );
+                System.out.println(hex);
+                PawnColor pawnColor = null;
+                switch (hex) {
+                    case "#DD0B0B":
+                        pawnColor = PawnColor.RED;
+                        break;
+                    case "#008000":
+                        pawnColor = PawnColor.GREEN;
+                        break;
+                    case "#0000FF":
+                        pawnColor = PawnColor.BLUE;
+                        break;
+                    case "#FFFF00":
+                        pawnColor = PawnColor.YELLOW;
+                        break;
+                    case "#800080":
+                        pawnColor = PawnColor.PURPLE;
+                        break;
+                }
+
+                printWhere(circle.getLayoutX(), circle.getLayoutY(), pawnColor);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         }
 
@@ -474,7 +506,7 @@ public class GameBoardController {
     @FXML Rectangle purple1;
     @FXML Rectangle blue1;
 
-    public void printWhere(Double x, Double y) {
+    public void printWhere(Double x, Double y, PawnColor color) throws IOException {
         for (Pane p : islands) {
             for (Node cell : p.getChildrenUnmodifiable()) {
                 if (cell.getLayoutX() <= x && x <= (cell.getLayoutX() + 144.0)) {
@@ -483,6 +515,11 @@ public class GameBoardController {
                             System.out.println("NOW ISLAND: " + cell.getId());
                             System.out.println(x);
                             System.out.println(y);
+
+                            CliViewIdConverter converter = new CliViewIdConverter(getClientGui().getGuiView().getGameState());
+                            UUID islandId = converter.nameToId(cell.getId(), CliViewIdConverter.converterSetting.ISLAND);
+
+                            sendToServerAndUpdate(color, islandId);
                         }
                     }
 
@@ -502,26 +539,31 @@ public class GameBoardController {
             //entrace, professor and towers)
             if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
                 System.out.println("green");
+                sendToServerAndUpdate(PawnColor.GREEN, null);
                 break;
 
                 //add method to count number of pawns in rectangle for island, in row for dining
                 //for cycle should suffice
             } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
                 System.out.println(" red ");
+                sendToServerAndUpdate(PawnColor.RED, null);
                 break;
 
             } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
                 System.out.println("yellow");
+                sendToServerAndUpdate(PawnColor.YELLOW, null);
                 break;
 
 
             } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
                 System.out.println("purple");
+                sendToServerAndUpdate(PawnColor.PURPLE, null);
                 break;
 
 
             } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
                 System.out.println("blue");
+                sendToServerAndUpdate(PawnColor.BLUE, null);
                 break;
             }
             // }
@@ -546,6 +588,14 @@ public class GameBoardController {
                 } */
 
 
+    }
+
+    private void sendToServerAndUpdate(PawnColor color, UUID islandId) throws IOException {
+        getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
+        getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
+            GameBoardController boardController = (GameBoardController) c;
+            boardController.updateBoard(getClientGui().getGuiView().getGameState());
+        });
     }
          /*for (Pane p2 : board) {
             //System.out.println(" " + p2.getRowCount() + " " + p2.getColumnCount());
