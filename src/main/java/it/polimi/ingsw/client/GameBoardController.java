@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.networkmessages.viewevents.ChosenCloud;
 import it.polimi.ingsw.networkmessages.viewevents.MovedMotherNature;
 import it.polimi.ingsw.networkmessages.viewevents.MovedStudent;
 import javafx.animation.KeyFrame;
@@ -11,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -26,6 +28,8 @@ import java.util.*;
 
 
 public class GameBoardController extends SceneController{
+    public ImageView cloud2;
+    public ImageView cloud1;
     @FXML Pane boardPane;
     @FXML Group rectangleGroup;
     @FXML VBox vbox;
@@ -38,6 +42,9 @@ public class GameBoardController extends SceneController{
     @FXML Pane professors1;
     @FXML Pane towers1;
     @FXML Circle MN;
+    //@FXML ImageView cloud1;
+    //@FXML ImageView cloud2;
+
 
 
     private final List<Pane> islands = new ArrayList<>();
@@ -610,6 +617,23 @@ public class GameBoardController extends SceneController{
             GameBoardController boardController = (GameBoardController) c;
             boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
         });
+    }
+
+    public void clickedCloud1() throws IOException {
+        Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
+        UUID cloudId = iterator.next();
+        System.out.println("sending to server chosen cloud 1");
+        getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
+        getClientGui().nextScene(1500, 876, "ERYANTIS", (s,c)->{});
+    }
+
+    public void clickedCloud2() throws IOException {
+        Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
+        iterator.next();
+        UUID cloudId = iterator.next();
+        System.out.println("sending to server chosen cloud 2");
+        getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
+        getClientGui().nextScene(1500, 876, "ERYANTIS", (s,c)->{});
     }
          /*for (Pane p2 : board) {
             //System.out.println(" " + p2.getRowCount() + " " + p2.getColumnCount());
