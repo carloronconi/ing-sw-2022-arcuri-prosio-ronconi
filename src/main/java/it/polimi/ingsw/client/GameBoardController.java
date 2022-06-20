@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.networkmessages.viewevents.MovedMotherNature;
 import it.polimi.ingsw.networkmessages.viewevents.MovedStudent;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -36,6 +37,7 @@ public class GameBoardController extends SceneController{
     @FXML Pane dinings1;
     @FXML Pane professors1;
     @FXML Pane towers1;
+    @FXML Circle MN;
 
 
     private final List<Pane> islands = new ArrayList<>();
@@ -98,6 +100,7 @@ public class GameBoardController extends SceneController{
         diningTables.add(blue1);
 
         pawns.add(circle);
+        pawns.add(MN);
         for (int i = 0; i < 26; i++) {
             Circle c = new Circle();
             c.setFill(Color.RED);
@@ -589,7 +592,20 @@ public class GameBoardController extends SceneController{
 
     private void sendToServerAndUpdate(PawnColor color, UUID islandId) throws IOException {
         UUID currentState = getClientGui().getGuiView().getGameState().getId();
-        getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
+        System.out.println("color: " + color);
+        //when color is null it means it is mother nature that has been moved
+        if (color == null){
+            System.out.println("sending MN steps to server");
+            GameState gameState = getClientGui().getGuiView().getGameState();
+            UUID motherNaturePosition = gameState.getMotherNaturePosition();
+            ArrayList<UUID> islands = new ArrayList<>(gameState.getIslands().keySet());
+            int steps = islands.indexOf(islandId) - islands.indexOf(motherNaturePosition);
+            if (steps<0) steps = islands.size() + steps;
+            getClientGui().getGuiView().notifyEventManager(new MovedMotherNature(steps));
+        } else {
+            getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
+        }
+
         getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
             GameBoardController boardController = (GameBoardController) c;
             boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
