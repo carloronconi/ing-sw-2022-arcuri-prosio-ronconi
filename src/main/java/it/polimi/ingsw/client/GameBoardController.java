@@ -22,6 +22,8 @@ import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class GameBoardController {
@@ -47,6 +49,7 @@ public class GameBoardController {
     private final int MAX_SIZE = 130;
     private final ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
     private final List<Pane> entr = new ArrayList<>();
+    private Set<UUID> players = new HashSet<>();
 
     //private ArrayList<Integer> numOfPawnsInDining;
     private HashMap<String, Integer> pawnsInDining;
@@ -129,22 +132,24 @@ public class GameBoardController {
 
     }
 
-    public void updateBoard(GameState gameState){ //call it from lambda expression in previous controller nextScene
+    private HashMap<UUID, String> playersNick;
+
+    public void updateBoard(GameState gameState) { //call it from lambda expression in previous controller nextScene
 
         int bag = gameState.getBag();
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
 
         //ISLANDS
 
-        for (Pane p : islands){
-            for (Node r: p.getChildrenUnmodifiable()){
-                for (int i = 0; i<gameState.getIslands().size(); i++){
-                    int islandNumber = i+1;
+        for (Pane p : islands) {
+            for (Node r : p.getChildrenUnmodifiable()) {
+                for (int i = 0; i < gameState.getIslands().size(); i++) {
+                    int islandNumber = i + 1;
                     String islandName = "island" + islandNumber;
-                    if (r.getId()!=null && r.getId().contains(islandName)){
+                    if (r.getId() != null && r.getId().contains(islandName)) {
                         LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
                         UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
-                        for(int j = 0; j<islandIGameModel.get(islandId).size(); j++){
+                        for (int j = 0; j < islandIGameModel.get(islandId).size(); j++) {
                             Circle c = new Circle();
                             c.setCenterX(50.0);
                             c.setCenterY(50.0);
@@ -165,32 +170,31 @@ public class GameBoardController {
 
         //CLOUDS
 
-        for(Pane p : islands){
-            for(Node r: p.getChildrenUnmodifiable()){
-                for(int i=0; i<gameState.getClouds().size(); i++){
-                    int cloudNumber = i+1;
+        for (Pane p : islands) {
+            for (Node r : p.getChildrenUnmodifiable()) {
+                for (int i = 0; i < gameState.getClouds().size(); i++) {
+                    int cloudNumber = i + 1;
                     String cloudName = "cloud" + cloudNumber;
-                    if(r.getId()!=null && r.getId().contains(cloudName)){
+                    if (r.getId() != null && r.getId().contains(cloudName)) {
                         HashMap<UUID, ArrayList<PawnColor>> cloudIGameModel = gameState.getClouds();
                         UUID cloudID = converter.nameToId(cloudName, CliViewIdConverter.converterSetting.CLOUD);
-                        for(int j = 0; j<cloudIGameModel.get(cloudID).toArray().length; j++){
-                                Circle c = new Circle();
-                                c.setCenterX(50.0);
-                                c.setCenterY(50.0);
-                                c.setLayoutX(r.getLayoutX()+(j*30.0));
-                                c.setLayoutY(r.getParent().getLayoutY()+(j*35.0));
-                                c.setRadius(16.0);
-                                c.setStroke(Color.BLACK);
-                                c.setStrokeType(StrokeType.INSIDE);
-                                c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
+                        for (int j = 0; j < cloudIGameModel.get(cloudID).toArray().length; j++) {
+                            Circle c = new Circle();
+                            c.setCenterX(50.0);
+                            c.setCenterY(50.0);
+                            c.setLayoutX(r.getLayoutX() + (j * 30.0));
+                            c.setLayoutY(r.getParent().getLayoutY() + (j * 35.0));
+                            c.setRadius(16.0);
+                            c.setStroke(Color.BLACK);
+                            c.setStrokeType(StrokeType.INSIDE);
+                            c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
 
-                                c.setOnMouseDragged(this::movePiece);
-                                c.setOnMousePressed(this::startMovingPiece);
-                                c.setOnMouseReleased(this::finishMovingPiece);
+                            c.setOnMouseDragged(this::movePiece);
+                            c.setOnMousePressed(this::startMovingPiece);
+                            c.setOnMouseReleased(this::finishMovingPiece);
 
-                                boardPane.getChildren().add(c);
-                                pawns.add(c);
-
+                            boardPane.getChildren().add(c);
+                            pawns.add(c);
 
 
                         }
@@ -201,51 +205,325 @@ public class GameBoardController {
             }
         }
 
-        //ENTRANCES
-        for(Pane p : entr){
-            for(Node rect : p.getChildrenUnmodifiable()){
-                if(rect.getId()!=null){
-                    //interleave with game state
-
-                    /*Circle c = bag.get(index);
-                    c.setCenterX(50.0);
-                    c.setCenterY(50.0);
-                    c.setLayoutX(rect.getLayoutX() - 15.0);
-                    c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
-                    c.setRadius(16.0);
-                    c.setStroke(Color.BLACK);
-                    c.setStrokeType(StrokeType.INSIDE);
-
-                    c.setOnMouseDragged(this::movePiece);
-                    c.setOnMousePressed(this::startMovingPiece);
-                    c.setOnMouseReleased(this::finishMovingPiece);
-
-
-
-                    boardPane.getChildren().add(c); //rectangleGroup
-                    pawns.add(c);
-                    bag.remove(c); */
-
-
-                }
-            }
+        //PLAYERS
+        for (int i = 0; i < gameState.getNicknames().size(); i++) {
+            playersNick = gameState.getNicknames();
 
 
         }
 
 
-        /*
-        //fill islands with same pawns as in gameState
-        for (Pane pane : islands){
-            for (Node island : pane.getChildrenUnmodifiable()) {
-                String islandId = island.getId();
-                if (islandId==null || islandId.contains("bag") || islandId.contains("cloud")) continue;
-                //TODO: use makeCircle to create student with color based on gameState and add the circle to the island
-                Circle student = makeCircle(PawnColor.RED);
+        //ENTRANCES
+        initializeEntrance(gameState);
+
+    }
+
+      /*  HashMap<UUID, ArrayList<PawnColor>> entranceHash = new HashMap<>();
+        for (UUID id : gameState.getEntrances().keySet()){
+            ArrayList<PawnColor> list = new ArrayList<>();
+            for (PawnColor color : gameState.getEntrances().get(id).keySet()){
+                System.out.println(color);
+                int number = gameState.getEntrances().get(id).get(color);
+                System.out.println(number);
+
+                for (int k = 0; k<number; k++){
+                    list.add(color);
+                }
 
             }
-        }*/
-    }
+            entranceHash.put(id, list);
+            System.out.println(entranceHash);
+
+        }
+
+        ArrayList<Circle> circlesEntrances = new ArrayList<>();
+
+        for(UUID id : entranceHash.keySet()){
+            for(PawnColor color : entranceHash.get(id)){
+                Circle c = new Circle();
+                c.setCenterX(50.0);
+                c.setCenterY(50.0);
+                c.setRadius(16.0);
+                c.setStroke(Color.BLACK);
+                c.setStrokeType(StrokeType.INSIDE);
+                c.setFill(Color.valueOf(color.name()));
+
+                circlesEntrances.add(c);
+
+
+            }
+        }
+
+        for(Pane p : entr){
+            for(Node r : p.getChildrenUnmodifiable()){
+                if(r!= null && circlesEntrances.get(Integer.parseInt(r.getId())) != null ){
+
+                       Circle c = circlesEntrances.get(Integer.parseInt(r.getId()));
+
+                       c.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() - 15.0);
+                       c.setLayoutY(r.getLayoutY() + r.getParent().getLayoutY() - 20.0);
+
+
+                       c.setOnMouseDragged(this::movePiece);
+                       c.setOnMousePressed(this::startMovingPiece);
+                       c.setOnMouseReleased(this::finishMovingPiece);
+
+                       boardPane.getChildren().add(c);
+                       pawns.add(c);
+
+
+                   }
+
+                }
+            }
+        } */
+
+
+
+       /* for(Pane p : entr){
+            for(Node rect : p.getChildrenUnmodifiable()){
+                for (int i = 0; i < entranceHash.size(); i++) {
+                    int entranceNumber = i+1;
+                    String entranceName = "entrance" + entranceNumber;
+                    if(rect.getId()!= null && rect.getParent().getId().contains(entranceName)){
+                       // HashMap<UUID, EnumMap<PawnColor, Integer>> entranceIGameModel = gameState.getEntrances();
+                        Object id = entranceHash.keySet().toArray()[i];
+                        UUID entranceID = (UUID) id;
+
+                            Circle c = new Circle();
+                            c.setCenterX(50.0);
+                            c.setCenterY(50.0);
+                            c.setLayoutX(rect.getParent().getLayoutX() + rect.getLayoutX() - 15.0);
+                            c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                            c.setRadius(16.0);
+                            c.setStroke(Color.BLACK);
+                            c.setStrokeType(StrokeType.INSIDE);
+                            c.setFill(Color.valueOf(entranceHash.get(entranceID).get(i).toString()));
+
+                            c.setOnMouseDragged(this::movePiece);
+                            c.setOnMousePressed(this::startMovingPiece);
+                            c.setOnMouseReleased(this::finishMovingPiece);
+
+                            boardPane.getChildren().add(c);
+                            pawns.add(c);
+
+
+                        /*for(UUID id : entranceHash.keySet()){
+                            for(PawnColor color : entranceHash.get(id)){
+                                Circle c = new Circle();
+                                c.setCenterX(50.0);
+                                c.setCenterY(50.0);
+                                c.setLayoutX(rect.getParent().getLayoutX() + rect.getLayoutX() - 15.0);
+                                c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                                c.setRadius(16.0);
+                                c.setStroke(Color.BLACK);
+                                c.setStrokeType(StrokeType.INSIDE);
+                                c.setFill(Color.valueOf(color.toString()));
+
+                                c.setOnMouseDragged(this::movePiece);
+                                c.setOnMousePressed(this::startMovingPiece);
+                                c.setOnMouseReleased(this::finishMovingPiece);
+
+
+                                boardPane.getChildren().add(c);
+                                pawns.add(c);
+                            }
+                        } */
+                        /*for (int j = 0; j < entranceHash.get(entranceID).toArray().length; j++) {
+                            Circle c = new Circle();
+                            c.setCenterX(50.0);
+                            c.setCenterY(50.0);
+                            c.setLayoutX(rect.getParent().getLayoutX() + rect.getLayoutX() - 15.0);
+                            c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                            c.setRadius(16.0);
+                            c.setStroke(Color.BLACK);
+                            c.setStrokeType(StrokeType.INSIDE);
+                            c.setFill(Color.valueOf(entranceHash.get(entranceID).get(j).toString()));
+
+                            c.setOnMouseDragged(this::movePiece);
+                            c.setOnMousePressed(this::startMovingPiece);
+                            c.setOnMouseReleased(this::finishMovingPiece);
+
+
+                            boardPane.getChildren().add(c);
+                            pawns.add(c);
+
+
+                        } */
+
+                    /*    HashMap<UUID, ArrayList<PawnColor>> entranceHash = new HashMap<>();
+                        for (UUID id : entranceIGameModel.keySet()){
+                            for (PawnColor color : entranceIGameModel.get(id).keySet()){
+                                int number = entranceIGameModel.get(id).get(color);
+                                ArrayList<PawnColor> list = new ArrayList<>();
+                                for (int k = 0; k<number; k++){
+                                    list.add(color);
+                                }
+                                entranceHash.put(id, list);
+                            }
+                        }  */
+                        //entranceHash.put(entranceIGameModel.keySet().toArray()[0]);
+                       /* for (int j = 0; j < 5; j++) {
+                            int numberPawnColor = entranceIGameModel.get(entranceID).get(j); //number of times a pawn color is repeated
+                            for (int k = 0; k < numberPawnColor; k++) {
+                                Object obj = entranceIGameModel.get(entranceID).keySet().toArray()[k];
+                                PawnColor color = (PawnColor) obj;
+                                entranceHash.get(entranceID).add(color);
+                            }
+                        }
+
+
+
+                        //
+
+                        for(int j=0; j<entranceIGameModel.get(entranceID).size(); j++){
+                            int numColor = entranceIGameModel.get(entranceID).get(j);
+                             if(numColor != 0) {
+                                 Circle c = new Circle();
+                                 c.setCenterX(50.0);
+                                 c.setCenterY(50.0);
+                                 c.setLayoutX(rect.getParent().getLayoutX()+ rect.getLayoutX() - 15.0);
+                                 c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                                 c.setRadius(16.0);
+                                 c.setStroke(Color.BLACK);
+                                 c.setStrokeType(StrokeType.INSIDE);
+                                  c.setFill(Color.valueOf(entranceIGameModel.get(entranceID).keySet().toArray()[j].toString()));
+
+
+                                 c.setOnMouseDragged(this::movePiece);
+                                 c.setOnMousePressed(this::startMovingPiece);
+                                 c.setOnMouseReleased(this::finishMovingPiece);
+
+
+                                 boardPane.getChildren().add(c);
+                                 pawns.add(c);
+
+                             }else break;
+
+                            /*for(int k =0; k<entranceIGameModel.get(entranceID).get(j); k++){
+                                Circle c = new Circle();
+                                c.setCenterX(50.0);
+                                c.setCenterY(50.0);
+                                c.setLayoutX(rect.getParent().getLayoutX()+ rect.getLayoutX() - 15.0);
+                                c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                                c.setRadius(16.0);
+                                c.setStroke(Color.BLACK);
+                                c.setStrokeType(StrokeType.INSIDE);
+                                c.setFill(Color.valueOf(entranceIGameModel.get(entranceID).keySet().toArray()[j].toString()));
+
+
+                                c.setOnMouseDragged(this::movePiece);
+                                c.setOnMousePressed(this::startMovingPiece);
+                                c.setOnMouseReleased(this::finishMovingPiece);
+
+
+                                boardPane.getChildren().add(c);
+                                pawns.add(c);
+                            } */
+                        //}
+
+                      /*  for(int j=0; j<entranceIGameModel.get(entranceID).size(); j++){
+                            Circle c = new Circle();
+                            c.setCenterX(50.0);
+                            c.setCenterY(50.0);
+                            c.setLayoutX(rect.getParent().getLayoutX()+ rect.getLayoutX() - 15.0);
+                            c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
+                            c.setRadius(16.0);
+                            c.setStroke(Color.BLACK);
+                            c.setStrokeType(StrokeType.INSIDE);
+                            c.setFill(Color.valueOf(entranceIGameModel.get(entranceID).keySet().toArray()[j].toString()));
+
+
+                            c.setOnMouseDragged(this::movePiece);
+                            c.setOnMousePressed(this::startMovingPiece);
+                            c.setOnMouseReleased(this::finishMovingPiece);
+
+
+                            boardPane.getChildren().add(c);
+                            pawns.add(c);
+                        } */
+
+                  //  }
+
+
+              //  }
+           // }
+
+
+     //   } */
+
+    private void initializeEntrance(GameState gameState){
+        HashMap<UUID, ArrayList<PawnColor>> entranceHash = new HashMap<>();
+        for (UUID id : gameState.getEntrances().keySet()){
+            ArrayList<PawnColor> list = new ArrayList<>();
+            for (PawnColor color : gameState.getEntrances().get(id).keySet()){
+                System.out.println(color);
+                int number = gameState.getEntrances().get(id).get(color);
+                System.out.println(number);
+
+                for (int k = 0; k<number; k++){
+                    list.add(color);
+                }
+
+            }
+            entranceHash.put(id, list);
+            System.out.println(entranceHash);
+
+        }
+
+        ArrayList<Circle> circlesEntrances = new ArrayList<>();
+
+        for(UUID id : entranceHash.keySet()) {
+            for (PawnColor color : entranceHash.get(id)) {
+                Circle c = new Circle();
+                c.setCenterX(50.0);
+                c.setCenterY(50.0);
+                c.setRadius(16.0);
+                c.setStroke(Color.BLACK);
+                c.setStrokeType(StrokeType.INSIDE);
+                c.setFill(Color.valueOf(color.name()));
+
+                circlesEntrances.add(c);
+            }
+        }
+                for(Pane p : entr){
+                    for(Node r : p.getChildrenUnmodifiable()){
+                        if(r.getId()!= null  ){
+                            String rect = r.getId();
+                            int rectNumber = Integer.parseInt(rect);
+                            System.out.println(rectNumber);
+
+
+
+                            for(int i =0; i<circlesEntrances.size();i++){
+                                if(rectNumber == i){
+                                    Circle circle = circlesEntrances.get(Integer.parseInt(r.getId()));
+
+                                    circle.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() - 15.0);
+                                    circle.setLayoutY(r.getLayoutY() + r.getParent().getLayoutY() - 20.0);
+
+
+                                    circle.setOnMouseDragged(this::movePiece);
+                                    circle.setOnMousePressed(this::startMovingPiece);
+                                    circle.setOnMouseReleased(this::finishMovingPiece);
+
+                                    boardPane.getChildren().add(circle);
+                                    pawns.add(circle);
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+        }
+
+
+
+
+
+
 
     private final Ellipse motherNature = new Ellipse();
 
