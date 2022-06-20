@@ -6,10 +6,7 @@ import it.polimi.ingsw.client.CliViewIdConverter;
 import it.polimi.ingsw.cliview.Bullet;
 import it.polimi.ingsw.cliview.Color;
 import it.polimi.ingsw.cliview.Matrix;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.model.charactercards.Juggler;
 import it.polimi.ingsw.model.charactercards.Monk;
@@ -18,8 +15,9 @@ import it.polimi.ingsw.model.charactercards.Princess;
 import java.io.Serializable;
 import java.util.*;
 
-public class GameState implements Serializable, ModelEvent {
+public class GameState implements Serializable, ModelEvent, Identifiable {
     private final int bag;
+    private final UUID uuid = UUID.randomUUID();
     private final EnumMap<PawnColor, UUID> professorOwners;
     private final LinkedHashMap<UUID, ArrayList<PawnColor>> clouds;
     private final LinkedHashMap<UUID, ArrayList<PawnColor>> islands;
@@ -230,5 +228,10 @@ public class GameState implements Serializable, ModelEvent {
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public UUID getId() {
+        return uuid;
     }
 }

@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.model.ConverterUtility;
 import it.polimi.ingsw.model.PawnColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.viewevents.MovedStudent;
-import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -12,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.effect.Shadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -538,32 +535,32 @@ public class GameBoardController extends SceneController{
             //if(r1.getId()!=null) { - use parse to recognize only rectangle with a "dining" in name (to differentiate to
             //entrace, professor and towers)
             if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
-                System.out.println("green");
-                sendToServerAndUpdate(PawnColor.GREEN, null);
+                System.out.println("green table");
+                sendToServerAndUpdate(color, null);
                 break;
 
                 //add method to count number of pawns in rectangle for island, in row for dining
                 //for cycle should suffice
             } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
-                System.out.println(" red ");
-                sendToServerAndUpdate(PawnColor.RED, null);
+                System.out.println("red table");
+                sendToServerAndUpdate(color, null);
                 break;
 
             } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
-                System.out.println("yellow");
-                sendToServerAndUpdate(PawnColor.YELLOW, null);
+                System.out.println("yellow table");
+                sendToServerAndUpdate(color, null);
                 break;
 
 
             } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
-                System.out.println("purple");
-                sendToServerAndUpdate(PawnColor.PURPLE, null);
+                System.out.println("purple table");
+                sendToServerAndUpdate(color, null);
                 break;
 
 
             } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
-                System.out.println("blue");
-                sendToServerAndUpdate(PawnColor.BLUE, null);
+                System.out.println("blue table");
+                sendToServerAndUpdate(color, null);
                 break;
             }
             // }
@@ -591,10 +588,11 @@ public class GameBoardController extends SceneController{
     }
 
     private void sendToServerAndUpdate(PawnColor color, UUID islandId) throws IOException {
+        UUID currentState = getClientGui().getGuiView().getGameState().getId();
         getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
         getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
             GameBoardController boardController = (GameBoardController) c;
-            boardController.updateBoard(getClientGui().getGuiView().getGameState());
+            boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
         });
     }
          /*for (Pane p2 : board) {

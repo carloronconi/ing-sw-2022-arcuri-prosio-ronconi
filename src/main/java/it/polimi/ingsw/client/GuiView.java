@@ -2,23 +2,11 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.controller.GameMode;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.layout.TilePane;
-import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -45,6 +33,25 @@ public class GuiView implements ViewInterface {
     }
 
     public GameState getGameState() {
+        return gameState;
+    }
+
+    /**
+     * waits for a new gameState to arrive before returning the gameState
+     * @return updated version of gameState as soon as a gameState different from currentState arrives
+     * @param currentState used to compare the new one against
+     */
+    public synchronized GameState getNextGameState(UUID currentState){
+        //int i = 0;
+        while (currentState.equals(gameState.getId()) /*&& i<2*/){
+            System.out.println("Game states are the same");
+            //i++;
+            try {
+                wait(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return gameState;
     }
 
@@ -150,7 +157,11 @@ public class GuiView implements ViewInterface {
     }
 
     @Override
-    public void update(ModelEvent modelEvent) {
+    public synchronized void update(ModelEvent modelEvent) {
         gameState = (GameState) modelEvent;
+        System.out.println("notified waiters of this gameState:" + gameState);
+        //UUID[] uuids = new UUID[2];
+        //System.out.println(gameState.drawGameState(gameState.getNicknames().keySet().stream().findFirst().get(), new ArrayList<>(List.of(gameState.getIslands().keySet().toArray(uuids)))));
+        notifyAll();
     }
 }
