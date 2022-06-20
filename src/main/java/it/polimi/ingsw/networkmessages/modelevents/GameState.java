@@ -125,6 +125,10 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
         return new HashMap<>(playedAssistantCards);
     }
 
+    public UUID getMotherNaturePosition() {
+        return motherNaturePosition;
+    }
+
     @Override
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
         eventManager.notify(this);
