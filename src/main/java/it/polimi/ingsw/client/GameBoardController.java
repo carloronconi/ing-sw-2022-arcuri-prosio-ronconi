@@ -244,6 +244,7 @@ public class GameBoardController extends SceneController{
                 c.setStrokeWidth(5.0);
                 c.setFill(Color.valueOf(color.name()));
                 Random random = new Random();
+                random.setSeed(10);
                 double addX = random.nextDouble(0.0, 75.0);
 
                 double addY = random.nextDouble(0.0, 110.0);
@@ -259,9 +260,10 @@ public class GameBoardController extends SceneController{
                         if (players.toArray()[i].equals(professorOwnersBoard.get(color))){
                             int playerNumber = i+1;
                             for(Pane p : prof){
-                                if(p.getId().contains("\\d" + playerNumber)){
+                                if(p.getId().matches(".*\\d.*" + playerNumber)){
                                     for(Node node : p.getChildrenUnmodifiable()){
-                                        if(node.getId()!=null && node.getId().contains(color.name())){
+                                        Rectangle rect = (Rectangle) node;
+                                        if(rect.getId()!=null && rect.getId().contains(color.name())){
                                             Circle circle = new Circle();
                                             circle.setCenterX(50.0);
                                             circle.setCenterY(50.0);
@@ -273,6 +275,7 @@ public class GameBoardController extends SceneController{
 
                                             circle.setLayoutX(node.getParent().getLayoutX());
                                             circle.setLayoutY(node.getParent().getLayoutY() + node.getLayoutY());
+                                            System.out.println(color.name());
 
                                             boardPane.getChildren().add(circle);
                                             pawns.add(circle);
