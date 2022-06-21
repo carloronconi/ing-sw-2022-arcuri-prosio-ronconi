@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.model.TowerColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.viewevents.ChosenCloud;
 import it.polimi.ingsw.networkmessages.viewevents.MovedMotherNature;
@@ -48,11 +49,6 @@ public class GameBoardController extends SceneController{
     @FXML Pane dinings2;
     @FXML Pane professors2;
     @FXML Pane towers2;
-    @FXML Circle professorRed;
-    @FXML Circle professorYellow;
-    @FXML Circle professorBlue;
-    @FXML Circle professorGreen;
-    @FXML Circle professorPurple;
     @FXML Rectangle professorsRectangle;
 
     private final List<Pane> islands = new ArrayList<>();
@@ -63,9 +59,8 @@ public class GameBoardController extends SceneController{
     private final List<Pane> entr2 = new ArrayList<>();
     private final Set<UUID> players = new HashSet<>();
     private final ArrayList<Pane> towersPane = new ArrayList<>();
+    private final List<Pane> prof = new ArrayList<>();
 
-
-    private List<Circle> professorList = new ArrayList<>();
 
     //private ArrayList<Integer> numOfPawnsInDining;
     private HashMap<String, Integer> pawnsInDining;
@@ -96,6 +91,9 @@ public class GameBoardController extends SceneController{
         towersPane.add(towers1);
         towersPane.add(towers2);
 
+        prof.add(professors1);
+        prof.add(professors2);
+
         entr1.add(entrance1);
         entr2.add(entrance2);
         islands.add(islandRow0);
@@ -117,11 +115,6 @@ public class GameBoardController extends SceneController{
         diningTables.add(purple1);
         diningTables.add(blue1);
 
-        professorList.add(professorBlue);
-        professorList.add(professorPurple);
-        professorList.add(professorGreen);
-        professorList.add(professorRed);
-        professorList.add(professorYellow);
 
         //pawns.add(circle);
         pawns.add(MN);
@@ -238,14 +231,7 @@ public class GameBoardController extends SceneController{
         initializeEntrance(gameState);
 
         //PROFESSORS
-       /* for (Circle c : professorList) {
-            c.setOnMouseDragged(this::movePiece);
-            c.setOnMousePressed(this::startMovingPiece);
-            c.setOnMouseReleased(this::finishMovingPiece);
 
-            pawns.add(c);
-            //PROFESSOR OWNERS
-        } */
         EnumMap<PawnColor, UUID> professorOwnersBoard  = gameState.getProfessorOwners();
         for(PawnColor color : professorOwnersBoard.keySet()){
             if(professorOwnersBoard.get(color) == null){
@@ -267,12 +253,51 @@ public class GameBoardController extends SceneController{
                 boardPane.getChildren().add(c);
                 pawns.add(c);
 
-            } else{
+            } else{   //add professor to corresponding player's school
+                if(professorOwnersBoard.get(color) != null){
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players.toArray()[i].equals(professorOwnersBoard.get(color))){
+                            int playerNumber = i+1;
+                            for(Pane p : prof){
+                                if(p.getId().contains("\\d" + playerNumber)){
+                                    for(Node node : p.getChildrenUnmodifiable()){
+                                        if(node.getId()!=null && node.getId().contains(color.name())){
+                                            Circle circle = new Circle();
+                                            circle.setCenterX(50.0);
+                                            circle.setCenterY(50.0);
+                                            circle.setRadius(16.0);
+                                            circle.setStroke(Color.GREY);
+                                            circle.setStrokeType(StrokeType.INSIDE);
+                                            circle.setStrokeWidth(5.0);
+                                            circle.setFill(Color.valueOf(color.name()));
+
+                                            circle.setLayoutX(node.getParent().getLayoutX());
+                                            circle.setLayoutY(node.getParent().getLayoutY() + node.getLayoutY());
+
+                                            boardPane.getChildren().add(circle);
+                                            pawns.add(circle);
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+                    }
+
+
+                        }
+                    }
+                }
 
             }
-        }
+
 
         //TOWERS - add method to interleave towers with towers used
+
+        LinkedHashMap<UUID, Integer> numOfTowersUsed = gameState.getNumOfTowersUsed();
+        LinkedHashMap<UUID, TowerColor> ColorPlayersTower = gameState.getColorPlayersTowers();
 
         for (Pane p : towersPane) {
             for (Node n : p.getChildrenUnmodifiable()) {
