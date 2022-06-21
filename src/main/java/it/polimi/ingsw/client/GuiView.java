@@ -17,6 +17,7 @@ public class GuiView implements ViewInterface {
     private Scanner scanner;
     private final ClientGui clientGui;
     private GameState gameState;
+    private boolean keepOldView;
 
     //private JTextField introductionField;
     //private JTextArea screenArea;
@@ -46,7 +47,7 @@ public class GuiView implements ViewInterface {
     public synchronized GameState getNextGameState(UUID currentState){
         //int i = 0;
         System.out.println("called getNextGameState");
-        while (currentState.equals(gameState.getId()) /*&& i<2*/){
+        while (currentState.equals(gameState.getId()) && !keepOldView/*i<2*/){
             System.out.println("Game states are the same");
             //i++;
             try {
@@ -55,6 +56,7 @@ public class GuiView implements ViewInterface {
                 throw new RuntimeException(e);
             }
         }
+        keepOldView = false;
         System.out.println("returning next gameState");
         return gameState;
     }
@@ -113,13 +115,15 @@ public class GuiView implements ViewInterface {
     }
 
     @Override
-    public void invalidCharacterChoice() {
+    public synchronized void invalidCharacterChoice() {
+        keepOldView = true;
         System.out.println("invalid character choice");
         chooseCharacter();
     }
 
     @Override
-    public void invalidMNMove() {
+    public synchronized void invalidMNMove() {
+        keepOldView = true;
         System.out.println("invalid mother nature move");
         moveMotherNature();
     }
@@ -131,7 +135,8 @@ public class GuiView implements ViewInterface {
     }
 
     @Override
-    public void invalidStudentMove() {
+    public synchronized void invalidStudentMove() {
+        keepOldView = true;
         System.out.println("invalid student move");
         moveStudent();
     }
