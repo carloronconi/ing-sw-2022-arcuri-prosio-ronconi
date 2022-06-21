@@ -484,8 +484,6 @@ public class GameBoardController extends SceneController{
     }
 
 
-    //private final List<Rectangle> islands = new ArrayList<>();
-
     private ArrayList<Circle> pawns = new ArrayList<>();
 
 
@@ -591,26 +589,9 @@ public class GameBoardController extends SceneController{
                 sendToServerAndUpdate(color, null);
                 break;
             }
-            // }
+
 
         }
-
-        //System.out.println(" "+ r1.getParent().getLayoutY()+ " " + r1.getLayoutY() + " " + r1.getBoundsInLocal().getHeight());
-        //System.out.println(" "+ r1.getBoundsInLocal()+" "+ r1.getId());
-               /* if((r1.getParent().getLayoutY() + i*60.0) <= y && y<= (r1.getParent().getLayoutY()+r1.getLayoutY() + r1.getBoundsInLocal().getHeight())
-                        && x<= r1.getParent().getLayoutX()){
-                    System.out.println(r1.getId());
-
-                } */
-
-
-        //Rectangle r = (Rectangle) r1;
-        //System.out.println(x);
-        //System.out.println(y);
-              /*  if((r.getParent().getLayoutY() + r.getLayoutY()) < y && y< (r.getParent().getLayoutY() + r.getLayoutY() + r.getHeight()) &&
-                        r.getParent().getLayoutX() >= x ){
-                    System.out.println(r.getId());
-                } */
 
 
     }
@@ -652,77 +633,6 @@ public class GameBoardController extends SceneController{
         System.out.println("sending to server chosen cloud 2");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         getClientGui().nextScene(1500, 876, "ERYANTIS", (s,c)->{});
-    }
-         /*for (Pane p2 : board) {
-            //System.out.println(" " + p2.getRowCount() + " " + p2.getColumnCount());
-            System.out.println(" " + y);
-            for(Node rect : p2.getChildrenUnmodifiable()){
-
-               //Rectangle row = (Rectangle) rect;
-
-                if(x >= (rect.getParent().getLayoutX()) && x<= (rect.getParent().getLayoutX()+407.0) &&
-                       y >= (rect.getLayoutY() + rect.getParent().getLayoutY()) && y<=(rect.getLayoutY()+rect.getParent().getLayoutY()+ 70.0)) {
-                   System.out.println(rect.getId().toString());
-                   System.out.println(rect.getLayoutX());
-                   System.out.println((x));
-                   String diningColor = rect.getId();
-                   for (int i = 0; i < pawnsInDining.size(); i++) {
-                       if (pawnsInDining.containsKey(diningColor)) {
-                           pawnsInDining.put(diningColor, pawnsInDining.get(diningColor) + 1);
-                           System.out.println(pawnsInDining.toString());
-                       }
-
-                   }
-               }
-
-
-
-            /*   if (y >= p2.getLayoutY() && y <= (p2.getLayoutY() + 60)) {
-                System.out.println("green");
-                a = 1;
-                //add method to count number of pawns in rectangle for island, in row for dining
-                //for cycle should suffice
-            } else if (y > (p2.getLayoutY() + 60) && y <= (p2.getLayoutY() + 100)) {
-                System.out.println(" red ");
-                a = 2;
-            } else if (y > (p2.getLayoutY() + 100) && y <= (p2.getLayoutY() + 140)) {
-                System.out.println("yellow");
-                a = 3;
-            } else if (y > (p2.getLayoutY() + 140) && y <= (p2.getLayoutY() + 180)) {
-                System.out.println("purple");
-                a = 4;
-            } else if (y > (p2.getLayoutY() + 180) && y < (p2.getLayoutY() + 300)) {
-                System.out.println("blue");
-                a = 5;
-            } */
-
-           /* switch (a) {
-                case 1:
-                    numOfGreen++;
-                    break;
-                case 2:
-                    numOfRed++;
-                    break;
-                case 3:
-                    numOfYellow++;
-                    break;
-                case 4:
-                    numOfPurple++;
-                    break;
-                case 5:
-                    numOfBlue++;
-                    break;
-
-            }*/
-    // System.out.println(" " + numOfRed); //numOf
-    //  }
-    //     } */
-
-
-
-
-        }
-
     }
 
 }
