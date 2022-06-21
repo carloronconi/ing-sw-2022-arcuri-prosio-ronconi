@@ -65,7 +65,7 @@
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="720.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle fx:id="bag" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="864.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1008.0" stroke="#6abade" strokeType="INSIDE" width="144.0" />
-                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#109cd8" strokeType="INSIDE" strokeWidth="5.0" width="144.0" />
+                                        <Rectangle fx:id="professorsRectangle" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1152.0" stroke="#109cd8" strokeType="INSIDE" strokeWidth="5.0" width="144.0" />
                                         <Rectangle fx:id="island6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="180.0" layoutX="1299.0" stroke="#6abade" strokeType="INSIDE" width="207.0" />
                                         <ImageView fitHeight="146.0" fitWidth="174.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -89,12 +89,7 @@
                                         </ImageView>
                      <ImageView fx:id="card1" fitHeight="150.0" fitWidth="121.0" layoutX="724.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
                      <ImageView fx:id="card2" fitHeight="150.0" fitWidth="121.0" layoutX="870.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                     <Circle fx:id="professorPurple" centerX="50.0" centerY="50.0" fill="PURPLE" layoutX="1158.0" layoutY="69.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
-                     <Circle fx:id="professorRed" centerX="50.0" centerY="50.0" fill="RED" layoutX="1158.0" layoutY="-4.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
-                     <Circle fx:id="professorBlue" centerX="50.0" centerY="50.0" fill="BLUE" layoutX="1197.0" layoutY="12.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
-                     <Circle fx:id="professorYellow" centerX="50.0" centerY="50.0" fill="YELLOW" layoutX="1142.0" layoutY="37.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
-                     <Circle fx:id="professorGreen" centerX="50.0" centerY="50.0" fill="GREEN" layoutX="1207.0" layoutY="53.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
-                                    </children>
+                                      </children>
                                 </Pane>
                                 <Pane fx:id="islandRow2" layoutY="360.0" prefHeight="179.0" prefWidth="1500.0">
                                     <children>

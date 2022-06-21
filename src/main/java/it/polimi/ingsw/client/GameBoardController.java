@@ -53,7 +53,7 @@ public class GameBoardController extends SceneController{
     @FXML Circle professorBlue;
     @FXML Circle professorGreen;
     @FXML Circle professorPurple;
-
+    @FXML Rectangle professorsRectangle;
 
     private final List<Pane> islands = new ArrayList<>();
     private final List<Pane> board = new ArrayList<>();
@@ -63,6 +63,7 @@ public class GameBoardController extends SceneController{
     private final List<Pane> entr2 = new ArrayList<>();
     private final Set<UUID> players = new HashSet<>();
     private final ArrayList<Pane> towersPane = new ArrayList<>();
+
 
     private List<Circle> professorList = new ArrayList<>();
 
@@ -154,6 +155,8 @@ public class GameBoardController extends SceneController{
         int bag = gameState.getBag();
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
 
+        //ISLANDS
+
         for (Pane p : islands) {
             for (Node r : p.getChildrenUnmodifiable()) {
                 for (int i = 0; i < gameState.getIslands().size(); i++) {
@@ -224,18 +227,49 @@ public class GameBoardController extends SceneController{
 
         }
 
+        //MN
+
+        UUID mnID = gameState.getMotherNaturePosition();
+
+
+
 
         //ENTRANCES
         initializeEntrance(gameState);
 
         //PROFESSORS
-        for (Circle c : professorList) {
+       /* for (Circle c : professorList) {
             c.setOnMouseDragged(this::movePiece);
             c.setOnMousePressed(this::startMovingPiece);
             c.setOnMouseReleased(this::finishMovingPiece);
 
             pawns.add(c);
             //PROFESSOR OWNERS
+        } */
+        EnumMap<PawnColor, UUID> professorOwnersBoard  = gameState.getProfessorOwners();
+        for(PawnColor color : professorOwnersBoard.keySet()){
+            if(professorOwnersBoard.get(color) == null){
+                Circle c = new Circle();
+                c.setCenterX(50.0);
+                c.setCenterY(50.0);
+                c.setRadius(16.0);
+                c.setStroke(Color.GREY);
+                c.setStrokeType(StrokeType.INSIDE);
+                c.setStrokeWidth(5.0);
+                c.setFill(Color.valueOf(color.name()));
+                Random random = new Random();
+                double addX = random.nextDouble(0.0, 75.0);
+
+                double addY = random.nextDouble(0.0, 110.0);
+                c.setLayoutX(professorsRectangle.getLayoutX()+ addX);
+                c.setLayoutY(professorsRectangle.getParent().getLayoutY() + addY );
+
+                boardPane.getChildren().add(c);
+                pawns.add(c);
+
+            } else{
+
+            }
         }
 
         //TOWERS - add method to interleave towers with towers used
@@ -245,14 +279,14 @@ public class GameBoardController extends SceneController{
                 if (n.getId().contains("one")) {
                     for (int i = 0; i < 8; i++) {
                         Circle c = new Circle();
-                        c.setCenterX(50.0);
-                        c.setCenterY(50.0);
                         c.setLayoutX(n.getParent().getLayoutX() );
                         c.setLayoutY(n.getParent().getLayoutY() + (i * 35.0) );
                         c.setRadius(16.0);
                         c.setStroke(Color.BLACK);
                         c.setStrokeType(StrokeType.INSIDE);
                         c.setFill(Color.BLACK);
+                        c.setCenterX(50.0);
+                        c.setCenterY(50.0);
 
                         c.setOnMouseDragged(this::movePiece);
                         c.setOnMousePressed(this::startMovingPiece);
@@ -287,6 +321,8 @@ public class GameBoardController extends SceneController{
             }
 
         }
+
+
     }
 
 
