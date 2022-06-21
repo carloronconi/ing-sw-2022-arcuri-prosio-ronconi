@@ -48,6 +48,11 @@ public class GameBoardController extends SceneController{
     @FXML Pane dinings2;
     @FXML Pane professors2;
     @FXML Pane towers2;
+    @FXML Circle professorRed;
+    @FXML Circle professorYellow;
+    @FXML Circle professorBlue;
+    @FXML Circle professorGreen;
+    @FXML Circle professorPurple;
 
 
     private final List<Pane> islands = new ArrayList<>();
@@ -57,6 +62,9 @@ public class GameBoardController extends SceneController{
     private final List<Pane> entr1 = new ArrayList<>();
     private final List<Pane> entr2 = new ArrayList<>();
     private final Set<UUID> players = new HashSet<>();
+    private final ArrayList<Pane> towersPane = new ArrayList<>();
+
+    private List<Circle> professorList = new ArrayList<>();
 
     //private ArrayList<Integer> numOfPawnsInDining;
     private HashMap<String, Integer> pawnsInDining;
@@ -84,6 +92,9 @@ public class GameBoardController extends SceneController{
         pawnsInDining.put(blue,0);
         pawnsInDining.put(purple, 0);
 
+        towersPane.add(towers1);
+        towersPane.add(towers2);
+
         entr1.add(entrance1);
         entr2.add(entrance2);
         islands.add(islandRow0);
@@ -104,6 +115,12 @@ public class GameBoardController extends SceneController{
         diningTables.add(yellow1);
         diningTables.add(purple1);
         diningTables.add(blue1);
+
+        professorList.add(professorBlue);
+        professorList.add(professorPurple);
+        professorList.add(professorGreen);
+        professorList.add(professorRed);
+        professorList.add(professorYellow);
 
         //pawns.add(circle);
         pawns.add(MN);
@@ -132,20 +149,20 @@ public class GameBoardController extends SceneController{
 
 
 
-    public void updateBoard(GameState gameState){ //call it from lambda expression in previous controller nextScene
+    public void updateBoard(GameState gameState) { //call it from lambda expression in previous controller nextScene
 
         int bag = gameState.getBag();
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
 
-        for (Pane p : islands){
-            for (Node r: p.getChildrenUnmodifiable()){
-                for (int i = 0; i<gameState.getIslands().size(); i++){
-                    int islandNumber = i+1;
+        for (Pane p : islands) {
+            for (Node r : p.getChildrenUnmodifiable()) {
+                for (int i = 0; i < gameState.getIslands().size(); i++) {
+                    int islandNumber = i + 1;
                     String islandName = "island" + islandNumber;
-                    if (r.getId()!=null && r.getId().contains(islandName)){
+                    if (r.getId() != null && r.getId().contains(islandName)) {
                         LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
                         UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
-                        for(int j = 0; j<islandIGameModel.get(islandId).size(); j++){
+                        for (int j = 0; j < islandIGameModel.get(islandId).size(); j++) {
                             Circle c = new Circle();
                             c.setCenterX(50.0);
                             c.setCenterY(50.0);
@@ -185,9 +202,9 @@ public class GameBoardController extends SceneController{
                             c.setStrokeType(StrokeType.INSIDE);
                             c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
 
-                            c.setOnMouseDragged(this::movePiece);
-                            c.setOnMousePressed(this::startMovingPiece);
-                            c.setOnMouseReleased(this::finishMovingPiece);
+                            //c.setOnMouseDragged(this::movePiece);
+                            //c.setOnMousePressed(this::startMovingPiece);
+                            //c.setOnMouseReleased(this::finishMovingPiece);
 
                             boardPane.getChildren().add(c);
                             pawns.add(c);
@@ -211,6 +228,65 @@ public class GameBoardController extends SceneController{
         //ENTRANCES
         initializeEntrance(gameState);
 
+        //PROFESSORS
+        for (Circle c : professorList) {
+            c.setOnMouseDragged(this::movePiece);
+            c.setOnMousePressed(this::startMovingPiece);
+            c.setOnMouseReleased(this::finishMovingPiece);
+
+            pawns.add(c);
+            //PROFESSOR OWNERS
+        }
+
+        //TOWERS - add method to interleave towers with towers used
+
+        for (Pane p : towersPane) {
+            for (Node n : p.getChildrenUnmodifiable()) {
+                if (n.getId().contains("one")) {
+                    for (int i = 0; i < 8; i++) {
+                        Circle c = new Circle();
+                        c.setCenterX(50.0);
+                        c.setCenterY(50.0);
+                        c.setLayoutX(n.getParent().getLayoutX() );
+                        c.setLayoutY(n.getParent().getLayoutY() + (i * 35.0) );
+                        c.setRadius(16.0);
+                        c.setStroke(Color.BLACK);
+                        c.setStrokeType(StrokeType.INSIDE);
+                        c.setFill(Color.BLACK);
+
+                        c.setOnMouseDragged(this::movePiece);
+                        c.setOnMousePressed(this::startMovingPiece);
+                        c.setOnMouseReleased(this::finishMovingPiece);
+
+                        boardPane.getChildren().add(c);
+                        pawns.add(c);
+                    }
+
+                } else if (n.getId().contains("two")) {
+                    for (int i = 0; i < 8; i++) {
+                        Circle c = new Circle();
+                        c.setCenterX(50.0);
+                        c.setCenterY(50.0);
+                        c.setLayoutX(n.getParent().getLayoutX() );
+                        c.setLayoutY(n.getParent().getLayoutY() + (i * 35.0) );
+                        c.setRadius(16.0);
+                        c.setStroke(Color.BLACK);
+                        c.setStrokeType(StrokeType.INSIDE);
+                        c.setFill(Color.WHITE);
+
+                        c.setOnMouseDragged(this::movePiece);
+                        c.setOnMousePressed(this::startMovingPiece);
+                        c.setOnMouseReleased(this::finishMovingPiece);
+
+                        boardPane.getChildren().add(c);
+                        pawns.add(c);
+                    }
+
+                }
+
+            }
+
+        }
     }
 
 
