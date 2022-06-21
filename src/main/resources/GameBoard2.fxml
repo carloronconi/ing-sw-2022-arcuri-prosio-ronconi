@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -7,10 +8,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
-<?import javafx.scene.control.Label?>
+<?import java.net.URL?>
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameBoardController">
     <children>
         <VBox fx:id="vbox" prefHeight="876.0" prefWidth="1500.0">
+            <stylesheets>
+                <URL value="@textfont.css" />
+            </stylesheets>
             <children>
                 <Pane fx:id="boardPane" prefHeight="876.0" prefWidth="1500.0">
 
@@ -88,10 +92,10 @@
                                                 <Image url="@cloud.png" />
                                             </image>
                                         </ImageView>
-                     <ImageView fx:id="card1" fitHeight="150.0" fitWidth="121.0" layoutX="724.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label fx:id="player1" layoutX="20.0" layoutY="5.0" styleClass="message"  />
-                     <ImageView fx:id="card2" fitHeight="150.0" fitWidth="121.0" layoutX="870.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
-                                        <Label fx:id="player2" layoutX="420.0" layoutY="5.0" styleClass="message" />
+                     <ImageView fx:id="card1" fitHeight="150.0" fitWidth="121.0" layoutX="724.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+                     <Label fx:id="player1"   layoutX="724.0" layoutY="1.0" prefHeight="23.0" prefWidth="105.0" styleClass="message" />
+                     <ImageView fx:id="card2" fitHeight="150.0" fitWidth="121.0" layoutX="870.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+                     <Label fx:id="player2" layoutX="870.0" layoutY="4.0" prefHeight="17.0" prefWidth="97.0" styleClass="message" />
                      <Circle fx:id="professorPurple" centerX="50.0" centerY="50.0" fill="PURPLE" layoutX="1158.0" layoutY="69.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
                      <Circle fx:id="professorRed" centerX="50.0" centerY="50.0" fill="RED" layoutX="1158.0" layoutY="-4.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
                      <Circle fx:id="professorBlue" centerX="50.0" centerY="50.0" fill="BLUE" layoutX="1197.0" layoutY="12.0" radius="16.0" stroke="GREY" strokeType="INSIDE" strokeWidth="5.0" />
@@ -136,6 +140,8 @@
                                                 <Image url="@tile3.png" />
                                             </image>
                                         </ImageView>
+                     <Label fx:id="player1board"  layoutX="4.0" layoutY="137.0" prefHeight="42.0" prefWidth="142.0" styleClass="message"/>
+                     <Label fx:id="player2board" layoutX="865.0" layoutY="130.0" prefHeight="42.0" prefWidth="142.0" styleClass="message"/>
 
                                     </children>
                                 </Pane>

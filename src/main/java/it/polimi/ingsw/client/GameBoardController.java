@@ -36,6 +36,8 @@ public class GameBoardController extends SceneController{
     public ImageView card2;
     public Label player1;
     public Label player2;
+    @FXML Label player1board;
+    @FXML Label player2board;
     @FXML Pane boardPane;
     @FXML VBox vbox;
     @FXML Pane islandRow0;
@@ -305,13 +307,16 @@ public class GameBoardController extends SceneController{
         player1.setText(playerNicknames.get(id1));
         player2.setText(playerNicknames.get(id2));
 
+        player1board.setText(playerNicknames.get(id1));
+        player2board.setText(playerNicknames.get(id2));
+
         String cardName1 = "/Assistente(" + playedAssistantCards.get(id1) + ")-min.png";
         String cardName2 = "/Assistente(" + playedAssistantCards.get(id2) + ")-min.png";
         System.out.println(cardName1);
         System.out.println(cardName2);
 
         card1.setImage(new Image(String.valueOf(getClass().getResource(cardName1))));
-        card1.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
+        card2.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
     }
 
 
