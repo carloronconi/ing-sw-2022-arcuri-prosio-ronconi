@@ -156,11 +156,11 @@
                                 </Pane>
                                 <Pane fx:id="professors2" layoutX="1307.0" layoutY="542.0" prefHeight="335.0" prefWidth="66.0">
                                     <children>
-                                        <Rectangle fx:id="red2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                        <Rectangle fx:id="yellow2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                        <Rectangle fx:id="purple2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                        <Rectangle fx:id="blue2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                         <Rectangle fx:id="green2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle fx:id="RED" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle fx:id="YELLOW" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle fx:id="PURPLE" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                        <Rectangle fx:id="BLUE" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                         <Rectangle fx:id="GREEN" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
                                     </children>
                                 </Pane>
                                  <Pane fx:id="towers2" layoutX="1379.0" layoutY="540.0" prefHeight="335.0" prefWidth="125.0">
@@ -193,11 +193,11 @@
                                  </Pane>
                                  <Pane fx:id="professors1" layoutX="528.0" layoutY="540.0" prefHeight="335.0" prefWidth="66.0">
                                         <children>
-                                           <Rectangle fx:id="red1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                           <Rectangle fx:id="yellow1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                           <Rectangle fx:id="purple1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                           <Rectangle fx:id="blue1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                           <Rectangle fx:id="green1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle fx:id="RED" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle fx:id="YELLOW" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle fx:id="PURPLE" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle fx:id="BLUE" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+                                           <Rectangle fx:id="GREEN" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
                                         </children>
                                  </Pane>
                                 <Pane fx:id="towers1" layoutX="598.0" layoutY="540.0" prefHeight="335.0" prefWidth="175.0">
