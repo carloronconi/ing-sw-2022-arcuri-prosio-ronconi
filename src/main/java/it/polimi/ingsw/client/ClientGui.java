@@ -33,9 +33,9 @@ public class ClientGui extends Application implements Runnable{
     private static GuiView guiView;
     private String ip;
     private int port;
-    private static String finalNickname;
-    private static Stage stage;
-    private static String nextSceneName = "";
+    private String finalNickname;
+    private Stage stage;
+    private String nextSceneName = "";
 
     public static void main(String[] args){  launch(args);  }
 
@@ -56,12 +56,12 @@ public class ClientGui extends Application implements Runnable{
 
     }
 
-    public static Stage getStage() {
+    public Stage getStage() {
         return stage;
     }
 
-    public static void setFinalNickname(String finalNickname) {
-        ClientGui.finalNickname = finalNickname;
+    public void setFinalNickname(String finalNickname) {
+        this.finalNickname = finalNickname;
     }
 
     public GuiView getGuiView(){
@@ -96,22 +96,22 @@ public class ClientGui extends Application implements Runnable{
 
     }
 
-    public void setNextSceneName(String nextScene) { //called when the server is ready and the scene can be changed to the next one
-        synchronized (ClientGui.class) {
-            while (!nextSceneName.isEmpty()) {
-                try {
-                    ClientGui.class.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+    public synchronized void setNextSceneName(String nextScene) { //called when the server is ready and the scene can be changed to the next one
+
+        while (!nextSceneName.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            nextSceneName = nextScene;
-            ClientGui.class.notifyAll();
         }
+        nextSceneName = nextScene;
+        notifyAll();
+
     }
 
     public Object nextScene() throws IOException {
-        return nextScene(1500, 876, "ERYANTIS", (s, c)->{});
+        return nextScene((s, c)->{});
     }
 
     public Object nextScene(SceneInitializer initializer) throws IOException {
@@ -119,21 +119,31 @@ public class ClientGui extends Application implements Runnable{
     }
 
     public Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
+        return nextScene(sceneWidth, sceneHeight, stageTitle, initializer, "/WaitingScene.fxml");
+    }
+
+    public synchronized Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer, String waitSceneName) throws IOException {
         Parent root;
         FXMLLoader fxmlLoader;
-        synchronized (ClientGui.class){
-            while(nextSceneName.isEmpty()){ //wait until the serverHandler allows to go to the next scene
-                try {
-                    ClientGui.class.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        while (nextSceneName.isEmpty()) { //wait until the serverHandler allows to go to the next scene
+            fxmlLoader = new FXMLLoader(getClass().getResource(waitSceneName));
+            root = fxmlLoader.load();
+            Scene tempScene = new Scene(root, sceneWidth, sceneHeight);
+            stage.setScene(tempScene);
+            stage.show();
+            System.out.println("Showing waiting view");
+
+            try {
+                wait(10000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            fxmlLoader = new FXMLLoader(getClass().getResource(nextSceneName));
-            root = fxmlLoader.load(); //show next scene with the name selected by serverHandler
-            nextSceneName = "";
-            ClientGui.class.notifyAll();
         }
+        fxmlLoader = new FXMLLoader(getClass().getResource(nextSceneName));
+        root = fxmlLoader.load(); //show next scene with the name selected by serverHandler
+        nextSceneName = "";
+        notifyAll();
+
 
 
         Scene scene = new Scene(root, sceneWidth, sceneHeight);
