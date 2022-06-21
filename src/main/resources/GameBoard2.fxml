@@ -135,7 +135,7 @@
                                             </image>
                                         </ImageView>
       
-                                      <Button layoutX="1189.0" layoutY="76.0" mnemonicParsing="false" onAction="#updateView" text="CLICK" />
+
                                     </children>
                                 </Pane>
 
@@ -224,7 +224,7 @@
                                         <Image url="@PLANCIAGIOCO.png" />
                                     </image>
                                 </ImageView>
-                                <Circle fx:id="circle" centerX="50.0" centerY="50.0" fill="#dd0b0b" layoutX="40.0" layoutY="602.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
+
 
                     <Circle fx:id="MN" centerX="50.0" centerY="50.0" fill="#dd5f06" layoutX="20.0" layoutY="400.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
 

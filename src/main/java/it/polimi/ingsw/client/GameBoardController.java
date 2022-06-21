@@ -33,7 +33,6 @@ public class GameBoardController extends SceneController{
     public ImageView cloud1;
     @FXML Pane boardPane;
     @FXML VBox vbox;
-    @FXML Circle circle;
     @FXML Pane islandRow0;
     @FXML Pane islandRow1;
     @FXML Pane islandRow2;
@@ -106,7 +105,7 @@ public class GameBoardController extends SceneController{
         diningTables.add(purple1);
         diningTables.add(blue1);
 
-        pawns.add(circle);
+        //pawns.add(circle);
         pawns.add(MN);
         for (int i = 0; i < 26; i++) {
             Circle c = new Circle();
@@ -488,43 +487,6 @@ public class GameBoardController extends SceneController{
 
 
     //implementation swap pieces for update - diminish bag and update
-
-    public void updateView() {
-
-        for(Pane p : entr1){
-            for(Node rect : p.getChildrenUnmodifiable()){
-                if(rect.getId()!=null){
-
-                    Random rand = new Random();
-                    int index = rand.nextInt(bag.size());
-                    Circle c = bag.get(index);
-                    c.setCenterX(50.0);
-                    c.setCenterY(50.0);
-                    c.setLayoutX(rect.getLayoutX() - 15.0);
-                    c.setLayoutY(rect.getLayoutY() + rect.getParent().getLayoutY() - 20.0);
-                    c.setRadius(16.0);
-                    c.setStroke(Color.BLACK);
-                    c.setStrokeType(StrokeType.INSIDE);
-
-                    c.setOnMouseDragged(this::movePiece);
-                    c.setOnMousePressed(this::startMovingPiece);
-                    c.setOnMouseReleased(this::finishMovingPiece);
-
-
-
-                    boardPane.getChildren().add(c); //rectangleGroup
-                    pawns.add(c);
-                    bag.remove(c);
-
-
-                }
-            }
-
-            System.out.println(bag.size());
-        }
-
-
-    }
 
     private ArrayList<Rectangle> diningTables = new ArrayList<>();
     @FXML Rectangle green1;
