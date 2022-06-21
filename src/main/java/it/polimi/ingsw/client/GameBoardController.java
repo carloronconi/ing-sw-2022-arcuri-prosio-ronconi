@@ -10,8 +10,9 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,10 @@ import java.util.regex.Pattern;
 public class GameBoardController extends SceneController{
     public ImageView cloud2;
     public ImageView cloud1;
+    public ImageView card1;
+    public ImageView card2;
+    public Label player1;
+    public Label player2;
     @FXML Pane boardPane;
     @FXML VBox vbox;
     @FXML Pane islandRow0;
@@ -287,6 +292,26 @@ public class GameBoardController extends SceneController{
             }
 
         }
+
+        //CARDS
+
+        HashMap<UUID, Integer> playedAssistantCards = gameState.getPlayedAssistantCards();
+        HashMap<UUID, String> playerNicknames = gameState.getNicknames();
+
+        Iterator<UUID> iterator = playerNicknames.keySet().iterator();
+        UUID id1 = iterator.next();
+        UUID id2 = iterator.next();
+
+        player1.setText(playerNicknames.get(id1));
+        player2.setText(playerNicknames.get(id2));
+
+        String cardName1 = "/Assistente(" + playedAssistantCards.get(id1) + ")-min.png";
+        String cardName2 = "/Assistente(" + playedAssistantCards.get(id2) + ")-min.png";
+        System.out.println(cardName1);
+        System.out.println(cardName2);
+
+        card1.setImage(new Image(String.valueOf(getClass().getResource(cardName1))));
+        card1.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
     }
 
 
