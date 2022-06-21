@@ -49,6 +49,11 @@ public class GameBoardController extends SceneController{
     @FXML Pane dinings2;
     @FXML Pane professors2;
     @FXML Pane towers2;
+    @FXML Circle professorRed;
+    @FXML Circle professorYellow;
+    @FXML Circle professorBlue;
+    @FXML Circle professorGreen;
+    @FXML Circle professorPurple;
 
 
     private final List<Pane> islands = new ArrayList<>();
@@ -58,6 +63,8 @@ public class GameBoardController extends SceneController{
     private final List<Pane> entr1 = new ArrayList<>();
     private final List<Pane> entr2 = new ArrayList<>();
     private final Set<UUID> players = new HashSet<>();
+
+    private List<Circle> professorList = new ArrayList<>();
 
     //private ArrayList<Integer> numOfPawnsInDining;
     private HashMap<String, Integer> pawnsInDining;
@@ -105,6 +112,12 @@ public class GameBoardController extends SceneController{
         diningTables.add(yellow1);
         diningTables.add(purple1);
         diningTables.add(blue1);
+
+        professorList.add(professorBlue);
+        professorList.add(professorPurple);
+        professorList.add(professorGreen);
+        professorList.add(professorRed);
+        professorList.add(professorYellow);
 
         pawns.add(circle);
         pawns.add(MN);
@@ -186,9 +199,9 @@ public class GameBoardController extends SceneController{
                             c.setStrokeType(StrokeType.INSIDE);
                             c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
 
-                            c.setOnMouseDragged(this::movePiece);
-                            c.setOnMousePressed(this::startMovingPiece);
-                            c.setOnMouseReleased(this::finishMovingPiece);
+                            //c.setOnMouseDragged(this::movePiece);
+                            //c.setOnMousePressed(this::startMovingPiece);
+                            //c.setOnMouseReleased(this::finishMovingPiece);
 
                             boardPane.getChildren().add(c);
                             pawns.add(c);
@@ -211,6 +224,16 @@ public class GameBoardController extends SceneController{
 
         //ENTRANCES
         initializeEntrance(gameState);
+
+        //PROFESSORS
+        for(Circle c : professorList){
+            c.setOnMouseDragged(this::movePiece);
+            c.setOnMousePressed(this::startMovingPiece);
+            c.setOnMouseReleased(this::finishMovingPiece);
+
+            pawns.add(c);
+
+        }
 
     }
 
@@ -489,7 +512,7 @@ public class GameBoardController extends SceneController{
 
     //implementation swap pieces for update - diminish bag and update
 
-    public void updateView() {
+  /*  public void updateView() {
 
         for(Pane p : entr1){
             for(Node rect : p.getChildrenUnmodifiable()){
@@ -524,7 +547,7 @@ public class GameBoardController extends SceneController{
         }
 
 
-    }
+    }  */
 
     private ArrayList<Rectangle> diningTables = new ArrayList<>();
     @FXML Rectangle green1;
