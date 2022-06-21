@@ -217,6 +217,7 @@ public class GameBoardController extends SceneController{
         //PLAYERS
         for (int i = 0; i < gameState.getNicknames().size(); i++) {
             playersNick = gameState.getNicknames();
+            System.out.println("PLAYERS SIZE: "+playersNick.size());
 
         }
 
@@ -244,7 +245,6 @@ public class GameBoardController extends SceneController{
                 c.setStrokeWidth(5.0);
                 c.setFill(Color.valueOf(color.name()));
                 Random random = new Random();
-                random.setSeed(10);
                 double addX = random.nextDouble(0.0, 75.0);
 
                 double addY = random.nextDouble(0.0, 110.0);
@@ -256,14 +256,26 @@ public class GameBoardController extends SceneController{
 
             } else{   //add professor to corresponding player's school
                 if(professorOwnersBoard.get(color) != null){
-                    for (int i = 0; i < players.size(); i++) {
-                        if (players.toArray()[i].equals(professorOwnersBoard.get(color))){
+                    for (int i = 0; i < playersNick.size(); i++) {
+
+                        Object object = playersNick.keySet().toArray()[i];
+                        UUID playerNickID = (UUID) object;
+
+                        if (playerNickID.equals(professorOwnersBoard.get(color))){
+                            System.out.println("FIN QUI TUTTO OK");
+                            System.out.println(color.name());
                             int playerNumber = i+1;
                             for(Pane p : prof){
-                                if(p.getId().matches(".*\\d.*" + playerNumber)){
-                                    for(Node node : p.getChildrenUnmodifiable()){
-                                        Rectangle rect = (Rectangle) node;
-                                        if(rect.getId()!=null && rect.getId().contains(color.name())){
+                                String str = p.getId();
+                                int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
+                                System.out.println(numberOnly);
+                                System.out.println(playerNumber);
+                                System.out.println("OK");
+                                if(numberOnly==playerNumber){
+                                    System.out.println("OK2");
+                                    for(Node rect : p.getChildrenUnmodifiable()){
+                                        System.out.println(rect.getId());
+                                        if(rect.getId().equals(color.name())){
                                             Circle circle = new Circle();
                                             circle.setCenterX(50.0);
                                             circle.setCenterY(50.0);
@@ -272,16 +284,40 @@ public class GameBoardController extends SceneController{
                                             circle.setStrokeType(StrokeType.INSIDE);
                                             circle.setStrokeWidth(5.0);
                                             circle.setFill(Color.valueOf(color.name()));
-
-                                            circle.setLayoutX(node.getParent().getLayoutX());
-                                            circle.setLayoutY(node.getParent().getLayoutY() + node.getLayoutY());
-                                            System.out.println(color.name());
+                                            circle.setLayoutX(rect.getParent().getLayoutX() -20.0);
+                                            circle.setLayoutY(rect.getParent().getLayoutY() + rect.getLayoutY() - 15.0);
 
                                             boardPane.getChildren().add(circle);
                                             pawns.add(circle);
 
                                         }
                                     }
+
+
+                                 /*   for (int j = 0; j < p.getChildrenUnmodifiable().size(); j++) {
+                                        Node rect = p.getChildren().get(i);
+                                        System.out.println("trovato");
+                                        System.out.println(rect.getId());
+                                        if(rect.getId().contains(color.name())){
+                                            System.out.println("TROVATO");
+
+                                            Circle circle = new Circle();
+                                            circle.setCenterX(50.0);
+                                            circle.setCenterY(50.0);
+                                            circle.setRadius(16.0);
+                                            circle.setStroke(Color.GREY);
+                                            circle.setStrokeType(StrokeType.INSIDE);
+                                            circle.setStrokeWidth(5.0);
+                                            circle.setFill(Color.valueOf(color.name()));
+                                            circle.setLayoutX(rect.getParent().getLayoutX() );
+                                            circle.setLayoutY(rect.getParent().getLayoutY() + rect.getLayoutY());
+
+                                            boardPane.getChildren().add(circle);
+                                            pawns.add(circle);
+                                        }
+                                    } */
+
+
 
                                 }
                             }
