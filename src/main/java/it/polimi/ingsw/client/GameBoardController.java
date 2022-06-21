@@ -476,7 +476,7 @@ public class GameBoardController extends SceneController{
                 System.out.println(hex);
                 PawnColor pawnColor = null;
                 switch (hex) {
-                    case "#DD0B0B":
+                    case "#FF0000":
                         pawnColor = PawnColor.RED;
                         break;
                     case "#008000":
@@ -632,6 +632,7 @@ public class GameBoardController extends SceneController{
             if (steps<0) steps = islands.size() + steps;
             getClientGui().getGuiView().notifyEventManager(new MovedMotherNature(steps));
         } else {
+            System.out.println("sending student move to server");
             getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
         }
 
