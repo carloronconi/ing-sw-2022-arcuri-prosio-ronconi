@@ -39,7 +39,7 @@ public class SetAssistantSceneController extends SceneController {
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
         getClientGui().getGuiView().notifyEventManager(new SetAssistantCard(cardNumber));
-        getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
+        getClientGui().nextScene((s, c)->{
             GameBoardController boardController = (GameBoardController) c;
             boardController.updateBoard(getClientGui().getGuiView().getGameState());
         });

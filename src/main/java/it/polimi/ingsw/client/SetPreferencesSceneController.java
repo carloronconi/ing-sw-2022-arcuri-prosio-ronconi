@@ -27,7 +27,7 @@ public class SetPreferencesSceneController extends SceneController {
         numOfPlayers = button2.isSelected() ? 2 : 3;
         gameMode = buttonEasy.isSelected() ? GameMode.EASY : GameMode.HARD;
         getClientGui().getGuiView().notifyEventManager(new SetPreferences(numOfPlayers, gameMode));
-        getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
+        getClientGui().nextScene((s, c)->{
             SetAssistantSceneController controller = (SetAssistantSceneController) c;
             ArrayList<String> resources = getClientGui().getPlayedByOtherResources();
             if (!resources.isEmpty()){

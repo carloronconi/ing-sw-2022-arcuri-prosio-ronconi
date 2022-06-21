@@ -110,6 +110,14 @@ public class ClientGui extends Application implements Runnable{
         }
     }
 
+    public Object nextScene() throws IOException {
+        return nextScene(1500, 876, "ERYANTIS", (s, c)->{});
+    }
+
+    public Object nextScene(SceneInitializer initializer) throws IOException {
+        return nextScene(1500, 876, "ERYANTIS", initializer);
+    }
+
     public Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
         Parent root;
         FXMLLoader fxmlLoader;

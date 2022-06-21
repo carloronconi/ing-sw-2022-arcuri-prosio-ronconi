@@ -575,7 +575,7 @@ public class GameBoardController extends SceneController{
             getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
         }
 
-        getClientGui().nextScene(1500, 876, "ERYANTIS", (s, c)->{
+        getClientGui().nextScene((s, c)->{
             GameBoardController boardController = (GameBoardController) c;
             boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
         });
@@ -586,7 +586,7 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 1");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
-        getClientGui().nextScene(1500, 876, "ERYANTIS", (s,c)->{});
+        getClientGui().nextScene();
     }
 
     public void clickedCloud2() throws IOException {
@@ -595,7 +595,7 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 2");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
-        getClientGui().nextScene(1500, 876, "ERYANTIS", (s,c)->{});
+        getClientGui().nextScene();
     }
 
 }

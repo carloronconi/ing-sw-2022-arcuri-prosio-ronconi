@@ -19,7 +19,7 @@ public class SetNicknameSceneController extends SceneController{
         String finalNickname = nickname.getText();
         getClientGui().setFinalNickname(finalNickname);
         getClientGui().getGuiView().notifyEventManager(new SetNickname(finalNickname));
-        getClientGui().nextScene(800, 530, "ERYANTIS", (s, c)->{
+        getClientGui().nextScene((s, c)->{
             if (c instanceof SetAssistantSceneController){
                 SetAssistantSceneController controller = (SetAssistantSceneController) c;
                 ArrayList<String> resources = getClientGui().getPlayedByOtherResources();
