@@ -166,8 +166,8 @@ public class GameBoardController extends SceneController{
                             Circle c = new Circle();
                             c.setCenterX(50.0);
                             c.setCenterY(50.0);
-                            c.setLayoutX(r.getLayoutX());
-                            c.setLayoutY(r.getParent().getLayoutY());
+                            c.setLayoutX(r.getLayoutX() + (j * 30.0));
+                            c.setLayoutY(r.getParent().getLayoutY() + (j * 35.0));
                             c.setRadius(16.0);
                             c.setStroke(Color.BLACK);
                             c.setStrokeType(StrokeType.INSIDE);
