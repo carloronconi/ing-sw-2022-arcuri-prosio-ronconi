@@ -140,14 +140,14 @@
                                <Pane fx:id="entrance2" layoutX="812.0" layoutY="541.0" prefHeight="336.0" prefWidth="125.0">
                                   <children>
                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="121.0" />
-                                         <Rectangle fx:id="7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
-                                        <Rectangle fx:id="8" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
-                                         <Rectangle fx:id="9" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="201.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                         <Rectangle fx:id="0" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle fx:id="1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                         <Rectangle fx:id="2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutY="201.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutY="255.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
-                                        <Rectangle fx:id="10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="64.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
-                                        <Rectangle fx:id="11" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutX="65.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
-                                        <Rectangle fx:id="12" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="62.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
-                                        <Rectangle fx:id="13" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutX="62.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle fx:id="3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="64.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle fx:id="4" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="54.0" layoutX="65.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle fx:id="5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="60.0" layoutX="62.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+                                        <Rectangle fx:id="6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="81.0" layoutX="62.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
                                     </children>
                                 </Pane>
                                 <Pane fx:id="dinings2" layoutX="937.0" layoutY="541.0" prefHeight="335.0" prefWidth="407.0">
