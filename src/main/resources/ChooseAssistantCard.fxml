@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0"
             prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.client.SetAssistantSceneController">
+            fx:controller="it.polimi.ingsw.client.SetAssistantSceneController" >
 
     <VBox fx:id="tab" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;"
           xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
         <stylesheets>
             <URL value="@textfont.css" />
         </stylesheets>
-        <VBox fx:id="vbox" prefHeight="700.0" prefWidth="1440.0">
+        <VBox fx:id="vbox" prefHeight="876.0" prefWidth="1500.0">
 
             <Pane fx:id="cardsPane">
 
