@@ -1,19 +1,17 @@
 package it.polimi.ingsw.model.studentmanagers;
 
 import it.polimi.ingsw.model.PawnColor;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-class ConcreteStudentCounterTest extends StudentCounter {
+public class ConcreteStudentCounterTest extends StudentCounter {
 
     private StudentCounter scFull;
     private StudentCounter scEmpty;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         scEmpty = new ConcreteStudentCounter();
         scFull = new ConcreteStudentCounter(26);
         for(PawnColor c : PawnColor.values()){
@@ -22,8 +20,11 @@ class ConcreteStudentCounterTest extends StudentCounter {
         }
     }
 
+    /**
+     * this method verifies that movePawnFrom, by setting a precise color, works correctly
+     */
     @Test
-    void movePawnFrom_SelectedColor() {
+    public void movePawnFrom_SelectedColor() {
         for (PawnColor c : PawnColor.values()) {
             int numBeforeFull = scFull.count(c);
             int numBeforeEmpty = scEmpty.count(c);
@@ -38,8 +39,11 @@ class ConcreteStudentCounterTest extends StudentCounter {
         assertEquals(130, scFull.count() + scEmpty.count(), "Total number of pawns shouldn't have changed");
     }
 
+    /**
+     * this method verifies that movePawnFrom, without setting a precise color, works correctly
+     */
     @Test
-    void movePawnFrom_RandomColor() {
+    public void movePawnFrom_RandomColor() {
         int totalBeforeFull = scFull.count();
         int totalBeforeEmpty = scEmpty.count();
         StudentCounter scFullBefore = new ConcreteStudentCounter(26);
@@ -56,5 +60,4 @@ class ConcreteStudentCounterTest extends StudentCounter {
 
     }
 
-    // TODO: useless to test count methods because already tested w/ the previous tests?
 }

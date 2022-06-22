@@ -1,31 +1,64 @@
 package it.polimi.ingsw.model.charactercards;
 
+import it.polimi.ingsw.EventManager;
 import it.polimi.ingsw.model.GameModel;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheeseMerchantTest {
+public class CheeseMerchantTest {
     private CheeseMerchant cheeseMerchant;
+    private ArrayList<Player> players;
 
     @Before
     public void setUp(){
-        GameModel gameModel = null;
+        ArrayList<String> playerNicknames = new ArrayList<>();
+        playerNicknames.add("pippo");
+        playerNicknames.add("pluto");
+
+        EventManager<ModelEvent> eventManager = new EventManager<>();
+
+        GameModel gameModel = new GameModel(false, playerNicknames, eventManager);
         cheeseMerchant = new CheeseMerchant(gameModel);
 
         assertEquals(2, cheeseMerchant.getCurrentCost());
         assertFalse(cheeseMerchant.isCostIncreased());
+        assertEquals(AvailableCharacter.CHEESEMERCHANT, cheeseMerchant.getValue());
+
+        players = gameModel.getPlayers();
     }
 
-    /*
-    - creare due nickname e metterli in una lista
-    - istanziare gamemodel passando la lista con i due nickname
-    - controllare che entrambi i giocatori abbiano almeno uno studente dello stesso colore. se si, spostare
-        lo studente dall'entrata alla diningRoom del primo player
-    - chiamare il metodo "updateProfessorManager" così da far controllare il professore di quel colore al player
-    - spostare lo studente dall'entrata alla diningRoom del secondo studente
-    - chiamare l'effetto di cheeseMerchant, passando il secondo player, per testarne il funzionamento
+    /**
+     * this method verifies that the chesseMerchant effect works correctly
      */
+    @Test
+    public void useEffect(){
+        cheeseMerchant.setEffectPlayer(players.get(0).getId());
+        try {
+            cheeseMerchant.useEffect();
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
+
+        assertTrue(cheeseMerchant.isCostIncreased());
+    }
+
+    /**
+     * this method verifies that the exception is thrown when the player is not set
+     */
+    @Test (expected = IllegalStateException.class)
+    public void useEffect2(){
+        try {
+            cheeseMerchant.useEffect();
+        } catch (NoSuchFieldException e) {
+            fail();
+        }
+    }
 
 
 }
