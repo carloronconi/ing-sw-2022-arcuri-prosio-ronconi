@@ -94,6 +94,12 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
         return bag;
     }
 
+    public LinkedHashMap<UUID, Integer> getNumOfTowersUsed(){ return new LinkedHashMap<>(numOfTowersUsed); }
+
+    public LinkedHashMap<UUID, TowerColor> getColorPlayersTowers(){ return new LinkedHashMap<>(colorPlayersTowers); }
+
+    public EnumMap<PawnColor, UUID> getProfessorOwners(){ return new EnumMap<>(professorOwners); }
+
     public LinkedHashMap<UUID, ArrayList<PawnColor>> getClouds() {
         return new LinkedHashMap<>(clouds);
     }
