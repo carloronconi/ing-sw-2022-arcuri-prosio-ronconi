@@ -185,8 +185,8 @@ public class GameBoardController extends SceneController{
 
                         if (!islandIGameModel.containsKey(islandId)){ //island has been eliminated
                             System.out.println("deleted island detected: " + islandName);
-                            Rectangle rectangle = new Rectangle(100.0,100.0, Color.BLUEVIOLET);
-                            rectangle.setLayoutX(r.getLayoutX());
+                            Rectangle rectangle = new Rectangle(170.0,165.0, Color.valueOf("#6abade"));
+                            rectangle.setLayoutX(r.getLayoutX()-30.0);
                             rectangle.setLayoutY(r.getParent().getLayoutY());
 
                             boardPane.getChildren().add(rectangle);
