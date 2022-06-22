@@ -276,8 +276,8 @@ public class GameBoardController extends SceneController{
                 Random random = new Random();
                 //double addX = random.nextDouble(0.0, 75.0);
                 //double addY = random.nextDouble(0.0, 110.0);
-                c.setLayoutX(professorsRectangle.getLayoutX()+ index*20.0);
-                c.setLayoutY(professorsRectangle.getParent().getLayoutY() + index*20.0 - ((index+1)*10.0));
+                c.setLayoutX(professorsRectangle.getLayoutX()+ index*15.0);
+                c.setLayoutY(professorsRectangle.getParent().getLayoutY() + index*40.0 - ((index+1)*10.0));
 
                 boardPane.getChildren().add(c);
                 pawns.add(c);
