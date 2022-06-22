@@ -7,9 +7,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 
-/**
- * Client for the Mastermind game.
- */
+
 public class ClientCli implements Runnable {
     private ServerHandler serverHandler;
     private boolean shallTerminate;

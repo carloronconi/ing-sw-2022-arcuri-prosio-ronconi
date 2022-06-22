@@ -168,7 +168,7 @@ public class GameController implements EventListener<ViewEvent> {
                 for (int i = 0; i<numOfPlayers; i++){
                     playerNicknames.add(mapOfPlayerNicknames.get(i));
                 }
-
+                System.out.println("initializing game model with the following nicknames: " + playerNicknames);
                 gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
