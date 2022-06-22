@@ -262,6 +262,7 @@ public class GameBoardController extends SceneController{
         //PROFESSORS
 
         EnumMap<PawnColor, UUID> professorOwnersBoard  = gameState.getProfessorOwners();
+        int index = 0;
         for(PawnColor color : professorOwnersBoard.keySet()){
             if(professorOwnersBoard.get(color) == null){
                 Circle c = new Circle();
@@ -273,15 +274,14 @@ public class GameBoardController extends SceneController{
                 c.setStrokeWidth(5.0);
                 c.setFill(Color.valueOf(color.name()));
                 Random random = new Random();
-                double addX = random.nextDouble(0.0, 75.0);
-
-                double addY = random.nextDouble(0.0, 110.0);
-                c.setLayoutX(professorsRectangle.getLayoutX()+ addX);
-                c.setLayoutY(professorsRectangle.getParent().getLayoutY() + addY );
+                //double addX = random.nextDouble(0.0, 75.0);
+                //double addY = random.nextDouble(0.0, 110.0);
+                c.setLayoutX(professorsRectangle.getLayoutX()+ index*20.0);
+                c.setLayoutY(professorsRectangle.getParent().getLayoutY() + index*20.0 - ((index+1)*10.0));
 
                 boardPane.getChildren().add(c);
                 pawns.add(c);
-
+                index++;
             } else{   //add professor to corresponding player's school
                 if(professorOwnersBoard.get(color) != null){
                     for (int i = 0; i < playersNick.size(); i++) {
