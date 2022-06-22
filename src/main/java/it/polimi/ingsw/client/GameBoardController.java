@@ -55,11 +55,12 @@ public class GameBoardController extends SceneController{
     private final List<Pane> board = new ArrayList<>();
     private final int MAX_SIZE = 130;
     private final ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
-    private final List<Pane> entr1 = new ArrayList<>();
-    private final List<Pane> entr2 = new ArrayList<>();
+   // private final List<Pane> entr1 = new ArrayList<>();
+   // private final List<Pane> entr2 = new ArrayList<>();
     private final Set<UUID> players = new HashSet<>();
     private final ArrayList<Pane> towersPane = new ArrayList<>();
     private final List<Pane> prof = new ArrayList<>();
+    private final List<Pane> entrances = new ArrayList<>();
 
 
     //private ArrayList<Integer> numOfPawnsInDining;
@@ -94,8 +95,11 @@ public class GameBoardController extends SceneController{
         prof.add(professors1);
         prof.add(professors2);
 
-        entr1.add(entrance1);
-        entr2.add(entrance2);
+        entrances.add(entrance1);
+        entrances.add(entrance2);
+
+        //entr1.add(entrance1);
+        //entr2.add(entrance2);
         islands.add(islandRow0);
         islands.add(islandRow1);
         islands.add(islandRow2);
@@ -223,13 +227,6 @@ public class GameBoardController extends SceneController{
 
         }
 
-        //MN
-
-        UUID mnID = gameState.getMotherNaturePosition();
-
-
-
-
         //ENTRANCES
         initializeEntrance(gameState);
 
@@ -310,7 +307,6 @@ public class GameBoardController extends SceneController{
 
 
         //DINING ROOMS
-        //TH
         HashMap<UUID, EnumMap<PawnColor, Integer>> gameStateDiningRooms = gameState.getDiningRooms();
 
         for(UUID id : gameStateDiningRooms.keySet()){
@@ -369,58 +365,52 @@ public class GameBoardController extends SceneController{
 
         //TOWERS - add method to interleave towers with towers used
 
+        //TODO: towers on islands
+
         LinkedHashMap<UUID, Integer> numOfTowersUsed = gameState.getNumOfTowersUsed();
         LinkedHashMap<UUID, TowerColor> ColorPlayersTower = gameState.getColorPlayersTowers();
 
-        for (Pane p : towersPane) {
-            for (Node n : p.getChildrenUnmodifiable()) {
-                if (n.getId().contains("one")) {
-                    for (int i = 0; i < 8; i++) {
-                        Circle c = new Circle();
-                        c.setLayoutX(n.getParent().getLayoutX() );
-                        c.setLayoutY(n.getParent().getLayoutY() + (i * 35.0) );
-                        c.setRadius(16.0);
-                        c.setStroke(Color.BLACK);
-                        c.setStrokeType(StrokeType.INSIDE);
-                        c.setFill(Color.BLACK);
-                        c.setCenterX(50.0);
-                        c.setCenterY(50.0);
+        for(UUID id : ColorPlayersTower.keySet()) {
+            for (int i = 0; i < playersNick.size(); i++) {
 
-                        c.setOnMouseDragged(this::movePiece);
-                        c.setOnMousePressed(this::startMovingPiece);
-                        c.setOnMouseReleased(this::finishMovingPiece);
+                Object object = playersNick.keySet().toArray()[i];
+                UUID playerNickID = (UUID) object;
+                if (playerNickID.equals(id)) {
+                    int playerNumber = i+1;
+                    for(Pane p : towersPane){
+                        String str = p.getId();
+                        int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
+                        System.out.println(numberOnly);
+                        System.out.println(playerNumber);
+                        System.out.println("OK");
+                        if(numberOnly==playerNumber) {
+                            for(Node rect : p.getChildrenUnmodifiable()){
+                                for (int j = 0; j < (8 - numOfTowersUsed.get(id)); j++) {
+                                    Circle c = new Circle();
+                                    c.setLayoutX(rect.getParent().getLayoutX() );
+                                    c.setLayoutY(rect.getParent().getLayoutY() + (j * 35.0) );
+                                    c.setRadius(16.0);
+                                    c.setStroke(Color.BLACK);
+                                    c.setStrokeType(StrokeType.INSIDE);
+                                    c.setFill(Color.valueOf(ColorPlayersTower.get(id).toString()));
+                                    c.setCenterX(50.0);
+                                    c.setCenterY(50.0);
 
-                        boardPane.getChildren().add(c);
-                        pawns.add(c);
+                                    boardPane.getChildren().add(c);
+                                    pawns.add(c);
+
+                                }
+
+                            }
+                        }
+
                     }
 
-                } else if (n.getId().contains("two")) {
-                    for (int i = 0; i < 8; i++) {
-                        Circle c = new Circle();
-                        c.setCenterX(50.0);
-                        c.setCenterY(50.0);
-                        c.setLayoutX(n.getParent().getLayoutX() );
-                        c.setLayoutY(n.getParent().getLayoutY() + (i * 35.0) );
-                        c.setRadius(16.0);
-                        c.setStroke(Color.BLACK);
-                        c.setStrokeType(StrokeType.INSIDE);
-                        c.setFill(Color.WHITE);
-
-                        c.setOnMouseDragged(this::movePiece);
-                        c.setOnMousePressed(this::startMovingPiece);
-                        c.setOnMouseReleased(this::finishMovingPiece);
-
-                        boardPane.getChildren().add(c);
-                        pawns.add(c);
-                    }
 
                 }
 
             }
-
         }
-
-
 
     }
 
@@ -443,8 +433,49 @@ public class GameBoardController extends SceneController{
             System.out.println(entranceHash);
 
         }
+        for(UUID id : entranceHash.keySet()) {
+            for (int i = 0; i < playersNick.size(); i++) {
+                Object object = playersNick.keySet().toArray()[i];
+                UUID playerNickID = (UUID) object;
+                if (playerNickID.equals(id)) {
+                    int playerNumber = i + 1;
+                    for (Pane p : entrances) {
+                        String str = p.getId();
+                        int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
+                        System.out.println(numberOnly);
+                        System.out.println(playerNumber);
+                        System.out.println("OK");
+                        if (numberOnly == playerNumber) {
+                            for (int j = 0; j < entranceHash.get(id).size(); j++) {
+                                Circle c = new Circle();
+                                c.setCenterX(50.0);
+                                c.setCenterY(50.0);
+                                c.setRadius(16.0);
+                                c.setStroke(Color.BLACK);
+                                c.setStrokeType(StrokeType.INSIDE);
+                                c.setFill(Color.valueOf(entranceHash.get(id).get(j).toString()));
 
-        ArrayList<Circle> circleEntrance1 = new ArrayList<>();
+                                c.setLayoutY(p.getLayoutY() + j*40.0 );
+                                c.setLayoutX(p.getLayoutX() + (j*20.0) - ((j+1)* 10.0));
+
+                                c.setOnMouseDragged(this::movePiece);
+                                c.setOnMousePressed(this::startMovingPiece);
+                                c.setOnMouseReleased(this::finishMovingPiece);
+
+                                boardPane.getChildren().add(c);
+                                pawns.add(c);
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+    /*    ArrayList<Circle> circleEntrance1 = new ArrayList<>();
         ArrayList<Circle> circleEntrance2 = new ArrayList<>();
 
         for(int i =0; i<entranceHash.size(); i++){
@@ -463,9 +494,9 @@ public class GameBoardController extends SceneController{
                     c.setFill(Color.valueOf(color.name()));
 
                     circleEntrance1.add(c);
-                }
+                } */
 
-            }else{
+         /*   }else{
                 for (PawnColor color : entranceHash.get(id)) {
                     Circle c = new Circle();
                     c.setCenterX(50.0);
@@ -535,7 +566,7 @@ public class GameBoardController extends SceneController{
                 }
 
             }
-        }
+        } */
 
         }
 
