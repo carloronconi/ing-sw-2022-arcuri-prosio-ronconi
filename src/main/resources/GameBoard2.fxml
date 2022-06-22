@@ -218,9 +218,6 @@
                                     </image>
                                 </ImageView>
 
-
-                    <Circle fx:id="MN" centerX="50.0" centerY="50.0" fill="#dd5f06" layoutX="20.0" layoutY="400.0" onMouseDragged="#movePiece" onMousePressed="#startMovingPiece" onMouseReleased="#finishMovingPiece" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
-
                 </Pane>
 
 
