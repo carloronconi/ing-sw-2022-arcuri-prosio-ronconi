@@ -99,7 +99,9 @@ public class GameBoardController extends SceneController{
         islands.add(islandRow0);
         islands.add(islandRow1);
         islands.add(islandRow2);
+
         board.add(dinings1);
+        board.add(dinings2);
 
         panes.add(islandRow0);
         panes.add(islandRow1);
@@ -293,32 +295,6 @@ public class GameBoardController extends SceneController{
                                         }
                                     }
 
-
-                                 /*   for (int j = 0; j < p.getChildrenUnmodifiable().size(); j++) {
-                                        Node rect = p.getChildren().get(i);
-                                        System.out.println("trovato");
-                                        System.out.println(rect.getId());
-                                        if(rect.getId().contains(color.name())){
-                                            System.out.println("TROVATO");
-
-                                            Circle circle = new Circle();
-                                            circle.setCenterX(50.0);
-                                            circle.setCenterY(50.0);
-                                            circle.setRadius(16.0);
-                                            circle.setStroke(Color.GREY);
-                                            circle.setStrokeType(StrokeType.INSIDE);
-                                            circle.setStrokeWidth(5.0);
-                                            circle.setFill(Color.valueOf(color.name()));
-                                            circle.setLayoutX(rect.getParent().getLayoutX() );
-                                            circle.setLayoutY(rect.getParent().getLayoutY() + rect.getLayoutY());
-
-                                            boardPane.getChildren().add(circle);
-                                            pawns.add(circle);
-                                        }
-                                    } */
-
-
-
                                 }
                             }
 
@@ -328,6 +304,64 @@ public class GameBoardController extends SceneController{
 
                         }
                     }
+                }
+
+            }
+
+
+        //DINING ROOMS
+        //TH
+        HashMap<UUID, EnumMap<PawnColor, Integer>> gameStateDiningRooms = gameState.getDiningRooms();
+
+        for(UUID id : gameStateDiningRooms.keySet()){
+            for (int i = 0; i < playersNick.size(); i++) {
+
+                Object object = playersNick.keySet().toArray()[i];
+                UUID playerNickID = (UUID) object;
+                if (playerNickID.equals(id)){
+                    int playerNumber = i+1;
+                    for(Pane p : board){
+                        String str = p.getId();
+                        int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
+                        System.out.println(numberOnly);
+                        System.out.println(playerNumber);
+                        System.out.println("OK");
+                        if(numberOnly==playerNumber){
+                            System.out.println("OK2");
+                            for(Node rect : p.getChildrenUnmodifiable()){
+                                System.out.println(rect.getId());
+                                for(PawnColor color : gameStateDiningRooms.get(id).keySet()){
+                                    String string = color.toString().toLowerCase(Locale.ROOT);
+                                    System.out.println(string);
+                                    String name = string + playerNumber;
+                                    if(rect.getId()!= null && rect.getId().equals(name)){ //PROBLEM HERE - I THINK CAPITAL LETTERS FOR PAWN NAME VS NOT FOR IDS
+                                        for (int j = 0; j < gameStateDiningRooms.get(id).get(color); j++) {
+                                            Circle circle = new Circle();
+                                            circle.setCenterX(50.0);
+                                            circle.setCenterY(50.0);
+                                            circle.setRadius(16.0);
+                                            circle.setStroke(Color.BLACK);
+                                            circle.setStrokeType(StrokeType.INSIDE);
+                                            circle.setFill(Color.valueOf(color.name()));
+                                            circle.setLayoutX(rect.getParent().getLayoutX() + j*24.0 - 5.0);
+                                            circle.setLayoutY(rect.getParent().getLayoutY() + rect.getLayoutY()- 20.0 );
+
+                                            boardPane.getChildren().add(circle);
+                                            pawns.add(circle);
+                                        }
+                                    }
+                                }
+
+
+                                }
+                            }
+
+                        }
+
+
+
+                    }
+
                 }
 
             }
@@ -385,6 +419,7 @@ public class GameBoardController extends SceneController{
             }
 
         }
+
 
 
     }
