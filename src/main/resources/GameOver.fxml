@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="250.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.LoginSceneController">
+<AnchorPane prefHeight="250.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameOverSceneController">
     <stylesheets>
         <URL value="@textfont.css" />
 
@@ -24,8 +24,6 @@
 
         </Label>
         <Label layoutX="40.0" layoutY="747.0" prefHeight="66.0" prefWidth="252.0" styleClass="gameOverMessage" text="WINNER:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="747.0" />
-
-        <Button fx:id="connectBtn" layoutX="184.0" layoutY="124.0" mnemonicParsing="false" onAction="#connectButtonClicked" styleClass="box" text="Connect" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="19.0" />
 
         <Label fx:id="winner" layoutX="321.0" layoutY="773.0" prefHeight="66.0" prefWidth="576.0" styleClass="gameOverMessage" />
 

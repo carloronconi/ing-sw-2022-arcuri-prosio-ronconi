@@ -19,6 +19,8 @@ public class GuiView implements ViewInterface {
     private GameState gameState;
     private boolean keepOldView;
 
+    private String winner;
+
     //private JTextField introductionField;
     //private JTextArea screenArea;
     // private String message = "";
@@ -37,6 +39,10 @@ public class GuiView implements ViewInterface {
 
     public GameState getGameState() {
         return gameState;
+    }
+
+    public String getWinner() {
+        return winner;
     }
 
     /**
@@ -153,7 +159,9 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void gameOver(UUID winner) {
-
+        CliViewIdConverter converter = new CliViewIdConverter(gameState);
+        this.winner = converter.idToName(winner, CliViewIdConverter.converterSetting.PLAYER);
+        clientGui.setNextSceneName("/GameOver.fxml");
     }
 
     @Override

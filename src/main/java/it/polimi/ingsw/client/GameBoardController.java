@@ -933,8 +933,10 @@ public class GameBoardController extends SceneController{
         }
 
         getClientGui().nextScene((s, c)->{
-            GameBoardController boardController = (GameBoardController) c;
-            boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
+            if (c instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) c;
+                boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
+            }
         });
     }
 
