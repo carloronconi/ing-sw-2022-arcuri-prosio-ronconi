@@ -73,17 +73,17 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
-        clientGui.setNextSceneName("/GameBoard2.fxml");
+        setNextSceneNameGameBoard();
     }
 
     @Override
     public void chooseCloud() {
-        clientGui.setNextSceneName("/GameBoard2.fxml");
+        setNextSceneNameGameBoard();
     }
 
     @Override
     public void getAssistantCard() {
-        clientGui.setNextSceneName("/ChooseAssistantCard.fxml");
+        setNextSceneNameAssistant();
 
     }
 
@@ -143,12 +143,12 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void moveMotherNature() {
-        clientGui.setNextSceneName("/GameBoard2.fxml");
+        setNextSceneNameGameBoard();
     }
 
     @Override
     public void moveStudent() {
-        clientGui.setNextSceneName("/GameBoard2.fxml");
+        setNextSceneNameGameBoard();
     }
 
     @Override
@@ -161,6 +161,16 @@ public class GuiView implements ViewInterface {
 
     }
 
+    private void setNextSceneNameGameBoard(){
+        String name = gameState.getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
+        clientGui.setNextSceneName(name);
+    }
+
+    private void setNextSceneNameAssistant(){
+        String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard.fxml";
+        clientGui.setNextSceneName(name);
+    }
+
     public void notifyEventManager(ViewEvent event){
         eventManager.notify(event);
     }
@@ -169,8 +179,8 @@ public class GuiView implements ViewInterface {
     public synchronized void update(ModelEvent modelEvent) {
         gameState = (GameState) modelEvent;
         System.out.println("notified waiters of this gameState:" + gameState);
-        UUID[] uuids = new UUID[2];
-        System.out.println(gameState.drawGameState(gameState.getNicknames().keySet().stream().findFirst().get(), new ArrayList<>(List.of(gameState.getIslands().keySet().toArray(uuids)))));
+        //UUID[] uuids = new UUID[2];
+        //System.out.println(gameState.drawGameState(gameState.getNicknames().keySet().stream().findFirst().get(), new ArrayList<>(List.of(gameState.getIslands().keySet().toArray(uuids)))));
         notifyAll();
     }
 }
