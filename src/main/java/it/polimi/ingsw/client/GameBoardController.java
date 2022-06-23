@@ -49,7 +49,7 @@ public class GameBoardController extends SceneController{
     @FXML Pane dinings1;
     @FXML Pane professors1;
     @FXML Pane towers1;
-    @FXML Circle MN;
+    //@FXML Circle MN;
     //@FXML ImageView cloud1;
     //@FXML ImageView cloud2;
 
@@ -75,6 +75,7 @@ public class GameBoardController extends SceneController{
     private HashMap<String, Integer> pawnsInDining;
 
     private static CliViewIdConverter initialIslandConverter;
+    private static boolean firstTime = true;
 
     String red;
     String yellow;
@@ -133,7 +134,7 @@ public class GameBoardController extends SceneController{
 
 
         //pawns.add(circle);
-        pawns.add(MN);
+        //pawns.add(MN);
         for (int i = 0; i < 26; i++) {
             Circle c = new Circle();
             c.setFill(Color.RED);
@@ -171,6 +172,8 @@ public class GameBoardController extends SceneController{
             System.out.println("initial island ids: " + gameState.getIslands().keySet());
         }
 
+        boolean placedMN = false;
+
         for (Pane p : islands) {
             for (Node r : p.getChildrenUnmodifiable()) {
                 for (int i = 0; i < gameState.getIslands().size(); i++) {
@@ -181,7 +184,7 @@ public class GameBoardController extends SceneController{
 
                         UUID islandId = initialIslandConverter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
                         //UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
-                        System.out.println("current island ids: " + gameState.getIslands().keySet());
+                        //System.out.println("current island ids: " + gameState.getIslands().keySet());
 
                         if (!islandIGameModel.containsKey(islandId)){ //island has been eliminated
                             System.out.println("deleted island detected: " + islandName);
@@ -205,6 +208,32 @@ public class GameBoardController extends SceneController{
                                 c.setFill(Color.valueOf(islandIGameModel.get(islandId).get(j).toString()));
 
                                 boardPane.getChildren().add(c);
+                            }
+
+                            //add mother nature if present
+                            String MNIslandName = initialIslandConverter.idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.converterSetting.ISLAND);
+                            if(islandName.equals(MNIslandName) && !placedMN){
+                                placedMN = true;
+                                System.out.println("MN position: " + gameState.getMotherNaturePosition());
+                                System.out.println("current island: " + islandId);
+                                System.out.println("coordinates: x = " + r.getLayoutX() + " y = " + r.getParent().getLayoutY());
+
+                                Circle motherNature = new Circle();
+                                motherNature.setCenterX(50.0);
+                                motherNature.setCenterY(50.0);
+                                motherNature.setLayoutX(r.getLayoutX() - 30);
+                                motherNature.setLayoutY(r.getParent().getLayoutY() -35);
+                                motherNature.setRadius(21);
+                                motherNature.setStroke(Color.GREY);
+                                motherNature.setStrokeType(StrokeType.INSIDE);
+                                motherNature.setStrokeWidth(4);
+                                motherNature.setFill(Color.ORANGE);
+                                motherNature.setOnMouseDragged(this::movePiece);
+                                motherNature.setOnMousePressed(this::startMovingPiece);
+                                motherNature.setOnMouseReleased(this::finishMovingPiece);
+
+                                pawns.add(motherNature);
+                                boardPane.getChildren().add(motherNature);
                             }
                         }
                     }
