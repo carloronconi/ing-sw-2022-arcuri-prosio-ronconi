@@ -469,7 +469,8 @@ public class GameBoardController extends SceneController{
                         System.out.println("OK");
                         if(numberOnly==playerNumber) {
                             for(Node rect : p.getChildrenUnmodifiable()){
-                                for (int j = 0; j < (8 - numOfTowersUsed.get(id)); j++) {
+                                int totTowers = player3==null? 8:6;
+                                for (int j = 0; j < (totTowers - numOfTowersUsed.get(id)); j++) {
                                     Circle c = new Circle();
                                     c.setLayoutX(rect.getParent().getLayoutX() );
                                     c.setLayoutY(rect.getParent().getLayoutY() + (j * 35.0) );
