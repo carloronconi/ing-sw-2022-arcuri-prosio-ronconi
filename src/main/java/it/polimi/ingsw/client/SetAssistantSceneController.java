@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SetAssistantSceneController extends SceneController {
+    public ImageView playedBySecondOther;
     int cardNumber;
     @FXML
     Button button;
@@ -35,6 +36,10 @@ public class SetAssistantSceneController extends SceneController {
 
     public ImageView getPlayedByOther() {
         return playedByOther;
+    }
+
+    public ImageView getPlayedBySecondOther() {
+        return playedBySecondOther;
     }
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene

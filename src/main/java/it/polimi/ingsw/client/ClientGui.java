@@ -178,7 +178,9 @@ public class ClientGui extends Application implements Runnable{
             if (playedAssistantCards.get(id)!=null) otherCards.add(gameState.getPlayedAssistantCards().get(id));
         }
         if (!otherCards.isEmpty()) { //it means it is the first player that is choosing the assistant
-            resources.add("/Assistente(" + otherCards.get(0) + ")-min.png");
+            for (int card : otherCards){
+                resources.add("/Assistente(" + card + ")-min.png");
+            }
         }
         return resources;
     }

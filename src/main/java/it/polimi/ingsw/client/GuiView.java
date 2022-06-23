@@ -167,7 +167,7 @@ public class GuiView implements ViewInterface {
     }
 
     private void setNextSceneNameAssistant(){
-        String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard.fxml";
+        String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard3.fxml";
         clientGui.setNextSceneName(name);
     }
 

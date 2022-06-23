@@ -24,8 +24,8 @@ public class SetNicknameSceneController extends SceneController{
                 SetAssistantSceneController controller = (SetAssistantSceneController) c;
                 ArrayList<String> resources = getClientGui().getPlayedByOtherResources();
                 if (!resources.isEmpty()){
-                    //TODO: for 3 player game also set the other image
                     controller.getPlayedByOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(0)))));
+                    if (controller.getPlayedBySecondOther()!=null && resources.size()>1) controller.getPlayedBySecondOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(1)))));
                 }
             }
         });
