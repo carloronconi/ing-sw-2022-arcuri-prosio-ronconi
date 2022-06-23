@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="250.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.LoginSceneController">
+    <stylesheets>
+        <URL value="@textfont.css" />
+
+
+    </stylesheets>
+    <children>
+        <ImageView fitHeight="1560.0" fitWidth="900.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="false">
+            <image>
+                <Image url="@sfondo2.gif" />
+            </image>
+        </ImageView>
+
+        <Label layoutX="292.0" layoutY="303.0" prefHeight="154.0" prefWidth="434.0" styleClass="gameOverMessage" text="GAME OVER" AnchorPane.leftAnchor="292.0" AnchorPane.topAnchor="303.0">
+
+        </Label>
+        <Label layoutX="69.0" layoutY="457.0" prefHeight="66.0" prefWidth="252.0" styleClass="gameOverMessage" text="WINNER:" AnchorPane.leftAnchor="69.0" AnchorPane.topAnchor="457.0" />
+
+        <Button fx:id="connectBtn" layoutX="184.0" layoutY="124.0" mnemonicParsing="false" onAction="#connectButtonClicked" styleClass="box" text="Connect" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="19.0" />
+
+        <Label fx:id="winner" layoutX="306.0" layoutY="457.0" prefHeight="66.0" prefWidth="576.0" styleClass="gameOverMessage" />
+        <Label fx:id="playAgain" layoutX="164.0" layoutY="780.0" prefHeight="66.0" prefWidth="599.0" styleClass="gameOverMessage" text="Do you want to play again?" />
+
+        <RadioButton fx:id="buttonYes" layoutX="574.0" layoutY="879.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="125.0" styleClass="message" text="YES" />
+        <RadioButton fx:id="buttonNo" layoutX="358.0" layoutY="889.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" styleClass="message" text="NO" />
+
+    </children>
+</AnchorPane>
