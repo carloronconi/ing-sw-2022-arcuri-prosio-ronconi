@@ -232,8 +232,8 @@ public class GameBoardController extends SceneController{
                                 Circle motherNature = new Circle();
                                 motherNature.setCenterX(50.0);
                                 motherNature.setCenterY(50.0);
-                                motherNature.setLayoutX(r.getLayoutX() - 30);
-                                motherNature.setLayoutY(r.getParent().getLayoutY() -35);
+                                motherNature.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() + 20.0);
+                                motherNature.setLayoutY(r.getParent().getLayoutY() + r.getLayoutY() + 20.0);
                                 motherNature.setRadius(21);
                                 motherNature.setStroke(Color.GREY);
                                 motherNature.setStrokeType(StrokeType.INSIDE);
@@ -251,8 +251,8 @@ public class GameBoardController extends SceneController{
                             if (gameState.getIslandOwners().get(islandId)!= null){
                                 for (int itr = 0; itr< gameState.getIslandSizes().get(islandId); itr++){
                                     Circle c = new Circle();
-                                    c.setLayoutX(r.getLayoutX() - (itr+1) * 30);
-                                    c.setLayoutY(r.getParent().getLayoutY() + (itr+1) * 35);
+                                    c.setLayoutX(r.getLayoutX() - (itr+1) * 30.0);
+                                    c.setLayoutY(r.getParent().getLayoutY() + (itr+1.0) * 35.0);
                                     c.setRadius(16.0);
                                     c.setStroke(Color.BLACK);
                                     c.setStrokeType(StrokeType.INSIDE);
