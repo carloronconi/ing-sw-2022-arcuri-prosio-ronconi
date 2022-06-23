@@ -235,6 +235,23 @@ public class GameBoardController extends SceneController{
                                 pawns.add(motherNature);
                                 boardPane.getChildren().add(motherNature);
                             }
+
+                            //add towers if present
+                            if (gameState.getIslandOwners().get(islandId)!= null){
+                                for (int itr = 0; itr< gameState.getIslandSizes().get(islandId); itr++){
+                                    Circle c = new Circle();
+                                    c.setLayoutX(r.getLayoutX() - (itr+1) * 30);
+                                    c.setLayoutY(r.getParent().getLayoutY() + (itr+1) * 35);
+                                    c.setRadius(16.0);
+                                    c.setStroke(Color.BLACK);
+                                    c.setStrokeType(StrokeType.INSIDE);
+                                    c.setFill(Color.valueOf(gameState.getColorPlayersTowers().get(gameState.getIslandOwners().get(islandId)).toString()));
+                                    c.setCenterX(50.0);
+                                    c.setCenterY(50.0);
+
+                                    boardPane.getChildren().add(c);
+                                }
+                            }
                         }
                     }
                 }

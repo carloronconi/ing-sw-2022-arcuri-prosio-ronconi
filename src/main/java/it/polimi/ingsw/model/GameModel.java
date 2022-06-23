@@ -530,8 +530,8 @@ public class GameModel {
         return islandManager.getMotherNaturePosition();
     }
 
-    public HashMap<UUID, UUID> getIslandOwners(){
-        HashMap<UUID, UUID> map = new HashMap<>();
+    public LinkedHashMap<UUID, UUID> getIslandOwners(){
+        LinkedHashMap<UUID, UUID> map = new LinkedHashMap<>();
         for (IslandTile island: islandManager.getIslands()){
             UUID id = null;
             if (island.getOwner() != null) {

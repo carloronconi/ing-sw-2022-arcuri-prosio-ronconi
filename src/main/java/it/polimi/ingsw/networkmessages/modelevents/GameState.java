@@ -30,7 +30,7 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
     private final HashMap<AvailableCharacter, Boolean> characterCards;
     private final HashMap<UUID, Integer> playedAssistantCards;
     private final UUID motherNaturePosition;
-    private final HashMap<UUID, UUID> islandOwners;  //first UUID of the island and second of the player
+    private final LinkedHashMap<UUID, UUID> islandOwners;  //first UUID of the island and second of the player
     private final LinkedHashMap<UUID, String> nicknames;
     private final LinkedHashMap<UUID, Integer> numOfTowersUsed;
     private final LinkedHashMap<UUID, TowerColor> colorPlayersTowers;
@@ -134,6 +134,10 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
     public UUID getMotherNaturePosition() {
         return motherNaturePosition;
     }
+
+    public LinkedHashMap<UUID, UUID> getIslandOwners() { return new LinkedHashMap<>(islandOwners);
+    }
+    public LinkedHashMap<UUID, Integer> getIslandSizes() {return new LinkedHashMap<>(islandSizes);}
 
     @Override
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
