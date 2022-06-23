@@ -9,3 +9,11 @@
 .box{
     -fx-effect: dropshadow(gaussian, skyblue, 8, 0.5, 8, 8);
 }
+
+.gameOverMessage{
+    -fx-font-family: "Calisto MT";
+    -fx-font-size: 48px;
+    -fx-fill: "gold";
+    -fx-effect: dropshadow(gaussian, skyblue, 8, 0.5, 8, 8);
+    -fx-font-weight: 700;
+}
