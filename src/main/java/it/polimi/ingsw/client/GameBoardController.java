@@ -38,6 +38,13 @@ public class GameBoardController extends SceneController{
     public ImageView card2;
     public Label player1;
     public Label player2;
+    public ImageView card3;
+    public Label player3;
+    public Label player3board;
+    public Pane entrance3;
+    public Pane towers3;
+    public Pane dinings3;
+    public Pane professors3;
     @FXML Label player1board;
     @FXML Label player2board;
     @FXML Pane boardPane;
@@ -102,12 +109,15 @@ public class GameBoardController extends SceneController{
 
         towersPane.add(towers1);
         towersPane.add(towers2);
+        if (towers3!=null) towersPane.add(towers3);
 
         prof.add(professors1);
         prof.add(professors2);
+        if (professors3!=null) prof.add(professors3);
 
         entrances.add(entrance1);
         entrances.add(entrance2);
+        if (entrance3!=null) entrances.add(entrance3);
 
         //entr1.add(entrance1);
         //entr2.add(entrance2);
@@ -117,6 +127,7 @@ public class GameBoardController extends SceneController{
 
         board.add(dinings1);
         board.add(dinings2);
+        if (dinings3!=null) board.add(dinings3);
 
         panes.add(islandRow0);
         panes.add(islandRow1);
@@ -440,8 +451,6 @@ public class GameBoardController extends SceneController{
 
         //TOWERS - add method to interleave towers with towers used
 
-        //TODO: towers on islands
-
         LinkedHashMap<UUID, Integer> numOfTowersUsed = gameState.getNumOfTowersUsed();
         LinkedHashMap<UUID, TowerColor> ColorPlayersTower = gameState.getColorPlayersTowers();
 
@@ -460,7 +469,8 @@ public class GameBoardController extends SceneController{
                         System.out.println("OK");
                         if(numberOnly==playerNumber) {
                             for(Node rect : p.getChildrenUnmodifiable()){
-                                for (int j = 0; j < (8 - numOfTowersUsed.get(id)); j++) {
+                                int totTowers = player3==null? 8:6;
+                                for (int j = 0; j < (totTowers - numOfTowersUsed.get(id)); j++) {
                                     Circle c = new Circle();
                                     c.setLayoutX(rect.getParent().getLayoutX() );
                                     c.setLayoutY(rect.getParent().getLayoutY() + (j * 35.0) );
@@ -495,20 +505,28 @@ public class GameBoardController extends SceneController{
         Iterator<UUID> iterator = playerNicknames.keySet().iterator();
         UUID id1 = iterator.next();
         UUID id2 = iterator.next();
+        UUID id3 = null;
+        if (player3!=null) id3 = iterator.next();
 
         player1.setText(playerNicknames.get(id1));
         player2.setText(playerNicknames.get(id2));
+        if (player3!=null) player3.setText(playerNicknames.get(id3));
 
         player1board.setText(playerNicknames.get(id1));
         player2board.setText(playerNicknames.get(id2));
+        if (player3!=null) player3board.setText(playerNicknames.get(id3));
 
         String cardName1 = "/Assistente(" + playedAssistantCards.get(id1) + ")-min.png";
         String cardName2 = "/Assistente(" + playedAssistantCards.get(id2) + ")-min.png";
+        String cardName3 = null;
+        if (player3!=null) cardName3 = "/Assistente(" + playedAssistantCards.get(id3) + ")-min.png";
+
         System.out.println(cardName1);
         System.out.println(cardName2);
 
         card1.setImage(new Image(String.valueOf(getClass().getResource(cardName1))));
         card2.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
+        if (player3!=null) card3.setImage(new Image(String.valueOf(getClass().getResource(cardName3))));
     }
 
 
@@ -517,9 +535,9 @@ public class GameBoardController extends SceneController{
         for (UUID id : gameState.getEntrances().keySet()){
             ArrayList<PawnColor> list = new ArrayList<>();
             for (PawnColor color : gameState.getEntrances().get(id).keySet()){
-                System.out.println(color);
+                //System.out.println(color);
                 int number = gameState.getEntrances().get(id).get(color);
-                System.out.println(number);
+                //System.out.println(number);
 
                 for (int k = 0; k<number; k++){
                     list.add(color);
@@ -527,7 +545,7 @@ public class GameBoardController extends SceneController{
 
             }
             entranceHash.put(id, list);
-            System.out.println(entranceHash);
+            //System.out.println(entranceHash);
 
         }
         for(UUID id : entranceHash.keySet()) {
@@ -933,6 +951,16 @@ public class GameBoardController extends SceneController{
         iterator.next();
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 2");
+        getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
+        getClientGui().nextScene();
+    }
+
+    public void clickedCloud3() throws IOException {
+        Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
+        iterator.next();
+        iterator.next();
+        UUID cloudId = iterator.next();
+        System.out.println("sending to server chosen cloud 3");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         getClientGui().nextScene();
     }

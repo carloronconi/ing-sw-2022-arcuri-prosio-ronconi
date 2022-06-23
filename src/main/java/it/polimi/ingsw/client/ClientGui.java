@@ -51,6 +51,7 @@ public class ClientGui extends Application implements Runnable{
         Scene scene = new Scene(root, 800, 530);
         stage.setTitle("ERYANTIS");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
 
