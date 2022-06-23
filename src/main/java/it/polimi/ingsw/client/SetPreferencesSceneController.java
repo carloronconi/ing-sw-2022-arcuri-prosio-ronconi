@@ -5,6 +5,7 @@ import it.polimi.ingsw.networkmessages.viewevents.SetPreferences;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
@@ -21,11 +22,24 @@ public class SetPreferencesSceneController extends SceneController {
     @FXML
     private RadioButton buttonHard;
 
+    private ToggleGroup numberGroup = new ToggleGroup();
+    private ToggleGroup modeGroup = new ToggleGroup();
+
+
+    @FXML
+    public void initialize(){
+        button2.setToggleGroup(numberGroup);
+        button3.setToggleGroup(numberGroup);
+        buttonEasy.setToggleGroup(modeGroup);
+        buttonHard.setToggleGroup(modeGroup);
+    }
+
     public void buttonClick(ActionEvent event) throws IOException { //button at the end of set preferences scene
         int numOfPlayers;
         GameMode gameMode;
-        numOfPlayers = button2.isSelected() ? 2 : 3;
-        gameMode = buttonEasy.isSelected() ? GameMode.EASY : GameMode.HARD;
+
+        numOfPlayers = numberGroup.getSelectedToggle() == button2 ? 2 : 3;
+        gameMode = modeGroup.getSelectedToggle() == buttonEasy ? GameMode.EASY : GameMode.HARD;
         getClientGui().getGuiView().notifyEventManager(new SetPreferences(numOfPlayers, gameMode));
         getClientGui().nextScene((s, c)->{
             SetAssistantSceneController controller = (SetAssistantSceneController) c;
