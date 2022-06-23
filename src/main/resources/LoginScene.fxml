@@ -15,7 +15,7 @@
 
    </stylesheets>
    <children>
-      <ImageView fitHeight="1560.0" fitWidth="900.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1560.0" fitWidth="900.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@sfondo2.gif" />
          </image>

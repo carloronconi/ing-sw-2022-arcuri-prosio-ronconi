@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.GameBoardController">
+    <children>
+        <VBox fx:id="vbox" prefHeight="876.0" prefWidth="1500.0">
+            <stylesheets>
+                <URL value="@textfont.css" />
+            </stylesheets>
+            <children>
+                <Pane fx:id="boardPane" prefHeight="876.0" prefWidth="1500.0">
+                    <Pane fx:id="islandRow0" layoutX="248.0" layoutY="-4.0" prefHeight="160.0" prefWidth="1005.0">
+                  <children>
+                     <Rectangle fx:id="island3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="532.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle fx:id="island1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="84.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="224.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle fx:id="island2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="308.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="448.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="672.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle fx:id="island4" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="756.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="896.0" stroke="#6abade" strokeType="INSIDE" width="108.0" />
+                     <ImageView fx:id="island1board" fitHeight="153.0" fitWidth="140.0" layoutX="84.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile1.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island2board" fitHeight="153.0" fitWidth="140.0" layoutX="308.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile2.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island3board" fitHeight="150.0" fitWidth="140.0" layoutX="532.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile3.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island4board" fitHeight="150.0" fitWidth="140.0" layoutX="756.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile1.png" />
+                        </image>
+                     </ImageView>
+                  </children></Pane>
+               <Pane fx:id="islandRow01" layoutX="240.0" layoutY="156.0" prefHeight="160.0" prefWidth="1020.0">
+                  <children>
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="540.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle fx:id="island12" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="8.0" stroke="#6abade" strokeType="INSIDE" width="153.0" />
+                     <Rectangle fx:id="cloud1" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="163.0" stroke="#6abade" strokeType="INSIDE" width="153.0" />
+                     <Rectangle fx:id="cloud3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="316.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="456.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="680.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="820.0" stroke="#6abade" strokeType="INSIDE" width="38.0" />
+                     <Rectangle fx:id="island5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="859.0" stroke="#6abade" strokeType="INSIDE" width="153.0" />
+                     <ImageView fx:id="island5board" fitHeight="150.0" fitWidth="140.0" layoutX="866.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile2.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island12board" fitHeight="150.0" fitWidth="140.0" layoutX="15.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile3.png" />
+                        </image></ImageView>
+                     <ImageView fitHeight="150.0" fitWidth="153.0" layoutX="166.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@cloud.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fitHeight="150.0" fitWidth="140.0" layoutX="316.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@cloud.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="playedcard1" fitHeight="150.0" fitWidth="140.0" layoutX="543.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                     <ImageView fx:id="playedcard2" fitHeight="150.0" fitWidth="132.0" layoutX="686.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                     <Label layoutX="578.0" layoutY="8.0" prefHeight="26.0" prefWidth="94.0" styleClass="message" text="PLAYER1" />
+                     <Label layoutX="686.0" layoutY="8.0" prefHeight="26.0" prefWidth="94.0" styleClass="message" text="PLAYER2" />
+                  </children></Pane>
+               <Pane fx:id="islandRow02" layoutX="240.0" layoutY="316.0" prefHeight="160.0" prefWidth="1020.0">
+                  <children>
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="540.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle fx:id="island11" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="8.0" stroke="#6abade" strokeType="INSIDE" width="153.0" />
+                     <Rectangle fx:id="cloud2" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="163.0" stroke="#6abade" strokeType="INSIDE" width="153.0" />
+                     <Rectangle fx:id="professorTile" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="316.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="4.0" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="456.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="680.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="764.0" stroke="#6abade" strokeType="INSIDE" width="94.0" />
+                     <Rectangle fx:id="island6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="859.0" stroke="#6abade" strokeType="INSIDE" width="153.0" />
+                     <ImageView fx:id="island6board" fitHeight="150.0" fitWidth="140.0" layoutX="866.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile3.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island11board" fitHeight="150.0" fitWidth="140.0" layoutX="15.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile2.png" />
+                        </image></ImageView>
+                     <ImageView fitHeight="150.0" fitWidth="142.0" layoutX="169.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@cloud.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="playedcard3" fitHeight="150.0" fitWidth="140.0" layoutX="542.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                     <Label layoutX="576.0" layoutY="8.0" prefHeight="26.0" prefWidth="94.0" styleClass="message" text="PLAYER3" />
+                  </children></Pane>
+               <Pane fx:id="islandRow03" layoutX="240.0" layoutY="476.0" prefHeight="160.0" prefWidth="1020.0">
+                  <children>
+                     <Rectangle fx:id="island8" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="540.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="8.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle fx:id="island10" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="92.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="232.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle fx:id="island9" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="316.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="456.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="680.0" stroke="#6abade" strokeType="INSIDE" width="84.0" />
+                     <Rectangle fx:id="island7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="764.0" stroke="#6abade" strokeType="INSIDE" width="140.0" />
+                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="160.0" layoutX="904.0" stroke="#6abade" strokeType="INSIDE" width="108.0" />
+                     <ImageView fx:id="island7board" fitHeight="150.0" fitWidth="140.0" layoutX="764.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile1.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island8board" fitHeight="150.0" fitWidth="140.0" layoutX="540.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile2.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island9board" fitHeight="150.0" fitWidth="140.0" layoutX="316.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile3.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="island10board" fitHeight="150.0" fitWidth="140.0" layoutX="92.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@tile1.png" />
+                        </image>
+                     </ImageView>
+                  </children></Pane>
+               <Circle fill="#ff1f1f" layoutX="160.0" layoutY="276.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+               <Pane fx:id="entrance1" layoutX="8.0" layoutY="163.0" prefHeight="87.0" prefWidth="231.0" />
+               <Pane fx:id="dinings1" layoutX="14.0" layoutY="250.0" prefHeight="288.0" prefWidth="214.0">
+                  <children>
+                     <Rectangle fx:id="green1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="170.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                     <Rectangle fx:id="red1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="128.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="yellow1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="86.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="purple1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="44.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="blue1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="2.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  </children>
+               </Pane>
+               <Pane fx:id="professors1" layoutX="14.0" layoutY="536.0" prefHeight="52.0" prefWidth="214.0">
+                  <children>
+                     <Rectangle fx:id="professorgreen1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="170.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
+                     <Rectangle fx:id="professorred1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="128.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professoryellow1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="86.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professorpurple1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="44.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professorblue1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="2.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  </children>
+               </Pane>
+               <Pane fx:id="towers1" layoutX="3.0" layoutY="588.0" prefHeight="118.0" prefWidth="231.0" />
+               <Pane fx:id="entrance2" layoutX="401.0" layoutY="708.0" prefHeight="87.0" prefWidth="231.0" rotate="90.0" />
+               <Pane fx:id="entrance3" layoutX="1260.0" layoutY="628.0" prefHeight="87.0" prefWidth="231.0" />
+               <Pane fx:id="dinings2" layoutX="597.0" layoutY="612.0" prefHeight="288.0" prefWidth="214.0" rotate="90.0">
+                  <children>
+                     <Rectangle fx:id="green11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="170.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                     <Rectangle fx:id="red11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="128.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="yellow11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="86.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="purple11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="44.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="blue11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="2.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  </children>
+               </Pane>
+               <Pane fx:id="dinings3" layoutX="1273.0" layoutY="332.0" prefHeight="288.0" prefWidth="214.0">
+                  <children>
+                     <Rectangle fx:id="green12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="170.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                     <Rectangle fx:id="red12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="128.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="yellow12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="86.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="purple12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="44.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="blue12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="2.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  </children>
+               </Pane>
+               <Pane fx:id="professors2" layoutX="767.0" layoutY="730.0" prefHeight="52.0" prefWidth="214.0" rotate="90.0">
+                  <children>
+                     <Rectangle fx:id="professorgreen11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="170.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
+                     <Rectangle fx:id="professorred11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="128.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professoryellow11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="86.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professorpurple11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="44.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professorblue11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="2.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  </children>
+               </Pane>
+               <Pane fx:id="professors3" layoutX="1273.0" layoutY="280.0" prefHeight="52.0" prefWidth="214.0">
+                  <children>
+                     <Rectangle fx:id="professorgreen12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="170.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
+                     <Rectangle fx:id="professorred12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="128.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professoryellow12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="86.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professorpurple12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="44.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                     <Rectangle fx:id="professorblue12" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="52.0" layoutX="2.0" stroke="BLACK" strokeType="INSIDE" width="42.0" />
+                  </children>
+               </Pane>
+               <Pane fx:id="towers2" layoutX="852.0" layoutY="697.0" prefHeight="118.0" prefWidth="231.0" rotate="90.0" />
+               <Pane fx:id="towers3" layoutX="1260.0" layoutY="161.0" prefHeight="118.0" prefWidth="231.0" />
+               <ImageView fitHeight="240.0" fitWidth="560.0" layoutX="-157.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                  <image>
+                     <Image url="@PLANCIAGIOCO.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="240.0" fitWidth="560.0" layoutX="473.0" layoutY="636.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@PLANCIAGIOCO.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="240.0" fitWidth="560.0" layoutX="1103.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+                  <image>
+                     <Image url="@PLANCIAGIOCO.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="8.0" layoutY="130.0" prefHeight="26.0" prefWidth="94.0" styleClass="message" text="PLAYER1" />
+               <Label layoutX="370.0" layoutY="649.0" prefHeight="26.0" prefWidth="94.0" styleClass="message" text="PLAYER2" />
+               <Label layoutX="1260.0" layoutY="726.0" prefHeight="26.0" prefWidth="94.0" styleClass="message" text="PLAYER3" />
+                    
+
+                </Pane>
+            </children>
+        </VBox>
+    </children>
+</VBox>
