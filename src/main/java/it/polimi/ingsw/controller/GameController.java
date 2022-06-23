@@ -20,7 +20,7 @@ public class GameController implements EventListener<ViewEvent> {
     private int numOfPlayers;
     private GameModel gameModel = null;
     private final List<String> playerNicknames;
-    private final HashMap<Integer, String> mapOfPlayerNicknames = new HashMap<>();
+    private final LinkedHashMap<Integer, String> mapOfPlayerNicknames = new LinkedHashMap<>();
     private final List<VirtualView> virtualViews;
     private UUID id; //virtual view id
 
@@ -168,8 +168,8 @@ public class GameController implements EventListener<ViewEvent> {
                 for (int i = 0; i<numOfPlayers; i++){
                     playerNicknames.add(mapOfPlayerNicknames.get(i));
                 }
-                System.out.println("initializing game model with the following nicknames: " + playerNicknames);
-                gameModel = new GameModel(expertMode, playerNicknames, modelEventEventManager);
+                System.out.println("initializing game model with the following nicknames: " + mapOfPlayerNicknames.values());
+                gameModel = new GameModel(expertMode, new ArrayList<>(mapOfPlayerNicknames.values()), modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
                 synchronized (virtualViews){
