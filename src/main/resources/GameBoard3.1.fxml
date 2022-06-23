@@ -29,69 +29,63 @@
                   </Pane>
                   <Pane fx:id="professors1" layoutX="376.0" layoutY="635.0" prefHeight="239.0" prefWidth="47.0">
                      <children>
-                        <Rectangle fx:id="professorsred1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsyellow1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsblue1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorspurple1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsblue1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="RED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="YELLOW" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="GREEN" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="PURPLE" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="BLUE" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
                      </children>
                   </Pane>
-                  <Pane fx:id="towers1" layoutX="423.0" layoutY="635.0" prefHeight="239.0" prefWidth="66.0" />
-                  <Pane fx:id="towers2" layoutX="919.0" layoutY="635.0" prefHeight="239.0" prefWidth="66.0" />
-                  <Pane fx:id="towers3" layoutX="1412.0" layoutY="635.0" prefHeight="239.0" prefWidth="89.0" />
+                  <Pane fx:id="towers1" layoutX="423.0" layoutY="635.0" prefHeight="239.0" prefWidth="66.0">
+                     <children>
+                        <Rectangle fx:id="one" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="239.0" stroke="BLACK" strokeType="INSIDE" width="66.0" />
+                     </children></Pane>
+                  <Pane fx:id="towers2" layoutX="919.0" layoutY="635.0" prefHeight="239.0" prefWidth="66.0">
+                     <children>
+                        <Rectangle fx:id="two" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="239.0" stroke="BLACK" strokeType="INSIDE" width="66.0" />
+                     </children></Pane>
+                  <Pane fx:id="towers3" layoutX="1412.0" layoutY="635.0" prefHeight="239.0" prefWidth="89.0">
+                     <children>
+                        <Rectangle fx:id="three" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="239.0" stroke="BLACK" strokeType="INSIDE" width="89.0" />
+                     </children></Pane>
                   <Pane fx:id="entrance2" layoutX="489.0" layoutY="635.0" prefHeight="239.0" prefWidth="89.0" />
                   <Pane fx:id="entrance3" layoutX="985.0" layoutY="635.0" prefHeight="239.0" prefWidth="89.0" />
                   <Pane fx:id="dinings2" layoutX="578.0" layoutY="635.0" prefHeight="239.0" prefWidth="287.0">
                      <children>
-                        <Rectangle fx:id="green11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="red11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="yellow11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="purple11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="blue11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="green2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="red2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="yellow2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="purple2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="blue2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
                      </children>
                   </Pane>
                   <Pane fx:id="dinings3" layoutX="1074.0" layoutY="635.0" prefHeight="239.0" prefWidth="287.0">
                      <children>
-                        <Rectangle fx:id="green111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="red111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="yellow111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="purple111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
-                        <Rectangle fx:id="blue111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="green3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="red3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="yellow3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="purple3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
+                        <Rectangle fx:id="blue3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="287.0" />
                      </children>
                   </Pane>
                   <Pane fx:id="professors2" layoutX="865.0" layoutY="635.0" prefHeight="239.0" prefWidth="47.0">
                      <children>
-                        <Rectangle fx:id="professorsred11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsyellow11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsblue1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorspurple11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsblue11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="RED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="YELLOW" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="GREEN" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="PURPLE" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="BLUE" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
                      </children>
                   </Pane>
                   <Pane fx:id="professors3" layoutX="1361.0" layoutY="635.0" prefHeight="239.0" prefWidth="47.0">
                      <children>
-                        <Rectangle fx:id="professorsred111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsyellow111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsblue11" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorspurple111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
-                        <Rectangle fx:id="professorsblue111" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="RED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="YELLOW" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="GREEN" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="51.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="PURPLE" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="141.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
+                        <Rectangle fx:id="BLUE" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" width="47.0" />
                      </children>
                   </Pane>
-                  <ImageView fx:id="pl1" fitHeight="239.0" fitWidth="546.0" layoutY="635.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@PLANCIAGIOCO.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="pl2" fitHeight="239.0" fitWidth="546.0" layoutX="489.0" layoutY="635.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@PLANCIAGIOCO.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="pl3" fitHeight="239.0" fitWidth="546.0" layoutX="985.0" layoutY="635.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@PLANCIAGIOCO.png" />
-                     </image>
-                  </ImageView>
                   <Pane fx:id="islandRow0" prefHeight="210.0" prefWidth="1500.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" stroke="#6abade" strokeType="INSIDE" width="72.0" />
@@ -130,45 +124,45 @@
                               <Image url="@tile2.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="player3" layoutX="1175.0" layoutY="179.0" prefHeight="35.0" prefWidth="107.0" text="PLAYER3" styleClass="message"/>
-                        <Label fx:id="player2" layoutX="1060.0" layoutY="179.0" prefHeight="35.0" prefWidth="107.0" text="PLAYER2" styleClass="message"/>
-                        <Label fx:id="player1" layoutX="935.0" layoutY="179.0" prefHeight="35.0" prefWidth="107.0" text="PLAYER1" styleClass="message"/>
+                        <Label fx:id="player3" layoutX="1175.0" layoutY="179.0" prefHeight="35.0" prefWidth="107.0" styleClass="message" text="PLAYER3" />
+                        <Label fx:id="player2" layoutX="1060.0" layoutY="179.0" prefHeight="35.0" prefWidth="107.0" styleClass="message" text="PLAYER2" />
+                        <Label fx:id="player1" layoutX="935.0" layoutY="179.0" prefHeight="35.0" prefWidth="107.0" styleClass="message" text="PLAYER1" />
                      </children>
                   </Pane>
-                  <Pane fx:id="islandRow2" layoutY="210.0" prefHeight="210.0" prefWidth="1500.0">
+                  <Pane fx:id="islandRow1" layoutY="210.0" prefHeight="210.0" prefWidth="1500.0">
                      <children>
                         <Rectangle fx:id="island12" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" stroke="#6abade" strokeType="INSIDE" width="200.0" />
-                        <Rectangle fx:id="cloud11" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="200.0" stroke="#6abade" strokeType="INSIDE" width="180.0" />
-                        <Rectangle fx:id="cloud21" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="380.0" stroke="#6abade" strokeType="INSIDE" width="180.0" />
-                        <Rectangle fx:id="cloud3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="560.0" stroke="#6abade" strokeType="INSIDE" width="180.0" />
-                        <Rectangle fx:id="professorsNull" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="740.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="5.0" width="170.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="200.0" stroke="#6abade" strokeType="INSIDE" width="180.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="380.0" stroke="#6abade" strokeType="INSIDE" width="180.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="560.0" stroke="#6abade" strokeType="INSIDE" width="180.0" />
+                        <Rectangle fx:id="professorsRectangle" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="740.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="5.0" width="170.0" />
                         <Rectangle fx:id="island6" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1300.0" stroke="#6abade" strokeType="INSIDE" width="200.0" />
-                        <Rectangle fx:id="card11" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="910.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
-                        <Rectangle fx:id="card21" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1040.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
-                        <Rectangle fx:id="card3" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1170.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="910.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1040.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1170.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
                         <ImageView fitHeight="168.0" fitWidth="217.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile3.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="180.0" layoutX="219.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cloud1" fitHeight="150.0" fitWidth="180.0" layoutX="219.0" layoutY="30.0" onMouseClicked="#clickedCloud1" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cloud.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="180.0" layoutX="399.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cloud2" fitHeight="150.0" fitWidth="180.0" layoutX="399.0" layoutY="30.0" onMouseClicked="#clickedCloud2" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cloud.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="180.0" layoutX="579.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cloud3" fitHeight="150.0" fitWidth="180.0" layoutX="579.0" layoutY="30.0" onMouseClicked="#clickedCloud3" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cloud.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imagecard1" fitHeight="210.0" fitWidth="130.0" layoutX="910.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="imagecard2" fitHeight="210.0" fitWidth="130.0" layoutX="1040.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="imageCard3" fitHeight="210.0" fitWidth="130.0" layoutX="1170.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card1" fitHeight="210.0" fitWidth="130.0" layoutX="910.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card2" fitHeight="210.0" fitWidth="130.0" layoutX="1040.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="card3" fitHeight="210.0" fitWidth="130.0" layoutX="1170.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="210.0" fitWidth="200.0" layoutX="1300.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile3.png" />
@@ -214,11 +208,26 @@
                               <Image url="@tile1.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="player1" layoutY="169.0" prefHeight="35.0" prefWidth="107.0" text="PLAYER1" styleClass="message" />
-                        <Label fx:id="player2" layoutX="793.0" layoutY="169.0" prefHeight="35.0" prefWidth="107.0" text="PLAYER2" styleClass="message"/>
-                        <Label fx:id="player3" layoutX="1099.0" layoutY="169.0" prefHeight="35.0" prefWidth="107.0" text="PLAYER3" styleClass="message"/>
+                        <Label fx:id="player1board" layoutY="169.0" prefHeight="35.0" prefWidth="107.0" styleClass="message" text="PLAYER1" />
+                        <Label fx:id="player2board" layoutX="793.0" layoutY="169.0" prefHeight="35.0" prefWidth="107.0" styleClass="message" text="PLAYER2" />
+                        <Label fx:id="player3board" layoutX="1099.0" layoutY="169.0" prefHeight="35.0" prefWidth="107.0" styleClass="message" text="PLAYER3" />
                      </children>
                   </Pane>
+                  <ImageView fx:id="pl1" fitHeight="239.0" fitWidth="546.0" layoutY="635.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@PLANCIAGIOCO.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="pl2" fitHeight="239.0" fitWidth="546.0" layoutX="489.0" layoutY="635.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@PLANCIAGIOCO.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="pl3" fitHeight="239.0" fitWidth="546.0" layoutX="985.0" layoutY="635.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@PLANCIAGIOCO.png" />
+                     </image>
+                  </ImageView>
                </children></Pane>
             </children>
         </VBox>
