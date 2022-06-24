@@ -92,6 +92,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getAssistantCard() {
+        System.out.println("received getAssistantCard from server");
         setNextSceneNameAssistant();
 
     }
@@ -179,6 +180,7 @@ public class GuiView implements ViewInterface {
 
     private void setNextSceneNameAssistant(){
         String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard3.fxml";
+        System.out.println("setting next scene name to assistantCArd");
         clientGui.setNextSceneName(name);
     }
 
