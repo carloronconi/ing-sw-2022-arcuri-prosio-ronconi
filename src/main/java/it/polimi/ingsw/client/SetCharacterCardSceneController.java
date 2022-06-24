@@ -3,10 +3,11 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -59,7 +60,7 @@ public class SetCharacterCardSceneController extends SceneController {
                             String imageNameI = "/"+characterI+".jpg";
                             imageView.setImage(new Image(String.valueOf(getClass().getResource(imageNameI))));
 
-                            explainCard1.append(characterI);
+                            explainCard1.setText(characterI);
 
                 }
             }
