@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterCardSceneController">
+    <VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@textfont.css" />
+    </stylesheets>
+
+    </VBox>
+   <Label layoutX="107.0" layoutY="50.0" prefHeight="65.0" prefWidth="982.0" styleClass="message" stylesheets="@textfont.css" text="CHOOSE A CHARACTER CARD: IF YOU DON'T WANT TO, JUST PRESS THE BOTTON TO GO TO THE NEXT SCENE" />
+   <Pane fx:id="cardsPane" layoutX="76.0" layoutY="175.0" prefHeight="321.0" prefWidth="1349.0">
+      <children>
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="321.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="321.0" layoutX="220.0" stroke="#ed2e03" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="321.0" layoutX="440.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="321.0" layoutX="660.0" stroke="#ed2e03" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="321.0" layoutX="880.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
+         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="321.0" layoutX="1100.0" stroke="#ed2e03" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
+         <ImageView fx:id="card1" fitHeight="321.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="card2" fitHeight="321.0" fitWidth="220.0" layoutX="440.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="card3" fitHeight="321.0" fitWidth="220.0" layoutX="880.0" pickOnBounds="true" preserveRatio="true" />
+         <TextArea fx:id="explainCard1" layoutX="230.0" layoutY="7.0" opacity="0.0" prefHeight="309.0" prefWidth="200.0" styleClass="message" stylesheets="@textfont.css" />
+         <TextArea fx:id="explainCard2" layoutX="670.0" layoutY="7.0" opacity="0.0" prefHeight="309.0" prefWidth="200.0" styleClass="message" stylesheets="@textfont.css" />
+         <TextArea fx:id="explainCard3" layoutX="1110.0" layoutY="7.0" opacity="0.0" prefHeight="309.0" prefWidth="200.0" styleClass="message" stylesheets="@textfont.css" />
+      </children>
+   </Pane>
+   <Label fx:id="card1name" layoutX="154.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card1" />
+   <Label fx:id="card2name" layoutX="611.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card2" />
+   <Label fx:id="card3name" layoutX="1044.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card3" />
+   <Label fx:id="yourMoney" layoutX="322.0" layoutY="646.0" prefHeight="47.0" prefWidth="200.0" styleClass="message" stylesheets="@textfont.css" text="YOUR MONEY:" />
+   <Label fx:id="increasedCostCard1" layoutX="86.0" layoutY="516.0" styleClass="message" stylesheets="@textfont.css" text="COST +1" />
+   <Label fx:id="increasedCostCard2" layoutX="530.0" layoutY="508.0" styleClass="message" stylesheets="@textfont.css" text="COST +1" />
+   <Label fx:id="increasedCostCard3" layoutX="965.0" layoutY="508.0" styleClass="message" stylesheets="@textfont.css" text="COST +1" />
+   <ImageView fitHeight="101.0" fitWidth="70.0" layoutX="591.0" layoutY="635.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@coin.png" />
+      </image>
+   </ImageView>
+</AnchorPane>
