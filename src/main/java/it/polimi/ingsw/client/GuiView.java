@@ -18,8 +18,8 @@ public class GuiView implements ViewInterface {
     private final ClientGui clientGui;
     private GameState gameState;
     private boolean keepOldView;
-
     private String winner;
+    private CliViewIdConverter initialStateConverter;
 
     //private JTextField introductionField;
     //private JTextArea screenArea;
@@ -43,6 +43,9 @@ public class GuiView implements ViewInterface {
 
     public String getWinner() {
         return winner;
+    }
+    public CliViewIdConverter getInitialStateConverter() {
+        return initialStateConverter;
     }
 
     /**
@@ -186,6 +189,8 @@ public class GuiView implements ViewInterface {
     @Override
     public synchronized void update(ModelEvent modelEvent) {
         gameState = (GameState) modelEvent;
+        if (initialStateConverter==null) initialStateConverter = new CliViewIdConverter(gameState);
+
         System.out.println("notified waiters of this gameState:" + gameState);
         //UUID[] uuids = new UUID[2];
         //System.out.println(gameState.drawGameState(gameState.getNicknames().keySet().stream().findFirst().get(), new ArrayList<>(List.of(gameState.getIslands().keySet().toArray(uuids)))));

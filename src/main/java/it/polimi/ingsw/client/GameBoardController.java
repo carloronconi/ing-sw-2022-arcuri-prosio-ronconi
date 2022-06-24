@@ -92,6 +92,7 @@ public class GameBoardController extends SceneController{
 
     private List<Pane> panes = new ArrayList<>();
 
+    private static GameBoardState gameBoardState;
 
 
 
@@ -176,12 +177,19 @@ public class GameBoardController extends SceneController{
         int bag = gameState.getBag();
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
 
-        //ISLANDS
+        if (gameBoardState == null){
+            gameBoardState = new GameBoardState(gameState.getNicknames().size());
+        } else {
+            gameBoardState.nextState();
+        }
+        System.out.println(gameBoardState.getBoardState());
 
+        //ISLANDS
+        /*
         if (initialIslandConverter == null) {
             initialIslandConverter = new CliViewIdConverter(gameState);
             System.out.println("initial island ids: " + gameState.getIslands().keySet());
-        }
+        }*/
 
         boolean placedMN = false;
 
@@ -193,13 +201,13 @@ public class GameBoardController extends SceneController{
                     if (r.getId() != null && r.getId().contains(islandName)) {
                         LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
 
-                        UUID islandId = initialIslandConverter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
+                        UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
                         //UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
                         //System.out.println("current island ids: " + gameState.getIslands().keySet());
 
                         if (!islandIGameModel.containsKey(islandId)){ //island has been eliminated
                             System.out.println("deleted island detected: " + islandName);
-                            Rectangle rectangle = new Rectangle(170.0,165.0, Color.valueOf("#6abade"));
+                            Rectangle rectangle = new Rectangle(190.0,190.0, Color.valueOf("#6abade"));
                             rectangle.setLayoutX(r.getLayoutX()-30.0);
                             rectangle.setLayoutY(r.getParent().getLayoutY());
 
@@ -222,7 +230,7 @@ public class GameBoardController extends SceneController{
                             }
 
                             //add mother nature if present
-                            String MNIslandName = initialIslandConverter.idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.converterSetting.ISLAND);
+                            String MNIslandName = getClientGui().getGuiView().getInitialStateConverter().idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.converterSetting.ISLAND);
                             if(islandName.equals(MNIslandName) && !placedMN){
                                 placedMN = true;
                                 System.out.println("MN position: " + gameState.getMotherNaturePosition());
@@ -920,6 +928,10 @@ public class GameBoardController extends SceneController{
         System.out.println("color: " + color);
         //when color is null it means it is mother nature that has been moved
         if (color == null){
+            if (gameBoardState.getBoardState()!= GameBoardState.BoardState.MOVING_MN){
+                System.out.println("illegal MN move");
+                return;
+            }
             System.out.println("sending MN steps to server");
             GameState gameState = getClientGui().getGuiView().getGameState();
             UUID motherNaturePosition = gameState.getMotherNaturePosition();
@@ -928,6 +940,10 @@ public class GameBoardController extends SceneController{
             if (steps<0) steps = islands.size() + steps;
             getClientGui().getGuiView().notifyEventManager(new MovedMotherNature(steps));
         } else {
+            if (gameBoardState.getBoardState()!= GameBoardState.BoardState.MOVING_STUDENT){
+                System.out.println("illegal student move");
+                return;
+            }
             System.out.println("sending student move to server");
             getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
         }
@@ -941,6 +957,10 @@ public class GameBoardController extends SceneController{
     }
 
     public void clickedCloud1() throws IOException {
+        if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
+            System.out.println("illegal cloud move");
+            return;
+        }
         Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 1");
@@ -949,6 +969,10 @@ public class GameBoardController extends SceneController{
     }
 
     public void clickedCloud2() throws IOException {
+        if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
+            System.out.println("illegal cloud move");
+            return;
+        }
         Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
         iterator.next();
         UUID cloudId = iterator.next();

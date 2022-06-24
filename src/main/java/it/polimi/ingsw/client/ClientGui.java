@@ -146,14 +146,14 @@ public class ClientGui extends Application implements Runnable{
         notifyAll();
 
 
-
+        if (fxmlLoader.getController() instanceof SceneController) ((SceneController) fxmlLoader.getController()).setClientGui(this);
         Scene scene = new Scene(root, sceneWidth, sceneHeight);
         initializer.initializeScene(scene, fxmlLoader.getController());
         stage.setTitle(stageTitle);
         stage.setScene(scene);
         stage.show();
 
-        if (fxmlLoader.getController() instanceof SceneController) ((SceneController) fxmlLoader.getController()).setClientGui(this);
+
         return fxmlLoader.getController();
     }
 
