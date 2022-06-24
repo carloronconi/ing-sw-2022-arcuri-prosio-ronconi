@@ -3,72 +3,77 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.zip.CheckedInputStream;
 
 public class SetCharacterCardSceneController extends SceneController {
-    @FXML ImageView card1;
-    @FXML ImageView card2;
-    @FXML ImageView card3;
+    @FXML Label card1;
+    @FXML Label card2;
+    @FXML Label card3;
+
+    @FXML ImageView card1m;
+    @FXML ImageView card2m;
+    @FXML ImageView card3m;
+
 
     @FXML
     TextArea explainCard1;
 
     private ArrayList<String> characterArrayList = new ArrayList<>();
-    private ArrayList<ImageView> cardViews = new ArrayList<>();
+    private ArrayList<Label> cardLab = new ArrayList<>();
+    private ArrayList<ImageView> cardImage = new ArrayList<>();
 
-    public ImageView getCard1() {
-        return card1;
+
+
+    public void initialize(){
+        cardLab.add(card1);
+        cardLab.add(card2);
+        cardLab.add(card3);
+
+        cardImage.add(card1m);
+        cardImage.add(card2m);
+        cardImage.add(card3m);
     }
 
-    public ImageView getCard2() {
-        return card2;
-    }
-
-    public ImageView getCard3() {
-        return card3;
-    }
-
-    public void initializeCards(GameState gameState){
-        cardViews.add(card1);
-        cardViews.add(card2);
-        cardViews.add(card3);
-
+    public void initializeCards(GameState gameState)  {
 
         HashMap<AvailableCharacter, Boolean> availableCharacterMap = gameState.getCharacterCards();
+        System.out.println("tutto ok!!!");
         for (int i = 0; i < availableCharacterMap.size(); i++) {
             AvailableCharacter av = (AvailableCharacter) availableCharacterMap.keySet().toArray()[i];
-            if(availableCharacterMap.get(av)){
-                String characterName = av.name().toLowerCase(Locale.ROOT);
-                characterArrayList.add(characterName);
-            }
-            if(characterArrayList.size()==3) break;
-        }
+            System.out.println(av.name());
 
-        for (int i = 0; i < characterArrayList.size(); i++) {
-            for(ImageView imageView : cardViews){
-                String str = imageView.getId();
-                int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
-                if(numberOnly == (i+1)){
-                            String characterI = characterArrayList.get(i);
-                            String imageNameI = "/"+characterI+".jpg";
-                            imageView.setImage(new Image(String.valueOf(getClass().getResource(imageNameI))));
-
-                            explainCard1.setText(characterI);
-
+            String characterName = av.name().toLowerCase(Locale.ROOT);
+            System.out.println(characterName);
+            for (int j = 0; j < cardLab.size(); j++) {
+                if(i==j){
+                    cardLab.get(i).setText(characterName);
                 }
             }
+            /*for (int j = 0; j < cardImage.size(); j++) {
+                if(i==j){
+                    String pathName = "/" + characterName + ".jpg";
+                    cardImage.get(i).setImage(new Image(String.valueOf(getClass().getResource(pathName))));
+                }
+            }  */
 
         }
 
 
 
+                }
 
-    }
+
+
 }
