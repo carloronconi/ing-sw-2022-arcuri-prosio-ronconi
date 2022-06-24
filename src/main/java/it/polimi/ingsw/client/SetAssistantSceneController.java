@@ -48,14 +48,19 @@ public class SetAssistantSceneController extends SceneController {
             if (c instanceof GameBoardController){
                 GameBoardController boardController = (GameBoardController) c;
                 boardController.updateBoard(getClientGui().getGuiView().getGameState());
+                System.out.println("GAMEBOARD");
+            }else if( c instanceof SetCharacterCardSceneController){
+                SetCharacterCardSceneController setCharacterCardSceneController = (SetCharacterCardSceneController) c;
+                setCharacterCardSceneController.initializeCards(getClientGui().getGuiView().getGameState());
+                System.out.println("CHARACTER");
             }
         });
-
 
     }
 
     public void chosenCard1(){
         number(card1);
+        //lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(1)-min.png"))));
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(1)-min.png"))));
         card1.setOpacity(0.4d);
     }
@@ -111,8 +116,10 @@ public class SetAssistantSceneController extends SceneController {
         while (m.find()) {
             cardNumber = Integer.parseInt(m.group());
             System.out.println(cardNumber);
-
         }
-
     }
+
+
+
+
 }
