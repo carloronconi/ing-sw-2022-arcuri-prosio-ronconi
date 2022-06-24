@@ -79,7 +79,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
-        setNextSceneNameGameBoard();
+        clientGui.setNextSceneName("/SetCharacterCard.fxml");
     }
 
     @Override
