@@ -142,7 +142,7 @@ public class CliView implements ViewInterface {
 
     @Override
     public void getPreferences() {
-        String text = askUserInput("Easy or hard? (E/H)", s-> (s.equals("E") || s.equals("H")));
+        String text = askUserInput("Easy or hard? (E/H)", s-> (s.equalsIgnoreCase("E") || s.equalsIgnoreCase("H")));
 
         GameMode gameMode = text.equalsIgnoreCase("H")? GameMode.HARD : GameMode.EASY;
 
