@@ -19,15 +19,6 @@ public class SetNicknameSceneController extends SceneController{
         String finalNickname = nickname.getText();
         getClientGui().setFinalNickname(finalNickname);
         getClientGui().getGuiView().notifyEventManager(new SetNickname(finalNickname));
-        getClientGui().nextScene((s, c)->{
-            if (c instanceof SetAssistantSceneController){
-                SetAssistantSceneController controller = (SetAssistantSceneController) c;
-                ArrayList<String> resources = getClientGui().getPlayedByOtherResources();
-                if (!resources.isEmpty()){
-                    controller.getPlayedByOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(0)))));
-                    if (controller.getPlayedBySecondOther()!=null && resources.size()>1) controller.getPlayedBySecondOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(1)))));
-                }
-            }
-        });
+        new ChangeScene(getClientGui()).run();
     }
 }

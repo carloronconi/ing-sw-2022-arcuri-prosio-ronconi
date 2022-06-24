@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,8 +93,8 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getAssistantCard() {
-        System.out.println("received getAssistantCard from server");
-        setNextSceneNameAssistant();
+        String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard3.fxml";
+        Platform.runLater(new ChangeScene(name, clientGui));
 
     }
 
@@ -105,12 +106,12 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getNickname(){
-        clientGui.setNextSceneName("/SetNickname.fxml");
+        Platform.runLater(new ChangeScene("/SetNickname.fxml", clientGui));
     }
 
     @Override
     public void getPreferences() {
-        clientGui.setNextSceneName("/SetPreferences.fxml");
+        Platform.runLater(new ChangeScene("/SetPreferences.fxml", clientGui));
     }
 
     @Override
@@ -158,7 +159,14 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void moveStudent() {
-        setNextSceneNameGameBoard();
+        Platform.runLater(new ChangeScene("/SetNickname.fxml", clientGui, (s, c)->{
+            if (c instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) c;
+                boardController.updateBoard(clientGui.getGuiView().getGameState());
+            }
+        }));
+
+
     }
 
     @Override

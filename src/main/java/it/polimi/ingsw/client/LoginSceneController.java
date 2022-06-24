@@ -30,21 +30,7 @@ public class LoginSceneController extends SceneController{
         getClientGui().setIp(ipSet());
         getClientGui().setPort(portSet());
         getClientGui().run();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/eryantisFirstScene.fxml"));
-        try {
-            Parent root = loader.load(); //show LET'S PLAY scene
-            LetsPlaySceneController controller = loader.getController();
-            controller.setClientGui(getClientGui());
-            Scene scene = new Scene(root, 800, 530);
-            Stage stage = getClientGui().getStage();
-            stage.setTitle("ERYANTIS");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
+        new ChangeScene(getClientGui()).run();
 
     }
 }
