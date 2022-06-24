@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -15,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.zip.CheckedInputStream;
 
 public class SetCharacterCardSceneController extends SceneController {
@@ -30,9 +32,9 @@ public class SetCharacterCardSceneController extends SceneController {
     @FXML
     TextArea explainCard1;
 
-    private ArrayList<String> characterArrayList = new ArrayList<>();
-    private ArrayList<Label> cardLab = new ArrayList<>();
-    private ArrayList<ImageView> cardImage = new ArrayList<>();
+    private final ArrayList<String> characterArrayList = new ArrayList<>();
+    private final ArrayList<Label> cardLab = new ArrayList<>();
+    private final ArrayList<ImageView> cardImage = new ArrayList<>();
 
 
 
@@ -48,6 +50,7 @@ public class SetCharacterCardSceneController extends SceneController {
 
     public void initializeCards(GameState gameState)  {
 
+        //cards
         HashMap<AvailableCharacter, Boolean> availableCharacterMap = gameState.getCharacterCards();
         System.out.println("tutto ok!!!");
         for (int i = 0; i < availableCharacterMap.size(); i++) {
@@ -55,13 +58,14 @@ public class SetCharacterCardSceneController extends SceneController {
             System.out.println(av.name());
 
             String characterName = av.name().toLowerCase(Locale.ROOT);
+            characterArrayList.add(characterName);
             System.out.println(characterName);
             for (int j = 0; j < cardLab.size(); j++) {
                 if(i==j){
                     cardLab.get(i).setText(characterName);
                 }
             }
-            /*for (int j = 0; j < cardImage.size(); j++) {
+            /* for (int j = 0; j < cardImage.size(); j++) {
                 if(i==j){
                     String pathName = "/" + characterName + ".jpg";
                     cardImage.get(i).setImage(new Image(String.valueOf(getClass().getResource(pathName))));
@@ -70,9 +74,29 @@ public class SetCharacterCardSceneController extends SceneController {
 
         }
 
+        //coins map
+        HashMap<UUID, Integer> coinsHashMap = gameState.getCoinsMap();
+
 
 
                 }
+
+       public void clickedCard1(){
+
+                        //Image image = new Image(SetCharacterCardSceneController.class.getResourceAsStream("Assistente(1)-min.png"));
+                        //String name = characterArrayList.get(0) ;
+                       // card1m.setImage(new Image(String.valueOf(getClass().getResource(nextImage))));
+                }
+        public void clickedCard2(){
+            String name =characterArrayList.get(1);
+            card2m.setImage(new Image(String.valueOf(getClass().getResource("/"+name+".jpg"))));
+        }
+
+         public void clickedCard3(){
+                String name =characterArrayList.get(2);
+                card3m.setImage(new Image(String.valueOf(getClass().getResource("/"+name+".jpg"))));
+    }
+
 
 
 
