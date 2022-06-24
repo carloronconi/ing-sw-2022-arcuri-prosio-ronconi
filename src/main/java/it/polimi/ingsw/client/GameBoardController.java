@@ -177,11 +177,11 @@ public class GameBoardController extends SceneController{
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
 
         //ISLANDS
-
+        /*
         if (initialIslandConverter == null) {
             initialIslandConverter = new CliViewIdConverter(gameState);
             System.out.println("initial island ids: " + gameState.getIslands().keySet());
-        }
+        }*/
 
         boolean placedMN = false;
 
@@ -193,13 +193,13 @@ public class GameBoardController extends SceneController{
                     if (r.getId() != null && r.getId().contains(islandName)) {
                         LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
 
-                        UUID islandId = initialIslandConverter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
+                        UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
                         //UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
                         //System.out.println("current island ids: " + gameState.getIslands().keySet());
 
                         if (!islandIGameModel.containsKey(islandId)){ //island has been eliminated
                             System.out.println("deleted island detected: " + islandName);
-                            Rectangle rectangle = new Rectangle(170.0,165.0, Color.valueOf("#6abade"));
+                            Rectangle rectangle = new Rectangle(190.0,190.0, Color.valueOf("#6abade"));
                             rectangle.setLayoutX(r.getLayoutX()-30.0);
                             rectangle.setLayoutY(r.getParent().getLayoutY());
 
@@ -222,7 +222,7 @@ public class GameBoardController extends SceneController{
                             }
 
                             //add mother nature if present
-                            String MNIslandName = initialIslandConverter.idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.converterSetting.ISLAND);
+                            String MNIslandName = getClientGui().getGuiView().getInitialStateConverter().idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.converterSetting.ISLAND);
                             if(islandName.equals(MNIslandName) && !placedMN){
                                 placedMN = true;
                                 System.out.println("MN position: " + gameState.getMotherNaturePosition());
