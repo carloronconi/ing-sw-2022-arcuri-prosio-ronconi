@@ -307,7 +307,7 @@ public class GameBoardController extends SceneController{
 
 
                         }
-
+                        if (cloudIGameModel.get(cloudID).isEmpty()) r.setMouseTransparent(true);
 
                     }
                 }
@@ -532,9 +532,9 @@ public class GameBoardController extends SceneController{
         System.out.println(cardName1);
         System.out.println(cardName2);
 
-        card1.setImage(new Image(String.valueOf(getClass().getResource(cardName1))));
-        card2.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
-        if (player3!=null) card3.setImage(new Image(String.valueOf(getClass().getResource(cardName3))));
+        if (playedAssistantCards.get(id1)!=null) card1.setImage(new Image(String.valueOf(getClass().getResource(cardName1))));
+        if (playedAssistantCards.get(id2)!=null) card2.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
+        if (player3!=null && playedAssistantCards.get(id2)!=null) card3.setImage(new Image(String.valueOf(getClass().getResource(cardName3))));
     }
 
 
@@ -938,6 +938,10 @@ public class GameBoardController extends SceneController{
             ArrayList<UUID> islands = new ArrayList<>(gameState.getIslands().keySet());
             int steps = islands.indexOf(islandId) - islands.indexOf(motherNaturePosition);
             if (steps<0) steps = islands.size() + steps;
+            if (steps<1 || steps>5){
+                System.out.println("illegal MN move");
+                return;
+            }
             getClientGui().getGuiView().notifyEventManager(new MovedMotherNature(steps));
         } else {
             if (gameBoardState.getBoardState()!= GameBoardState.BoardState.MOVING_STUDENT){
@@ -948,12 +952,7 @@ public class GameBoardController extends SceneController{
             getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
         }
 
-        getClientGui().nextScene((s, c)->{
-            if (c instanceof GameBoardController){
-                GameBoardController boardController = (GameBoardController) c;
-                boardController.updateBoard(getClientGui().getGuiView().getNextGameState(currentState));
-            }
-        });
+        new ChangeScene(getClientGui()).run();
     }
 
     public void clickedCloud1() throws IOException {
@@ -965,7 +964,14 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 1");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
-        getClientGui().nextScene();
+        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
+        new ChangeScene(name, getClientGui(), (s, c)->{
+            if (c instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) c;
+                boardController.updateBoard(getClientGui().getGuiView().getGameState());
+                boardController.vbox.setMouseTransparent(true);
+            }
+        }).run();
     }
 
     public void clickedCloud2() throws IOException {
@@ -978,7 +984,14 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 2");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
-        getClientGui().nextScene();
+        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
+        new ChangeScene(name, getClientGui(), (s, c)->{
+            if (c instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) c;
+                boardController.updateBoard(getClientGui().getGuiView().getGameState());
+                boardController.vbox.setMouseTransparent(true);
+            }
+        }).run();
     }
 
     public void clickedCloud3() throws IOException {
@@ -988,7 +1001,14 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 3");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
-        getClientGui().nextScene();
+        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
+        new ChangeScene(name, getClientGui(), (s, c)->{
+            if (c instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) c;
+                boardController.updateBoard(getClientGui().getGuiView().getGameState());
+                boardController.vbox.setMouseTransparent(true);
+            }
+        }).run();
     }
 
 }

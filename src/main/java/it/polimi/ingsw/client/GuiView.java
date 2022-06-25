@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,17 +84,27 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
-        setNextSceneNameGameBoard();
+        Platform.runLater(new ChangeScene("", clientGui));
     }
 
     @Override
     public void chooseCloud() {
-        setNextSceneNameGameBoard();
+        changeSceneToGameBoard();
     }
 
     @Override
     public void getAssistantCard() {
-        setNextSceneNameAssistant();
+        String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard3.fxml";
+        Platform.runLater(new ChangeScene(name, clientGui, (s, c)->{
+            if (c instanceof SetAssistantSceneController){
+                SetAssistantSceneController controller = (SetAssistantSceneController) c;
+                ArrayList<String> resources = clientGui.getPlayedByOtherResources();
+                if (!resources.isEmpty()){
+                    controller.getPlayedByOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(0)))));
+                    if (controller.getPlayedBySecondOther()!=null && resources.size()>1) controller.getPlayedBySecondOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(1)))));
+                }
+            }
+        }));
 
     }
 
@@ -104,12 +116,12 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getNickname(){
-        clientGui.setNextSceneName("/SetNickname.fxml");
+        Platform.runLater(new ChangeScene("/SetNickname.fxml", clientGui, 800, 530));
     }
 
     @Override
     public void getPreferences() {
-        clientGui.setNextSceneName("/SetPreferences.fxml");
+        Platform.runLater(new ChangeScene("/SetPreferences.fxml", clientGui, 800, 530));
     }
 
     @Override
@@ -152,19 +164,20 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void moveMotherNature() {
-        setNextSceneNameGameBoard();
+        changeSceneToGameBoard();
     }
 
     @Override
     public void moveStudent() {
-        setNextSceneNameGameBoard();
+        changeSceneToGameBoard();
+
     }
 
     @Override
     public void gameOver(UUID winner) {
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
         this.winner = converter.idToName(winner, CliViewIdConverter.converterSetting.PLAYER);
-        clientGui.setNextSceneName("/GameOver.fxml");
+        Platform.runLater(new ChangeScene("/GameOver.fxml", clientGui));
     }
 
     @Override
@@ -172,6 +185,17 @@ public class GuiView implements ViewInterface {
 
     }
 
+    private void changeSceneToGameBoard(){
+        String name = gameState.getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
+        Platform.runLater(new ChangeScene(name, clientGui, (s, c)->{
+            if (c instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) c;
+                boardController.updateBoard(/*getNextGameState(gameState.getId())*/gameState);
+            }
+        }));
+    }
+
+    /*
     private void setNextSceneNameGameBoard(){
         String name = gameState.getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
         clientGui.setNextSceneName(name);
@@ -179,8 +203,9 @@ public class GuiView implements ViewInterface {
 
     private void setNextSceneNameAssistant(){
         String name = gameState.getNicknames().size()==2? "/ChooseAssistantCard.fxml" : "/ChooseAssistantCard3.fxml";
+        System.out.println("setting next scene name to assistantCArd");
         clientGui.setNextSceneName(name);
-    }
+    }*/
 
     public void notifyEventManager(ViewEvent event){
         eventManager.notify(event);

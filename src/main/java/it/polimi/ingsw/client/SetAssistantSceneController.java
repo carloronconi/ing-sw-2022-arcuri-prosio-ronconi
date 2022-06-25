@@ -44,14 +44,14 @@ public class SetAssistantSceneController extends SceneController {
 
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
         getClientGui().getGuiView().notifyEventManager(new SetAssistantCard(cardNumber));
-        getClientGui().nextScene((s, c)->{
+        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
+        new ChangeScene(name, getClientGui(), (s, c)->{
             if (c instanceof GameBoardController){
                 GameBoardController boardController = (GameBoardController) c;
                 boardController.updateBoard(getClientGui().getGuiView().getGameState());
+                boardController.vbox.setMouseTransparent(true);
             }
-        });
-
-
+        }).run();
     }
 
     public void chosenCard1(){
