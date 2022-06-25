@@ -159,7 +159,7 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
         }*/
 
         for (UUID id : clouds.keySet()){
-            sb.append(converter.idToName(id, CliViewIdConverter.converterSetting.CLOUD) + ": ");
+            sb.append(converter.idToName(id, CliViewIdConverter.ConverterSetting.CLOUD) + ": ");
             //ArrayList<Bullet> cloud = new ArrayList<>();
             for (PawnColor color : clouds.get(id)){
                 sb.append(new Bullet(Color.pawnColorConverter(color)));

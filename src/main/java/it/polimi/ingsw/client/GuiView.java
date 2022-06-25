@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -182,7 +181,7 @@ public class GuiView implements ViewInterface {
     @Override
     public void gameOver(UUID winner) {
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
-        this.winner = converter.idToName(winner, CliViewIdConverter.converterSetting.PLAYER);
+        this.winner = converter.idToName(winner, CliViewIdConverter.ConverterSetting.PLAYER);
         Platform.runLater(new ChangeScene("/GameOver.fxml", clientGui));
     }
 

@@ -11,7 +11,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -195,13 +194,13 @@ public class GameBoardController extends SceneController{
 
         for (Pane p : islands) {
             for (Node r : p.getChildrenUnmodifiable()) {
-                for (int i = 0; i < gameState.getIslands().size(); i++) {
+                for (int i = 0; i < getClientGui().getGuiView().getInitialStateConverter().getSize(CliViewIdConverter.ConverterSetting.ISLAND); i++) {
                     int islandNumber = i + 1;
                     String islandName = "island" + islandNumber;
                     if (r.getId() != null && r.getId().contains(islandName)) {
                         LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
 
-                        UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
+                        UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(islandName, CliViewIdConverter.ConverterSetting.ISLAND);
                         //UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
                         //System.out.println("current island ids: " + gameState.getIslands().keySet());
 
@@ -230,7 +229,7 @@ public class GameBoardController extends SceneController{
                             }
 
                             //add mother nature if present
-                            String MNIslandName = getClientGui().getGuiView().getInitialStateConverter().idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.converterSetting.ISLAND);
+                            String MNIslandName = getClientGui().getGuiView().getInitialStateConverter().idToName(gameState.getMotherNaturePosition(), CliViewIdConverter.ConverterSetting.ISLAND);
                             if(islandName.equals(MNIslandName) && !placedMN){
                                 placedMN = true;
                                 System.out.println("MN position: " + gameState.getMotherNaturePosition());
@@ -286,7 +285,7 @@ public class GameBoardController extends SceneController{
                     String cloudName = "cloud" + cloudNumber;
                     if (r.getId() != null && r.getId().contains(cloudName)) {
                         HashMap<UUID, ArrayList<PawnColor>> cloudIGameModel = gameState.getClouds();
-                        UUID cloudID = converter.nameToId(cloudName, CliViewIdConverter.converterSetting.CLOUD);
+                        UUID cloudID = converter.nameToId(cloudName, CliViewIdConverter.ConverterSetting.CLOUD);
                         for (int j = 0; j < cloudIGameModel.get(cloudID).toArray().length; j++) {
                             Circle c = new Circle();
                             c.setCenterX(50.0);
@@ -870,8 +869,9 @@ public class GameBoardController extends SceneController{
                             System.out.println(x);
                             System.out.println(y);
 
-                            CliViewIdConverter converter = new CliViewIdConverter(getClientGui().getGuiView().getGameState());
-                            UUID islandId = converter.nameToId(cell.getId(), CliViewIdConverter.converterSetting.ISLAND);
+                            //CliViewIdConverter converter. = new CliViewIdConverter(getClientGui().getGuiView().getGameState());
+                            //UUID islandId = converter.nameToId(cell.getId(), CliViewIdConverter.ConverterSetting.ISLAND);
+                            UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(cell.getId(), CliViewIdConverter.ConverterSetting.ISLAND);
 
                             sendToServerAndUpdate(color, islandId);
                         }

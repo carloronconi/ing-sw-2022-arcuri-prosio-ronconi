@@ -99,14 +99,14 @@ public class CliView implements ViewInterface {
         }
 
         String cloud = askUserInput("Choose a cloud:", s->{
-            UUID id = converter.nameToId(s, CliViewIdConverter.converterSetting.CLOUD);
+            UUID id = converter.nameToId(s, CliViewIdConverter.ConverterSetting.CLOUD);
 
             if (id == null) return false;
             return true;
 
         });
 
-        UUID uuid = converter.nameToId(cloud, CliViewIdConverter.converterSetting.CLOUD);
+        UUID uuid = converter.nameToId(cloud, CliViewIdConverter.ConverterSetting.CLOUD);
 
         eventManager.notify(new ChosenCloud(uuid));
     }
@@ -225,10 +225,10 @@ public class CliView implements ViewInterface {
         UUID islandId = null;
         if(isIsland){
             String textualIsland = askUserInput("Choose the island:", s->{
-                return converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND)!=null;
+                return converter.nameToId(s, CliViewIdConverter.ConverterSetting.ISLAND)!=null;
             });
 
-            islandId = converter.nameToId(textualIsland, CliViewIdConverter.converterSetting.ISLAND);
+            islandId = converter.nameToId(textualIsland, CliViewIdConverter.ConverterSetting.ISLAND);
 
         }
 
@@ -239,7 +239,7 @@ public class CliView implements ViewInterface {
     public void gameOver(UUID winner) {
         if (winner == null) System.out.println("Game over!");
         else {
-            String winnerNickname = converter.idToName(winner, CliViewIdConverter.converterSetting.PLAYER);
+            String winnerNickname = converter.idToName(winner, CliViewIdConverter.ConverterSetting.PLAYER);
             System.out.println("Game over! The winner is: " + winnerNickname);
         }
         serverHandler.stopServer();
@@ -284,13 +284,13 @@ public class CliView implements ViewInterface {
         }
         if (EffectWithIsland.class.isAssignableFrom(characterClass)){
             String text = askUserInput("Select an island for the character effect:", s->{
-                UUID isl = converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND);
+                UUID isl = converter.nameToId(s, CliViewIdConverter.ConverterSetting.ISLAND);
                 if (Witch.class.isAssignableFrom(characterClass)) return !gameState.getBanOnIslands().get(isl);
                 return isl!=null;
             });
 
             //island = UUID.fromString(text);
-            island = converter.nameToId(text, CliViewIdConverter.converterSetting.ISLAND);
+            island = converter.nameToId(text, CliViewIdConverter.ConverterSetting.ISLAND);
 
         }
         if (SwapperCharacter.class.isAssignableFrom(characterClass)){
@@ -298,8 +298,8 @@ public class CliView implements ViewInterface {
             //int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
             int maxSwaps = forCharacter.getMaxColorSwaps();
 
-            EnumMap<PawnColor, Integer> entrance = gameState.getEntrances().get(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER));
-            EnumMap<PawnColor, Integer> dining = gameState.getDiningRooms().get(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER));
+            EnumMap<PawnColor, Integer> entrance = gameState.getEntrances().get(converter.nameToId(finalNickname, CliViewIdConverter.ConverterSetting.PLAYER));
+            EnumMap<PawnColor, Integer> dining = gameState.getDiningRooms().get(converter.nameToId(finalNickname, CliViewIdConverter.ConverterSetting.PLAYER));
             ArrayList<PawnColor> juggler = gameState.getCharacterCardsStudents().get(AvailableCharacter.JUGGLER);
 
             for (int i = 0; i<maxSwaps; i++){
@@ -368,7 +368,7 @@ public class CliView implements ViewInterface {
 
             if (initialIslandIds == null) initialIslandIds = new ArrayList<>(gameState.getIslands().keySet());
 
-            System.out.println(gameState.drawGameState(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER), initialIslandIds));
+            System.out.println(gameState.drawGameState(converter.nameToId(finalNickname, CliViewIdConverter.ConverterSetting.PLAYER), initialIslandIds));
         }
 
     }

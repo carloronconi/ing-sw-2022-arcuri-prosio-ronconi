@@ -2,10 +2,7 @@ package it.polimi.ingsw.cliview;
 
 import it.polimi.ingsw.client.CliViewIdConverter;
 import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TowerColor;
-import it.polimi.ingsw.model.studentmanagers.Cloud;
-import it.polimi.ingsw.model.studentmanagers.StudentCounter;
 
 import java.io.Serializable;
 import java.util.*;
@@ -69,7 +66,7 @@ public class Matrix implements Serializable {
 
                 insertTower(initialRow, initialColumn, islandOwners.get(uuid), colorPlayersTowers, islandsSize.get(uuid));
 
-                String islandName = converter.idToName(uuid, CliViewIdConverter.converterSetting.ISLAND);
+                String islandName = converter.idToName(uuid, CliViewIdConverter.ConverterSetting.ISLAND);
 
                 insertName(initialRow, initialColumn, islandName);
 
@@ -302,7 +299,7 @@ public class Matrix implements Serializable {
 
         columnIndexer = 1;
         for (UUID id : islands.keySet()){
-            String name = converter.idToName(id, CliViewIdConverter.converterSetting.ISLAND);
+            String name = converter.idToName(id, CliViewIdConverter.ConverterSetting.ISLAND);
 
             for (int i=0; i<name.length(); i++){
                 mat[1][columnIndexer+i].getBullet().setSymbol(String.valueOf(name.charAt(i)));

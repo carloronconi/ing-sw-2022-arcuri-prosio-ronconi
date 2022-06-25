@@ -19,22 +19,22 @@ public class CliViewIdConverter {
         this.gameState = gameState;
     }
 
-    public enum converterSetting {
+    public enum ConverterSetting {
         CLOUD, ISLAND, PLAYER
     }
 
-    private void updateMaps(converterSetting setting){
-        if (setting == converterSetting.PLAYER) return;
+    private void updateMaps(ConverterSetting setting){
+        if (setting == ConverterSetting.PLAYER) return;
 
         idToNameMap = new HashMap<>();
         nameToIdMap = new HashMap<>();
 
         ArrayList<UUID> idList = null;
         String elementName = null;
-        if (setting == converterSetting.CLOUD){
+        if (setting == ConverterSetting.CLOUD){
             idList = new ArrayList<>(gameState.getClouds().keySet());
             elementName = "cloud";
-        } else if (setting == converterSetting.ISLAND){
+        } else if (setting == ConverterSetting.ISLAND){
             idList = new ArrayList<>(gameState.getIslands().keySet());
             elementName = "island";
         }
@@ -49,8 +49,8 @@ public class CliViewIdConverter {
 
     }
 
-    public String idToName(UUID uuid, converterSetting setting){
-        if (setting == converterSetting.PLAYER) return gameState.getNicknames().get(uuid);
+    public String idToName(UUID uuid, ConverterSetting setting){
+        if (setting == ConverterSetting.PLAYER) return gameState.getNicknames().get(uuid);
 
         updateMaps(setting);
 
@@ -58,8 +58,8 @@ public class CliViewIdConverter {
 
     }
 
-    public UUID nameToId(String name, converterSetting setting){
-        if (setting == converterSetting.PLAYER){
+    public UUID nameToId(String name, ConverterSetting setting){
+        if (setting == ConverterSetting.PLAYER){
             for (UUID id : gameState.getNicknames().keySet()){
                 if (gameState.getNicknames().get(id).equals(name)) return id;
             }
@@ -69,5 +69,15 @@ public class CliViewIdConverter {
         updateMaps(setting);
 
         return nameToIdMap.get(name);
+    }
+
+    public int getSize(ConverterSetting setting){
+        if (setting == ConverterSetting.PLAYER){
+            return gameState.getNicknames().size();
+        }
+
+        updateMaps(setting);
+
+        return idToNameMap.size();
     }
 }
