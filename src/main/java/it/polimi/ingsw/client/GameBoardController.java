@@ -307,7 +307,7 @@ public class GameBoardController extends SceneController{
 
 
                         }
-
+                        if (cloudIGameModel.get(cloudID).isEmpty()) r.setMouseTransparent(true);
 
                     }
                 }
@@ -938,6 +938,10 @@ public class GameBoardController extends SceneController{
             ArrayList<UUID> islands = new ArrayList<>(gameState.getIslands().keySet());
             int steps = islands.indexOf(islandId) - islands.indexOf(motherNaturePosition);
             if (steps<0) steps = islands.size() + steps;
+            if (steps<1 || steps>5){
+                System.out.println("illegal MN move");
+                return;
+            }
             getClientGui().getGuiView().notifyEventManager(new MovedMotherNature(steps));
         } else {
             if (gameBoardState.getBoardState()!= GameBoardState.BoardState.MOVING_STUDENT){
