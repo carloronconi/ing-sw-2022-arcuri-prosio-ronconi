@@ -93,6 +93,9 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
     public int getBag() {
         return bag;
     }
+    public HashMap<UUID, Integer> getCoinsMap(){ return new HashMap<>(coinsMap); }
+
+    public HashMap<AvailableCharacter, Boolean> getCharacterCards(){ return new HashMap<>(characterCards); }
 
     public LinkedHashMap<UUID, Integer> getNumOfTowersUsed(){ return new LinkedHashMap<>(numOfTowersUsed); }
 
