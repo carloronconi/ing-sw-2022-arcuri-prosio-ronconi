@@ -123,16 +123,16 @@ public class GuiView implements ViewInterface {
 
                 ArrayList<Integer> assistantDeck = gameState.getAssistantDecks().get(new CliViewIdConverter(gameState).nameToId(clientGui.getFinalNickname(), CliViewIdConverter.ConverterSetting.PLAYER));
                 System.out.println("assistant deck: "+assistantDeck);
-                if (!assistantDeck.contains(1)) controller.card1.setOpacity(1.0);
-                if (!assistantDeck.contains(2)) controller.card2.setOpacity(1.0);
-                if (!assistantDeck.contains(3)) controller.card3.setOpacity(1.0);
-                if (!assistantDeck.contains(4)) controller.card4.setOpacity(1.0);
-                if (!assistantDeck.contains(5)) controller.card5.setOpacity(1.0);
-                if (!assistantDeck.contains(6)) controller.card6.setOpacity(1.0);
-                if (!assistantDeck.contains(7)) controller.card7.setOpacity(1.0);
-                if (!assistantDeck.contains(8)) controller.card8.setOpacity(1.0);
-                if (!assistantDeck.contains(9)) controller.card9.setOpacity(1.0);
-                if (!assistantDeck.contains(10)) controller.card10.setOpacity(1.0);
+                if (!assistantDeck.contains(1)) controller.myCards.getChildren().remove(controller.card1);
+                if (!assistantDeck.contains(2)) controller.myCards.getChildren().remove(controller.card2);
+                if (!assistantDeck.contains(3)) controller.myCards.getChildren().remove(controller.card3);
+                if (!assistantDeck.contains(4)) controller.myCards.getChildren().remove(controller.card4);
+                if (!assistantDeck.contains(5)) controller.myCards.getChildren().remove(controller.card5);
+                if (!assistantDeck.contains(6)) controller.myCards.getChildren().remove(controller.card6);
+                if (!assistantDeck.contains(7)) controller.myCards.getChildren().remove(controller.card7);
+                if (!assistantDeck.contains(8)) controller.myCards.getChildren().remove(controller.card8);
+                if (!assistantDeck.contains(9)) controller.myCards.getChildren().remove(controller.card9);
+                if (!assistantDeck.contains(10)) controller.myCards.getChildren().remove(controller.card10);
 
 
             }

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class SetAssistantSceneController extends SceneController {
     public Label label1;
     public Label label2;
     public Label label3;
+    public Pane myCards;
     int cardNumber;
     @FXML
     Button button;
