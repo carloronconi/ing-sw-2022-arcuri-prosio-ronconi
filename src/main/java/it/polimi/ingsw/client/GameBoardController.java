@@ -218,7 +218,7 @@ public class GameBoardController extends SceneController{
                                 Circle c = new Circle();
                                 c.setCenterX(50.0);
                                 c.setCenterY(50.0);
-                                c.setLayoutX(r.getLayoutX() - 50 + (j * 15.0));
+                                c.setLayoutX(r.getLayoutX() + (j * 15.0));
                                 c.setLayoutY(r.getParent().getLayoutY() /*+ (j * 35.0)*/);
                                 c.setRadius(16.0);
                                 c.setStroke(Color.BLACK);
@@ -258,7 +258,7 @@ public class GameBoardController extends SceneController{
                             if (gameState.getIslandOwners().get(islandId)!= null){
                                 for (int itr = 0; itr< gameState.getIslandSizes().get(islandId); itr++){
                                     Circle c = new Circle();
-                                    c.setLayoutX(r.getLayoutX() - 50 + (itr+1) * 30.0);
+                                    c.setLayoutX(r.getLayoutX() + (itr+1) * 30.0);
                                     c.setLayoutY(r.getParent().getLayoutY() + /*(itr+1.0) * */ 60);
                                     c.setRadius(16.0);
                                     c.setStroke(Color.BLACK);
