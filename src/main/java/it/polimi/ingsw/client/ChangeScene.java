@@ -66,6 +66,6 @@ public class ChangeScene implements Runnable{
         initializer.initializeScene(scene, fxmlLoader.getController());
         clientGui.getStage().setScene(scene);
         clientGui.getStage().setTitle(stageTitle);
-        clientGui.getStage().show();
+        //clientGui.getStage().show();
     }
 }
