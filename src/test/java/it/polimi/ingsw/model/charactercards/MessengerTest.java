@@ -58,25 +58,5 @@ public class MessengerTest {
         assertTrue(messenger.isCostIncreased());
     }
 
-    /*
-    @Test (expected = IllegalStateException.class)
-    public void useEffect2(){
-        gameModel = new GameModel(true, nicknames, eventManager);
-
-        while(gameModel.getAvailableCharacterCards().keySet().contains(AvailableCharacter.MESSENGER)){
-            gameModel = new GameModel(true, nicknames, eventManager);
-        }
-
-        messenger = new Messenger(gameModel);
-
-        assertFalse(messenger.isCostIncreased());
-        assertEquals(1, messenger.getCost());
-        assertEquals(AvailableCharacter.MESSENGER, messenger.getValue());
-
-
-        messenger.useEffect();
-
-    }
-     */
 
 }
