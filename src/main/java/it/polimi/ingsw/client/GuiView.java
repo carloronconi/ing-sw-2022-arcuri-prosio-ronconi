@@ -188,7 +188,13 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void getCharacterSettings(AvailableCharacter forCharacter) {
-
+        Platform.runLater(new ChangeScene("/CharacterSettings.fxml", clientGui, (s, c)->{
+            if( c instanceof SetCharacterSettingsController){
+                SetCharacterSettingsController setCharacterSettingsController = (SetCharacterSettingsController) c;
+                setCharacterSettingsController.initializeSettings(clientGui.getGuiView().getGameState(), forCharacter);
+                System.out.println("CHARACTER SETTINGS");
+            }
+        }));
     }
 
     private void changeSceneToGameBoard(){
