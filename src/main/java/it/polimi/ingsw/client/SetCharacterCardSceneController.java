@@ -28,9 +28,17 @@ public class SetCharacterCardSceneController extends SceneController {
     @FXML ImageView card2m;
     @FXML ImageView card3m;
 
+    @FXML Label money1;
+    @FXML Label money2;
+    @FXML Label money3;
 
-    @FXML
-    TextArea explainCard1;
+    @FXML Label player1;
+    @FXML Label player2;
+    @FXML Label player3;
+
+    @FXML  Label increasedCostCard1;
+    @FXML  Label increasedCostCard2;
+    @FXML  Label increasedCostCard3;
 
     private final ArrayList<String> characterArrayList = new ArrayList<>();
     private final ArrayList<Label> cardLab = new ArrayList<>();
@@ -46,6 +54,8 @@ public class SetCharacterCardSceneController extends SceneController {
         cardImage.add(card1m);
         cardImage.add(card2m);
         cardImage.add(card3m);
+
+
     }
 
     public void initializeCards(GameState gameState)  {
@@ -73,29 +83,51 @@ public class SetCharacterCardSceneController extends SceneController {
                 }
             }
 
+
         }
 
+        //players
         //coins map
         HashMap<UUID, Integer> coinsHashMap = gameState.getCoinsMap();
+        //players map
+        HashMap<UUID, String> playersMap = gameState.getNicknames();
+
+        for(UUID id : coinsHashMap.keySet()){
+                    if(id == playersMap.keySet().toArray()[0]){
+                        player1.setText(playersMap.get(id));
+                        money1.setText("YOUR MONEY: " + coinsHashMap.get(id));
+                    }else if(id == playersMap.keySet().toArray()[1]){
+                player2.setText(playersMap.get(id));
+                money2.setText("YOUR MONEY: " + coinsHashMap.get(id));
+            }else if(id == playersMap.keySet().toArray()[3]){
+                        player3.setText(playersMap.get(id));
+                        money3.setText("YOUR MONEY: " + coinsHashMap.get(id));
+                    }
+
+            }
+
+        }
 
 
 
 
-                }
 
        public void clickedCard1(){
             card1m.setOpacity(0.4d);
             System.out.println(characterArrayList.get(0));
+            increasedCostCard1.setText("COST +1 = TRUE");
 
                 }
         public void clickedCard2(){
             card2m.setOpacity(0.4d);
             System.out.println(characterArrayList.get(1));
+            increasedCostCard2.setText("COST +1 = TRUE");
         }
 
          public void clickedCard3(){
              card3m.setOpacity(0.4d);
              System.out.println(characterArrayList.get(2));
+             increasedCostCard3.setText("COST +1 = TRUE");
     }
 
 
