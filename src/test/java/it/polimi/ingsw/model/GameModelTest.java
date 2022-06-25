@@ -54,11 +54,11 @@ public class GameModelTest {
 
     }
 
-    /*@Test
+    @Test
     public void constructor_hardModeTwoPlayers(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(true, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(true, nicknames, modelEventManager);
 
         Set<AvailableCharacter> availableCharacters = gameModel.getAvailableCharacterCards().keySet();
         int expected = 106;
@@ -67,7 +67,7 @@ public class GameModelTest {
         if (availableCharacters.contains(AvailableCharacter.PRINCESS)) expected-=4;
         assertEquals(expected, gameModel.countStudentsInBag());
 
-    }*/
+    }
 
     /**
      * this method verifies that the constructor works correctly with three players in hard mode
