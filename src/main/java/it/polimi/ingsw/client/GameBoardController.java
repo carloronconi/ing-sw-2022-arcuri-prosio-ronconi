@@ -218,8 +218,8 @@ public class GameBoardController extends SceneController{
                                 Circle c = new Circle();
                                 c.setCenterX(50.0);
                                 c.setCenterY(50.0);
-                                c.setLayoutX(r.getLayoutX() + (j * 30.0));
-                                c.setLayoutY(r.getParent().getLayoutY() + (j * 35.0));
+                                c.setLayoutX(r.getLayoutX() - 50 + (j * 15.0));
+                                c.setLayoutY(r.getParent().getLayoutY() /*+ (j * 35.0)*/);
                                 c.setRadius(16.0);
                                 c.setStroke(Color.BLACK);
                                 c.setStrokeType(StrokeType.INSIDE);
@@ -239,8 +239,8 @@ public class GameBoardController extends SceneController{
                                 Circle motherNature = new Circle();
                                 motherNature.setCenterX(50.0);
                                 motherNature.setCenterY(50.0);
-                                motherNature.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() + 20.0);
-                                motherNature.setLayoutY(r.getParent().getLayoutY() + r.getLayoutY() + 20.0);
+                                motherNature.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() + 10);
+                                motherNature.setLayoutY(r.getParent().getLayoutY() + r.getLayoutY() + 30);
                                 motherNature.setRadius(21);
                                 motherNature.setStroke(Color.GREY);
                                 motherNature.setStrokeType(StrokeType.INSIDE);
@@ -258,8 +258,8 @@ public class GameBoardController extends SceneController{
                             if (gameState.getIslandOwners().get(islandId)!= null){
                                 for (int itr = 0; itr< gameState.getIslandSizes().get(islandId); itr++){
                                     Circle c = new Circle();
-                                    c.setLayoutX(r.getLayoutX() - (itr+1) * 30.0);
-                                    c.setLayoutY(r.getParent().getLayoutY() + (itr+1.0) * 35.0);
+                                    c.setLayoutX(r.getLayoutX() - 50 + (itr+1) * 30.0);
+                                    c.setLayoutY(r.getParent().getLayoutY() + /*(itr+1.0) * */ 60);
                                     c.setRadius(16.0);
                                     c.setStroke(Color.BLACK);
                                     c.setStrokeType(StrokeType.INSIDE);
@@ -564,9 +564,9 @@ public class GameBoardController extends SceneController{
                     for (Pane p : entrances) {
                         String str = p.getId();
                         int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
-                        System.out.println(numberOnly);
-                        System.out.println(playerNumber);
-                        System.out.println("OK");
+                        //System.out.println(numberOnly);
+                        //System.out.println(playerNumber);
+                        //System.out.println("OK");
                         if (numberOnly == playerNumber) {
                             for (int j = 0; j < entranceHash.get(id).size(); j++) {
                                 Circle c = new Circle();
@@ -577,7 +577,7 @@ public class GameBoardController extends SceneController{
                                 c.setStrokeType(StrokeType.INSIDE);
                                 c.setFill(Color.valueOf(entranceHash.get(id).get(j).toString()));
 
-                                c.setLayoutY(p.getLayoutY() + j*40.0 );
+                                c.setLayoutY(p.getLayoutY() + j*30 );
                                 c.setLayoutX(p.getLayoutX() + (j*20.0) - ((j+1)* 10.0));
 
                                 c.setOnMouseDragged(this::movePiece);
