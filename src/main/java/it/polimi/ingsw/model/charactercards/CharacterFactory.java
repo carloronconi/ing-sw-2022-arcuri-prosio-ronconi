@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 public class CharacterFactory {
-    private static ArrayList<AvailableCharacter> uninstantiatedCharacters;
+    //private static ArrayList<AvailableCharacter> uninstantiatedCharacters;
+    private ArrayList<AvailableCharacter> uninstantiatedCharacters;
     private final Bag bag;
     private final IslandManager islandManager;
     private final GameModel gameModel;
