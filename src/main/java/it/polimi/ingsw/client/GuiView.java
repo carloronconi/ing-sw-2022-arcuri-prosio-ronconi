@@ -84,7 +84,13 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void chooseCharacter() {
-        Platform.runLater(new ChangeScene("", clientGui));
+        Platform.runLater(new ChangeScene("/SetCharacterCard.fxml", clientGui, (s, c)->{
+            if( c instanceof SetCharacterCardSceneController){
+                SetCharacterCardSceneController setCharacterCardSceneController = (SetCharacterCardSceneController) c;
+                setCharacterCardSceneController.initializeCards(clientGui.getGuiView().getGameState());
+                System.out.println("CHARACTER");
+            }
+        }));
     }
 
     @Override
