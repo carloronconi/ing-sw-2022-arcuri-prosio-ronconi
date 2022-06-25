@@ -15,13 +15,28 @@ public class ChangeScene implements Runnable{
     private String stageTitle;
     private SceneInitializer initializer;
 
+    /*
+    public enum DefaultWaitScene{
+        STANDARD(""),
+        GAME_BOARD
+    }*/
+
 
     public ChangeScene(ClientGui clientGui) {
-        this("/WaitingScene.fxml",clientGui, 1500, 876, "ERYANTIS", ((scene, controller) -> {}));
+        this("/WaitingScene.fxml",clientGui, 800, 530, "ERYANTIS", ((scene, controller) -> {}));
     }
+
+    /*
+    public ChangeScene(ClientGui clientGui, DefaultWaitScene defaultType) {
+        this(nextSceneName,clientGui, 1500, 876, "ERYANTIS", ((scene, controller) -> {}));
+    }*/
 
     public ChangeScene(String nextSceneName, ClientGui clientGui) {
         this(nextSceneName,clientGui, 1500, 876, "ERYANTIS", ((scene, controller) -> {}));
+    }
+
+    public ChangeScene(String nextSceneName, ClientGui clientGui, int sceneWidth, int sceneHeight) {
+        this(nextSceneName,clientGui, sceneWidth, sceneHeight, "ERYANTIS", ((scene, controller) -> {}));
     }
 
     public ChangeScene(String nextSceneName, ClientGui clientGui,SceneInitializer initializer) {

@@ -22,7 +22,7 @@ public class GameBoardState {
 
     public void nextState(){
         if (boardState == BoardState.MOVING_STUDENT){
-            if (remainingStudentMoves>1) remainingStudentMoves--;
+            if (remainingStudentMoves>0) remainingStudentMoves--;
             else boardState = BoardState.MOVING_MN;
         } else if (boardState == BoardState.MOVING_MN) {
             boardState = BoardState.CHOOSING_CLOUD;

@@ -41,16 +41,7 @@ public class SetPreferencesSceneController extends SceneController {
         numOfPlayers = numberGroup.getSelectedToggle() == button2 ? 2 : 3;
         gameMode = modeGroup.getSelectedToggle() == buttonEasy ? GameMode.EASY : GameMode.HARD;
         getClientGui().getGuiView().notifyEventManager(new SetPreferences(numOfPlayers, gameMode));
-        getClientGui().nextScene((s, c)->{
-            if (c instanceof SetAssistantSceneController){
-                SetAssistantSceneController controller = (SetAssistantSceneController) c;
-                ArrayList<String> resources = getClientGui().getPlayedByOtherResources();
-                if (!resources.isEmpty()){
-                    controller.getPlayedByOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(0)))));
-                    if (controller.getPlayedBySecondOther()!=null && resources.size()>1) controller.getPlayedBySecondOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(1)))));
-                }
-            }
-        });
+        new ChangeScene(getClientGui()).run();
 
     }
 

@@ -44,7 +44,7 @@ public class ClientGui extends Application implements Runnable{
 
     @Override
     public void start(Stage stage) throws IOException {
-        this.stage = stage;
+        this.stage = stage;/*
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginScene.fxml"));
         Parent root = loader.load(); //scene with id and port
         LoginSceneController controller = loader.getController();
@@ -53,8 +53,10 @@ public class ClientGui extends Application implements Runnable{
         stage.setTitle("ERYANTIS");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.show();
+        stage.show();*/
 
+        new ChangeScene("/LoginScene.fxml", this, 800, 530, "ERYANTIS",
+                ((scene1, controller1) -> {stage.setResizable(false);})).run();
 
     }
 
@@ -97,7 +99,7 @@ public class ClientGui extends Application implements Runnable{
         serverHandlerThread.start();
 
     }
-
+    /*
     public synchronized void setNextSceneName(String nextScene) { //called when the server is ready and the scene can be changed to the next one
         System.out.println("starting setNextSceneName method");
         while (!nextSceneName.isEmpty()) {
@@ -112,6 +114,7 @@ public class ClientGui extends Application implements Runnable{
         notifyAll();
         System.out.println("setNextSceneName to " +nextScene);
     }
+
 
     public Object nextScene() throws IOException {
         return nextScene((s, c)->{});
@@ -170,7 +173,7 @@ public class ClientGui extends Application implements Runnable{
         new Thread(task).start();
 
         return null;
-    }
+    }*/
 
     public ArrayList<String> getPlayedByOtherResources(){
         ArrayList<String> resources = new ArrayList<>();
