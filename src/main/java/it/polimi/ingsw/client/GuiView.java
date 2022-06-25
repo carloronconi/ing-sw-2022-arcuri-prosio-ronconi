@@ -21,6 +21,7 @@ public class GuiView implements ViewInterface {
     private boolean keepOldView;
     private String winner;
     private CliViewIdConverter initialStateConverter;
+    private boolean invalidBoardMove;
 
     //private JTextField introductionField;
     //private JTextArea screenArea;
@@ -36,6 +37,12 @@ public class GuiView implements ViewInterface {
         //introductionField = new JTextField();
         // introductionField.setEditable( false );
 
+    }
+
+    public boolean isInvalidBoardMove() {
+        boolean oldValue = invalidBoardMove;
+        invalidBoardMove = false;
+        return oldValue;
     }
 
     public GameState getGameState() {
@@ -150,6 +157,7 @@ public class GuiView implements ViewInterface {
     @Override
     public synchronized void invalidMNMove() {
         keepOldView = true;
+        invalidBoardMove = true;
         System.out.println("invalid mother nature move");
         moveMotherNature();
     }
@@ -163,6 +171,7 @@ public class GuiView implements ViewInterface {
     @Override
     public synchronized void invalidStudentMove() {
         keepOldView = true;
+        invalidBoardMove = true;
         System.out.println("invalid student move");
         moveStudent();
     }

@@ -178,9 +178,7 @@ public class GameBoardController extends SceneController{
 
         if (gameBoardState == null){
             gameBoardState = new GameBoardState(gameState.getNicknames().size());
-        } else {
-            gameBoardState.nextState();
-        }
+        } else if (getClientGui().getGuiView().isInvalidBoardMove()) gameBoardState.previousState();
         System.out.println(gameBoardState.getBoardState());
 
         //ISLANDS
@@ -596,101 +594,7 @@ public class GameBoardController extends SceneController{
             }
         }
 
-
-    /*    ArrayList<Circle> circleEntrance1 = new ArrayList<>();
-        ArrayList<Circle> circleEntrance2 = new ArrayList<>();
-
-        for(int i =0; i<entranceHash.size(); i++){
-            Object obj = entranceHash.keySet().toArray()[i];
-            UUID id = (UUID) obj;
-
-            if(i==0){
-
-                for (PawnColor color : entranceHash.get(id)) {
-                    Circle c = new Circle();
-                    c.setCenterX(50.0);
-                    c.setCenterY(50.0);
-                    c.setRadius(16.0);
-                    c.setStroke(Color.BLACK);
-                    c.setStrokeType(StrokeType.INSIDE);
-                    c.setFill(Color.valueOf(color.name()));
-
-                    circleEntrance1.add(c);
-                } */
-
-         /*   }else{
-                for (PawnColor color : entranceHash.get(id)) {
-                    Circle c = new Circle();
-                    c.setCenterX(50.0);
-                    c.setCenterY(50.0);
-                    c.setRadius(16.0);
-                    c.setStroke(Color.BLACK);
-                    c.setStrokeType(StrokeType.INSIDE);
-                    c.setFill(Color.valueOf(color.name()));
-
-                    circleEntrance2.add(c);
-                }
-
-            }
-        }
-
-                for(Pane p : entr1){
-                    for(Node r : p.getChildrenUnmodifiable()){
-                        if(r.getId()!= null  ){
-                            Rectangle rectangle = (Rectangle) r;
-                            int entranceNumber = number(rectangle);
-
-                            for(int i =0; i<circleEntrance1.size();i++){
-                                if(entranceNumber == i){
-                                    Circle circle = circleEntrance1.get(Integer.parseInt(r.getId()));
-
-                                    circle.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() - 15.0);
-                                    circle.setLayoutY(r.getLayoutY() + r.getParent().getLayoutY() - 20.0);
-
-
-                                    circle.setOnMouseDragged(this::movePiece);
-                                    circle.setOnMousePressed(this::startMovingPiece);
-                                    circle.setOnMouseReleased(this::finishMovingPiece);
-
-                                    boardPane.getChildren().add(circle);
-                                    pawns.add(circle);
-                                }
-                            }
-
-                        }
-
-                    }
-                }
-
-        for(Pane p : entr2){
-            for(Node r : p.getChildrenUnmodifiable()){
-                if(r.getId()!= null  ){
-                    Rectangle rectangle = (Rectangle) r;
-                    int entranceNumber = number(rectangle);
-
-                    for(int i =0; i<circleEntrance2.size();i++){
-                        if(entranceNumber == i){
-                            Circle circle = circleEntrance2.get(Integer.parseInt(r.getId()));
-
-                            circle.setLayoutX(r.getParent().getLayoutX() + r.getLayoutX() - 15.0);
-                            circle.setLayoutY(r.getLayoutY() + r.getParent().getLayoutY() - 20.0);
-
-
-                            circle.setOnMouseDragged(this::movePiece);
-                            circle.setOnMousePressed(this::startMovingPiece);
-                            circle.setOnMouseReleased(this::finishMovingPiece);
-
-                            boardPane.getChildren().add(circle);
-                            pawns.add(circle);
-                        }
-                    }
-
-                }
-
-            }
-        } */
-
-        }
+    }
 
     private int number(Rectangle r) {
         Pattern p = Pattern.compile("\\d+");
@@ -943,6 +847,7 @@ public class GameBoardController extends SceneController{
                 return;
             }
             getClientGui().getGuiView().notifyEventManager(new MovedMotherNature(steps));
+            gameBoardState.nextState();
         } else {
             if (gameBoardState.getBoardState()!= GameBoardState.BoardState.MOVING_STUDENT){
                 System.out.println("illegal student move");
@@ -950,6 +855,7 @@ public class GameBoardController extends SceneController{
             }
             System.out.println("sending student move to server");
             getClientGui().getGuiView().notifyEventManager(new MovedStudent(color, islandId));
+            gameBoardState.nextState();
         }
 
         new ChangeScene(getClientGui()).run();
@@ -964,6 +870,7 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 1");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
+        gameBoardState.nextState();
         String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
         new ChangeScene(name, getClientGui(), (s, c)->{
             if (c instanceof GameBoardController){
@@ -984,6 +891,7 @@ public class GameBoardController extends SceneController{
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 2");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
+        gameBoardState.nextState();
         String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
         new ChangeScene(name, getClientGui(), (s, c)->{
             if (c instanceof GameBoardController){
@@ -995,12 +903,17 @@ public class GameBoardController extends SceneController{
     }
 
     public void clickedCloud3() throws IOException {
+        if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
+            System.out.println("illegal cloud move");
+            return;
+        }
         Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
         iterator.next();
         iterator.next();
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 3");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
+        gameBoardState.nextState();
         String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
         new ChangeScene(name, getClientGui(), (s, c)->{
             if (c instanceof GameBoardController){
