@@ -209,7 +209,7 @@ public class GameBoardController extends SceneController{
                             rectangle.setLayoutY(r.getParent().getLayoutY());
 
                             boardPane.getChildren().add(rectangle);
-
+                            //boardPane.getChildren().remove(r);
                         } else{
                             //loop on all colors in island
                             for (int j = 0; j < islandIGameModel.get(islandId).size(); j++) {
