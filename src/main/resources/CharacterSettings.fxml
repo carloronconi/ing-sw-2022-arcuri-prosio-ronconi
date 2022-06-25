@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterSettingsController">
+<AnchorPane fx:id="pane" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterSettingsController">
    <children>
       <Label layoutX="47.0" layoutY="41.0" prefHeight="74.0" prefWidth="608.0" styleClass="gameOverMessage" stylesheets="@textfont.css" text="CHARACTER SETTINGS " />
-      <Label layoutX="47.0" layoutY="129.0" prefHeight="49.0" prefWidth="436.0" text="If the Character Card you selected is: MONK or PRINCESS " />
-      <Label layoutX="47.0" layoutY="296.0" prefHeight="17.0" prefWidth="319.0" text="if it is WITCH " />
-      <Label layoutX="47.0" layoutY="463.0" prefHeight="17.0" prefWidth="311.0" text="If it is JUGGLER  or MUSICIAN " />
+      <Label layoutX="47.0" layoutY="115.0" prefHeight="49.0" prefWidth="538.0" styleClass="message" stylesheets="@textfont.css" text="Check the effect of your card to know what to insert in the fields" />
+      <Label layoutX="47.0" layoutY="296.0" prefHeight="17.0" prefWidth="319.0" />
+      <Label layoutX="47.0" layoutY="463.0" prefHeight="17.0" prefWidth="552.0" styleClass="message" stylesheets="@textfont.css" text="If the Character Card you selected is: JUGGLER or MUSICIAN" />
       <ImageView fx:id="card" fitHeight="274.0" fitWidth="200.0" layoutX="1204.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="cardName" layoutX="1219.0" layoutY="70.0" prefHeight="17.0" prefWidth="152.0" text="card" stylesheets="@textfont.css" styleClass="message"/>
+      <Label fx:id="cardName" layoutX="1219.0" layoutY="70.0" prefHeight="17.0" prefWidth="152.0" styleClass="message" stylesheets="@textfont.css" text="card" />
+      <Label layoutX="47.0" layoutY="178.0" prefHeight="17.0" prefWidth="291.0" styleClass="message" stylesheets="@textfont.css" text="Pawn color :" />
+      <Label layoutX="47.0" layoutY="223.0" prefHeight="34.0" prefWidth="372.0" styleClass="message" stylesheets="@textfont.css" text="Where to (island# ) :" />
+      <TextField fx:id="pawnColor" layoutX="158.0" layoutY="178.0" onInputMethodTextChanged="#pawnColorChosen" styleClass="box" stylesheets="@textfont.css" />
+      <TextField fx:id="whereTo" layoutX="265.0" layoutY="228.0" onInputMethodTextChanged="#whereToChosen" prefHeight="25.0" prefWidth="187.0" styleClass="box" stylesheets="@textfont.css" />
+      <TextArea layoutX="785.0" layoutY="72.0" prefHeight="302.0" prefWidth="397.0" styleClass="message" stylesheets="@textfont.css" text="MONK: pawn color + island#&#10;PRINCESS: pawn color (to your dining)&#10;FLAGBEARER: island#&#10;WITCH: island#&#10;MUSHROOMMERCHANT: pawn color&#10;USURER: pawn color&#10;JUGGLER: 3 students of card swapped with &#10;3 students in entrance&#10;MUSICIAN: two students in entrance swapped&#10;with two students in dining&#10;&#10;" />
+      <Label fx:id="playerEntrance" layoutX="796.0" layoutY="507.0" prefHeight="17.0" prefWidth="133.0" styleClass="message" stylesheets="@textfont.css" text="your entrance " />
+      <Label fx:id="playerDining" layoutX="1061.0" layoutY="507.0" prefHeight="17.0" prefWidth="178.0" styleClass="message" stylesheets="@textfont.css" text="your dining" />
+      <Label layoutX="27.0" layoutY="544.0" prefHeight="24.0" prefWidth="59.0" styleClass="message" stylesheets="@textfont.css" text="Swap:" />
+      <TextField fx:id="swapGive" layoutX="99.0" layoutY="544.0" onInputMethodTextChanged="#whereToSwapGive" />
+      <TextField fx:id="swapTake" layoutX="277.0" layoutY="544.0" onInputMethodTextChanged="#whereToSwapTake" />
+      <Button fx:id="swapBtn" layoutX="452.0" layoutY="544.0" mnemonicParsing="false" onAction="#swapClick" text="swap" />
+      <Button fx:id="btn" layoutX="1390.0" layoutY="816.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="34.0" prefWidth="82.0" text="Button" />
+      <Label layoutX="114.0" layoutY="511.0" styleClass="message" stylesheets="@textfont.css" text="pawn color give" />
+      <Label layoutX="292.0" layoutY="511.0" styleClass="message" stylesheets="@textfont.css" text="pawn color take" />
    </children>
 </AnchorPane>
