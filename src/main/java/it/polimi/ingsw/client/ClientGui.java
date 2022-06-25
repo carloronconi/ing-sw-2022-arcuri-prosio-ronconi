@@ -37,6 +37,7 @@ public class ClientGui extends Application implements Runnable{
     private String finalNickname;
     private Stage stage;
     private String nextSceneName = "";
+    private boolean failedRun = false;
 
     public static void main(String[] args){  launch(args);  }
 
@@ -80,6 +81,10 @@ public class ClientGui extends Application implements Runnable{
         this.port = port;
     }
 
+    public boolean isFailedRun() {
+        return failedRun;
+    }
+
     @Override
     public void run() {
         //String ip = ipSet();
@@ -87,16 +92,16 @@ public class ClientGui extends Application implements Runnable{
 
         try {
             server = new Socket(ip, port);
+            serverHandler = new ServerHandler(server);
+
+            guiView = new GuiView(serverHandler, this);
+            serverHandler.linkView(guiView);
+
+            Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
+            serverHandlerThread.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            failedRun = true;
         }
-        serverHandler = new ServerHandler(server);
-
-        guiView = new GuiView(serverHandler, this);
-        serverHandler.linkView(guiView);
-
-        Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
-        serverHandlerThread.start();
 
     }
     /*

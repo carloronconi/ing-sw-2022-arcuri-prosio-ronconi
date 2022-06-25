@@ -30,6 +30,7 @@ public class LoginSceneController extends SceneController{
         getClientGui().setIp(ipSet());
         getClientGui().setPort(portSet());
         getClientGui().run();
+        if (getClientGui().isFailedRun()) return;
         new ChangeScene(getClientGui()).run();
 
     }
