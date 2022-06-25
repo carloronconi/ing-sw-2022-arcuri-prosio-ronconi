@@ -16,7 +16,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameModelTest {
-    GameModel gameModel;
+    //GameModel gameModel;
     private EventManager<ModelEvent> modelEventManager;
     private EventListener<ModelEvent> listener;
 
@@ -27,8 +27,7 @@ public class GameModelTest {
         listener = modelEvent -> System.out.println("update received");
         modelEventManager.subscribe(listener);
 
-        //gameModel = new GameModel(false, nicknames, modelEventManager);
-        //assertEquals(106, gameModel.countStudentsInBag());
+
     }
 
     /**
@@ -38,7 +37,7 @@ public class GameModelTest {
     public void constructor_easyModeTwoPlayers(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
         assertEquals(106, gameModel.countStudentsInBag());
 
     }
@@ -50,7 +49,7 @@ public class GameModelTest {
     public void constructor_easyModeThreePlayers(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
         assertEquals(93, gameModel.countStudentsInBag());
 
     }
@@ -77,7 +76,7 @@ public class GameModelTest {
     public void constructor_hardModeThreePlayers(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
 
-        gameModel = new GameModel(true, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(true, nicknames, modelEventManager);
 
         Set<AvailableCharacter> availableCharacters = gameModel.getAvailableCharacterCards().keySet();
         int expected = 93;
@@ -95,7 +94,8 @@ public class GameModelTest {
     public void moveStudentToDining() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+
+        GameModel gameModel;
 
         UUID playerId = null;
         PawnColor color = null;
@@ -104,7 +104,7 @@ public class GameModelTest {
 
         boolean found = false;
         do {
-            gameModel = new GameModel(true, nicknames, modelEventManager);
+            gameModel = new GameModel(false, nicknames, modelEventManager);
 
             playerId = gameModel.getPlayerIds().get(0);
             colorsInEntrance = gameModel.getEntrances().get(playerId);
@@ -146,7 +146,7 @@ public class GameModelTest {
     public void moveCloudToEntrance() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(true, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         UUID cloud = gameModel.getClouds().keySet().stream().findFirst().get();
         UUID player = gameModel.getPlayerIds().get(0);
@@ -167,7 +167,7 @@ public class GameModelTest {
         for (PawnColor c: PawnColor.values()){
             entranceAfter += entranceA.get(c);
         }
-        //probaby the issue is that the entrance is already full?
+
         assertEquals(entranceBefore + 3, entranceAfter);
     }
 
@@ -178,7 +178,7 @@ public class GameModelTest {
     public void isAssistantCardIllegal() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
 
-        gameModel = new GameModel(true, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         ArrayList<UUID> idList = gameModel.getPlayerIds();
         try {
@@ -204,7 +204,7 @@ public class GameModelTest {
     public void playAssistantCard() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         assertEquals(10, gameModel.getPlayers().get(0).getDeckSize());
 
@@ -225,7 +225,7 @@ public class GameModelTest {
     public void getNumOfTowers_exception() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         Bag bag = new Bag();
         ArrayList<Cloud> clouds = new ArrayList<>();
@@ -243,7 +243,7 @@ public class GameModelTest {
     public void moveStudentToIsland() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         ArrayList<UUID> islandIds = new ArrayList<>();
         for (UUID id : gameModel.getIslands().keySet()){
@@ -279,7 +279,7 @@ public class GameModelTest {
     public void getDeckSize(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         try {
             assertEquals(10, gameModel.getDeckSize(gameModel.getPlayerIds().get(0)));
@@ -309,7 +309,7 @@ public class GameModelTest {
     public void getDeck(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         ArrayList<Integer> deck = gameModel.getPlayers().get(0).getDeck();
 
@@ -342,7 +342,7 @@ public class GameModelTest {
     public void fillAllClouds_TwoPlayers() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         assertEquals(106, gameModel.countStudentsInBag());
 
@@ -370,7 +370,7 @@ public class GameModelTest {
     public void fillAllClouds_ThreePlayers() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo", "Carlo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         assertEquals(93, gameModel.countStudentsInBag());
 
@@ -398,29 +398,12 @@ public class GameModelTest {
     public void countIslands() {
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         assertEquals(12, gameModel.countIslands());
     }
 
-    @Test
-    public void payAndGetCharacter() {
-    }
 
-    /*@Test
-    public void isAssistantCardIllegal(){
-        List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
-
-        gameModel = new GameModel(false, nicknames, modelEventManager);
-
-        assertEquals(0, gameModel.getPlayedAssistantCards().size());
-
-        try {
-            gameModel.playAssistantCard(gameModel.getPlayerIds().get(0), 5);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
     /**
@@ -430,7 +413,7 @@ public class GameModelTest {
     public void clearPlayedAssistantCards(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         assertEquals(0, gameModel.getPlayedAssistantCards().size());
 
@@ -455,7 +438,7 @@ public class GameModelTest {
     public void moveMotherNature_exception(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         try {
             gameModel.playAssistantCard(gameModel.getPlayerIds().get(0), 6);
@@ -479,7 +462,7 @@ public class GameModelTest {
     public void moveMotherNature(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         try {
             gameModel.playAssistantCard(gameModel.getPlayerIds().get(0), 6);
@@ -502,82 +485,11 @@ public class GameModelTest {
     public void print(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 
-        gameModel = new GameModel(false, nicknames, modelEventManager);
+        GameModel gameModel = new GameModel(false, nicknames, modelEventManager);
 
         String s = gameModel.toString();
         assertEquals(s, gameModel.toString());
     }
 
 
-
-    /*@Test
-    public void moveMotherNature_2studentsVs1student() {
-        List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
-
-        gameModel = new GameModel(false, nicknames, modelEventManager);
-
-        ArrayList<Player> players = gameModel.getPlayers();
-        PawnColor color0 = null;
-        PawnColor color1 = null;
-        UUID islandWithColor0 = null;
-        int steps = 1;
-
-        ArrayList<PawnColor> colors = new ArrayList<>(List.of(PawnColor.values()));
-        System.out.println(colors);
-
-
-        for (PawnColor color : colors){
-            if(players.get(0).getEntrance().count(color)>1){
-                color0 = color;
-                break;
-            }
-        }
-        colors.remove(color0);
-
-
-        for (PawnColor color : colors){
-            if (players.get(1).getEntrance().count(color)>1){
-                color1 = color;
-                break;
-            }
-        }
-
-        try {
-            gameModel.moveStudentToDining(color0, players.get(0).getId());
-            gameModel.moveStudentToDining(color1, players.get(1).getId());
-            assertEquals(gameModel.getProfessorOwners().get(color0), players.get(0).getId()); //player 0 owns professor of color0
-            assertEquals(gameModel.getProfessorOwners().get(color1), players.get(1).getId()); //player 1 owns professor of color1
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            fail();
-        }
-
-        LinkedHashMap<UUID, ArrayList<PawnColor>> islands = gameModel.getIslands();
-        UUID currentIsland = islands.keySet().iterator().next();
-        islands.remove(currentIsland);
-        Iterator<Map.Entry<UUID, ArrayList<PawnColor>>> islandsItr = islands.entrySet().iterator();
-
-        while (islandsItr.hasNext()){
-            Map.Entry<UUID, ArrayList<PawnColor>> island = islandsItr.next();
-            if (island.getValue().contains(color0)){
-                islandWithColor0 = island.getKey();
-                break;
-            }
-            steps++;
-        }
-
-
-        try {
-            gameModel.playAssistantCard(players.get(0).getId(), 10);
-            gameModel.moveStudentToIsland(color1, players.get(1).getId(), islandWithColor0); //island now has 1 pawn of each color
-            gameModel.moveStudentToIsland(color0, players.get(0).getId(), islandWithColor0); //island now has 2 pawns of color0 and 1 of color1
-            gameModel.moveMotherNature(steps, players.get(0).getId()); //now we move MN to islandWithColor0
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            fail();
-        }
-
-        assertEquals(gameModel.getIslandOwners().get(islandWithColor0), players.get(0).getId());
-
-    }*/
 }
