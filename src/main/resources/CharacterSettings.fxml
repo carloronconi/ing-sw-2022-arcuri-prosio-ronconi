@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterSettingsController">
+   <children>
+      <Label layoutX="47.0" layoutY="41.0" prefHeight="74.0" prefWidth="608.0" styleClass="gameOverMessage" stylesheets="@textfont.css" text="CHARACTER SETTINGS " />
+      <Label layoutX="47.0" layoutY="129.0" prefHeight="49.0" prefWidth="436.0" text="If the Character Card you selected is: MONK or PRINCESS " />
+      <Label layoutX="47.0" layoutY="296.0" prefHeight="17.0" prefWidth="319.0" text="if it is WITCH " />
+      <Label layoutX="47.0" layoutY="463.0" prefHeight="17.0" prefWidth="311.0" text="If it is JUGGLER  or MUSICIAN " />
+      <ImageView fx:id="card" fitHeight="274.0" fitWidth="200.0" layoutX="1204.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="cardName" layoutX="1219.0" layoutY="70.0" prefHeight="17.0" prefWidth="152.0" text="card" stylesheets="@textfont.css" styleClass="message"/>
+   </children>
+</AnchorPane>
