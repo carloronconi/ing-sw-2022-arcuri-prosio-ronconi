@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -128,6 +129,10 @@ public class SetCharacterCardSceneController extends SceneController {
              card3m.setOpacity(0.4d);
              System.out.println(characterArrayList.get(2));
              increasedCostCard3.setText("COST +1 = TRUE");
+    }
+
+    public void clickedButton(ActionEvent e) throws IOException {
+
     }
 
 
