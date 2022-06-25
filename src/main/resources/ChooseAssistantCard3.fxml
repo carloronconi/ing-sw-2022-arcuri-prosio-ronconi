@@ -98,10 +98,10 @@
                             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="393.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                             <ImageView fx:id="lastPlayed1" fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
                             <ImageView fx:id="playedByOther" fitHeight="300.0" fitWidth="200.0" layoutX="392.0" pickOnBounds="true" preserveRatio="true" />
-                            <Label layoutX="20.0" layoutY="5.0" styleClass="message" text="PLAYER1" />
-                            <Label layoutX="420.0" layoutY="5.0" styleClass="message" text="PLAYER2" />
+                            <Label fx:id="label1" layoutX="20.0" layoutY="5.0" styleClass="message" text="PLAYER1" />
+                            <Label fx:id="label2" layoutX="420.0" layoutY="5.0" styleClass="message" text="PLAYER2" />
                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" layoutX="754.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-                     <Label layoutX="773.0" layoutY="5.0" styleClass="message" text="PLAYER3" />
+                     <Label fx:id="label3" layoutX="773.0" layoutY="5.0" styleClass="message" text="PLAYER3" />
                             <ImageView fx:id="playedBySecondOther" fitHeight="300.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" />
 
 

@@ -4,6 +4,7 @@ import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -14,6 +15,9 @@ import java.util.regex.Pattern;
 
 public class SetAssistantSceneController extends SceneController {
     public ImageView playedBySecondOther;
+    public Label label1;
+    public Label label2;
+    public Label label3;
     int cardNumber;
     @FXML
     Button button;

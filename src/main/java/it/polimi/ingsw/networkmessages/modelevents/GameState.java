@@ -142,6 +142,10 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
     }
     public LinkedHashMap<UUID, Integer> getIslandSizes() {return new LinkedHashMap<>(islandSizes);}
 
+    public HashMap<UUID, ArrayList<Integer>> getAssistantDecks() {
+        return new HashMap<>(assistantDecks);
+    }
+
     @Override
     public void processMessage(ViewInterface viewInterface, EventManager<ModelEvent> eventManager) {
         eventManager.notify(this);

@@ -69,6 +69,10 @@ public class ClientGui extends Application implements Runnable{
         this.finalNickname = finalNickname;
     }
 
+    public String getFinalNickname() {
+        return finalNickname;
+    }
+
     public GuiView getGuiView(){
         return guiView;
     }

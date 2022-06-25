@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -115,6 +116,25 @@ public class GuiView implements ViewInterface {
                     controller.getPlayedByOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(0)))));
                     if (controller.getPlayedBySecondOther()!=null && resources.size()>1) controller.getPlayedBySecondOther().setImage(new Image(String.valueOf(getClass().getResource(resources.get(1)))));
                 }
+                controller.label1.setText(clientGui.getFinalNickname());
+                //TODO: (nice to have) set other labels to contain the right nickname
+                controller.label2.setText("opponent");
+                if (controller.label3!=null) controller.label3.setText("opponent");
+
+                ArrayList<Integer> assistantDeck = gameState.getAssistantDecks().get(new CliViewIdConverter(gameState).nameToId(clientGui.getFinalNickname(), CliViewIdConverter.ConverterSetting.PLAYER));
+                System.out.println("assistant deck: "+assistantDeck);
+                if (!assistantDeck.contains(1)) controller.card1.setOpacity(1.0);
+                if (!assistantDeck.contains(2)) controller.card2.setOpacity(1.0);
+                if (!assistantDeck.contains(3)) controller.card3.setOpacity(1.0);
+                if (!assistantDeck.contains(4)) controller.card4.setOpacity(1.0);
+                if (!assistantDeck.contains(5)) controller.card5.setOpacity(1.0);
+                if (!assistantDeck.contains(6)) controller.card6.setOpacity(1.0);
+                if (!assistantDeck.contains(7)) controller.card7.setOpacity(1.0);
+                if (!assistantDeck.contains(8)) controller.card8.setOpacity(1.0);
+                if (!assistantDeck.contains(9)) controller.card9.setOpacity(1.0);
+                if (!assistantDeck.contains(10)) controller.card10.setOpacity(1.0);
+
+
             }
         }));
 
