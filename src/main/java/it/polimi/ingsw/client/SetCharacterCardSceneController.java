@@ -65,12 +65,13 @@ public class SetCharacterCardSceneController extends SceneController {
                     cardLab.get(i).setText(characterName);
                 }
             }
-            /* for (int j = 0; j < cardImage.size(); j++) {
+
+             for (int j = 0; j < cardImage.size(); j++) {
                 if(i==j){
                     String pathName = "/" + characterName + ".jpg";
                     cardImage.get(i).setImage(new Image(String.valueOf(getClass().getResource(pathName))));
                 }
-            }  */
+            }
 
         }
 
@@ -79,22 +80,22 @@ public class SetCharacterCardSceneController extends SceneController {
 
 
 
+
                 }
 
        public void clickedCard1(){
+            card1m.setOpacity(0.4d);
+            System.out.println(characterArrayList.get(0));
 
-                        //Image image = new Image(SetCharacterCardSceneController.class.getResourceAsStream("Assistente(1)-min.png"));
-                        //String name = characterArrayList.get(0) ;
-                       // card1m.setImage(new Image(String.valueOf(getClass().getResource(nextImage))));
                 }
         public void clickedCard2(){
-            String name =characterArrayList.get(1);
-            card2m.setImage(new Image(String.valueOf(getClass().getResource("/"+name+".jpg"))));
+            card2m.setOpacity(0.4d);
+            System.out.println(characterArrayList.get(1));
         }
 
          public void clickedCard3(){
-                String name =characterArrayList.get(2);
-                card3m.setImage(new Image(String.valueOf(getClass().getResource("/"+name+".jpg"))));
+             card3m.setOpacity(0.4d);
+             System.out.println(characterArrayList.get(2));
     }
 
 

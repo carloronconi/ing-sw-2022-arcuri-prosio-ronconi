@@ -4,7 +4,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterCardSceneController">
    <Label layoutX="107.0" layoutY="50.0" prefHeight="65.0" prefWidth="982.0" styleClass="message" stylesheets="@textfont.css" text="CHOOSE A CHARACTER CARD: IF YOU DON'T WANT TO, JUST PRESS THE BOTTON TO GO TO THE NEXT SCENE" />
@@ -23,10 +22,7 @@
    <Label fx:id="card1" layoutX="232.0" layoutY="129.0" prefHeight="41.0" prefWidth="178.0" styleClass="message" stylesheets="@textfont.css" text="Label" />
    <Label fx:id="card2" layoutX="676.0" layoutY="129.0" prefHeight="41.0" prefWidth="178.0" styleClass="message" stylesheets="@textfont.css" text="Label" />
    <Label fx:id="card3" layoutX="1101.0" layoutY="129.0" prefHeight="41.0" prefWidth="178.0" styleClass="message" stylesheets="@textfont.css" text="Label" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="265.0" layoutX="128.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="208.0" />
-   <ImageView fx:id="card1m" fitHeight="321.0" fitWidth="220.0" layoutX="122.0" layoutY="161.0" onMouseClicked="#clickedCard1" pickOnBounds="true" preserveRatio="true" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="265.0" layoutX="572.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="208.0" />
-   <ImageView fx:id="card2m" fitHeight="321.0" fitWidth="220.0" layoutX="566.0" layoutY="169.0" onMouseClicked="#clickedCard2" pickOnBounds="true" preserveRatio="true" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="265.0" layoutX="997.0" layoutY="179.0" stroke="BLACK" strokeType="INSIDE" width="208.0" />
-   <ImageView fx:id="card3m" fitHeight="321.0" fitWidth="220.0" layoutX="1001.0" layoutY="169.0" onMouseClicked="#clickedCard3" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="card1m" fitHeight="321.0" fitWidth="220.0" layoutX="122.0" layoutY="180.0" onMouseClicked="#clickedCard1" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="card2m" fitHeight="321.0" fitWidth="220.0" layoutX="566.0" layoutY="180.0" onMouseClicked="#clickedCard2" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="card3m" fitHeight="321.0" fitWidth="220.0" layoutX="991.0" layoutY="180.0" onMouseClicked="#clickedCard3" pickOnBounds="true" preserveRatio="true" />
 </AnchorPane>
