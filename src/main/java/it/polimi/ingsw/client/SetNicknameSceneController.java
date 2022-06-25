@@ -16,6 +16,7 @@ public class SetNicknameSceneController extends SceneController{
 
 
     public void buttonSetNickname(ActionEvent event) throws IOException { //button at the end of setNickname scene
+        if (nickname.getText().isEmpty()) return;
         String finalNickname = nickname.getText();
         getClientGui().setFinalNickname(finalNickname);
         getClientGui().getGuiView().notifyEventManager(new SetNickname(finalNickname));
