@@ -2,6 +2,8 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
+import it.polimi.ingsw.networkmessages.viewevents.ChosenCharacter;
+import it.polimi.ingsw.networkmessages.viewevents.SetAssistantCard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -45,6 +47,8 @@ public class SetCharacterCardSceneController extends SceneController {
     private final ArrayList<Label> cardLab = new ArrayList<>();
     private final ArrayList<ImageView> cardImage = new ArrayList<>();
 
+    private String chosenCharacter;
+
 
 
     public void initialize(){
@@ -59,11 +63,14 @@ public class SetCharacterCardSceneController extends SceneController {
 
     }
 
+    private HashMap<AvailableCharacter, Boolean> availableCharacterMap ;
+
     public void initializeCards(GameState gameState)  {
 
         //cards
-        HashMap<AvailableCharacter, Boolean> availableCharacterMap = gameState.getCharacterCards();
+
         System.out.println("tutto ok!!!");
+        availableCharacterMap = gameState.getCharacterCards();
         for (int i = 0; i < availableCharacterMap.size(); i++) {
             AvailableCharacter av = (AvailableCharacter) availableCharacterMap.keySet().toArray()[i];
             System.out.println(av.name());
@@ -115,23 +122,38 @@ public class SetCharacterCardSceneController extends SceneController {
 
        public void clickedCard1(){
             card1m.setOpacity(0.4d);
-            System.out.println(characterArrayList.get(0));
+            chosenCharacter = characterArrayList.get(0).toUpperCase(Locale.ROOT);
             increasedCostCard1.setText("COST +1 = TRUE");
 
                 }
         public void clickedCard2(){
             card2m.setOpacity(0.4d);
-            System.out.println(characterArrayList.get(1));
+            chosenCharacter= characterArrayList.get(1).toUpperCase(Locale.ROOT);
             increasedCostCard2.setText("COST +1 = TRUE");
         }
 
          public void clickedCard3(){
              card3m.setOpacity(0.4d);
-             System.out.println(characterArrayList.get(2));
+             chosenCharacter = characterArrayList.get(2).toUpperCase(Locale.ROOT);
              increasedCostCard3.setText("COST +1 = TRUE");
     }
 
+    private AvailableCharacter findCorrespondentCharacter(String string){
+        for(int i =0; i< availableCharacterMap.size(); i++){
+            if (availableCharacterMap.keySet().toArray()[i].toString().equals(string)){
+
+                return (AvailableCharacter) availableCharacterMap.keySet().toArray()[i];
+            }
+        }
+        return null;
+    }
+
     public void clickedButton(ActionEvent e) throws IOException {
+        AvailableCharacter av = findCorrespondentCharacter(chosenCharacter);
+
+        getClientGui().getGuiView().notifyEventManager(new ChosenCharacter(av));
+
+        new ChangeScene(getClientGui()).run();
 
     }
 
