@@ -48,11 +48,19 @@ public class SetAssistantSceneController extends SceneController {
         return playedBySecondOther;
     }
 
+    /**
+     * Sends to the server a new message containing the cardNumber played by the user
+     * @param e clicked button by the player
+     * @throws IOException
+     */
     public void clickedButton(ActionEvent e) throws IOException { //button at the end of set assistant card scene
         getClientGui().getGuiView().notifyEventManager(new SetAssistantCard(cardNumber));
         getClientGui().getGuiView().changeSceneToGameBoard(false, true);
     }
 
+    /**
+     * When the player chooses an Assistant Card by clicking on it, it is displayed on the Last Played Deck.
+     */
     public void chosenCard1(){
         number(card1);
         lastPlayed1.setImage(new Image(String.valueOf(getClass().getResource("/Assistente(1)-min.png"))));

@@ -45,16 +45,7 @@ public class ClientGui extends Application implements Runnable{
 
     @Override
     public void start(Stage stage) throws IOException {
-        this.stage = stage;/*
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginScene.fxml"));
-        Parent root = loader.load(); //scene with id and port
-        LoginSceneController controller = loader.getController();
-        controller.setClientGui(this);
-        Scene scene = new Scene(root, 800, 530);
-        stage.setTitle("ERYANTIS");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();*/
+        this.stage = stage;
 
         new ChangeScene("/LoginScene.fxml", this, 800, 530, "ERYANTIS",
                 ((scene1, controller1) -> {
@@ -95,10 +86,9 @@ public class ClientGui extends Application implements Runnable{
         return failedRun;
     }
 
+
     @Override
     public void run() {
-        //String ip = ipSet();
-        //int port = portSet();
 
         try {
             server = new Socket(ip, port);
@@ -114,82 +104,6 @@ public class ClientGui extends Application implements Runnable{
         }
 
     }
-    /*
-    public synchronized void setNextSceneName(String nextScene) { //called when the server is ready and the scene can be changed to the next one
-        System.out.println("starting setNextSceneName method");
-        while (!nextSceneName.isEmpty()) {
-            try {
-                System.out.println("nextSceneName is empty");
-                wait(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        nextSceneName = nextScene;
-        notifyAll();
-        System.out.println("setNextSceneName to " +nextScene);
-    }
-
-
-    public Object nextScene() throws IOException {
-        return nextScene((s, c)->{});
-    }
-
-    public Object nextScene(SceneInitializer initializer) throws IOException {
-        return nextScene(1500, 876, "ERYANTIS", initializer);
-    }
-
-    public Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer) throws IOException {
-        return nextScene(sceneWidth, sceneHeight, stageTitle, initializer, "/WaitingScene.fxml");
-    }
-
-    public synchronized Object nextScene(int sceneWidth, int sceneHeight, String stageTitle, SceneInitializer initializer, String waitSceneName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(waitSceneName));
-        Parent root = fxmlLoader.load();
-        Scene waitScene = new Scene(root, sceneWidth, sceneHeight);
-        stage.setScene(waitScene);
-        stage.show();
-
-        Task<String> task = new Task<>() {
-            @Override
-            protected String call() throws Exception {
-                System.out.println("task started");
-                while (nextSceneName.isEmpty()){
-                    System.out.println("nextSceneName is empty");
-                    ClientGui.this.wait(5000);
-                }
-                String name = nextSceneName;
-                nextSceneName = "";
-                //ClientGui.this.notifyAll();
-                System.out.println("task completed next scene is: " + name);
-                return name;
-            }
-        };
-
-        task.setOnSucceeded(e->{
-            System.out.println("starting task succeeded sequence");
-            String name = task.getValue();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-            Parent r = null; //show next scene with the name selected by serverHandler
-            try {
-                r = loader.load();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            if (loader.getController() instanceof SceneController) ((SceneController) loader.getController()).setClientGui(this);
-            Scene scene = new Scene(r, sceneWidth, sceneHeight);
-            initializer.initializeScene(scene, loader.getController());
-            stage.setTitle(stageTitle);
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("task succeeded sequence ends next scene loaded");
-        });
-
-        new Thread(task).start();
-
-        return null;
-    }*/
-
 
     public ArrayList<String> getPlayedByOtherResources(){
         ArrayList<String> resources = new ArrayList<>();

@@ -65,6 +65,10 @@ public class SetCharacterCardSceneController extends SceneController {
 
     private HashMap<AvailableCharacter, Boolean> availableCharacterMap ;
 
+    /**
+     * Displays three Character Cards randomly chosen by the server to the player.
+     * @param gameState to get the current amount of money owned by each player and the three Character Cards
+     */
     public void initializeCards(GameState gameState)  {
 
         //cards
@@ -148,6 +152,14 @@ public class SetCharacterCardSceneController extends SceneController {
         return null;
     }
 
+
+    /**
+     * If the player decides not to use a Character Cards, by clicking the button without having selected
+     * any card he will be redirected to the gameBoard.
+     * If the player has selected a Character Card, he is redirected to the CharacterSettings scene
+     * @param e clicked button by the player
+     * @throws IOException
+     */
     public void clickedButton(ActionEvent e) throws IOException {
         AvailableCharacter av = findCorrespondentCharacter(chosenCharacter);
 

@@ -99,27 +99,27 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1088.0" stroke="#6abade" strokeType="INSIDE" width="72.0" />
                         <Rectangle fx:id="island5" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1160.0" stroke="#6abade" strokeType="INSIDE" width="200.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1360.0" stroke="#6abade" strokeType="INSIDE" width="141.0" />
-                        <ImageView fitHeight="198.0" fitWidth="200.0" layoutX="72.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island1image" fitHeight="198.0" fitWidth="200.0" layoutX="72.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile1.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="198.0" fitWidth="200.0" layoutX="344.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island2image" fitHeight="198.0" fitWidth="200.0" layoutX="344.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile2.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="198.0" fitWidth="200.0" layoutX="616.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island3image" fitHeight="198.0" fitWidth="200.0" layoutX="616.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile3.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="198.0" fitWidth="200.0" layoutX="888.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island4image" fitHeight="198.0" fitWidth="200.0" layoutX="888.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile1.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="198.0" fitWidth="200.0" layoutX="1160.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island5image" fitHeight="198.0" fitWidth="200.0" layoutX="1160.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile2.png" />
                            </image>
@@ -140,7 +140,7 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="910.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1040.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1170.0" stroke="#6abade" strokeType="INSIDE" width="130.0" />
-                        <ImageView fitHeight="168.0" fitWidth="217.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island12image" fitHeight="168.0" fitWidth="217.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile3.png" />
                            </image>
@@ -163,7 +163,7 @@
                         <ImageView fx:id="card1" fitHeight="210.0" fitWidth="130.0" layoutX="910.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card2" fitHeight="210.0" fitWidth="130.0" layoutX="1040.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="card3" fitHeight="210.0" fitWidth="130.0" layoutX="1170.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="210.0" fitWidth="200.0" layoutX="1300.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island6image" fitHeight="210.0" fitWidth="200.0" layoutX="1300.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile3.png" />
                            </image>
@@ -183,27 +183,27 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1088.0" stroke="#6abade" strokeType="INSIDE" width="72.0" />
                         <Rectangle fx:id="island7" arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1160.0" stroke="#6abade" strokeType="INSIDE" width="200.0" />
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6abade" height="210.0" layoutX="1360.0" stroke="#6abade" strokeType="INSIDE" width="141.0" />
-                        <ImageView fitHeight="183.0" fitWidth="200.0" layoutX="72.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island11image" fitHeight="183.0" fitWidth="200.0" layoutX="72.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile2.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="178.0" fitWidth="200.0" layoutX="344.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island10image" fitHeight="178.0" fitWidth="200.0" layoutX="344.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile1.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="168.0" fitWidth="200.0" layoutX="616.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island9image" fitHeight="168.0" fitWidth="200.0" layoutX="616.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile3.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="167.0" fitWidth="200.0" layoutX="888.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island8image" fitHeight="167.0" fitWidth="200.0" layoutX="888.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile2.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="168.0" fitWidth="199.0" layoutX="1160.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="island7image" fitHeight="168.0" fitWidth="199.0" layoutX="1160.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@tile1.png" />
                            </image>
