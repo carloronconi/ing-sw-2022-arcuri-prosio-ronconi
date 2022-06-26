@@ -169,7 +169,12 @@ public class GameController implements EventListener<ViewEvent> {
                     playerNicknames.add(mapOfPlayerNicknames.get(i));
                 }
                 System.out.println("initializing game model with the following nicknames: " + mapOfPlayerNicknames.values());
-                gameModel = new GameModel(expertMode, new ArrayList<>(mapOfPlayerNicknames.values()), modelEventEventManager);
+                ArrayList<String> orderedNicknames = new ArrayList<>(mapOfPlayerNicknames.size());
+                for (int i = 0; i<mapOfPlayerNicknames.size(); i++){
+                    orderedNicknames.add(mapOfPlayerNicknames.get(i));
+                }
+                System.out.println("orderedNicknames = " + orderedNicknames);
+                gameModel = new GameModel(expertMode, orderedNicknames, modelEventEventManager);
                 controllerState = ControllerState.PLAYING_GAME;
                 turnController = new TurnController(gameModel, gameMode);
                 synchronized (virtualViews){
