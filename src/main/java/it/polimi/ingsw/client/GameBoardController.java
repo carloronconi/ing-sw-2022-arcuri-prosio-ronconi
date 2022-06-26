@@ -58,6 +58,18 @@ public class GameBoardController extends SceneController{
     //@FXML Circle MN;
     //@FXML ImageView cloud1;
     //@FXML ImageView cloud2;
+    @FXML ImageView image1;
+    @FXML ImageView image2;
+    @FXML ImageView image3;
+    @FXML ImageView image4;
+    @FXML ImageView image5;
+    @FXML ImageView image6;
+    @FXML ImageView image7;
+    @FXML ImageView image8;
+    @FXML ImageView image9;
+    @FXML ImageView image10;
+    @FXML ImageView image11;
+    @FXML ImageView image12;
 
     @FXML Pane entrance2;
     @FXML Pane dinings2;
@@ -66,6 +78,7 @@ public class GameBoardController extends SceneController{
     @FXML Rectangle professorsRectangle;
 
     private final List<Pane> islands = new ArrayList<>();
+    private List<ImageView> islandImage = new ArrayList<>();
     private final List<Pane> board = new ArrayList<>();
     private final int MAX_SIZE = 130;
     private final ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
@@ -143,6 +156,20 @@ public class GameBoardController extends SceneController{
         diningTables.add(purple1);
         diningTables.add(blue1);
 
+        islandImage.add(image1);
+        islandImage.add(image2);
+        islandImage.add(image3);
+        islandImage.add(image4);
+        islandImage.add(image5);
+        islandImage.add(image6);
+        islandImage.add(image7);
+        islandImage.add(image8);
+        islandImage.add(image9);
+        islandImage.add(image10);
+        islandImage.add(image11);
+        islandImage.add(image12);
+
+
 
         //pawns.add(circle);
         //pawns.add(MN);
@@ -204,11 +231,28 @@ public class GameBoardController extends SceneController{
 
                         if (!islandIGameModel.containsKey(islandId)){ //island has been eliminated
                             System.out.println("deleted island detected: " + islandName);
-                            Rectangle rectangle = new Rectangle(190.0,190.0, Color.valueOf("#6abade"));
-                            rectangle.setLayoutX(r.getLayoutX()-30.0);
-                            rectangle.setLayoutY(r.getParent().getLayoutY());
+                            int numberOnly = Integer.parseInt(islandName.replaceAll("[^0-9]", ""));
+                            System.out.println(numberOnly);
 
-                            boardPane.getChildren().add(rectangle);
+                            if(numberOnly==1) islandRow0.getChildren().remove(image1);
+                            else if(numberOnly==2) islandRow0.getChildren().remove(image2);
+                            else if(numberOnly==3) islandRow0.getChildren().remove(image3);
+                            else if(numberOnly==4) islandRow0.getChildren().remove(image4);
+                            else if(numberOnly==5) islandRow0.getChildren().remove(image5);
+                            else if(numberOnly==6) islandRow1.getChildren().remove(image6);
+                            else if(numberOnly==7) islandRow2.getChildren().remove(image7);
+                            else if(numberOnly==8) islandRow2.getChildren().remove(image8);
+                            else if(numberOnly==9) islandRow2.getChildren().remove(image9);
+                            else if(numberOnly==10) islandRow2.getChildren().remove(image10);
+                            else if(numberOnly==11) islandRow2.getChildren().remove(image11);
+                            else if(numberOnly==12) islandRow1.getChildren().remove(image12);
+                            else System.out.println("no image to delete");
+
+                           // Rectangle rectangle = new Rectangle(190.0,190.0, Color.valueOf("#6abade"));
+                            //rectangle.setLayoutX(r.getLayoutX()-30.0);
+                           // rectangle.setLayoutY(r.getParent().getLayoutY());
+
+                           // boardPane.getChildren().add(rectangle);
                             //boardPane.getChildren().remove(r);
                         } else{
                             //loop on all colors in island
