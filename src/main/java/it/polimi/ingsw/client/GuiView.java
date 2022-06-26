@@ -213,7 +213,7 @@ public class GuiView implements ViewInterface {
     public void gameOver(UUID winner) {
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
         if (winner!=null) this.winner = converter.idToName(winner, CliViewIdConverter.ConverterSetting.PLAYER);
-        Platform.runLater(new ChangeScene("/GameOver.fxml", clientGui, (s, c)->{
+        Platform.runLater(new ChangeScene("/GameOver.fxml", clientGui, 800, 530, "ERYANTIS", (s, c)->{
             if (c instanceof GameOverSceneController) ((GameOverSceneController) c).setup();
         }));
     }
