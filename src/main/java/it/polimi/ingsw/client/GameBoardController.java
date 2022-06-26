@@ -871,14 +871,7 @@ public class GameBoardController extends SceneController{
         System.out.println("sending to server chosen cloud 1");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         gameBoardState.nextState();
-        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
-        new ChangeScene(name, getClientGui(), (s, c)->{
-            if (c instanceof GameBoardController){
-                GameBoardController boardController = (GameBoardController) c;
-                boardController.updateBoard(getClientGui().getGuiView().getGameState());
-                boardController.vbox.setMouseTransparent(true);
-            }
-        }).run();
+        getClientGui().getGuiView().changeSceneToGameBoard(false, true);
     }
 
     public void clickedCloud2() throws IOException {
@@ -892,14 +885,7 @@ public class GameBoardController extends SceneController{
         System.out.println("sending to server chosen cloud 2");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         gameBoardState.nextState();
-        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
-        new ChangeScene(name, getClientGui(), (s, c)->{
-            if (c instanceof GameBoardController){
-                GameBoardController boardController = (GameBoardController) c;
-                boardController.updateBoard(getClientGui().getGuiView().getGameState());
-                boardController.vbox.setMouseTransparent(true);
-            }
-        }).run();
+        getClientGui().getGuiView().changeSceneToGameBoard(false, true);
     }
 
     public void clickedCloud3() throws IOException {
@@ -914,14 +900,7 @@ public class GameBoardController extends SceneController{
         System.out.println("sending to server chosen cloud 3");
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         gameBoardState.nextState();
-        String name = getClientGui().getGuiView().getGameState().getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
-        new ChangeScene(name, getClientGui(), (s, c)->{
-            if (c instanceof GameBoardController){
-                GameBoardController boardController = (GameBoardController) c;
-                boardController.updateBoard(getClientGui().getGuiView().getGameState());
-                boardController.vbox.setMouseTransparent(true);
-            }
-        }).run();
+        getClientGui().getGuiView().changeSceneToGameBoard(false, true);
     }
 
 }

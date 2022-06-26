@@ -7,12 +7,13 @@ import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GuiView implements ViewInterface {
     private EventManager<ViewEvent> eventManager;
@@ -23,6 +24,7 @@ public class GuiView implements ViewInterface {
     private String winner;
     private CliViewIdConverter initialStateConverter;
     private boolean invalidBoardMove;
+    private AtomicBoolean isWaitingGameBoard = new AtomicBoolean(false);
 
     //private JTextField introductionField;
     //private JTextArea screenArea;
@@ -102,7 +104,7 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void chooseCloud() {
-        changeSceneToGameBoard();
+        changeSceneToGameBoard(true, false);
     }
 
     @Override
@@ -137,7 +139,7 @@ public class GuiView implements ViewInterface {
 
             }
         }));
-
+        isWaitingGameBoard.set(false);
     }
 
     @Override
@@ -198,12 +200,12 @@ public class GuiView implements ViewInterface {
 
     @Override
     public void moveMotherNature() {
-        changeSceneToGameBoard();
+        changeSceneToGameBoard(true, false);
     }
 
     @Override
     public void moveStudent() {
-        changeSceneToGameBoard();
+        changeSceneToGameBoard(true, false);
 
     }
 
@@ -219,14 +221,23 @@ public class GuiView implements ViewInterface {
 
     }
 
-    private void changeSceneToGameBoard(){
+    public void changeSceneToGameBoard(boolean runLater, boolean makeTransparent){
         String name = gameState.getNicknames().size()==2? "/GameBoard2.fxml" : "/GameBoard3.1.fxml";
-        Platform.runLater(new ChangeScene(name, clientGui, (s, c)->{
-            if (c instanceof GameBoardController){
-                GameBoardController boardController = (GameBoardController) c;
-                boardController.updateBoard(/*getNextGameState(gameState.getId())*/gameState);
+        SceneInitializer initializer = (scene, controller) -> {
+            if (controller instanceof GameBoardController){
+                GameBoardController boardController = (GameBoardController) controller;
+                boardController.updateBoard(gameState);
+                if (makeTransparent) boardController.vbox.setMouseTransparent(true);
             }
-        }));
+        };
+        if (runLater){
+            Platform.runLater(new ChangeScene(name, clientGui, initializer));
+            //isWaitingGameBoard.set(false);
+        } else {
+            new ChangeScene(name, clientGui, initializer).run();
+            //isWaitingGameBoard.set(true);
+        }
+        isWaitingGameBoard.set(makeTransparent);
     }
 
     /*
@@ -248,9 +259,10 @@ public class GuiView implements ViewInterface {
     @Override
     public synchronized void update(ModelEvent modelEvent) {
         gameState = (GameState) modelEvent;
+        if (isWaitingGameBoard.get()) changeSceneToGameBoard(true, true);
         if (initialStateConverter==null) initialStateConverter = new CliViewIdConverter(gameState);
 
-        System.out.println("notified waiters of this gameState:" + gameState);
+        //System.out.println("notified waiters of this gameState:" + gameState);
         //UUID[] uuids = new UUID[2];
         //System.out.println(gameState.drawGameState(gameState.getNicknames().keySet().stream().findFirst().get(), new ArrayList<>(List.of(gameState.getIslands().keySet().toArray(uuids)))));
         notifyAll();
