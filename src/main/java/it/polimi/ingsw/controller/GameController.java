@@ -151,6 +151,10 @@ public class GameController implements EventListener<ViewEvent> {
                 }
             }
 
+            if (numOfNicknamesAdded > numOfPlayers){
+                virtualViews.get(0).gameOver(null);
+            }
+
             if (numOfNicknamesAdded == numOfPlayers) {
                 boolean expertMode = (gameMode == GameMode.HARD);
                 synchronized (virtualViews){
@@ -190,8 +194,6 @@ public class GameController implements EventListener<ViewEvent> {
 
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();
-            } else if(viewEvent instanceof ReadyToPlay){
-
             }
         } else if (viewEvent instanceof SetPlayAgain) {
             playAgain = ((SetPlayAgain) viewEvent).isPlayAgain();

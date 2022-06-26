@@ -21,7 +21,7 @@ public class GuiView implements ViewInterface {
     private final ClientGui clientGui;
     private GameState gameState;
     private boolean keepOldView;
-    private String winner;
+    private String winner = null;
     private CliViewIdConverter initialStateConverter;
     private boolean invalidBoardMove;
     private AtomicBoolean isWaitingGameBoard = new AtomicBoolean(false);
@@ -212,8 +212,10 @@ public class GuiView implements ViewInterface {
     @Override
     public void gameOver(UUID winner) {
         CliViewIdConverter converter = new CliViewIdConverter(gameState);
-        this.winner = converter.idToName(winner, CliViewIdConverter.ConverterSetting.PLAYER);
-        Platform.runLater(new ChangeScene("/GameOver.fxml", clientGui));
+        if (winner!=null) this.winner = converter.idToName(winner, CliViewIdConverter.ConverterSetting.PLAYER);
+        Platform.runLater(new ChangeScene("/GameOver.fxml", clientGui, (s, c)->{
+            if (c instanceof GameOverSceneController) ((GameOverSceneController) c).setup();
+        }));
     }
 
     @Override
