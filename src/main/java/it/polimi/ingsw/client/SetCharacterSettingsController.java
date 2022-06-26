@@ -56,7 +56,7 @@ public class SetCharacterSettingsController extends SceneController{
         this.gameState = gameState;
         converter = new CliViewIdConverter(gameState);
         String nickname = getClientGui().getFinalNickname();
-        UUID playerId = converter.nameToId(nickname, CliViewIdConverter.converterSetting.PLAYER);
+        UUID playerId = converter.nameToId(nickname, CliViewIdConverter.ConverterSetting.PLAYER);
 
 
 
@@ -161,7 +161,7 @@ public class SetCharacterSettingsController extends SceneController{
     public void settingIslandChosen(){
         System.out.println(whereTo.getText());
         String islandName = whereToChosen();
-        island = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
+        island = converter.nameToId(islandName, CliViewIdConverter.ConverterSetting.ISLAND);
         System.out.println(island);
 
     }

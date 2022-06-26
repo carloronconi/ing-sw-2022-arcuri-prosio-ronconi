@@ -184,7 +184,6 @@ public class ClientGui extends Application implements Runnable{
         return null;
     }*/
 
-    public String getFinalNickname(){ return finalNickname;}
 
     public ArrayList<String> getPlayedByOtherResources(){
         ArrayList<String> resources = new ArrayList<>();
