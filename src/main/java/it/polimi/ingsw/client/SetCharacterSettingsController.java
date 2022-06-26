@@ -52,6 +52,14 @@ public class SetCharacterSettingsController extends SceneController{
     CliViewIdConverter converter;
 
 
+    /**
+     * Initializes the CharacterSettings scene according to the Character Card played.
+     *If the Card requires a Swap between Pawns from the Entrance or Dining of the player, those pawns are displayed
+     * as well.
+     * @param gameState to get the Entrance and Dining Pawns of a player
+     * @param availableCharacter to get the Character Card chosen by the player
+     */
+
     public void initializeSettings(GameState gameState, AvailableCharacter availableCharacter){
         this.gameState = gameState;
         converter = new CliViewIdConverter(gameState);
@@ -148,7 +156,16 @@ public class SetCharacterSettingsController extends SceneController{
 
 
     }
+
+    /**
+     *
+     * @return string input by the player as the color of the pawn  on which apply the Character Card Effect
+     */
     public String pawnColorChosen(){return pawnColor.getText(); }
+
+    /**
+     * Converts the string input by the player as a PawnColor
+     */
     public void settingPawnColor(){
         System.out.println(pawnColor.getText().toUpperCase(Locale.ROOT));
         String string = pawnColorChosen().toUpperCase(Locale.ROOT);
@@ -157,7 +174,15 @@ public class SetCharacterSettingsController extends SceneController{
 
     }
 
+    /**
+     *
+     * @return string input by the player as the island on which apply the Character Card Effect
+     */
     public String whereToChosen(){ return  whereTo.getText(); }
+
+    /**
+     * Converts the string input by the player as an Island UUID
+     */
     public void settingIslandChosen(){
         System.out.println(whereTo.getText());
         String islandName = whereToChosen();
@@ -166,19 +191,34 @@ public class SetCharacterSettingsController extends SceneController{
 
     }
 
-    //swap
+    /**
+     *
+     * @return PawnColor that will be swapped from the player's Entrance according to the Character Card Effect
+     */
     public PawnColor pawnToGive(){
         String pawnGive = swapGive.getText().toUpperCase(Locale.ROOT);
         PawnColor pawn = PawnColor.valueOf(pawnGive);
 
         return pawn;
     }
+
+    /**
+     *
+     * @return PawnColor that will be swapped from the player's Dining or from the set of Pawns on the Juggler Card
+     * according to the Character Card Effect
+     */
     public PawnColor pawnToTake(){
         String pawnTake = swapTake.getText().toUpperCase(Locale.ROOT);
         PawnColor pawn1 = PawnColor.valueOf(pawnTake);
 
         return pawn1;
     }
+
+    /**
+     * Clears the TextFields to allow the player to enter a new couple of swapping pawns and stores the input one
+     * in an Array
+     * @param ev clicked button by the player
+     */
     public void swapClick(ActionEvent ev){
         //creates the swap Array
         ColorSwap colorSwap = new ColorSwap(pawnToGive(), pawnToTake());
@@ -190,22 +230,11 @@ public class SetCharacterSettingsController extends SceneController{
 
     }
 
-
-
-
-
-    public void clickedButton(ActionEvent e) throws IOException {
-        //pawn
-        /* String string = pawnColorChosen().toUpperCase(Locale.ROOT);
-        color = PawnColor.valueOf(string);*/
-
-        //player
-        /* String nickname = getClientGui().getFinalNickname();
-        player = converter.nameToId(nickname, CliViewIdConverter.converterSetting.PLAYER); */
-
-        //island UUID
-        /*String islandName = whereToChosen();
-        island = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);*/
+    /**
+     * Sends a message to the server containing all the character settings and changes scene
+     * @param e clicked button by the player
+     */
+    public void clickedButton(ActionEvent e) {
 
         getClientGui().getGuiView().notifyEventManager(new SetCharacterSettings(color, player, island, colorSwaps ));
         System.out.println(color);
