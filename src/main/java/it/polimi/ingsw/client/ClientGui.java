@@ -57,7 +57,13 @@ public class ClientGui extends Application implements Runnable{
         stage.show();*/
 
         new ChangeScene("/LoginScene.fxml", this, 800, 530, "ERYANTIS",
-                ((scene1, controller1) -> {stage.setResizable(false); stage.show();})).run();
+                ((scene1, controller1) -> {
+                    stage.setResizable(false);
+                    stage.show();
+                    stage.setOnCloseRequest((t)->{
+                        System.exit(0);
+                    });
+                })).run();
 
     }
 
