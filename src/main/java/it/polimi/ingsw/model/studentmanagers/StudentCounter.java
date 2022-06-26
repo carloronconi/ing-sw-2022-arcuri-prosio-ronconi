@@ -7,8 +7,8 @@ import java.util.EnumMap;
 import java.util.Random;
 
 /**
- * Abstract class StudentCounter counts the number of student tiles for each PawnColor, cant be instantiated, just its
- * subclassess will be
+ * Abstract class StudentCounter counts the number of student tiles for each PawnColor, can't be instantiated, just its
+ * subclasses will be
  */
 public abstract class StudentCounter {
     private final EnumMap<PawnColor, Integer> map;
