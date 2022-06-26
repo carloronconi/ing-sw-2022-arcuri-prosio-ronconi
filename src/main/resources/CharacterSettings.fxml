@@ -23,11 +23,13 @@
       <Label fx:id="playerEntrance" layoutX="796.0" layoutY="507.0" prefHeight="17.0" prefWidth="133.0" styleClass="message" stylesheets="@textfont.css" text="your entrance " />
       <Label fx:id="playerDining" layoutX="1061.0" layoutY="507.0" prefHeight="17.0" prefWidth="178.0" styleClass="message" stylesheets="@textfont.css" text="your dining" />
       <Label layoutX="27.0" layoutY="544.0" prefHeight="24.0" prefWidth="59.0" styleClass="message" stylesheets="@textfont.css" text="Swap:" />
-      <TextField fx:id="swapGive" layoutX="99.0" layoutY="544.0" onInputMethodTextChanged="#whereToSwapGive" />
-      <TextField fx:id="swapTake" layoutX="277.0" layoutY="544.0" onInputMethodTextChanged="#whereToSwapTake" />
+      <TextField fx:id="swapGive" layoutX="99.0" layoutY="544.0" onInputMethodTextChanged="#pawnToGive" />
+      <TextField fx:id="swapTake" layoutX="277.0" layoutY="544.0" onInputMethodTextChanged="#pawnToTake" />
       <Button fx:id="swapBtn" layoutX="452.0" layoutY="544.0" mnemonicParsing="false" onAction="#swapClick" text="swap" />
       <Button fx:id="btn" layoutX="1390.0" layoutY="816.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="34.0" prefWidth="82.0" text="Button" />
       <Label layoutX="114.0" layoutY="511.0" styleClass="message" stylesheets="@textfont.css" text="pawn color give" />
       <Label layoutX="292.0" layoutY="511.0" styleClass="message" stylesheets="@textfont.css" text="pawn color take" />
+      <Button fx:id="setColor" layoutX="333.0" layoutY="178.0" mnemonicParsing="false" onAction="#settingPawnColor" text="setColor" />
+      <Button fx:id="setIsland" layoutX="474.0" layoutY="228.0" mnemonicParsing="false" onAction="#settingIslandChosen" text="setIsland" />
    </children>
 </AnchorPane>

@@ -256,44 +256,44 @@ public class CliView implements ViewInterface {
         ArrayList<ColorSwap> colorSwaps = null;
 
         InputParser colorInputParser = input -> {
-            try{
+            try {
                 PawnColor col = PawnColor.valueOf(input.toUpperCase());
                 return true;
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 return false;
             }
         };
 
-        if (EffectWithColor.class.isAssignableFrom(characterClass)){
+        if (EffectWithColor.class.isAssignableFrom(characterClass)) {
             String text = askUserInput("Select a color for the character effect:", input -> {
                 try {
                     PawnColor col = PawnColor.valueOf(input.toUpperCase());
-                    if(Monk.class.isAssignableFrom(characterClass)){
+                    if (Monk.class.isAssignableFrom(characterClass)) {
                         return gameState.getCharacterCardsStudents().get(AvailableCharacter.MONK).contains(col);
                     }
-                    if (Princess.class.isAssignableFrom(characterClass)){
+                    if (Princess.class.isAssignableFrom(characterClass)) {
                         return gameState.getCharacterCardsStudents().get(AvailableCharacter.PRINCESS).contains(col);
                     }
                     return true;
-                } catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     return false;
                 }
             });
 
             color = PawnColor.valueOf(text.toUpperCase());
         }
-        if (EffectWithIsland.class.isAssignableFrom(characterClass)){
-            String text = askUserInput("Select an island for the character effect:", s->{
+        if (EffectWithIsland.class.isAssignableFrom(characterClass)) {
+            String text = askUserInput("Select an island for the character effect:", s -> {
                 UUID isl = converter.nameToId(s, CliViewIdConverter.converterSetting.ISLAND);
                 if (Witch.class.isAssignableFrom(characterClass)) return !gameState.getBanOnIslands().get(isl);
-                return isl!=null;
+                return isl != null;
             });
 
             //island = UUID.fromString(text);
             island = converter.nameToId(text, CliViewIdConverter.converterSetting.ISLAND);
 
         }
-        if (SwapperCharacter.class.isAssignableFrom(characterClass)){
+        if (SwapperCharacter.class.isAssignableFrom(characterClass)) {
             colorSwaps = new ArrayList<>();
             //int maxSwaps = SwapperCharacter.class.cast(characterClass).getMaxColorSwaps();
             int maxSwaps = forCharacter.getMaxColorSwaps();
@@ -302,43 +302,40 @@ public class CliView implements ViewInterface {
             EnumMap<PawnColor, Integer> dining = gameState.getDiningRooms().get(converter.nameToId(finalNickname, CliViewIdConverter.converterSetting.PLAYER));
             ArrayList<PawnColor> juggler = gameState.getCharacterCardsStudents().get(AvailableCharacter.JUGGLER);
 
-            for (int i = 0; i<maxSwaps; i++){
-                String num = String.valueOf(i+1);
+            for (int i = 0; i < maxSwaps; i++) {
+                String num = String.valueOf(i + 1);
                 String mess = "Do you want to set the " + num + " color swap (Y) or skip (N)? You have " + maxSwaps + " total swaps.";
-                String again = askUserInput(mess, s->s.equalsIgnoreCase("Y")||s.equalsIgnoreCase("N"));
+                String again = askUserInput(mess, s -> s.equalsIgnoreCase("Y") || s.equalsIgnoreCase("N"));
                 if (again.equalsIgnoreCase("N")) break;
 
-                String giveText = askUserInput("Select color to be given from your entrance for the character effect:", input ->{
-                    try{
+                String giveText = askUserInput("Select color to be given from your entrance for the character effect:", input -> {
+                    try {
                         PawnColor col = PawnColor.valueOf(input.toUpperCase());
-                        if (entrance.containsKey(col) && entrance.get(col)>0) {
-                            entrance.put(col, entrance.get(col)-1);
+                        if (entrance.containsKey(col) && entrance.get(col) > 0) {
+                            entrance.put(col, entrance.get(col) - 1);
                             return true;
-                        }
-                        else return false;
-                    } catch (IllegalArgumentException e){
+                        } else return false;
+                    } catch (IllegalArgumentException e) {
                         return false;
                     }
                 });
                 PawnColor giveColor = PawnColor.valueOf(giveText.toUpperCase());
 
                 String takeText = askUserInput("Select color to be taken to your entrance for the character effect:", input -> {
-                    try{
+                    try {
                         PawnColor col = PawnColor.valueOf(input.toUpperCase());
-                        if (Juggler.class.isAssignableFrom(characterClass)){
-                            if (juggler.contains(col)){
+                        if (Juggler.class.isAssignableFrom(characterClass)) {
+                            if (juggler.contains(col)) {
                                 juggler.remove(col);
                                 return true;
-                            }
-                            else return false;
+                            } else return false;
                         } else { //musician
-                            if (dining.containsKey(col) && dining.get(col)>0) {
-                                dining.put(col, dining.get(col)-1);
+                            if (dining.containsKey(col) && dining.get(col) > 0) {
+                                dining.put(col, dining.get(col) - 1);
                                 return true;
-                            }
-                            else return false;
+                            } else return false;
                         }
-                    } catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         return false;
                     }
                 });
@@ -349,10 +346,11 @@ public class CliView implements ViewInterface {
             }
 
         }
-
-        while (colorSwaps.size()> forCharacter.getMaxColorSwaps()){
-            colorSwaps.remove(colorSwaps.size()-1);
+        if(colorSwaps!=null){
+        while (colorSwaps.size() > forCharacter.getMaxColorSwaps()) {
+            colorSwaps.remove(colorSwaps.size() - 1);
         }
+    }
         eventManager.notify(new SetCharacterSettings(color, player, island, colorSwaps));
 
     }

@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
@@ -48,11 +49,12 @@ public class SetCharacterSettingsController extends SceneController{
     ArrayList<ColorSwap> colorSwaps = null;
 
     private GameState gameState;
+    CliViewIdConverter converter;
 
 
     public void initializeSettings(GameState gameState, AvailableCharacter availableCharacter){
         this.gameState = gameState;
-        CliViewIdConverter converter = new CliViewIdConverter(gameState);
+        converter = new CliViewIdConverter(gameState);
         String nickname = getClientGui().getFinalNickname();
         UUID playerId = converter.nameToId(nickname, CliViewIdConverter.converterSetting.PLAYER);
 
@@ -91,91 +93,131 @@ public class SetCharacterSettingsController extends SceneController{
         if(chosenCharacter.equals("juggler")|| chosenCharacter.equals("musician")) {
 
             //list of colors
-                if(gameState.getEntrances().containsKey(playerId)) {
-                    for (PawnColor color : gameState.getEntrances().get(playerId).keySet()) {
-                        int number = gameState.getEntrances().get(playerId).get(color);
-                        for (int k = 0; k < number; k++) {
-                            Circle circle = new Circle();
-                            circle.setCenterX(50.0);
-                            circle.setCenterY(50.0);
-                            circle.setLayoutX(805.0);
-                            circle.setLayoutY(520.0 + k*20.0);
-                            circle.setRadius(16.0);
-                            circle.setStroke(Color.BLACK);
-                            circle.setStrokeType(StrokeType.INSIDE);
-                            circle.setFill(Color.valueOf(color.toString()));
+            ArrayList<PawnColor> entranceMap = new ArrayList<>();
+            if(gameState.getEntrances().containsKey(playerId)){
+              for(PawnColor color : gameState.getEntrances().get(playerId).keySet()){
+                  int number = gameState.getEntrances().get(playerId).get(color);
+                  for (int i = 0; i < number; i++) {
+                      entranceMap.add(color);
+                  }
+              }
+            }
+            System.out.println(entranceMap);
+            for (int i = 0; i < entranceMap.size(); i++) {
+                Circle circle = new Circle();
+                circle.setCenterX(50.0);
+                circle.setCenterY(50.0);
+                circle.setLayoutX(805.0);
+                circle.setLayoutY(520.0 + i*30.0);
+                circle.setRadius(16.0);
+                circle.setStroke(Color.BLACK);
+                circle.setStrokeType(StrokeType.INSIDE);
+                circle.setFill(Color.valueOf(entranceMap.get(i).toString()));
 
-                            pane.getChildren().add(circle);
-                        }
+                pane.getChildren().add(circle);
+            }
 
-                    }
-                }
             }
 
         if(chosenCharacter.equals("musician")){
+            ArrayList<PawnColor> diningMap = new ArrayList<>();
             if(gameState.getDiningRooms().containsKey(playerId)){
-                for (PawnColor color : gameState.getDiningRooms().get(playerId).keySet()) {
+                for(PawnColor color : gameState.getDiningRooms().get(playerId).keySet()){
                     int number = gameState.getDiningRooms().get(playerId).get(color);
-                    for (int k = 0; k < number; k++) {
-                        Circle circle = new Circle();
-                        circle.setCenterX(50.0);
-                        circle.setCenterY(50.0);
-                        circle.setLayoutX(805.0);
-                        circle.setLayoutY(520.0 + k*20.0);
-                        circle.setRadius(16.0);
-                        circle.setStroke(Color.BLACK);
-                        circle.setStrokeType(StrokeType.INSIDE);
-                        circle.setFill(Color.valueOf(color.toString()));
-
-                        pane.getChildren().add(circle);
+                    for (int i = 0; i < number; i++) {
+                        diningMap.add(color);
                     }
-
                 }
             }
+            System.out.println(diningMap);
+            for (int i = 0; i < diningMap.size(); i++) {
+                Circle circle = new Circle();
+                circle.setCenterX(50.0);
+                circle.setCenterY(50.0);
+                circle.setLayoutX(1100.0);
+                circle.setLayoutY(520.0 + i*30.0);
+                circle.setRadius(16.0);
+                circle.setStroke(Color.BLACK);
+                circle.setStrokeType(StrokeType.INSIDE);
+                circle.setFill(Color.valueOf(diningMap.get(i).toString()));
 
+                pane.getChildren().add(circle);
+            }
 
         }
 
 
     }
-
-    public String pawnColorChosen(){ return pawnColor.getText(); }
-    public String whereToChosen(){ return  whereTo.getText(); }
-
-    public void clickedButton(ActionEvent e) throws IOException {
-        CliViewIdConverter converter = new CliViewIdConverter(gameState);
-
-        //pawn
+    public String pawnColorChosen(){return pawnColor.getText(); }
+    public void settingPawnColor(){
+        System.out.println(pawnColor.getText().toUpperCase(Locale.ROOT));
         String string = pawnColorChosen().toUpperCase(Locale.ROOT);
         color = PawnColor.valueOf(string);
-
-        //player
-        String nickname = getClientGui().getFinalNickname();
-        player = converter.nameToId(nickname, CliViewIdConverter.converterSetting.PLAYER);
-
-        //island UUID
-        String islandName = whereToChosen();
-        island = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
-
-        getClientGui().getGuiView().notifyEventManager(new SetCharacterSettings(color, player, island, colorSwaps ));
-
-        new ChangeScene(getClientGui()).run();
+        System.out.println(color);
 
     }
 
+    public String whereToChosen(){ return  whereTo.getText(); }
+    public void settingIslandChosen(){
+        System.out.println(whereTo.getText());
+        String islandName = whereToChosen();
+        island = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
+        System.out.println(island);
+
+    }
+
+    //swap
+    public PawnColor pawnToGive(){
+        String pawnGive = swapGive.getText().toUpperCase(Locale.ROOT);
+        PawnColor pawn = PawnColor.valueOf(pawnGive);
+
+        return pawn;
+    }
+    public PawnColor pawnToTake(){
+        String pawnTake = swapTake.getText().toUpperCase(Locale.ROOT);
+        PawnColor pawn1 = PawnColor.valueOf(pawnTake);
+
+        return pawn1;
+    }
     public void swapClick(ActionEvent ev){
         //creates the swap Array
-        colorSwaps.add(new ColorSwap(PawnColor.valueOf(whereToSwapGive().toUpperCase(Locale.ROOT)), PawnColor.valueOf(whereToSwapTake().toUpperCase(Locale.ROOT))));
+        ColorSwap colorSwap = new ColorSwap(pawnToGive(), pawnToTake());
+        colorSwaps = new ArrayList<>();
+        colorSwaps.add(colorSwap);
+        System.out.println(colorSwap);
         swapGive.clear();
         swapTake.clear();
 
     }
 
-    public String whereToSwapGive(){
-        return swapGive.getText();
+
+
+
+
+    public void clickedButton(ActionEvent e) throws IOException {
+        //pawn
+        /* String string = pawnColorChosen().toUpperCase(Locale.ROOT);
+        color = PawnColor.valueOf(string);*/
+
+        //player
+        /* String nickname = getClientGui().getFinalNickname();
+        player = converter.nameToId(nickname, CliViewIdConverter.converterSetting.PLAYER); */
+
+        //island UUID
+        /*String islandName = whereToChosen();
+        island = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);*/
+
+        getClientGui().getGuiView().notifyEventManager(new SetCharacterSettings(color, player, island, colorSwaps ));
+        System.out.println(color);
+        System.out.println(player);
+        System.out.println(island);
+        System.out.println(colorSwaps);
+
+        new ChangeScene(getClientGui()).run();
+
     }
 
-    public String whereToSwapTake(){
-        return swapTake.getText();
-    }
+
+
+
 }
