@@ -33,7 +33,7 @@ public class Musician extends SwapperCharacter implements EffectWithPlayer {
     @Override
     public void useEffect() throws NoSuchFieldException, IllegalStateException {
         if (player == null) throw new IllegalStateException();
-        if(colorSwaps.isEmpty()) throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");
+        if(colorSwaps.isEmpty()) /*throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");*/ return;
         Entrance entrance = ConverterUtility.idToElement(player, players).getEntrance();
         DiningRoom diningRoom = ConverterUtility.idToElement(player, players).getDiningRoom();
 

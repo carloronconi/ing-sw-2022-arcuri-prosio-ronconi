@@ -39,7 +39,7 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
      */
     public void useEffect() throws IllegalStateException, NoSuchFieldException {
         if (player == null) throw new IllegalStateException();
-        if(colorSwaps.isEmpty()) throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");
+        if(colorSwaps.isEmpty()) /*throw new IllegalStateException("never called setupColorSwaps before using the effect: has to be called at least once");*/ return;
         Entrance entrance = ConverterUtility.idToElement(player, players).getEntrance();
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());
         if (!isCostIncreased()) increaseCost();
