@@ -25,7 +25,9 @@ public class SetPreferencesSceneController extends SceneController {
     private ToggleGroup numberGroup = new ToggleGroup();
     private ToggleGroup modeGroup = new ToggleGroup();
 
-
+    /**
+     * Method to set up the scene and have it as two ToggleGroups: number of players and game mode
+     */
     @FXML
     public void initialize(){
         button2.setToggleGroup(numberGroup);
@@ -34,6 +36,13 @@ public class SetPreferencesSceneController extends SceneController {
         buttonHard.setToggleGroup(modeGroup);
     }
 
+    /**
+     * This method saves the preferences selected by the player (number of players and game mode) in local variables and
+     * sends a new message to the server containing these settings
+     *
+     * @param event when the player clicks the button
+     * @throws IOException
+     */
     public void buttonClick(ActionEvent event) throws IOException { //button at the end of set preferences scene
         int numOfPlayers;
         GameMode gameMode;

@@ -24,7 +24,10 @@ public class LoginSceneController extends SceneController{
         return Integer.parseInt(serverPortBox.getText());
     }
 
-
+    /**
+     * Method to send the IP address and the Port set by the client to start a connection with the server
+     * @param event when the user clicks the button
+     */
     public void connectButtonClicked(ActionEvent event) //button at the end of loginScene
     {
         getClientGui().setIp(ipSet());
