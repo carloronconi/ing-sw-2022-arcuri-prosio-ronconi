@@ -92,6 +92,11 @@ public class SetCharacterCardSceneController extends SceneController {
                 if(i==j){
                     String pathName = "/" + characterName + ".jpg";
                     cardImage.get(i).setImage(new Image(String.valueOf(getClass().getResource(pathName))));
+
+                    int price = av.getInitialCost();
+                    price += availableCharacterMap.get(av)? 1 : 0;
+                    UUID playerId = new CliViewIdConverter(gameState).nameToId(getClientGui().getFinalNickname(), CliViewIdConverter.ConverterSetting.PLAYER);
+                    if (price>gameState.getCoinsMap().get(playerId)) cardImage.get(i).setMouseTransparent(true);
                 }
             }
 
