@@ -54,7 +54,7 @@ public class SetCharacterSettingsController extends SceneController{
 
     /**
      * Initializes the CharacterSettings scene according to the Character Card played.
-     *If the Card requires a Swap between Pawns from the Entrance or Dining of the player, those pawns are displayed
+     * If the Card requires a Swap between Pawns from the Entrance or Dining of the player, those pawns are displayed
      * as well.
      * @param gameState to get the Entrance and Dining Pawns of a player
      * @param availableCharacter to get the Character Card chosen by the player
@@ -157,62 +157,38 @@ public class SetCharacterSettingsController extends SceneController{
 
     }
 
-    /**
-     *
-     * @return string input by the player as the color of the pawn  on which apply the Character Card Effect
-     */
-    public String pawnColorChosen(){return pawnColor.getText(); }
 
     /**
      * Converts the string input by the player as a PawnColor
      */
     public void settingPawnColor(){
         System.out.println(pawnColor.getText().toUpperCase(Locale.ROOT));
-        String string = pawnColorChosen().toUpperCase(Locale.ROOT);
-        color = PawnColor.valueOf(string);
+        String string = pawnColor.getText().toUpperCase(Locale.ROOT);
+        try{
+            color = PawnColor.valueOf(string);
+            pawnColor.clear();
+        } catch(IllegalArgumentException | NullPointerException e){
+            System.out.println("no color with that name");
+        }
+
         System.out.println(color);
 
     }
 
-    /**
-     *
-     * @return string input by the player as the island on which apply the Character Card Effect
-     */
-    public String whereToChosen(){ return  whereTo.getText(); }
+
 
     /**
      * Converts the string input by the player as an Island UUID
      */
     public void settingIslandChosen(){
         System.out.println(whereTo.getText());
-        String islandName = whereToChosen();
+        String islandName = whereTo.getText();
         island = converter.nameToId(islandName, CliViewIdConverter.ConverterSetting.ISLAND);
         System.out.println(island);
-
+        if (island!=null) whereTo.clear();
+        else System.out.println("no island with that name");
     }
 
-    /**
-     *
-     * @return PawnColor that will be swapped from the player's Entrance according to the Character Card Effect
-     */
-    public PawnColor pawnToGive(){
-        String pawnGive = swapGive.getText().toUpperCase(Locale.ROOT);
-        PawnColor pawn = PawnColor.valueOf(pawnGive);
-
-        return pawn;
-    }
-
-    /**
-     *
-     * @return PawnColor that will be swapped from the player's Dining or from the set of Pawns on the Juggler Card
-     * according to the Character Card Effect
-     */
-    public PawnColor pawnToTake(){
-        String pawnTake = swapTake.getText().toUpperCase(Locale.ROOT);
-        PawnColor pawn1 = PawnColor.valueOf(pawnTake);
-
-        return pawn1;
-    }
 
     /**
      * Clears the TextFields to allow the player to enter a new couple of swapping pawns and stores the input one
@@ -221,12 +197,19 @@ public class SetCharacterSettingsController extends SceneController{
      */
     public void swapClick(ActionEvent ev){
         //creates the swap Array
-        ColorSwap colorSwap = new ColorSwap(pawnToGive(), pawnToTake());
-        colorSwaps = new ArrayList<>();
-        colorSwaps.add(colorSwap);
-        System.out.println(colorSwap);
-        swapGive.clear();
-        swapTake.clear();
+
+        try{
+            PawnColor give = PawnColor.valueOf(swapGive.getText().toUpperCase());
+            PawnColor take = PawnColor.valueOf(swapTake.getText().toUpperCase());
+
+            ColorSwap colorSwap = new ColorSwap(give, take);
+            if (colorSwaps == null) colorSwaps = new ArrayList<>();
+            colorSwaps.add(colorSwap);
+            swapGive.clear();
+            swapTake.clear();
+        } catch(IllegalArgumentException | NullPointerException e){
+            System.out.println("no color with that name");
+        }
 
     }
 
