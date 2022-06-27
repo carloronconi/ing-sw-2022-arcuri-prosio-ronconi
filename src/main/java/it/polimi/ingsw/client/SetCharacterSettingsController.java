@@ -50,6 +50,10 @@ public class SetCharacterSettingsController extends SceneController{
 
     private GameState gameState;
     CliViewIdConverter converter;
+    AvailableCharacter currentCharacter;
+    ArrayList<PawnColor> updatedEntrance;
+    ArrayList<PawnColor> updatedDining;
+    ArrayList<PawnColor> updatedCard;
 
 
     /**
@@ -62,6 +66,7 @@ public class SetCharacterSettingsController extends SceneController{
 
     public void initializeSettings(GameState gameState, AvailableCharacter availableCharacter){
         this.gameState = gameState;
+        this.currentCharacter = availableCharacter;
         converter = new CliViewIdConverter(gameState);
         String nickname = getClientGui().getFinalNickname();
         UUID playerId = converter.nameToId(nickname, CliViewIdConverter.ConverterSetting.PLAYER);
@@ -80,6 +85,7 @@ public class SetCharacterSettingsController extends SceneController{
         for (int i = 0; i < characterPawnsMap.size(); i++) {
             AvailableCharacter av = (AvailableCharacter) characterPawnsMap.keySet().toArray()[i];
             if(av.equals(availableCharacter)){
+                updatedCard = new ArrayList<>(characterPawnsMap.get(av));
                 for (int j = 0; j < characterPawnsMap.get(av).size(); j++) {
                     Circle circle = new Circle();
                     circle.setCenterX(50.0);
@@ -110,6 +116,7 @@ public class SetCharacterSettingsController extends SceneController{
                   }
               }
             }
+            updatedEntrance = new ArrayList<>(entranceMap);
             System.out.println(entranceMap);
             for (int i = 0; i < entranceMap.size(); i++) {
                 Circle circle = new Circle();
@@ -138,6 +145,7 @@ public class SetCharacterSettingsController extends SceneController{
                 }
             }
             System.out.println(diningMap);
+            updatedDining = new ArrayList<>(diningMap);
             for (int i = 0; i < diningMap.size(); i++) {
                 Circle circle = new Circle();
                 circle.setCenterX(50.0);
@@ -197,18 +205,31 @@ public class SetCharacterSettingsController extends SceneController{
      */
     public void swapClick(ActionEvent ev){
         //creates the swap Array
+        if (currentCharacter != AvailableCharacter.JUGGLER && currentCharacter!= AvailableCharacter.MUSICIAN) return;
+        if (colorSwaps!=null && colorSwaps.size()==currentCharacter.getMaxColorSwaps()) return;
 
         try{
             PawnColor give = PawnColor.valueOf(swapGive.getText().toUpperCase());
             PawnColor take = PawnColor.valueOf(swapTake.getText().toUpperCase());
 
+            if (!updatedEntrance.contains(give)) return;
+            if (currentCharacter == AvailableCharacter.JUGGLER && !updatedCard.contains(take)) return;
+            if (currentCharacter == AvailableCharacter.MUSICIAN && !updatedDining.contains(take)) return;
+
             ColorSwap colorSwap = new ColorSwap(give, take);
             if (colorSwaps == null) colorSwaps = new ArrayList<>();
             colorSwaps.add(colorSwap);
+
+            updatedEntrance.remove(give);
+            if (currentCharacter == AvailableCharacter.JUGGLER) updatedCard.remove(take);
+            else updatedDining.remove(take);
+            //TODO: (nice to have) also remove children of give and take colors from pane
+
             swapGive.clear();
             swapTake.clear();
         } catch(IllegalArgumentException | NullPointerException e){
             System.out.println("no color with that name");
+            //e.printStackTrace();
         }
 
     }
@@ -219,6 +240,7 @@ public class SetCharacterSettingsController extends SceneController{
      */
     public void clickedButton(ActionEvent e) {
 
+        if ((currentCharacter == AvailableCharacter.MUSICIAN || currentCharacter == AvailableCharacter.JUGGLER) && colorSwaps == null) colorSwaps = new ArrayList<>();
         getClientGui().getGuiView().notifyEventManager(new SetCharacterSettings(color, player, island, colorSwaps ));
         System.out.println(color);
         System.out.println(player);
