@@ -56,7 +56,7 @@ public class GameController implements EventListener<ViewEvent> {
             return gameModel.isAssistantCardIllegal(playerId, card);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 

@@ -178,7 +178,7 @@ public class GameModel {
      * @throws IllegalArgumentException if card already played by someone else in current turn
      */
     public void playAssistantCard(UUID idPlayer, int cardNumber) throws IllegalArgumentException, NoSuchFieldException {
-        if (isAssistantCardIllegal(idPlayer,cardNumber)) throw new IllegalArgumentException();
+        if (isAssistantCardIllegal(idPlayer,cardNumber)) throw new IllegalModelMoveException();
 
         Player player = ConverterUtility.idToElement(idPlayer, players);
         player.playAssistantCard(cardNumber);
@@ -228,7 +228,7 @@ public class GameModel {
         try {
             player = ConverterUtility.idToElement(idPlayer, players);
         } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new IllegalModelMoveException(e.getMessage());
         }
         int howManyIslands=0;
         for(IslandTile islandTile : islandManager.getIslands()){
@@ -344,7 +344,7 @@ public class GameModel {
         if (characterIndex == -1) throw new NoSuchFieldException();
         Character c = characters.get(characterIndex);
 
-        if (isCharacterCardIllegal(player, character)) throw new IllegalArgumentException("Player doesn't have enough coins to use character");
+        if (isCharacterCardIllegal(player, character)) throw new IllegalModelMoveException("Player doesn't have enough coins to use character");
         p.payCoins(c.getCurrentCost());
         bank+=c.getCurrentCost();
         eventManager.notify(new GameState(this));
@@ -360,7 +360,7 @@ public class GameModel {
             Character c = characters.get(i);
             if (c.getValue() == character) characterIndex = i;
         }
-        if (characterIndex == -1) throw new NoSuchFieldException();
+        if (characterIndex == -1) throw new IllegalModelMoveException();
         Character c = characters.get(characterIndex);
 
         return (p.getNumOfCoins()<c.getCurrentCost()) ;
@@ -394,7 +394,7 @@ public class GameModel {
      * @throws NoSuchFieldException if the player hasn't played a card with enough steps
      */
     public void moveMotherNature(int steps, UUID playerId) throws NoSuchFieldException {
-        if (isMNMoveIllegal(steps, playerId)) throw new IllegalArgumentException("Not enough steps in the card played");
+        if (isMNMoveIllegal(steps, playerId)) throw new IllegalModelMoveException("Not enough steps in the card played");
         Player player = ConverterUtility.idToElement(playerId,players);
         islandManager.moveMotherNature(steps);
         messengerEffect = 0;

@@ -48,7 +48,7 @@ public abstract class StudentCounter {
 
             }
         }
-        if(movableColors.size() == 0) throw new IllegalArgumentException();
+        if(movableColors.size() == 0) throw new IllegalStudentMoveException("No movable student in other StudentCounter");
 
         Random rand = new Random();
         int i = rand.nextInt(movableColors.size());
@@ -66,7 +66,7 @@ public abstract class StudentCounter {
      */
     protected void movePawnFrom(StudentCounter other, PawnColor color) throws IllegalArgumentException{
         if(other.map.get(color) <= 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalStudentMoveException("No student of specified color in other StudentCounter");
         }
         other.map.put(color, other.map.get(color) - 1);
         map.put(color, map.get(color) + 1);
