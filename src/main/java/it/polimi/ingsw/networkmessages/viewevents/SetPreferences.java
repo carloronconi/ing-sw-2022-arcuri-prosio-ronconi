@@ -1,14 +1,9 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
-import it.polimi.ingsw.controller.GameMode;
-import it.polimi.ingsw.controller.TurnController;
-import it.polimi.ingsw.server.ClientHandler;
+import it.polimi.ingsw.server.controller.GameMode;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class SetPreferences implements Serializable, SetupViewEvent {
     private final int numOfPlayers;

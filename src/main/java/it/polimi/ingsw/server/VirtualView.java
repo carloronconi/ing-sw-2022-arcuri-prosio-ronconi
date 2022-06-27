@@ -1,14 +1,14 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.EventListener;
-import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.controller.GameMode;
-import it.polimi.ingsw.controller.TurnController;
-import it.polimi.ingsw.controller.TurnState;
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.utilities.EventListener;
+import it.polimi.ingsw.utilities.EventManager;
+import it.polimi.ingsw.utilities.ViewInterface;
+import it.polimi.ingsw.server.controller.GameController;
+import it.polimi.ingsw.server.controller.GameMode;
+import it.polimi.ingsw.server.controller.TurnController;
+import it.polimi.ingsw.server.controller.TurnState;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;

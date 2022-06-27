@@ -1,8 +1,6 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
-import it.polimi.ingsw.controller.GameMode;
-import it.polimi.ingsw.controller.TurnState;
-import it.polimi.ingsw.server.ClientHandler;
+import it.polimi.ingsw.server.controller.TurnState;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;

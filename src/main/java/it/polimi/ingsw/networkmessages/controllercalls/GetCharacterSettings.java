@@ -1,10 +1,9 @@
 package it.polimi.ingsw.networkmessages.controllercalls;
 
-import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.utilities.EventManager;
+import it.polimi.ingsw.utilities.ViewInterface;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
-import it.polimi.ingsw.networkmessages.viewevents.GameViewEvent;
 
 import java.io.Serializable;
 

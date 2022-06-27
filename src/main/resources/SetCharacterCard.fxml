@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterCardSceneController">
+<AnchorPane prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.SetCharacterCardSceneController">
    <Label layoutX="107.0" layoutY="50.0" prefHeight="65.0" prefWidth="982.0" styleClass="message" stylesheets="@textfont.css" text="CHOOSE A CHARACTER CARD: IF YOU DON'T WANT TO, JUST PRESS THE BOTTON TO GO TO THE NEXT SCENE" />
    <Label fx:id="card1name" layoutX="154.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card1" />
    <Label fx:id="card2name" layoutX="611.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card2" />

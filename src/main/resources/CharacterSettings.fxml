@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.SetCharacterSettingsController">
+<AnchorPane fx:id="pane" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.SetCharacterSettingsController">
    <children>
       <Label layoutX="47.0" layoutY="41.0" prefHeight="74.0" prefWidth="608.0" styleClass="gameOverMessage" stylesheets="@textfont.css" text="CHARACTER SETTINGS " />
       <Label layoutX="47.0" layoutY="115.0" prefHeight="49.0" prefWidth="538.0" styleClass="message" stylesheets="@textfont.css" text="Check the effect of your card to know what to insert in the fields" />

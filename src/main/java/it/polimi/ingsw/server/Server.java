@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.utilities.EventManager;
+import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.networkmessages.controllercalls.GameOver;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 

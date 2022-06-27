@@ -1,16 +1,16 @@
 package it.polimi.ingsw.networkmessages.modelevents;
 
-import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.ViewInterface;
-import it.polimi.ingsw.client.CliViewIdConverter;
-import it.polimi.ingsw.cliview.Bullet;
-import it.polimi.ingsw.cliview.Color;
-import it.polimi.ingsw.cliview.Matrix;
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.charactercards.AvailableCharacter;
-import it.polimi.ingsw.model.charactercards.Juggler;
-import it.polimi.ingsw.model.charactercards.Monk;
-import it.polimi.ingsw.model.charactercards.Princess;
+import it.polimi.ingsw.client.ClientNameIdConverter;
+import it.polimi.ingsw.client.cli.cliview.Bullet;
+import it.polimi.ingsw.client.cli.cliview.Color;
+import it.polimi.ingsw.client.cli.cliview.Matrix;
+import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.charactercards.Juggler;
+import it.polimi.ingsw.server.model.charactercards.Monk;
+import it.polimi.ingsw.server.model.charactercards.Princess;
+import it.polimi.ingsw.utilities.EventManager;
+import it.polimi.ingsw.utilities.ViewInterface;
 
 import java.io.Serializable;
 import java.util.*;
@@ -152,7 +152,7 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
     }
 
     public String drawGameState(UUID ofPlayer, ArrayList<UUID> initialIslandIds) {
-        CliViewIdConverter converter = new CliViewIdConverter(this);
+        ClientNameIdConverter converter = new ClientNameIdConverter(this);
 
         StringBuilder sb = new StringBuilder("GAME STATE\n");
         sb.append("bag:              " + bag + "\n");
@@ -163,7 +163,7 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
         }*/
 
         for (UUID id : clouds.keySet()){
-            sb.append(converter.idToName(id, CliViewIdConverter.ConverterSetting.CLOUD) + ": ");
+            sb.append(converter.idToName(id, ClientNameIdConverter.ConverterSetting.CLOUD) + ": ");
             //ArrayList<Bullet> cloud = new ArrayList<>();
             for (PawnColor color : clouds.get(id)){
                 sb.append(new Bullet(Color.pawnColorConverter(color)));

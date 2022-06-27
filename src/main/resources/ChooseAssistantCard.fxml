@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0"
             prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.client.SetAssistantSceneController" >
+            fx:controller="it.polimi.ingsw.client.gui.SetAssistantSceneController" >
 
     <VBox fx:id="tab" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #6abade;"
           xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">

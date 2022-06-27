@@ -1,13 +1,12 @@
 package it.polimi.ingsw.networkmessages.viewevents;
 
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.charactercards.ColorSwap;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.charactercards.ColorSwap;
 import it.polimi.ingsw.server.VirtualView;
 
 import java.io.InvalidObjectException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class SetCharacterSettings implements Serializable, GameViewEvent {
