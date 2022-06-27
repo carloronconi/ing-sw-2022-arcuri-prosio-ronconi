@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model.studentmanagers;
+package it.polimi.ingsw.server.model.studentmanagers;
 
-import it.polimi.ingsw.model.PawnColor;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.studentmanagers.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import java.util.stream.IntStream;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class DiningRoomTest extends StudentCounter{
+public class DiningRoomTest extends StudentCounter {
     private Bag bag;
     private ArrayList<Cloud> clouds;
     private Entrance entrance;

@@ -1,5 +1,9 @@
-package it.polimi.ingsw.model.charactercards;
+package it.polimi.ingsw.server.model.charactercards;
 
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.charactercards.Juggler;
+import it.polimi.ingsw.server.model.charactercards.Monk;
+import it.polimi.ingsw.server.model.charactercards.Musician;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

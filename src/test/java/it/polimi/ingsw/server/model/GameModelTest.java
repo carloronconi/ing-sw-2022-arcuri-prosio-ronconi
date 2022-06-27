@@ -1,12 +1,15 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.EventListener;
-import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.model.charactercards.AvailableCharacter;
-import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.Cloud;
-import it.polimi.ingsw.model.studentmanagers.DiningRoom;
-import it.polimi.ingsw.model.studentmanagers.Entrance;
+import it.polimi.ingsw.server.model.GameModel;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.utilities.EventListener;
+import it.polimi.ingsw.utilities.EventManager;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.studentmanagers.Bag;
+import it.polimi.ingsw.server.model.studentmanagers.Cloud;
+import it.polimi.ingsw.server.model.studentmanagers.DiningRoom;
+import it.polimi.ingsw.server.model.studentmanagers.Entrance;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.Before;
 import org.junit.Test;
@@ -434,7 +437,7 @@ public class GameModelTest {
     /**
      * this method verifies that the exception is thrown when the steps entered are incorrect
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = IllegalModelMoveException.class)
     public void moveMotherNature_exception(){
         List<String> nicknames = Arrays.asList("Alberto", "Bernardo");
 

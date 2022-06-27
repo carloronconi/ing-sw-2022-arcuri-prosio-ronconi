@@ -1,17 +1,18 @@
-package it.polimi.ingsw.model.studentmanagers;
+package it.polimi.ingsw.server.model.studentmanagers;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ProfessorManager;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.ProfessorManager;
+import it.polimi.ingsw.server.model.studentmanagers.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
 
-public class IslandManagerTest extends StudentCounter{
+public class IslandManagerTest extends StudentCounter {
     private IslandManager islandManager;
     private ProfessorManager professorManager;
     private Bag bag;

@@ -1,9 +1,11 @@
-package it.polimi.ingsw.model.charactercards;
+package it.polimi.ingsw.server.model.charactercards;
 
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.ProfessorManager;
-import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.IslandManager;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.ProfessorManager;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.charactercards.MushroomMerchant;
+import it.polimi.ingsw.server.model.studentmanagers.Bag;
+import it.polimi.ingsw.server.model.studentmanagers.IslandManager;
 import org.junit.Before;
 import org.junit.Test;
 

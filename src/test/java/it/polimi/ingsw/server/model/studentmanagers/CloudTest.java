@@ -1,5 +1,8 @@
-package it.polimi.ingsw.model.studentmanagers;
+package it.polimi.ingsw.server.model.studentmanagers;
 
+import it.polimi.ingsw.server.model.studentmanagers.Bag;
+import it.polimi.ingsw.server.model.studentmanagers.Cloud;
+import it.polimi.ingsw.server.model.studentmanagers.StudentCounter;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,9 +1,11 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.model.studentmanagers.Bag;
-import it.polimi.ingsw.model.studentmanagers.Cloud;
-import it.polimi.ingsw.model.studentmanagers.DiningRoom;
-import it.polimi.ingsw.model.studentmanagers.Entrance;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.studentmanagers.Bag;
+import it.polimi.ingsw.server.model.studentmanagers.Cloud;
+import it.polimi.ingsw.server.model.studentmanagers.DiningRoom;
+import it.polimi.ingsw.server.model.studentmanagers.Entrance;
 import org.junit.Before;
 import org.junit.Test;
 

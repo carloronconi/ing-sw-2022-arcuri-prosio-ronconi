@@ -1,8 +1,10 @@
-package it.polimi.ingsw.model.charactercards;
+package it.polimi.ingsw.server.model.charactercards;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.ProfessorManager;
-import it.polimi.ingsw.model.studentmanagers.*;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.ProfessorManager;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.charactercards.Knight;
+import it.polimi.ingsw.server.model.studentmanagers.*;
 import org.junit.Before;
 import org.junit.Test;
 

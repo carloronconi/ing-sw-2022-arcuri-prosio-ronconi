@@ -1,9 +1,11 @@
-package it.polimi.ingsw.model.charactercards;
+package it.polimi.ingsw.server.model.charactercards;
 
-import it.polimi.ingsw.EventManager;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.PawnColor;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.charactercards.Musician;
+import it.polimi.ingsw.utilities.EventManager;
+import it.polimi.ingsw.server.model.GameModel;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import org.junit.Before;
 import org.junit.Test;
