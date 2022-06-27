@@ -575,7 +575,7 @@ public class GameBoardController extends SceneController{
 
         if (playedAssistantCards.get(id1)!=null) card1.setImage(new Image(String.valueOf(getClass().getResource(cardName1))));
         if (playedAssistantCards.get(id2)!=null) card2.setImage(new Image(String.valueOf(getClass().getResource(cardName2))));
-        if (player3!=null && playedAssistantCards.get(id2)!=null) card3.setImage(new Image(String.valueOf(getClass().getResource(cardName3))));
+        if (player3!=null && playedAssistantCards.get(id3)!=null) card3.setImage(new Image(String.valueOf(getClass().getResource(cardName3))));
     }
 
 
