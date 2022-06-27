@@ -911,15 +911,29 @@ public class GameBoardController extends SceneController{
             System.out.println("illegal cloud move");
             return;
         }
+        for (int i = 0; i < islandRow1.getChildren().size(); i++) {
+            Node node = islandRow1.getChildren().get(i);
+            System.out.println(node.getId());
+            if(node.getId()!=null && node.getId().contains("cloud1")){
+                System.out.println(node.getId());
+                node.setOpacity(0.4d);
+                System.out.println("opacity set");
+                break;
+            }
+        }
+
         Iterator<UUID> iterator = getClientGui().getGuiView().getGameState().getClouds().keySet().iterator();
         UUID cloudId = iterator.next();
         System.out.println("sending to server chosen cloud 1");
+
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         gameBoardState.nextState();
         getClientGui().getGuiView().changeSceneToGameBoard(false, true);
+
     }
 
     public void clickedCloud2() throws IOException {
+        cloud2.setOpacity(0.4d);
         if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
             System.out.println("illegal cloud move");
             return;
@@ -934,6 +948,7 @@ public class GameBoardController extends SceneController{
     }
 
     public void clickedCloud3() throws IOException {
+        cloud3.setOpacity(0.4d);
         if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
             System.out.println("illegal cloud move");
             return;
