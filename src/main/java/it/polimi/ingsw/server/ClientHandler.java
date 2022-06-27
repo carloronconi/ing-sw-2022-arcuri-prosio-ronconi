@@ -41,6 +41,7 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(remoteMethodCall);
         } catch (IOException e) {
+            server.gameIsOver(null);
             //e.printStackTrace();
         }
     }
@@ -50,7 +51,8 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(modelEvent);
         } catch (IOException e) {
-            e.printStackTrace();
+            server.gameIsOver(null);
+            //e.printStackTrace();
         }
 
     }
