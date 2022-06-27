@@ -44,6 +44,7 @@ public class GameBoardController extends SceneController{
     public Pane towers3;
     public Pane dinings3;
     public Pane professors3;
+    public ImageView cloud3;
     @FXML Label player1board;
     @FXML Label player2board;
     @FXML Pane boardPane;
@@ -522,7 +523,7 @@ public class GameBoardController extends SceneController{
                                 for (int j = 0; j < (totTowers - numOfTowersUsed.get(id)); j++) {
                                     Circle c = new Circle();
                                     c.setLayoutX(rect.getParent().getLayoutX() );
-                                    c.setLayoutY(rect.getParent().getLayoutY() + (j * 35.0) );
+                                    c.setLayoutY(rect.getParent().getLayoutY() + (j * 20) );
                                     c.setRadius(16.0);
                                     c.setStroke(Color.BLACK);
                                     c.setStrokeType(StrokeType.INSIDE);
