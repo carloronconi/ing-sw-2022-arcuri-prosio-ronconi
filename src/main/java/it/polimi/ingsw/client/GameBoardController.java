@@ -83,15 +83,11 @@ public class GameBoardController extends SceneController{
     private final List<Pane> board = new ArrayList<>();
     private final int MAX_SIZE = 130;
     private final ArrayList<Circle> bag = new ArrayList<>(MAX_SIZE);
-   // private final List<Pane> entr1 = new ArrayList<>();
-   // private final List<Pane> entr2 = new ArrayList<>();
     private final Set<UUID> players = new HashSet<>();
     private final ArrayList<Pane> towersPane = new ArrayList<>();
     private final List<Pane> prof = new ArrayList<>();
     private final List<Pane> entrances = new ArrayList<>();
 
-
-    //private ArrayList<Integer> numOfPawnsInDining;
     private HashMap<String, Integer> pawnsInDining;
 
     private static CliViewIdConverter initialIslandConverter;
@@ -108,7 +104,10 @@ public class GameBoardController extends SceneController{
     private static GameBoardState gameBoardState;
 
 
-
+    /**
+     * Method initialize adds elements to the implemented Structured to manage the game board scene and its links with
+     * the game state sent by the model
+     */
     @FXML
     public void initialize() {
         System.out.println(boardPane.getChildren());
@@ -133,8 +132,6 @@ public class GameBoardController extends SceneController{
         entrances.add(entrance2);
         if (entrance3!=null) entrances.add(entrance3);
 
-        //entr1.add(entrance1);
-        //entr2.add(entrance2);
         islands.add(islandRow0);
         islands.add(islandRow1);
         islands.add(islandRow2);
@@ -171,9 +168,6 @@ public class GameBoardController extends SceneController{
         islandImage.add(image12);
 
 
-
-        //pawns.add(circle);
-        //pawns.add(MN);
         for (int i = 0; i < 26; i++) {
             Circle c = new Circle();
             c.setFill(Color.RED);
@@ -198,7 +192,10 @@ public class GameBoardController extends SceneController{
     private HashMap<UUID, String> playersNick;
 
 
-
+    /**
+     * Method to update the elements in the game board according to the progressing of the game
+     * @param gameState to get the updated versione of the board sent by the server
+     */
     public void updateBoard(GameState gameState) { //call it from lambda expression in previous controller nextScene
 
         int bag = gameState.getBag();
@@ -210,11 +207,6 @@ public class GameBoardController extends SceneController{
         System.out.println(gameBoardState.getBoardState());
 
         //ISLANDS
-        /*
-        if (initialIslandConverter == null) {
-            initialIslandConverter = new CliViewIdConverter(gameState);
-            System.out.println("initial island ids: " + gameState.getIslands().keySet());
-        }*/
 
         boolean placedMN = false;
 
@@ -227,10 +219,9 @@ public class GameBoardController extends SceneController{
                         LinkedHashMap<UUID, ArrayList<PawnColor>> islandIGameModel = gameState.getIslands();
 
                         UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(islandName, CliViewIdConverter.ConverterSetting.ISLAND);
-                        //UUID islandId = converter.nameToId(islandName, CliViewIdConverter.converterSetting.ISLAND);
-                        //System.out.println("current island ids: " + gameState.getIslands().keySet());
 
-                        if (!islandIGameModel.containsKey(islandId)){ //island has been eliminated
+                        //Island has been eliminated
+                        if (!islandIGameModel.containsKey(islandId)){
                             System.out.println("deleted island detected: " + islandName);
                             int numberOnly = Integer.parseInt(islandName.replaceAll("[^0-9]", ""));
                             System.out.println(numberOnly);
@@ -249,12 +240,6 @@ public class GameBoardController extends SceneController{
                             else if(numberOnly==12) islandRow1.getChildren().remove(image12);
                             else System.out.println("no image to delete");
 
-                           // Rectangle rectangle = new Rectangle(190.0,190.0, Color.valueOf("#6abade"));
-                            //rectangle.setLayoutX(r.getLayoutX()-30.0);
-                           // rectangle.setLayoutY(r.getParent().getLayoutY());
-
-                           // boardPane.getChildren().add(rectangle);
-                            //boardPane.getChildren().remove(r);
                         } else{
                             //loop on all colors in island
                             for (int j = 0; j < islandIGameModel.get(islandId).size(); j++) {
@@ -262,7 +247,7 @@ public class GameBoardController extends SceneController{
                                 c.setCenterX(50.0);
                                 c.setCenterY(50.0);
                                 c.setLayoutX(r.getLayoutX() + (j * 15.0));
-                                c.setLayoutY(r.getParent().getLayoutY() /*+ (j * 35.0)*/);
+                                c.setLayoutY(r.getParent().getLayoutY());
                                 c.setRadius(16.0);
                                 c.setStroke(Color.BLACK);
                                 c.setStrokeType(StrokeType.INSIDE);
@@ -340,10 +325,6 @@ public class GameBoardController extends SceneController{
                             c.setStrokeType(StrokeType.INSIDE);
                             c.setFill(Color.valueOf(cloudIGameModel.get(cloudID).get(j).toString()));
 
-                            //c.setOnMouseDragged(this::movePiece);
-                            //c.setOnMousePressed(this::startMovingPiece);
-                            //c.setOnMouseReleased(this::finishMovingPiece);
-
                             boardPane.getChildren().add(c);
                             pawns.add(c);
 
@@ -381,8 +362,6 @@ public class GameBoardController extends SceneController{
                 c.setStrokeWidth(5.0);
                 c.setFill(Color.valueOf(color.name()));
                 Random random = new Random();
-                //double addX = random.nextDouble(0.0, 75.0);
-                //double addY = random.nextDouble(0.0, 110.0);
                 c.setLayoutX(professorsRectangle.getLayoutX()+ index*15.0);
                 c.setLayoutY(professorsRectangle.getParent().getLayoutY() + index*40.0 - ((index+1)*10.0));
 
@@ -466,7 +445,7 @@ public class GameBoardController extends SceneController{
                                     String string = color.toString().toLowerCase(Locale.ROOT);
                                     System.out.println(string);
                                     String name = string + playerNumber;
-                                    if(rect.getId()!= null && rect.getId().equals(name)){ //PROBLEM HERE - I THINK CAPITAL LETTERS FOR PAWN NAME VS NOT FOR IDS
+                                    if(rect.getId()!= null && rect.getId().equals(name)){
                                         for (int j = 0; j < gameStateDiningRooms.get(id).get(color); j++) {
                                             Circle circle = new Circle();
                                             circle.setCenterX(50.0);
@@ -499,7 +478,7 @@ public class GameBoardController extends SceneController{
             }
 
 
-        //TOWERS - add method to interleave towers with towers used
+        //TOWERS
 
         LinkedHashMap<UUID, Integer> numOfTowersUsed = gameState.getNumOfTowersUsed();
         LinkedHashMap<UUID, TowerColor> ColorPlayersTower = gameState.getColorPlayersTowers();
@@ -579,7 +558,10 @@ public class GameBoardController extends SceneController{
         if (player3!=null && playedAssistantCards.get(id3)!=null) card3.setImage(new Image(String.valueOf(getClass().getResource(cardName3))));
     }
 
-
+    /**
+     * Method to update the entrance of each player according to the progressing of the game
+     * @param gameState to retrieve the updated version of the entrances from the server
+     */
     private void initializeEntrance(GameState gameState){
         HashMap<UUID, ArrayList<PawnColor>> entranceHash = new HashMap<>();
         for (UUID id : gameState.getEntrances().keySet()){
@@ -595,7 +577,6 @@ public class GameBoardController extends SceneController{
 
             }
             entranceHash.put(id, list);
-            //System.out.println(entranceHash);
 
         }
         for(UUID id : entranceHash.keySet()) {
@@ -607,9 +588,6 @@ public class GameBoardController extends SceneController{
                     for (Pane p : entrances) {
                         String str = p.getId();
                         int numberOnly = Integer.parseInt(str.replaceAll("[^0-9]", ""));
-                        //System.out.println(numberOnly);
-                        //System.out.println(playerNumber);
-                        //System.out.println("OK");
                         if (numberOnly == playerNumber) {
                             for (int j = 0; j < entranceHash.get(id).size(); j++) {
                                 Circle c = new Circle();
@@ -641,26 +619,16 @@ public class GameBoardController extends SceneController{
 
     }
 
-    private int number(Rectangle r) {
-        Pattern p = Pattern.compile("\\d+");
-        Matcher m = p.matcher(r.getId().toString());
-        int rectNumber;
-        while (m.find()) {
-            rectNumber = Integer.parseInt(m.group());
-            System.out.println(rectNumber);
-
-            return rectNumber;
-
-        }
-        return -1;
-    }
-
-
 
     private Point2D offset = new Point2D(0.0d, 0.0d);
     private boolean movingPiece = false;
 
-
+    /**
+     * Method leaveBoard to let the player pick a pawn and drag it to a different location.
+     * It is used to move pawn from entrance to dining or to an island and to move mother nature.
+     * The timeline is used to define the animation of the piece movement
+     * @param evt user clicks on a pawn to drag it to a second location
+     */
     public void leaveBoard(MouseEvent evt) {
         if(pawns.contains(evt.getSource())) {
             Circle circle = (Circle) evt.getSource();
@@ -686,6 +654,12 @@ public class GameBoardController extends SceneController{
     private Rectangle currRect;
     private Circle c2;
 
+    /**
+     * Method to start actually moving the piece and to store the new position of the piece while it is moving
+     * When the pawn is picked up, it changes its opacity to indicate that the action has been acknowledged.
+     * @param evt user starts to drag the pawn to move it across the board
+     */
+
     @FXML
     public void startMovingPiece(MouseEvent evt) {
         if(pawns.contains(evt.getSource())) {
@@ -697,6 +671,10 @@ public class GameBoardController extends SceneController{
         }
     }
 
+    /**
+     * Method movePiece keeps track of the new position of the pawn
+     * @param evt user drags the pawn across the board
+     */
     @FXML
     public void movePiece(MouseEvent evt) {
         if(pawns.contains(evt.getSource())) {
@@ -711,7 +689,14 @@ public class GameBoardController extends SceneController{
         }
     }
 
-
+    /**
+     * Method to release the pawn at the end of the movement. If the movement is valid, the new coordinates of the pawn
+     * are saved and used a parameter for the method PrintWhere, with the pawn's color.
+     * If not, the movement is not accepted by the method and it is not sent to the server.
+     *
+     * @param evt user releases the pawn on the new location
+     * @return Rectangle on which the pawn has been placed
+     */
     public Rectangle finishMovingPiece(MouseEvent evt) {
 
         if(pawns.contains(evt.getSource())) {
@@ -799,7 +784,7 @@ public class GameBoardController extends SceneController{
     private ArrayList<Circle> pawns = new ArrayList<>();
 
 
-    //implementation swap pieces for update - diminish bag and update
+
 
     private ArrayList<Rectangle> diningTables = new ArrayList<>();
     @FXML Rectangle green1;
@@ -808,6 +793,15 @@ public class GameBoardController extends SceneController{
     @FXML Rectangle purple1;
     @FXML Rectangle blue1;
 
+    /**
+     * Method called by finishMovingPiece. The pawn's parameters are stored and compared with the elements on the game board:
+     * if there is a match between the pawn and a location (an island# or dining room table)
+     * this method prints the new location of the pawn and sends to the Server an update, being a user movement.
+     * @param x coordinate X of the pawn
+     * @param y coordinate Y of the pawn
+     * @param color pawn's color
+     * @throws IOException
+     */
     public void printWhere(Double x, Double y, PawnColor color) throws IOException {
         for (Pane p : islands) {
             for (Node cell : p.getChildrenUnmodifiable()) {
@@ -872,6 +866,14 @@ public class GameBoardController extends SceneController{
 
     }
 
+    /**
+     * This method sends an update of the player movement to the server in two situations: Pawn moved from entrance to
+     * an island and Mother Nature movement.
+     *
+     * @param color pawn color
+     * @param islandId UUID of the island on which the pawn is put
+     * @throws IOException
+     */
     private void sendToServerAndUpdate(PawnColor color, UUID islandId) throws IOException {
         UUID currentState = getClientGui().getGuiView().getGameState().getId();
         System.out.println("color: " + color);
@@ -905,6 +907,12 @@ public class GameBoardController extends SceneController{
 
         new ChangeScene(getClientGui()).run();
     }
+
+    /**
+     * To end his turn a player must choose a cloud to put its pawns is his entrance. To do so the player has to
+     * click on the cloud he chooses.
+     * @throws IOException
+     */
 
     public void clickedCloud1() throws IOException {
         if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
