@@ -619,8 +619,8 @@ public class GameBoardController extends SceneController{
                                 c.setStrokeType(StrokeType.INSIDE);
                                 c.setFill(Color.valueOf(entranceHash.get(id).get(j).toString()));
 
-                                c.setLayoutY(p.getLayoutY() + j*30 );
-                                c.setLayoutX(p.getLayoutX() + (j*20.0) - ((j+1)* 10.0));
+                                c.setLayoutY(p.getLayoutY() + j*20.0 );
+                                c.setLayoutX(p.getLayoutX() + (j*15.0) - ((j+1)* 10.0));
 
                                 c.setOnMouseDragged(this::movePiece);
                                 c.setOnMousePressed(this::startMovingPiece);
