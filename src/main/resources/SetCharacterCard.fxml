@@ -12,9 +12,9 @@
    <Label fx:id="card2name" layoutX="611.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card2" />
    <Label fx:id="card3name" layoutX="1044.0" layoutY="145.0" styleClass="message" stylesheets="@textfont.css" text="card3" />
    <Label fx:id="money1" layoutX="232.0" layoutY="635.0" prefHeight="47.0" prefWidth="200.0" styleClass="message" stylesheets="@textfont.css" />
-   <Label fx:id="increasedCostCard1" layoutX="86.0" layoutY="516.0" styleClass="message" stylesheets="@textfont.css" text="COST +1" />
-   <Label fx:id="increasedCostCard2" layoutX="530.0" layoutY="508.0" styleClass="message" stylesheets="@textfont.css" text="COST +1" />
-   <Label fx:id="increasedCostCard3" layoutX="965.0" layoutY="508.0" styleClass="message" stylesheets="@textfont.css" text="COST +1" />
+   <Label fx:id="increasedCostCard1" layoutX="86.0" layoutY="516.0" prefHeight="24.0" prefWidth="168.0" styleClass="message" stylesheets="@textfont.css" text="COST +1: FALSE" />
+   <Label fx:id="increasedCostCard2" layoutX="530.0" layoutY="508.0" prefHeight="24.0" prefWidth="200.0" styleClass="message" stylesheets="@textfont.css" text="COST +1: FALSE" />
+   <Label fx:id="increasedCostCard3" layoutX="965.0" layoutY="508.0" prefHeight="24.0" prefWidth="273.0" styleClass="message" stylesheets="@textfont.css" text="COST +1: FALSE" />
    <ImageView fitHeight="101.0" fitWidth="70.0" layoutX="432.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@coin.png" />

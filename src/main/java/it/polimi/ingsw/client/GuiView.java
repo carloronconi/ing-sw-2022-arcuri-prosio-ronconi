@@ -8,9 +8,11 @@ import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.*;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -98,6 +100,20 @@ public class GuiView implements ViewInterface {
                 SetCharacterCardSceneController setCharacterCardSceneController = (SetCharacterCardSceneController) c;
                 setCharacterCardSceneController.initializeCards(clientGui.getGuiView().getGameState());
                 System.out.println("CHARACTER");
+                HashMap<AvailableCharacter, Boolean> gameStateCharacterCards = gameState.getCharacterCards();
+                for (int i = 0; i < gameStateCharacterCards.size(); i++) {
+                    AvailableCharacter availableCharacter = (AvailableCharacter) gameStateCharacterCards.keySet().toArray()[i];
+                    System.out.println(availableCharacter.name());
+                    Boolean costIncreased = gameStateCharacterCards.get(availableCharacter);
+                    System.out.println(costIncreased);
+                    if(costIncreased.equals(true)){
+                        if(i==0) setCharacterCardSceneController.setIncreasedText(setCharacterCardSceneController.increasedCostCard1);
+                        if(i==1)setCharacterCardSceneController.setIncreasedText(setCharacterCardSceneController.increasedCostCard2);
+                        if(i==2) setCharacterCardSceneController.setIncreasedText(setCharacterCardSceneController.increasedCostCard3);
+                    }
+                }{
+
+                }
             }
         }));
     }

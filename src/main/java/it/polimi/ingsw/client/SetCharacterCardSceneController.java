@@ -121,8 +121,9 @@ public class SetCharacterCardSceneController extends SceneController {
         }
 
 
-
-
+        public void setIncreasedText(Label label){
+            label.setText("COST +1 = TRUE");
+        }
 
        public void clickedCard1(){
             card1m.setOpacity(0.4d);
