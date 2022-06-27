@@ -111,7 +111,7 @@ public class SetCharacterCardSceneController extends SceneController {
                     }else if(id == playersMap.keySet().toArray()[1]){
                 player2.setText(playersMap.get(id));
                 money2.setText("YOUR MONEY: " + coinsHashMap.get(id));
-            }else if(id == playersMap.keySet().toArray()[3]){
+            }else if(id == playersMap.keySet().toArray()[2]){
                         player3.setText(playersMap.get(id));
                         money3.setText("YOUR MONEY: " + coinsHashMap.get(id));
                     }
