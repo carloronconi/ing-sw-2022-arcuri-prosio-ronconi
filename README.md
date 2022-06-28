@@ -16,7 +16,7 @@ The project consists of a version of the game board "Eriantys", made by Cranio C
 
 The following links lead to the initial and final structures of the UML diagram and Communication Protocol
 * [initial UML](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/1-initial-UML/UML-model-initial.png)
-* [final UML]()
+* [final UML](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/tree/main/final-UML)
 
 * [Communication Protocol](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/3-protocol-documentation/protocol-documentation-group7.pdf)
 
@@ -93,36 +93,46 @@ Follow the steps below to play correctly
 
 ### Windows/MacOs/linux
 
-1. Open the command line
+1. Clone this repository
+2. Open the terminal
 
 #### Server
 
-2. Open the properties of the server jar file
-3. Copy the absolute path of the file
-4. Enter the command without parentheses
+3. Open the properties of the [server jar file](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/Server/PSP7.jar)
+4. Copy the absolute path of the file
+5. Enter the following command without parentheses
 ```bash
-java -jar (absolute path)\(file name).jar
+java -jar [absolute path]
 ```
 
 #### CLI
 
-2. Open the properties of the CLI jar file
-3. Copy the absolute path of the file
-4. Enter the command without parentheses
+3. Open the properties of the [CLI jar file](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/ClientCli/PSP7.jar)
+4. Copy the absolute path of the file
+5. Enter the following command without parentheses
 ```bash
-java -jar (absolute path)\(file name).jar
+java -jar [absolute path]
 ```
 
 #### GUI
 
+3. Open the properties of the [GUI jar file](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/ClientGui/PSP7.jar)
+4. Copy the absolute path of the file
+5. Enter the following command without parentheses
+```bash
+java -jar [absolute path]
+```
+
 
 ## Software Used
 
-**Astah***: UML diagrams
+**Astah**: initial UML diagrams
 
-**Astah***: Sequence diagram
+**Astah**: Sequence diagram
 
 **JavaFX**: GUI
+
+**IntelliJ**: final UML diagrams
 
 
 
