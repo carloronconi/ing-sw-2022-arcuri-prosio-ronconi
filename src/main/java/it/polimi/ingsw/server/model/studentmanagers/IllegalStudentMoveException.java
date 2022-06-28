@@ -8,11 +8,11 @@ public class IllegalStudentMoveException extends RuntimeException{
         super(message);
     }
 
-    public IllegalStudentMoveException(String message, Throwable cause) {
+    /*public IllegalStudentMoveException(String message, Throwable cause) {
         super(message, cause);
-    }
+    }*/
 
-    public IllegalStudentMoveException(Throwable cause) {
+    /*public IllegalStudentMoveException(Throwable cause) {
         super(cause);
-    }
+    }*/
 }
