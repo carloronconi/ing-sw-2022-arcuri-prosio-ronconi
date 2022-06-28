@@ -8,30 +8,8 @@ public class Cell implements Serializable {
 
     public Cell() {
         bullet = new Bullet();
-        //this.stato="libera";
-        //this.oggetto=null;
     }
 
-    /*public Cell(Color color){
-        bullet = new Bullet(color);
-    }*/
-
-    /*public void setOccupata(Object ogg) {
-        this.oggetto=ogg;
-        this.stato="occupata";
-    }*/
-
-    /*public String getStato() {
-        return stato; }*/
-
-    /*public void setLibera() {
-        this.stato="libera"; }*/
-
-    /*public Object getOccupante() {
-        return this.oggetto; }*/
-
-    //private String stato;
-    //private Object oggetto;
 
     public Bullet getBullet(){
         return bullet;
