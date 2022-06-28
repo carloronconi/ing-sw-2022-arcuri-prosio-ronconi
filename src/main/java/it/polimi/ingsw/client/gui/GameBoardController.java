@@ -649,47 +649,10 @@ public class GameBoardController extends SceneController{
 
     }
 
-    private int number(Rectangle r) {
-        Pattern p = Pattern.compile("\\d+");
-        Matcher m = p.matcher(r.getId().toString());
-        int rectNumber;
-        while (m.find()) {
-            rectNumber = Integer.parseInt(m.group());
-            System.out.println(rectNumber);
-
-            return rectNumber;
-
-        }
-        return -1;
-    }
-
-
 
     private Point2D offset = new Point2D(0.0d, 0.0d);
     private boolean movingPiece = false;
 
-
-    public void leaveBoard(MouseEvent evt) {
-        if(pawns.contains(evt.getSource())) {
-            Circle circle = (Circle) evt.getSource();
-            if (movingPiece) {
-                final Timeline timeline = new Timeline();
-
-                offset = new Point2D(0.0d, 0.0d);
-                movingPiece = false;
-
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.millis(200),
-                                new KeyValue(circle.layoutXProperty(), circle.getLayoutX()),
-                                new KeyValue(circle.layoutYProperty(), circle.getLayoutY()),
-                                new KeyValue(circle.opacityProperty(), 1.0d))
-
-
-                );
-                timeline.play();
-            }
-        }
-    }
 
     private Rectangle currRect;
     private Circle c2;
@@ -817,65 +780,17 @@ public class GameBoardController extends SceneController{
     @FXML Rectangle blue1;
 
     public void printWhere(Double x, Double y, PawnColor color) throws IOException {
-        for (Pane p : islandRows) {
-            for (Node cell : p.getChildrenUnmodifiable()) {
-                if (cell.getLayoutX() <= x && x <= (cell.getLayoutX() + 144.0)) {
-                    if (cell.getParent().getLayoutY() <= y && y <= (cell.getParent().getLayoutY() + 180.0)) {
-                        if(cell.getId()!=null) {
-                            System.out.println("NOW ISLAND: " + cell.getId());
-                            System.out.println(x);
-                            System.out.println(y);
-
-                            //CliViewIdConverter converter. = new CliViewIdConverter(getClientGui().getGuiView().getGameState());
-                            //UUID islandId = converter.nameToId(cell.getId(), CliViewIdConverter.ConverterSetting.ISLAND);
-                            UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(cell.getId(), ClientNameIdConverter.ConverterSetting.ISLAND);
-
-                            sendToServerAndUpdate(color, islandId);
-                        }
-                    }
-
+        for (Pane p : islandRows) { // iterate on island rows
+            for (Node cell : p.getChildrenUnmodifiable()) { // iterate on islands
+                if(cell.getId() != null && cell.getLayoutX() <= x && x <= (cell.getLayoutX() + 144.0) && cell.getParent().getLayoutY() <= y && y <= (cell.getParent().getLayoutY() + 180.0)){
+                    UUID islandId = getClientGui().getGuiView().getInitialStateConverter().nameToId(cell.getId(), ClientNameIdConverter.ConverterSetting.ISLAND);
+                    sendToServerAndUpdate(color, islandId);
+                    return;
                 }
             }
         }
 
-
-
-        for(Rectangle r1 : diningTables) {
-            //  if( r1.getLayoutY() <= y ) System.out.println(" \n" + r1.getParent().getLayoutY() + " \n" + r1.getParent().getLayoutX() + " \n" + r1.getLayoutY() );
-            //if(r1.getId()!=null) { - use parse to recognize only rectangle with a "dining" in name (to differentiate to
-            //entrace, professor and towers)
-            if (y >= r1.getParent().getLayoutY() && y <= (r1.getParent().getLayoutY() + 50)) {
-                System.out.println("green table");
-                sendToServerAndUpdate(color, null);
-                break;
-
-                //add method to count number of pawns in rectangle for island, in row for dining
-                //for cycle should suffice
-            } else if (y > (r1.getParent().getLayoutY() + 50) && y <= (r1.getParent().getLayoutY() + 80)) {
-                System.out.println("red table");
-                sendToServerAndUpdate(color, null);
-                break;
-
-            } else if (y > (r1.getParent().getLayoutY() + 80) && y <= (r1.getParent().getLayoutY() + 150)) {
-                System.out.println("yellow table");
-                sendToServerAndUpdate(color, null);
-                break;
-
-
-            } else if (y > (r1.getParent().getLayoutY() + 150) && y <= (r1.getParent().getLayoutY() + 190)) {
-                System.out.println("purple table");
-                sendToServerAndUpdate(color, null);
-                break;
-
-
-            } else if (y > (r1.getParent().getLayoutY() + 190) && y < (r1.getParent().getLayoutY() + 240)) {
-                System.out.println("blue table");
-                sendToServerAndUpdate(color, null);
-                break;
-            }
-
-
-        }
+        if (y >= dinings1.getLayoutY()) sendToServerAndUpdate(color, null);
 
 
     }
