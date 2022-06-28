@@ -32,15 +32,17 @@ The following links lead to the initial and final structures of the UML diagram 
 
 ## Tests Coverage
 
-#### Model Coverage
+#### Total model coverage:
 
-| Element | Percentage |
-|---------|------------|
-| Class | 100 % |
-| Method  | 97 %       |
-| Line | 92 % |
+| Total  | Percentage |
+|--------|------------|
+| Class  | 100 % |
+| Method | 97 %       |
+| Line   | 92 % |
 
-| CharacterCards     | Percentage Methods | Percentage Lines |
+#### Model coverage by classes:
+
+| Character cards    | Percentage Methods | Percentage Lines |
 |--------------------|--------------------|------------------|
 | AvailableCharacter | 100 %              | 73 %             |
 | Centaur            | 100 %              | 100 %            |
@@ -60,23 +62,23 @@ The following links lead to the initial and final structures of the UML diagram 
 | Usurer             | 100 %              | 100 %            |
 | Witch              | 100 %              | 100 %            |
 
-| Classes                 | Percentage Methods | Percentage Lines |
-|-------------------------|--------------------|------------------|
-| Bag                     | 100 %              | 100 %            |
-| CharacterStudentCounter | 100 %              | 100 %            |
-| Cloud                   | 100 %              | 100 %            |
-| ConcreteStudentCounter  | 100 %              | 100 %            |
-| DiningRoom              | 100 %              | 100 %            |
-| Entrance                | 100 %              | 100 %            |
-| IslandManager           | 100 %              | 94 %             |
-| IslandTile              | 100 %              | 88 %             |
-| StudentCounter          | 100 %              | 100 %            |
-| ConverterUtility        | 100 %              | 83 %             |
-| GameModel               | 92 %               | 86 %             |
-| PawnColor               | 100 %              | 100 %            |
-| Player                  | 100 %              | 100 %            |
-| ProfessorManager        | 100 %              | 100 %            |
-| TowerColor              | 100 %              | 100 %            |
+| Student managers and others | Percentage Methods | Percentage Lines |
+|-----------------------------|--------------------|------------------|
+| Bag                         | 100 %              | 100 %            |
+| CharacterStudentCounter     | 100 %              | 100 %            |
+| Cloud                       | 100 %              | 100 %            |
+| ConcreteStudentCounter      | 100 %              | 100 %            |
+| DiningRoom                  | 100 %              | 100 %            |
+| Entrance                    | 100 %              | 100 %            |
+| IslandManager               | 100 %              | 94 %             |
+| IslandTile                  | 100 %              | 88 %             |
+| StudentCounter              | 100 %              | 100 %            |
+| ConverterUtility            | 100 %              | 83 %             |
+| GameModel                   | 92 %               | 86 %             |
+| PawnColor                   | 100 %              | 100 %            |
+| Player                      | 100 %              | 100 %            |
+| ProfessorManager            | 100 %              | 100 %            |
+| TowerColor                  | 100 %              | 100 %            |
 
 **NB**: The percentage of coverage of the tests could encounter a slight variation due to a failure to execute
 lines of code relating to the effect of the character cards, which are different in each game model initialization.
