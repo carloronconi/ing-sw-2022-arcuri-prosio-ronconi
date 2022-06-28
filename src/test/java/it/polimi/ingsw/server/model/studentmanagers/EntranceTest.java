@@ -40,7 +40,7 @@ public class EntranceTest extends StudentCounter {
 
         int studentsNum = 0;
         for (PawnColor color : PawnColor.values()){
-            if (entrance.count(color)>0){
+            while (entrance.count(color)>0 && studentsNum!=3){
                 diningRoom.fill(color);
                 studentsNum++;
             }
