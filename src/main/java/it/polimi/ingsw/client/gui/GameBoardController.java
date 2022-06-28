@@ -111,7 +111,10 @@ public class GameBoardController extends SceneController{
     private static GameBoardState gameBoardState;
 
 
-
+    /**
+     * Method initialize adds elements to the implemented Structured to manage the game board scene and its links with
+     * the game state sent by the model
+     */
     @FXML
     public void initialize() {
         System.out.println(boardPane.getChildren());
@@ -201,7 +204,10 @@ public class GameBoardController extends SceneController{
     private HashMap<UUID, String> playersNick;
 
 
-
+    /**
+     * Method to update the elements in the game board according to the progressing of the game
+     * @param gameState to get the updated versione of the board sent by the server
+     */
     public void updateBoard(GameState gameState) { //call it from lambda expression in previous controller nextScene
 
         int bag = gameState.getBag();
@@ -657,6 +663,12 @@ public class GameBoardController extends SceneController{
     private Rectangle currRect;
     private Circle c2;
 
+    /**
+     * Method to start actually moving the piece and to store the new position of the piece while it is moving
+     * When the pawn is picked up, it changes its opacity to indicate that the action has been acknowledged.
+     * @param evt user starts to drag the pawn to move it across the board
+     */
+
     @FXML
     public void startMovingPiece(MouseEvent evt) {
         if(pawns.contains(evt.getSource())) {
@@ -668,6 +680,10 @@ public class GameBoardController extends SceneController{
         }
     }
 
+    /**
+     * Method movePiece keeps track of the new position of the pawn
+     * @param evt user drags the pawn across the board
+     */
     @FXML
     public void movePiece(MouseEvent evt) {
         if(pawns.contains(evt.getSource())) {
@@ -682,7 +698,14 @@ public class GameBoardController extends SceneController{
         }
     }
 
-
+    /**
+     * Method to release the pawn at the end of the movement. If the movement is valid, the new coordinates of the pawn
+     * are saved and used a parameter for the method PrintWhere, with the pawn's color.
+     * If not, the movement is not accepted by the method and it is not sent to the server.
+     *
+     * @param evt user releases the pawn on the new location
+     * @return Rectangle on which the pawn has been placed
+     */
     public Rectangle finishMovingPiece(MouseEvent evt) {
 
         if(pawns.contains(evt.getSource())) {
@@ -779,6 +802,15 @@ public class GameBoardController extends SceneController{
     @FXML Rectangle purple1;
     @FXML Rectangle blue1;
 
+    /**
+     * Method called by finishMovingPiece. The pawn's parameters are stored and compared with the elements on the game board:
+     * if there is a match between the pawn and a location (an island# or dining room table)
+     * this method prints the new location of the pawn and sends to the Server an update, being a user movement.
+     * @param x coordinate X of the pawn
+     * @param y coordinate Y of the pawn
+     * @param color pawn's color
+     * @throws IOException
+     */
     public void printWhere(Double x, Double y, PawnColor color) throws IOException {
         for (Pane p : islandRows) { // iterate on island rows
             for (Node cell : p.getChildrenUnmodifiable()) { // iterate on islands
@@ -795,6 +827,14 @@ public class GameBoardController extends SceneController{
 
     }
 
+    /**
+     * This method sends an update of the player movement to the server in two situations: Pawn moved from entrance to
+     * an island and Mother Nature movement.
+     *
+     * @param color pawn color
+     * @param islandId UUID of the island on which the pawn is put
+     * @throws IOException
+     */
     private void sendToServerAndUpdate(PawnColor color, UUID islandId) throws IOException {
         UUID currentState = getClientGui().getGuiView().getGameState().getId();
         System.out.println("color: " + color);
@@ -828,6 +868,12 @@ public class GameBoardController extends SceneController{
 
         new ChangeScene(getClientGui()).run();
     }
+
+    /**
+     * To end his turn a player must choose a cloud to put its pawns is his entrance. To do so the player has to
+     * click on the cloud he chooses.
+     * @throws IOException
+     */
 
     public void clickedCloud1() throws IOException {
         if (gameBoardState.getBoardState()!= GameBoardState.BoardState.CHOOSING_CLOUD){
@@ -869,6 +915,30 @@ public class GameBoardController extends SceneController{
         getClientGui().getGuiView().notifyEventManager(new ChosenCloud(cloudId));
         gameBoardState.nextState();
         getClientGui().getGuiView().changeSceneToGameBoard(false, true);
+    }
+
+    public void setOpacity1(){
+        cloud1.setOpacity(0.4d);
+    }
+
+    public void setOpacity2(){
+        cloud2.setOpacity(0.4d);
+    }
+
+    public void setOpacity3(){
+        cloud3.setOpacity(0.4d);
+    }
+
+    public void resetOpacity1(){
+        cloud1.setOpacity(1.0d);
+    }
+
+    public void resetOpacity2(){
+        cloud2.setOpacity(1.0d);
+    }
+
+    public void resetOpacity3(){
+        cloud3.setOpacity(1.0d);
     }
 
 }
