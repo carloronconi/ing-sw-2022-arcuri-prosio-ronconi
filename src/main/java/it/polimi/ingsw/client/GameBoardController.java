@@ -971,5 +971,29 @@ public class GameBoardController extends SceneController{
         getClientGui().getGuiView().changeSceneToGameBoard(false, true);
     }
 
+    public void setOpacity1(){
+        cloud1.setOpacity(0.4d);
+    }
+
+    public void setOpacity2(){
+        cloud2.setOpacity(0.4d);
+    }
+
+    public void setOpacity3(){
+        cloud3.setOpacity(0.4d);
+    }
+
+    public void resetOpacity1(){
+        cloud1.setOpacity(1.0d);
+    }
+
+    public void resetOpacity2(){
+        cloud2.setOpacity(1.0d);
+    }
+
+    public void resetOpacity3(){
+        cloud3.setOpacity(1.0d);
+    }
+
 }
 

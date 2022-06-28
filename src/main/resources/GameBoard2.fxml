@@ -81,12 +81,12 @@
                                                 <Image url="@tile1.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fx:id="cloud1" fitHeight="150.0" fitWidth="144.0" layoutX="285.0" layoutY="15.0" onMouseClicked="#clickedCloud1" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="cloud1" fitHeight="150.0" fitWidth="144.0" layoutX="285.0" layoutY="15.0" onMouseClicked="#clickedCloud1" onMouseEntered="#setOpacity1" onMouseExited="#resetOpacity1" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@cloud.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fx:id="cloud2" fitHeight="150.0" fitWidth="144.0" layoutX="446.0" layoutY="15.0" onMouseClicked="#clickedCloud2" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="cloud2" fitHeight="150.0" fitWidth="144.0" layoutX="446.0" layoutY="15.0" onMouseClicked="#clickedCloud2" onMouseEntered="#setOpacity2" onMouseExited="#resetOpacity2" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@cloud.png" />
                                             </image>
