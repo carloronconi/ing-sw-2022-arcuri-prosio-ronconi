@@ -49,21 +49,13 @@ public class ClientCli implements Runnable {
         serverHandler = new ServerHandler(server);
 
 
-            view = new CliView(serverHandler);
-            serverHandler.linkView(view);
+        view = new CliView(serverHandler);
+        serverHandler.linkView(view);
 
 
         Thread serverHandlerThread = new Thread(serverHandler, "server_" + server.getInetAddress().getHostAddress());
         serverHandlerThread.start();
 
-        /* Run the state machine handling the views */
-        //nextView = new NextNumberView();
-        //runViewStateMachine();
-
-        /* We are going to stop the application, so ask the server thread
-         * to stop as well. Note that we are invoking the stop() method on
-         * ServerHandler, not on Thread */
-        //serverHandler.stop();
     }
 
 }

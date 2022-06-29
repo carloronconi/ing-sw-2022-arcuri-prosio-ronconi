@@ -155,6 +155,8 @@ public class CliView implements ViewInterface {
 
         int numOfPlayers = Integer.parseInt(numString);
 
+        System.out.println("Waiting for other players...");
+
         eventManager.notify(new SetPreferences(numOfPlayers, gameMode));
     }
 
@@ -353,11 +355,11 @@ public class CliView implements ViewInterface {
             }
 
         }
-if(colorSwaps!=null){
-        while (colorSwaps.size()> forCharacter.getMaxColorSwaps()){
-            colorSwaps.remove(colorSwaps.size()-1);
+        if(colorSwaps!=null){
+            while (colorSwaps.size()> forCharacter.getMaxColorSwaps()){
+                colorSwaps.remove(colorSwaps.size()-1);
+            }
         }
-    }
         eventManager.notify(new SetCharacterSettings(color, player, island, colorSwaps));
 
     }
