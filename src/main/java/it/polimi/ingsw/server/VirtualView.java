@@ -30,14 +30,6 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private final ClientHandler clientHandler;
     private final Server server;
 
-   /* private void writeObject(RemoteMethodCall remoteMethodCall){
-        try {
-            output.writeObject(remoteMethodCall);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     public VirtualView(GameController gameController, ClientHandler clientHandler, Server server) {
         //this.clientSocket = clientSocket;
         this.gameController = gameController;
@@ -202,7 +194,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     public void update(ModelEvent modelEvent) {
         //forward the modelEvent through the socket
 
-            clientHandler.forwardModel(modelEvent);
+            clientHandler.writeObject(modelEvent);
             //clientHandler.output.writeObject(modelEvent);
 
     }
@@ -214,66 +206,5 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     public void notifyController(ViewEvent message){
         eventManager.notify(message);
     }
-    /*@Override
-    public void run() {
-
-      /*  try {
-            output = new ObjectOutputStream(clientSocket.getOutputStream());
-            System.out.println("output stream created");
-            input = new ObjectInputStream(clientSocket.getInputStream());
-            System.out.println("input stream created");
-        } catch (IOException e) {
-            System.out.println("could not open connection to " + clientSocket.getInetAddress());
-            return;
-        } */
-
-       /* try {
-            while (true) {
-
-                Object next = input.readObject();
-                ViewEvent message = (ViewEvent) next;
-                //command.processMessage(this);
-                try{
-                    try {
-                        //doubt about this try-catch
-                        message.processMessage(this);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    eventManager.notify(message);
-
-                } catch (InvalidObjectException e){
-                    e.printStackTrace();
-                }
-
-            }
-        } catch (ClassNotFoundException | ClassCastException e) {
-            System.out.println("invalid stream from client");
-        } catch (IOException e) {
-            System.out.println("could not open connection to " + clientSocket.getInetAddress());
-            return;
-        } */
-
-       /* try {
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
 
     }
-
-
-   /* public void threadWait(){
-       if(thisInstanceNumber != whoseTurn) {
-           try {
-               wait();
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-       }
-
-    }
-
-
-
-} */

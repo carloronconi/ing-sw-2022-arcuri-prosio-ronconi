@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.networkmessages.ReceivedByClient;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
@@ -37,25 +38,16 @@ public class ClientHandler implements Runnable {
     }
 
 
-   protected void writeObject(RemoteMethodCall remoteMethodCall){
+   protected void writeObject(ReceivedByClient message){
         try {
-            output.writeObject(remoteMethodCall);
+            output.writeObject(message);
         } catch (IOException e) {
-            server.gameIsOver(null);
+            if (!(message instanceof GameOver)) server.gameIsOver(null, this);
             //e.printStackTrace();
         }
     }
 
 
-    public void forwardModel(ModelEvent modelEvent){
-        try {
-            output.writeObject(modelEvent);
-        } catch (IOException e) {
-            server.gameIsOver(null);
-            //e.printStackTrace();
-        }
-
-    }
     @Override
     public void run() {
         try {
@@ -90,8 +82,8 @@ public class ClientHandler implements Runnable {
         } catch (ClassNotFoundException | ClassCastException e) {
             System.out.println("invalid stream from client");
         } catch (IOException e) {
-            server.gameIsOver(null);
             System.out.println("could not open connection to " + clientSocket.getInetAddress());
+            server.gameIsOver(null, this);
         }
 
         try {

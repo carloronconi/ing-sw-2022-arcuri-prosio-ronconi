@@ -68,12 +68,18 @@ public class Server {
 
     }
 
-    public void gameIsOver(UUID winner){
-        for (ClientHandler clientHandler : clientHandlers){
+    public void gameIsOver(UUID winner, ClientHandler brokenClient){
+        if (clientHandlers.isEmpty()) return;
+        ArrayList<ClientHandler> clientHandlerList = new ArrayList<>(clientHandlers);
+        System.out.println(clientHandlerList);
+        if (brokenClient!=null) clientHandlerList.remove(brokenClient);
+        System.out.println(clientHandlerList);
+        for (ClientHandler clientHandler : clientHandlerList){
             clientHandler.writeObject(new GameOver(winner));
             //stop the thread
             clientHandler.stopClient();
         }
+        clientHandlers.clear();
         System.out.println("Stopping server");
         try {
             socket.close();
@@ -82,5 +88,9 @@ public class Server {
         }
         System.out.println("Socket closed");
         stop = true;
+    }
+
+    public void gameIsOver(UUID winner){
+        gameIsOver(winner, null);
     }
 }
