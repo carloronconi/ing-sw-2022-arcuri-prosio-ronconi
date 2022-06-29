@@ -68,6 +68,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
 
 
     public synchronized boolean isItMyTurn(){
+        if (turnController == null) return false;
         return id == turnController.getCurrentPlayer();
     }
 
@@ -204,6 +205,7 @@ public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     }
 
     public void notifyController(ViewEvent message){
+        if (message instanceof SetPreferences) server.setNumOfPlayers(((SetPreferences) message).getNumOfPlayers());
         eventManager.notify(message);
     }
 
