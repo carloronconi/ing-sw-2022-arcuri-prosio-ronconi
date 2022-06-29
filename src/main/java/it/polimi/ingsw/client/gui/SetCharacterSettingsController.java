@@ -6,6 +6,9 @@ import it.polimi.ingsw.networkmessages.viewevents.SetCharacterSettings;
 import it.polimi.ingsw.server.model.PawnColor;
 import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
 import it.polimi.ingsw.server.model.charactercards.ColorSwap;
+import it.polimi.ingsw.server.model.charactercards.SwapperCharacter;
+import it.polimi.ingsw.server.model.charactercards.effectarguments.EffectWithColor;
+import it.polimi.ingsw.server.model.charactercards.effectarguments.EffectWithIsland;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -127,8 +130,7 @@ public class SetCharacterSettingsController extends SceneController{
 
                 pane.getChildren().add(circle);
             }
-
-            }
+        }
 
         if(chosenCharacter.equals("musician")){
             ArrayList<PawnColor> diningMap = new ArrayList<>();
@@ -158,6 +160,31 @@ public class SetCharacterSettingsController extends SceneController{
 
         }
 
+        Class<?> characterClass = availableCharacter.getCharacterClass();
+
+        pawnColor.setMouseTransparent(true);
+        pawnColor.setFocusTraversable(false);
+        whereTo.setMouseTransparent(true);
+        whereTo.setFocusTraversable(false);
+        swapGive.setMouseTransparent(true);
+        swapGive.setFocusTraversable(false);
+        swapTake.setMouseTransparent(true);
+        swapTake.setFocusTraversable(false);
+
+        if (EffectWithColor.class.isAssignableFrom(characterClass)){
+            pawnColor.setMouseTransparent(false);
+            pawnColor.setFocusTraversable(true);
+        }
+        if (EffectWithIsland.class.isAssignableFrom(characterClass)){
+            whereTo.setMouseTransparent(false);
+            whereTo.setFocusTraversable(true);
+        }
+        if (SwapperCharacter.class.isAssignableFrom(characterClass)){
+            swapGive.setMouseTransparent(false);
+            swapGive.setFocusTraversable(true);
+            swapTake.setMouseTransparent(false);
+            swapTake.setFocusTraversable(true);
+        }
 
     }
 
