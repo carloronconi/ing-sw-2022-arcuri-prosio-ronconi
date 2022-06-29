@@ -15,7 +15,11 @@ public class LoginSceneController extends SceneController{
     }
 
     public int portSet(){
-        return Integer.parseInt(serverPortBox.getText());
+        try{
+            return Integer.parseInt(serverPortBox.getText());
+        } catch (IllegalArgumentException e){
+            return 0;
+        }
     }
 
     /**

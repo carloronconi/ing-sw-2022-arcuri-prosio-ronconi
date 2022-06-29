@@ -30,18 +30,17 @@ public class ClientCli implements Runnable {
         Scanner scanner = new Scanner(System.in);
         Socket server;
         while(true){
-            System.out.println("IP address of server?");
-            String ip = scanner.nextLine();
-            //String ip = "localhost";
-
-            System.out.println("Server port?");
-            int socketPort = Integer.parseInt(scanner.nextLine());
-            //int socketPort = 4999;
-
             try {
+                System.out.println("IP address of server?");
+                String ip = scanner.nextLine();
+                //String ip = "localhost";
+
+                System.out.println("Server port?");
+                int socketPort = Integer.parseInt(scanner.nextLine());
+                //int socketPort = 4999;
                 server = new Socket(ip, socketPort);
                 break;
-            } catch (IOException e) {
+            } catch (IOException | IllegalArgumentException e) {
                 System.out.println("Server unreachable! Try with different address/port:");
             }
         }
