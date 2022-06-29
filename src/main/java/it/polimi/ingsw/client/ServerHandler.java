@@ -59,7 +59,9 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
             System.out.println("input stream created");
         } catch (IOException e) {
             System.out.println("could not open connection to " + server.getInetAddress());
-            e.printStackTrace();
+            //e.printStackTrace();
+            view.gameOver(null);
+            stopServer();
             //owner.terminate();
             return;
         }
@@ -68,6 +70,7 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
             handleClientConnection();
         } catch (IOException e) {
             System.out.println("server " + server.getInetAddress() + " connection dropped");
+            view.gameOver(null);
             stopServer();
         }
 
@@ -93,11 +96,15 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
                     ReceivedByClient message = (ReceivedByClient) next;
                     message.processMessage(view, eventManager);
                 } catch (IOException e) {
-                    stop = true;
+                    System.out.println("Communication error");
+                    view.gameOver(null);
+                    stopServer();
                 }
             }
         } catch (ClassNotFoundException | ClassCastException e) {
             System.out.println("invalid stream from server");
+            view.gameOver(null);
+            stopServer();
         }
     }
 
@@ -109,9 +116,10 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     public void update(ViewEvent viewEvent) {
         try {
             output.writeObject(viewEvent);
-        } catch (IOException e) {
+        } catch (IOException e) { //happens to the client that is currently making a move when server dies
             //e.printStackTrace();
             System.out.println("Communication error");
+            view.gameOver(null);
             stopServer();
         }
     }
