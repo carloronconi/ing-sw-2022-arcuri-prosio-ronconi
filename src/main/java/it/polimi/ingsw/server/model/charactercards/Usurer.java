@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.model.PawnColor;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.server.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.server.model.studentmanagers.Bag;
+import it.polimi.ingsw.server.model.studentmanagers.IllegalStudentMoveException;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Usurer extends Character implements EffectWithColor {
             for (int i = 0; i < 3; i++) {
                 try{
                     bag.movePawnFromDiningRoom(color,p.getDiningRoom());
-                } catch (IllegalArgumentException e){
+                } catch (IllegalStudentMoveException e){
                     // do nothing: it's ok because a player could have less than 3 students of that color
                 }
             }

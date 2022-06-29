@@ -257,7 +257,7 @@ public class Matrix implements Serializable {
 
 
     //islands - linear shape
-    public Matrix(ClientNameIdConverter converter, HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
+    /*public Matrix(ClientNameIdConverter converter, HashMap<UUID, UUID> islandOwners, LinkedHashMap<UUID, TowerColor> colorPlayersTowers, LinkedHashMap<UUID, Boolean> banOnIslands, UUID motherNaturePosition, LinkedHashMap<UUID, Integer> islandsSize, LinkedHashMap<UUID, ArrayList<PawnColor>> islands){
 
         matrixType = "islands";
 
@@ -383,7 +383,7 @@ public class Matrix implements Serializable {
 
 
 
-    }
+    }*/
 
 
 
@@ -489,7 +489,7 @@ public class Matrix implements Serializable {
     @Override
     public String toString(){
         String s = new String();
-        //s += "\n";
+
         if (matrixType=="school") {
             for (int i = 0; i < getNumRow(); i++) {
                 s += "|";

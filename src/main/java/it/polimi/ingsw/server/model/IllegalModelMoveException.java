@@ -9,11 +9,11 @@ public class IllegalModelMoveException extends RuntimeException{
         super(message);
     }
 
-    public IllegalModelMoveException(String message, Throwable cause) {
+    /*public IllegalModelMoveException(String message, Throwable cause) {
         super(message, cause);
-    }
+    }*/
 
-    public IllegalModelMoveException(Throwable cause) {
+    /*public IllegalModelMoveException(Throwable cause) {
         super(cause);
-    }
+    }*/
 }

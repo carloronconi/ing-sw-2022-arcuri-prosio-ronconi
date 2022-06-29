@@ -53,7 +53,7 @@ The following links lead to the initial and final structures of the UML diagram 
 | FlagBearer         | 100 %              | 100 %            |
 | Juggler            | 100 %              | 100 %            |
 | Knight             | 100 %              | 100 %            |
-| Messenger          | 50 %               | 50 %             |
+| Messenger          | 100 %              | 100 %            |
 | Monk               | 100 %              | 100 %            |
 | MushroomMerchant   | 100 %              | 100 %            |
 | Musician           | 100 %              | 100 %            |
@@ -71,10 +71,10 @@ The following links lead to the initial and final structures of the UML diagram 
 | DiningRoom                  | 100 %              | 100 %            |
 | Entrance                    | 100 %              | 100 %            |
 | IslandManager               | 100 %              | 94 %             |
-| IslandTile                  | 100 %              | 88 %             |
+| IslandTile                  | 100 %              | 86 %             |
 | StudentCounter              | 100 %              | 100 %            |
 | ConverterUtility            | 100 %              | 83 %             |
-| GameModel                   | 92 %               | 86 %             |
+| GameModel                   | 95 %               | 88 %             |
 | PawnColor                   | 100 %              | 100 %            |
 | Player                      | 100 %              | 100 %            |
 | ProfessorManager            | 100 %              | 100 %            |
