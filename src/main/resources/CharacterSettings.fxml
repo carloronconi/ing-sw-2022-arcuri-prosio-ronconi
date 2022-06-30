@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.SetCharacterSettingsController">
+<AnchorPane fx:id="pane" prefHeight="876.0" prefWidth="1500.0" style="-fx-background-color: #6abade" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.gui.SetCharacterSettingsController">
    <children>
       <Label layoutX="47.0" layoutY="41.0" prefHeight="74.0" prefWidth="608.0" styleClass="gameOverMessage" stylesheets="@textfont.css" text="CHARACTER SETTINGS " />
       <Label layoutX="47.0" layoutY="115.0" prefHeight="49.0" prefWidth="538.0" styleClass="message" stylesheets="@textfont.css" text="Check the effect of your card to know what to insert in the fields" />
@@ -26,7 +23,7 @@
       <TextField fx:id="swapGive" layoutX="99.0" layoutY="544.0" />
       <TextField fx:id="swapTake" layoutX="277.0" layoutY="544.0" />
       <Button fx:id="swapBtn" layoutX="452.0" layoutY="544.0" mnemonicParsing="false" onAction="#swapClick" text="swap" />
-      <Button fx:id="btn" layoutX="1390.0" layoutY="816.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="34.0" prefWidth="82.0" text="Button" />
+      <Button fx:id="btn" layoutX="1352.0" layoutY="816.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="34.0" prefWidth="120.0" text="GAME BOARD" />
       <Label layoutX="114.0" layoutY="511.0" styleClass="message" stylesheets="@textfont.css" text="pawn color give" />
       <Label layoutX="292.0" layoutY="511.0" styleClass="message" stylesheets="@textfont.css" text="pawn color take" />
       <Button fx:id="setColor" layoutX="333.0" layoutY="178.0" mnemonicParsing="false" onAction="#settingPawnColor" text="setColor" />

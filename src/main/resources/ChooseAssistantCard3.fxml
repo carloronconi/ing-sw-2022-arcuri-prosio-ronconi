@@ -88,7 +88,7 @@
 
 
 
-                        <Button fx:id="button" layoutX="1283.0" layoutY="218.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="25.0" prefWidth="150.0" text="GAME BOARD" />
+                        <Button fx:id="button" layoutX="1283.0" layoutY="218.0" mnemonicParsing="false" onAction="#clickedButton" prefHeight="25.0" prefWidth="150.0" text="NEXT" />
 
                     </Pane>
 
