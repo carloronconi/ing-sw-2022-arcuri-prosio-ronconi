@@ -93,12 +93,10 @@ The same reasoning applies to some methods.
 
 Follow the steps below to play correctly
 
-### Windows/MacOs/linux
-
 1. Clone this repository
 2. Open the terminal
 
-#### Server
+### Server
 
 3. Open the properties of the [server jar file](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/Server/PSP7.jar)
 4. Copy the absolute path of the file
@@ -107,7 +105,7 @@ Follow the steps below to play correctly
 java -jar [absolute path]
 ```
 
-#### CLI
+### CLI
 
 3. Open the properties of the [CLI jar file](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/ClientCli/PSP7.jar)
 4. Copy the absolute path of the file
@@ -116,15 +114,25 @@ java -jar [absolute path]
 java -jar [absolute path]
 ```
 
-#### GUI
+### GUI
 
-3. Open the properties of the [GUI jar file](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/ClientGui/PSP7.jar)
+#### MacOs/linux
+
+3. Open the properties of the [GUI jar file for MacOS/linux](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/ClientGui/PSP7.jar)
 4. Copy the absolute path of the file
 5. Enter the following command without parentheses
 ```bash
 java -jar [absolute path]
 ```
 
+#### Windows
+
+3. Open the properties of the [GUI jar file for Windows](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/out/artifacts/ClientGuiWin/PSP7.jar)
+4. Copy the absolute path of the file
+5. Enter the following command without parentheses
+```bash
+java -jar [absolute path]
+```
 
 ## Software Used
 
