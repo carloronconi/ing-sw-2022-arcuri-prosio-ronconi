@@ -41,7 +41,7 @@ public class Musician extends SwapperCharacter implements EffectWithPlayer {
         if(!isCostIncreased()) increaseCost();
         player = null;
         gameModel.updateProfessorManager();
-        if (gameModel!=null) gameModel.notifyListeners();
+        //if (gameModel!=null) gameModel.notifyListeners();
     }
 
 

@@ -44,7 +44,7 @@ public class Juggler extends SwapperCharacter implements EffectWithPlayer {
         for(ColorSwap cs : colorSwaps) entrance.swapStudent(this.studentCounter, cs.getGive(), cs.getTake());
         if (!isCostIncreased()) increaseCost();
         player = null;
-        if (gameModel!=null) gameModel.notifyListeners();
+        //if (gameModel!=null) gameModel.notifyListeners();
     }
 
     /**
