@@ -220,7 +220,8 @@ public class SetCharacterSettingsController extends SceneController{
 
         String islandName = whereTo.getText();
         island = converter.nameToId(islandName, ClientNameIdConverter.ConverterSetting.ISLAND); //returns null if it doesn't find island
-        if (Witch.class.isAssignableFrom(characterClass) && island!=null && gameState.getBanOnIslands().get(island)) island = null;
+        long numOfIslandsWithBan = gameState.getBanOnIslands().values().stream().filter(ban -> ban).count();
+        if (Witch.class.isAssignableFrom(characterClass) && island!=null && (gameState.getBanOnIslands().get(island) || numOfIslandsWithBan>=4)) island = null;
         System.out.println(island);
         if (island!=null) whereTo.clear();
         else System.out.println("no island with that name");
