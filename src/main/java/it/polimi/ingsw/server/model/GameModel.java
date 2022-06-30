@@ -278,6 +278,11 @@ public class GameModel {
         return islandManager.countIslands();
     }
 
+    /**
+     * this method creates a LinkedHashMap, used in the GameState, in which it associates the id of each island to its size
+     * referring to the unification of several islands
+     * @return the created map
+     */
     public LinkedHashMap<UUID, Integer> islandsSize(){
         LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
 
@@ -288,6 +293,11 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates a LinkedHashMap, used in the GameState, in which it associates the id of each island
+     * to a boolean referring to the presence of the ban card on the island itself
+     * @return the created map
+     */
     public LinkedHashMap<UUID, Boolean> banOnIslands(){
         LinkedHashMap<UUID, Boolean> map = new LinkedHashMap<>();
         for (int i=0; i<islandManager.getIslands().size(); i++){
@@ -307,10 +317,20 @@ public class GameModel {
         return players.get(playerIndex).getDeckSize();
     }
 
+    /**
+     * this method returns the deck associated to the player in input
+     * @param player whose deck you want to know
+     * @return an ArrayList with integers referring to the cards in the deck
+     * @throws NoSuchFieldException
+     */
     public ArrayList<Integer> getDeck(UUID player) throws NoSuchFieldException{
         return ConverterUtility.idToElement(player, players).getDeck();
     }
 
+    /**
+     * this method creates a HashMap in which it associates each player's ID with their deck
+     * @return the created map
+     */
     public HashMap<UUID, ArrayList<Integer>> getDecks() {
         HashMap<UUID, ArrayList<Integer>> map = new HashMap<>();
         for (Player p : players){
@@ -352,6 +372,13 @@ public class GameModel {
 
     }
 
+    /**
+     * this method decides whether a player can choose a character to use its effect
+     * @param player who wants to use a character's effect
+     * @param character chosen by the player
+     * @return a boolean that decides whether the player can use the character's effect
+     * @throws NoSuchFieldException
+     */
     public boolean isCharacterCardIllegal(UUID player, AvailableCharacter character) throws NoSuchFieldException{
         int playerIndex = ConverterUtility.idToIndex(player, players);
         Player p = players.get(playerIndex);
@@ -402,6 +429,13 @@ public class GameModel {
         eventManager.notify(new GameState(this));
     }
 
+    /**
+     * this method decides whether the number of steps of MotherNature chosen by a player is correct
+     * @param steps that MotherNature should take
+     * @param playerId who has decided the steps that MotherNature should take
+     * @return a boolean which confirm or not MotherNature's steps
+     * @throws NoSuchFieldException
+     */
     public boolean isMNMoveIllegal(int steps, UUID playerId) throws NoSuchFieldException {
         Player player = ConverterUtility.idToElement(playerId,players);
         int cardValue = playedCards.get(player)/2;
@@ -409,11 +443,18 @@ public class GameModel {
         return (cardValue + messengerEffect < steps);
     }
 
+    /**
+     * this method resets the values of the playedCards map in which players and the cards played by them are associated
+     */
     public void clearPlayedAssistantCards(){
         playedCards.clear();
         eventManager.notify(new GameState(this));
     }
 
+    /**
+     * this method creates a map in which the professors and the ids of the players who own them are associated
+     * @return the created map
+     */
     public EnumMap<PawnColor, UUID> getProfessorOwners(){
         EnumMap<PawnColor, UUID> map = new EnumMap<>(PawnColor.class);
         for (PawnColor c : PawnColor.values()){
@@ -425,6 +466,11 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates a LinkedHashMap in which the IDs of the clouds and the color of the students
+     * contained in them are associated
+     * @return the created map
+     */
     public LinkedHashMap<UUID, ArrayList<PawnColor>> getClouds(){
         LinkedHashMap<UUID, ArrayList<PawnColor>> map = new LinkedHashMap<>();
         for (Cloud cloud: clouds){
@@ -444,6 +490,11 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates a LinkedHashMap in which the IDs of the clouds and the color of the students
+     * contained in them are associated
+     * @return the created map
+     */
     public LinkedHashMap<UUID, ArrayList<PawnColor>> getIslands(){
         LinkedHashMap<UUID, ArrayList<PawnColor>> map = new LinkedHashMap<>();
         for (IslandTile island: islandManager.getIslands()){
@@ -463,6 +514,10 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates a LinkedHashMap in which the IDs of the islands and their sizes are associated
+     * @return the created map
+     */
     public LinkedHashMap<UUID, Integer> getIslandSizes(){
         LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
         for (IslandTile island : islandManager.getIslands()){
@@ -471,6 +526,10 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates an ArrayList which contains the IDs of the islands that have a ban
+     * @return the created ArrayList
+     */
     public ArrayList<UUID> getWhichIslandsHaveBan(){
         ArrayList<UUID> islandsWithBan = new ArrayList<>();
         for (IslandTile island: islandManager.getIslands()){
@@ -479,14 +538,33 @@ public class GameModel {
         return islandsWithBan;
     }
 
+    /**
+     * this method returns a HashMap in which the ids of the entrances (id of the players actually) and an EnumMap,
+     * which in turn contains the number of students of the various colors contained in the entrance, are associated
+     * @return the HashMap
+     */
     public HashMap<UUID, EnumMap<PawnColor, Integer>> getEntrances(){
         return getStudentCounterMap(Entrance.class);
     }
 
+    /**
+     * this method returns a HashMap in which the ids of the diningRooms (id of the players actually) and an EnumMap,
+     * which in turn contains the number of students of the various colors contained in the diningRooms, are associated
+     * @return the HashMap
+     */
     public HashMap<UUID, EnumMap<PawnColor, Integer>> getDiningRooms(){
         return getStudentCounterMap(DiningRoom.class);
     }
 
+    /**
+     * this method creates a HashMap in which the id of the object passed in input (it must be an instance of Entrance or DiningRoom class)
+     * are associated and an EnumMap, which in turn contains the number of students of the various colors contained
+     * in the object, are associated
+     * @param c object of which you want to know the id and the number of students of the various colors
+     * @param <T> indicates the type of object that must be passed in input and this must extend the studentCounter class
+     * @return the created HashMap
+     * @throws IllegalArgumentException
+     */
     private <T extends StudentCounter> HashMap<UUID, EnumMap<PawnColor, Integer>> getStudentCounterMap(Class<T> c) throws IllegalArgumentException{
         if (Entrance.class != c && DiningRoom.class != c) throw new IllegalArgumentException("Class either has to be Entrance or DiningRoom");
         HashMap<UUID, EnumMap<PawnColor, Integer>> playersMap = new HashMap<>();
@@ -501,6 +579,10 @@ public class GameModel {
         return playersMap;
     }
 
+    /**
+     * this method creates a map in which the IDs of the players and the coins they own are associated
+     * @return the created map
+     */
     public HashMap<UUID, Integer> getCoinsMap(){
         HashMap<UUID, Integer> map = new HashMap<>();
         for (Player p : players){
@@ -509,6 +591,11 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates a HashMap in which the characterCards present in the game and a boolean,
+     * which indicates if its cost has been increased (if it has already been chosen by a player actually) are associated
+     * @return the created map
+     */
     public HashMap<AvailableCharacter, Boolean> getAvailableCharacterCards(){
         if (characters==null) return null;
         HashMap<AvailableCharacter, Boolean> map = new HashMap<>();
@@ -518,6 +605,11 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method creates a HashMap in which the IDs of the players and the cards played by them in the current turn
+     * are associated
+     * @return the created HashMap
+     */
     public HashMap<UUID, Integer> getPlayedAssistantCards(){
         HashMap<UUID, Integer> map = new HashMap<>();
         for (Player player : playedCards.keySet()){
@@ -526,10 +618,19 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * this method returns the id of the island motherNature is on
+     * @return the id of the island
+     */
     public UUID getMotherNaturePosition(){
         return islandManager.getMotherNaturePosition();
     }
 
+    /**
+     * this method creates a LinkedHashMap in which the IDs of the islands and the IDs of the players who own them
+     * are associated
+     * @return the created LinkedHashMap
+     */
     public LinkedHashMap<UUID, UUID> getIslandOwners(){
         LinkedHashMap<UUID, UUID> map = new LinkedHashMap<>();
         for (IslandTile island: islandManager.getIslands()){
@@ -542,6 +643,10 @@ public class GameModel {
         return map;
     }
 
+    /**
+     * the method creates a LinkedHashMap in which ids of the players and their nicknames are associated
+     * @return the created LinkedHashMap
+     */
     public LinkedHashMap<UUID, String> getPlayerNicknames(){
         LinkedHashMap<UUID, String> map = new LinkedHashMap<>();
         for (Player p : players){
@@ -574,6 +679,10 @@ public class GameModel {
         return string;
     }
 
+    /**
+     * this method creates an ArrayList which contains the ids of the players
+     * @return the created ArrayList
+     */
     public ArrayList<UUID> getPlayerIds(){
         ArrayList<UUID> list = new ArrayList<>();
         for (Player p : players){
