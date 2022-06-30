@@ -594,18 +594,18 @@ public class GameBoardController extends SceneController{
                 if(isIslandBanned.get(islandId).equals(Boolean.TRUE)){
                     Rectangle rec = new Rectangle();
                     rec.setFill(Color.valueOf("#1fceff"));
-                    rec.setHeight(105.0);
-                    rec.setWidth(86.0);
+                    rec.setHeight(50.0);
+                    rec.setWidth(50.0);
                     rec.setStroke(Color.valueOf("#ff4211"));
                     rec.setStrokeType(StrokeType.INSIDE);
                     rec.setStrokeWidth(8.0);
-                    rec.setLayoutX(island.getLayoutX() + 50.0);
-                    rec.setLayoutY(island.getParent().getLayoutY() + 50.0);
+                    rec.setLayoutX(island.getLayoutX() + 80.0);
+                    rec.setLayoutY(island.getParent().getLayoutY() + 80.0);
 
                     Label lab = new Label();
-                    lab.setText("BANNED");
-                    lab.setLayoutX(island.getLayoutX() + 73.0);
-                    lab.setLayoutY(island.getParent().getLayoutY() + 90.0);
+                    lab.setText("BAN");
+                    lab.setLayoutX(island.getLayoutX() + 92.0);
+                    lab.setLayoutY(island.getParent().getLayoutY() + 97.0);
 
                     boardPane.getChildren().add(rec);
                     boardPane.getChildren().add(lab);
