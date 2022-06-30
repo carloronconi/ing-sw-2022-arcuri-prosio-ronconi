@@ -1,12 +1,14 @@
 package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.ClientNameIdConverter;
+import it.polimi.ingsw.networkmessages.viewevents.ChosenCharacter;
 import it.polimi.ingsw.server.model.PawnColor;
 import it.polimi.ingsw.server.model.TowerColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.viewevents.ChosenCloud;
 import it.polimi.ingsw.networkmessages.viewevents.MovedMotherNature;
 import it.polimi.ingsw.networkmessages.viewevents.MovedStudent;
+import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -20,10 +22,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
+import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.util.*;
@@ -495,6 +499,7 @@ public class GameBoardController extends SceneController{
 
         LinkedHashMap<UUID, ArrayList<PawnColor>> gameStateIslands = gameState.getIslands();
         int currentIndex = 0;
+        HashMap<UUID, Boolean> isIslandBanned = gameState.getBanOnIslands();
 
         for (Node island : islandRow.getChildrenUnmodifiable()) {
 
@@ -584,6 +589,28 @@ public class GameBoardController extends SceneController{
                         boardPane.getChildren().add(c);
                     }
                 }
+
+                //add ban if present
+                if(isIslandBanned.get(islandId).equals(Boolean.TRUE)){
+                    Rectangle rec = new Rectangle();
+                    rec.setFill(Color.valueOf("#1fceff"));
+                    rec.setHeight(105.0);
+                    rec.setWidth(86.0);
+                    rec.setStroke(Color.valueOf("#ff4211"));
+                    rec.setStrokeType(StrokeType.INSIDE);
+                    rec.setStrokeWidth(8.0);
+                    rec.setLayoutX(island.getLayoutX() + 50.0);
+                    rec.setLayoutY(island.getParent().getLayoutY() + 50.0);
+
+                    Label lab = new Label();
+                    lab.setText("BANNED");
+                    lab.setLayoutX(island.getLayoutX() + 73.0);
+                    lab.setLayoutY(island.getParent().getLayoutY() + 90.0);
+
+                    boardPane.getChildren().add(rec);
+                    boardPane.getChildren().add(lab);
+                }
+
             }
 
 
