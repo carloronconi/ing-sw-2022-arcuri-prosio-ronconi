@@ -490,7 +490,7 @@ public class GameBoardController extends SceneController{
     }
 
     /**
-     * adds pawns, towers and mother nature to islands or hides them if eliminated
+     * adds pawns, towers, mother nature and ban effect to islands or hides them if eliminated
      * @param islandRow row to be initialized
      * @param gameState current game state
      * @param islandIndexes what islands the row contains (example: row0 contains islands 1...5, row1 contains islands 6 and 12)
