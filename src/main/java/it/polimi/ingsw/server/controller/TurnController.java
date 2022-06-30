@@ -15,6 +15,9 @@ import it.polimi.ingsw.networkmessages.viewevents.*;
 
 import java.util.*;
 
+/**
+ * controller listens to view events according to the MVC pattern
+ */
 public class TurnController implements EventListener<ViewEvent> {
     private ArrayList<UUID> playerOrder; //reorder it only after planning phase
     private int currentPlayerIndex; //index of the player who is currently playing in playerOrder
@@ -35,6 +38,9 @@ public class TurnController implements EventListener<ViewEvent> {
         currentPlayerIndex = 0;
     }
 
+    /**
+     * randomly sort arraylist with player ID
+     */
     public void firstOrderShuffle(){
         Collections.shuffle(playerOrder);
         System.out.println("Player order after shuffle:\n"+playerOrder);
@@ -77,6 +83,9 @@ public class TurnController implements EventListener<ViewEvent> {
     }
 
 
+    /**
+     * sorts the players according to the assistant cards they have played
+     */
     private void reorderPlayerOrder(){
 
         HashMap<UUID, Integer> map = gameModel.getPlayedAssistantCards();
@@ -128,6 +137,10 @@ public class TurnController implements EventListener<ViewEvent> {
     }
      */
 
+    /**
+     * this method checks whether the game is over or not
+     * @return a boolean value that indicates if the game is over
+     */
     public boolean isGameOver(){
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
         for (UUID player: playerIds){
@@ -142,6 +155,10 @@ public class TurnController implements EventListener<ViewEvent> {
         return false;
     }
 
+    /**
+     *
+     * @return the game winner
+     */
     public UUID getGameWinner(){
         if (!isGameOver()) return null;
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
