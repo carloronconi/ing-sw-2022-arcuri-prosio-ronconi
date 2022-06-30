@@ -4,9 +4,7 @@ import it.polimi.ingsw.client.ClientNameIdConverter;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.viewevents.SetCharacterSettings;
 import it.polimi.ingsw.server.model.PawnColor;
-import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
-import it.polimi.ingsw.server.model.charactercards.ColorSwap;
-import it.polimi.ingsw.server.model.charactercards.SwapperCharacter;
+import it.polimi.ingsw.server.model.charactercards.*;
 import it.polimi.ingsw.server.model.charactercards.effectarguments.EffectWithColor;
 import it.polimi.ingsw.server.model.charactercards.effectarguments.EffectWithIsland;
 import javafx.event.ActionEvent;
@@ -42,17 +40,19 @@ public class SetCharacterSettingsController extends SceneController{
     @FXML Button swapBtn;
     @FXML Button btn;
 
-    PawnColor color = null;
-    UUID island = null;
-    UUID player = null;
-    ArrayList<ColorSwap> colorSwaps = null;
+    private PawnColor color = null;
+    private UUID island = null;
+    private UUID player = null;
+    private ArrayList<ColorSwap> colorSwaps = null;
 
     private GameState gameState;
-    ClientNameIdConverter converter;
-    AvailableCharacter currentCharacter;
-    ArrayList<PawnColor> updatedEntrance;
-    ArrayList<PawnColor> updatedDining;
-    ArrayList<PawnColor> updatedCard;
+    private ClientNameIdConverter converter;
+    private AvailableCharacter currentCharacter;
+    private ArrayList<PawnColor> updatedEntrance;
+    private ArrayList<PawnColor> updatedDining;
+    private ArrayList<PawnColor> updatedCard;
+
+    private Class<?> characterClass;
 
 
     /**
@@ -160,7 +160,7 @@ public class SetCharacterSettingsController extends SceneController{
 
         }
 
-        Class<?> characterClass = availableCharacter.getCharacterClass();
+        characterClass = availableCharacter.getCharacterClass();
 
         pawnColor.setMouseTransparent(true);
         pawnColor.setFocusTraversable(false);
@@ -193,16 +193,20 @@ public class SetCharacterSettingsController extends SceneController{
      * Converts the string input by the player as a PawnColor
      */
     public void settingPawnColor(){
-        System.out.println(pawnColor.getText().toUpperCase(Locale.ROOT));
+        if (!EffectWithColor.class.isAssignableFrom(characterClass)) return;
+
         String string = pawnColor.getText().toUpperCase(Locale.ROOT);
         try{
-            color = PawnColor.valueOf(string);
+            PawnColor tempColor = PawnColor.valueOf(string);
+            if (Monk.class.isAssignableFrom(characterClass) && !gameState.getCharacterCardsStudents().get(AvailableCharacter.MONK).contains(tempColor)) return;
+            if (Princess.class.isAssignableFrom(characterClass) && !gameState.getCharacterCardsStudents().get(AvailableCharacter.PRINCESS).contains(tempColor)) return;
+            color = tempColor;
             pawnColor.clear();
         } catch(IllegalArgumentException | NullPointerException e){
             System.out.println("no color with that name");
         }
 
-        System.out.println(color);
+        System.out.println(color + " accepted");
 
     }
 
@@ -212,9 +216,11 @@ public class SetCharacterSettingsController extends SceneController{
      * Converts the string input by the player as an Island UUID
      */
     public void settingIslandChosen(){
-        System.out.println(whereTo.getText());
+        if (!EffectWithIsland.class.isAssignableFrom(characterClass)) return;
+
         String islandName = whereTo.getText();
-        island = converter.nameToId(islandName, ClientNameIdConverter.ConverterSetting.ISLAND);
+        island = converter.nameToId(islandName, ClientNameIdConverter.ConverterSetting.ISLAND); //returns null if it doesn't find island
+        if (Witch.class.isAssignableFrom(characterClass) && island!=null && gameState.getBanOnIslands().get(island)) island = null;
         System.out.println(island);
         if (island!=null) whereTo.clear();
         else System.out.println("no island with that name");
