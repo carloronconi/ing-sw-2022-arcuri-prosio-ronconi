@@ -360,8 +360,9 @@ public class TurnController implements EventListener<ViewEvent> {
 
             try {
                 lastCharacter.useEffect();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+            } catch (NoSuchFieldException | IllegalStateException e) {
+                //e.printStackTrace();
+                System.out.println("the effect is being used improperly, so nothing will happen");
             }
         }
     }
