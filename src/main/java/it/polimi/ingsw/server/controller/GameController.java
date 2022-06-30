@@ -47,7 +47,7 @@ public class GameController implements EventListener<ViewEvent> {
     }
 
     public List<String> getPlayerNicknames() {
-        return new ArrayList<>(playerNicknames);
+        return new ArrayList<>(/*playerNicknames*/mapOfPlayerNicknames.values());
     }
 
     public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum) {
