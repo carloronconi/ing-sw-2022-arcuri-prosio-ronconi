@@ -22,6 +22,6 @@
       <RadioButton fx:id="buttonHard" layoutX="382.0" layoutY="148.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="94.0" styleClass="message" text="HARD" />
       <RadioButton fx:id="button3" layoutX="383.0" layoutY="60.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" styleClass="message" text="3" />
       <RadioButton fx:id="button2" layoutX="300.0" layoutY="60.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" styleClass="message" text="2" />
-      <Button fx:id="generalButton" layoutX="506.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClick" styleClass="box" text="Button" />
+      <Button fx:id="generalButton" layoutX="506.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClick" styleClass="box" text="SET PREFERENCES" />
    </children>
 </AnchorPane>
