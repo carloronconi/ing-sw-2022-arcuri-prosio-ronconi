@@ -119,6 +119,7 @@ java -jar [absolute path]
 #### MacOs
 
 Either:
+
 3. Double-click the [GUI jar file for MacOS](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGui/PSP7.jar)
 
 or:
@@ -133,6 +134,7 @@ java -jar [absolute path]
 #### Windows
 
 Either:
+
 3. Double-click the [GUI jar file for Windows](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGuiWin/PSP7.jar)
 
 or:
