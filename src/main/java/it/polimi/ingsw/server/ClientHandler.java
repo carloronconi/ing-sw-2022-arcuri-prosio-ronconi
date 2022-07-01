@@ -3,6 +3,8 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.networkmessages.ReceivedByClient;
 import it.polimi.ingsw.networkmessages.controllercalls.*;
 import it.polimi.ingsw.networkmessages.modelevents.ModelEvent;
+import it.polimi.ingsw.networkmessages.modelevents.ServerHeartbeat;
+import it.polimi.ingsw.networkmessages.viewevents.Heartbeat;
 import it.polimi.ingsw.networkmessages.viewevents.ViewEvent;
 
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.TimeUnit;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -60,6 +63,18 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
             return;
         }
+
+        new Thread(()->{
+            try {
+                while(true){
+                    output.writeObject(new ServerHeartbeat());
+                    TimeUnit.SECONDS.sleep(3);
+                }
+            } catch (IOException | InterruptedException e) {
+                System.out.println("Client disconnected");
+                server.gameIsOver(null, this);
+            }
+        }).start();
 
         try {
             while (!stop) {
