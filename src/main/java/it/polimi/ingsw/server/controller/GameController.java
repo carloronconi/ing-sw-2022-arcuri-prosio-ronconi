@@ -50,6 +50,12 @@ public class GameController implements EventListener<ViewEvent> {
         return new ArrayList<>(/*playerNicknames*/mapOfPlayerNicknames.values());
     }
 
+    /**
+     * this method checks if the AssistantCard played by a player is correct
+     * @param card played by the player corresponding to the virtualView, as an integer, passed in input
+     * @param virtualViewInstanceNum integer corresponding to the virtualView in turn corresponding to a player
+     * @return a Boolean value indicating whether the chosen card is illegal or not
+     */
     public boolean isAssistantCardIllegal(int card, int virtualViewInstanceNum) {
         UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
@@ -60,6 +66,12 @@ public class GameController implements EventListener<ViewEvent> {
         }
     }
 
+    /**
+     * this method checks if the CharacterCard played by a player is correct
+     * @param card played by the player corresponding to the virtualView, as an integer, passed in input
+     * @param virtualViewInstanceNum integer corresponding to the virtualView in turn corresponding to a player
+     * @return a Boolean value indicating whether the chosen card is illegal or not
+     */
     public boolean isCharacterCardIllegal(AvailableCharacter card, int virtualViewInstanceNum){
         UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
@@ -69,6 +81,12 @@ public class GameController implements EventListener<ViewEvent> {
         }
     }
 
+    /**
+     * this method checks if the steps of motherNature chosen by a player are correct
+     * @param steps number of steps a player has chosen for Mother Nature to take
+     * @param virtualViewInstanceNum integer corresponding to the virtualView in turn corresponding to a player
+     * @return a Boolean value indicating whether the chosen steps are illegal or not
+     */
     public boolean isMNMoveIllegal(int steps, int virtualViewInstanceNum){
         UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         try {
@@ -78,12 +96,23 @@ public class GameController implements EventListener<ViewEvent> {
         }
     }
 
+    /**
+     * this method checks whether the student moved by a player is illegal or not
+     * @param color color of the student chosen for the move
+     * @param virtualViewInstanceNum integer corresponding to the virtualView in turn corresponding to a player
+     * @return returns a Boolean value indicating whether movement is allowed
+     */
     public boolean isStudentMoveIllegal(PawnColor color, int virtualViewInstanceNum){
         UUID playerId = virtualViewInstanceToId(virtualViewInstanceNum);
         int available = gameModel.getEntrances().get(playerId).get(color);
         return available <= 0;
     }
 
+    /**
+     * this method converts the integer of the virtual view to the corresponding player
+     * @param virtualViewInstanceNum integer corresponding to the virtualView in turn corresponding to a player
+     * @return Player ID
+     */
     private UUID virtualViewInstanceToId(int virtualViewInstanceNum){
         ArrayList<UUID> playerIds = gameModel.getPlayerIds();
         UUID playerId = playerIds.get(virtualViewInstanceNum);
