@@ -1,14 +1,12 @@
 package it.polimi.ingsw.client.gui;
 
 import it.polimi.ingsw.client.ClientNameIdConverter;
-import it.polimi.ingsw.networkmessages.viewevents.ChosenCharacter;
-import it.polimi.ingsw.server.model.PawnColor;
-import it.polimi.ingsw.server.model.TowerColor;
 import it.polimi.ingsw.networkmessages.modelevents.GameState;
 import it.polimi.ingsw.networkmessages.viewevents.ChosenCloud;
 import it.polimi.ingsw.networkmessages.viewevents.MovedMotherNature;
 import it.polimi.ingsw.networkmessages.viewevents.MovedStudent;
-import it.polimi.ingsw.server.model.charactercards.AvailableCharacter;
+import it.polimi.ingsw.server.model.PawnColor;
+import it.polimi.ingsw.server.model.TowerColor;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -22,17 +20,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
-import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class GameBoardController extends SceneController{
