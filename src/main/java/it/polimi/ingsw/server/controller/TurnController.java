@@ -108,35 +108,6 @@ public class TurnController implements EventListener<ViewEvent> {
     }
 
 
-
-    /*
-    public boolean startRound() {
-        startPlanningPhase();
-        return startActionPhase();
-    }
-
-    private void startPlanningPhase() {
-        gameModel.fillAllClouds();
-        gameModel.clearPlayedAssistantCards();
-
-
-        for (UUID player : playerOrder){
-            viewMap.get(player).getAssistantCard();
-            while (true){
-                try {
-                    gameModel.playAssistantCard(player,lastPlayedAssistant);
-                    break;
-                } catch (NoSuchFieldException e) {
-                    viewMap.get(player).invalidAssistantCard();
-                }
-            }
-        }
-
-        HashMap<UUID, Integer> map = gameModel.getPlayedAssistantCards();
-        reorderPlayerOrder(map);
-    }
-     */
-
     /**
      * this method checks whether the game is over or not
      * @return a boolean value that indicates if the game is over
@@ -215,85 +186,7 @@ public class TurnController implements EventListener<ViewEvent> {
         }
         return maxPlayer;
     }
-/*
-    private boolean startActionPhase(){
-        for (UUID player : playerOrder){
-            VirtualView view = viewMap.get(player);
-            view.playerTurn();
-            if (gameMode == GameMode.HARD){
-                view.chooseCharacter();
 
-                if (lastPlayedCharacter != null){
-                    while (true){
-                        try {
-                            Character character = gameModel.payAndGetCharacter(player, lastPlayedCharacter);
-                            if (character instanceof SwapperCharacter){
-                                view.getColorSwap();
-                                ((SwapperCharacter) character).setupColorSwaps(lastGivenSwap, lastTakenSwap);
-                            }
-                            if (character instanceof EffectWithColor){
-                                view.getColorChoice();
-                                ((EffectWithColor) character).setEffectColor(lastChosenColor);
-                            }
-                            if (character instanceof EffectWithIsland){
-                                view.getIslandChoice();
-                                ((EffectWithIsland) character).setEffectIsland(lastEffectChosenIsland);
-                            }
-                            if (character instanceof EffectWithPlayer){
-                                ((EffectWithPlayer) character).setEffectPlayer(player);
-                            }
-                            character.useEffect();
-                            break;
-                        } catch (NoSuchFieldException e) {
-                            view.invalidCharacterChoice();
-                        }
-                    }
-                }
-
-            }
-            int times = (playerOrder.size() == 2)? 3: 4;
-            for (int i = 0; i < times; i++) {
-                view.moveStudent();
-                if (lastChosenIsland == null){
-                    try {
-                        gameModel.moveStudentToDining(lastChosenStudent, player);
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        gameModel.moveStudentToIsland(lastChosenStudent, player, lastChosenIsland);
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            view.moveMotherNature();
-            while (true){
-                try {
-                    gameModel.moveMotherNature(lastMotherNatureSteps, player);
-                    break;
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalArgumentException e){
-                    view.invalidMNMove();
-                }
-            }
-
-            if (isGameOver(player)) return true;
-
-            view.chooseCloud();
-            try {
-                gameModel.moveCloudToEntrance(lastChosenCloud, player);
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return false;
-    }
-*/
 
     @Override
     public void update(ViewEvent modelEvent)  {
@@ -333,15 +226,14 @@ public class TurnController implements EventListener<ViewEvent> {
                     e.printStackTrace();
                 }
             }
-            //lastChosenStudent = ((MovedStudent) modelEvent).getColor();
-            //lastChosenIsland = ((MovedStudent) modelEvent).getIslandId();
+
         } else if (modelEvent instanceof MovedMotherNature){
             try {
                 gameModel.moveMotherNature(((MovedMotherNature) modelEvent).getMotherNatureSteps(), getCurrentPlayer());
             } catch (NoSuchFieldException e) {
                 throw new RuntimeException(e);
             }
-            //lastMotherNatureSteps = ((MovedMotherNature) modelEvent).getMotherNatureSteps();
+
         } else if (modelEvent instanceof  ChosenCloud){
             try {
                 gameModel.moveCloudToEntrance(((ChosenCloud) modelEvent).getCloud(), getCurrentPlayer());
@@ -352,7 +244,7 @@ public class TurnController implements EventListener<ViewEvent> {
                 gameModel.fillAllClouds();
                 gameModel.clearPlayedAssistantCards();
             }
-            //lastChosenCloud = ((ChosenCloud) modelEvent).getCloud();
+
         } else if (modelEvent instanceof SetCharacterSettings){
             PawnColor color = ((SetCharacterSettings) modelEvent).getColor();
             UUID island = ((SetCharacterSettings) modelEvent).getIsland();
@@ -379,7 +271,7 @@ public class TurnController implements EventListener<ViewEvent> {
                 lastCharacter.useEffect();
                 gameModel.notifyListeners();
             } catch (NoSuchFieldException | IllegalStateException e) {
-                //e.printStackTrace();
+
                 System.out.println("the effect is being used improperly, so nothing will happen");
             }
         }

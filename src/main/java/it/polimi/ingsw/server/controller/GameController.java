@@ -126,28 +126,7 @@ public class GameController implements EventListener<ViewEvent> {
     /**
      * call to start the game
      */
-    /*
-    public void startGame(){
 
-
-        boolean gameIsOver = false;
-        while (!gameIsOver){
-            gameIsOver = turnController.startRound();
-        }
-        controllerState = ControllerState.GAME_OVER;
-
-        for (VirtualView view: virtualViews){
-            view.gameOver();
-            if (view == firstVirtualView) view.askPlayAgain();
-        }
-
-        if (playAgain){
-            controllerState = ControllerState.INITIAL_SETUP;
-            startGame();
-        }
-
-    }
-    */
     @Override
     public void update(ViewEvent viewEvent) {
         if (viewEvent instanceof SetNickname) {
@@ -158,9 +137,7 @@ public class GameController implements EventListener<ViewEvent> {
                 }
             }else numOfNicknamesAdded++;
             String nickname = ((SetNickname) viewEvent).getNickname();
-            //playerNicknames.add(nickname);
-            //System.out.println(playerNicknames);
-            VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
+              VirtualView virtualView = ((SetNickname) viewEvent).getVirtualView();
             mapOfPlayerNicknames.put(virtualView.getThisInstanceNumber(), nickname);
             System.out.println(mapOfPlayerNicknames);
             synchronized (virtualViews){
@@ -193,11 +170,7 @@ public class GameController implements EventListener<ViewEvent> {
                         modelEventEventManager.subscribe(view);
                     }
                 }
-                /*
-                for (VirtualView v : virtualViews) {
-                    modelEventEventManager.subscribe(v);
 
-                }*/
                 for (int i = 0; i<numOfPlayers; i++){
                     playerNicknames.add(mapOfPlayerNicknames.get(i));
                 }

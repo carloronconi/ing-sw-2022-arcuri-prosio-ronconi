@@ -15,6 +15,9 @@ import it.polimi.ingsw.utilities.ViewInterface;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Message sent by the Model representing the current state of the Board, used by both CLI and GUI
+ */
 public class GameState implements Serializable, ModelEvent, Identifiable {
     private final int bag;
     private final UUID uuid = UUID.randomUUID();
@@ -164,30 +167,17 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
 
         for (UUID id : clouds.keySet()){
             sb.append(converter.idToName(id, ClientNameIdConverter.ConverterSetting.CLOUD) + ": ");
-            //ArrayList<Bullet> cloud = new ArrayList<>();
+
             for (PawnColor color : clouds.get(id)){
                 sb.append(new Bullet(Color.pawnColorConverter(color)));
                 sb.append(" ");
-                //cloud.add(new Bullet(Color.pawnColorConverter(color)));
+
             }
-            //sb.append(cloud);
+
             sb.append("\t\t");
 
         }
-        /*
-        sb.append("\nislands:          ");
-        for (UUID i: islands.keySet()){
-            sb.append(converter.idToName(i, CliViewIdConverter.converterSetting.ISLAND) +" : size = " + islandSizes.get(i) + " | colors = "+ islands.get(i) );
-            if (characterCards!=null && islandsWithBan.contains(i)) sb.append(" | ban active!");
-            sb.append(" | owner = ");
-            sb.append(islandOwners.get(i) == null? "none" : nicknames.get(islandOwners.get(i)));
-            if(motherNaturePosition==i) sb.append(" <-- Mother nature position");
-            sb.append("\n                  ");
-        }*/
-        /*
-        sb.append("\nislands:          \n");
-        Matrix m = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, islands);
-        sb.append(m);*/
+
         sb.append("\n");
         Matrix mt = new Matrix(converter, islandOwners, colorPlayersTowers, banOnIslands, motherNaturePosition, islandsSize, initialIslandIds, islands);
         sb.append(mt);
@@ -204,22 +194,14 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
                     }
                 }
                 sb.append("\n                  ");
-            }/*
-            sb.append(characterCards + " ");
-            sb.append(characterCardsStudents + "\n");*/
+            }
         }
 
-        /*
-        sb.append("\nprofessor owners: ");
-        for (PawnColor prof : PawnColor.values()){
-            sb.append(prof + " = ");
-            sb.append(professorOwners.get(prof) == null? "none":professorOwners.get(prof));
-            sb.append("\n                  ");
-        }*/
+
 
         sb.append("\nprofessor owners: ");
         for (PawnColor prof : PawnColor.values()){
-            //sb.append(prof + " = ");
+
             sb.append(new Bullet(Color.pawnColorConverter(prof)) + " = ");
             sb.append(professorOwners.get(prof) == null? "none":nicknames.get(professorOwners.get(prof)));
             sb.append("\n                  ");
@@ -229,9 +211,7 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
 
         for (UUID player : nicknames.keySet()){
             sb.append(nicknames.get(player) + "'s school board\n");
-            /*
-            sb.append("entrance:         "+entrances.get(player));
-            sb.append("\ndining room:      "+diningRooms.get(player));*/
+
             if (player.equals(ofPlayer)) sb.append("\nassistant deck:   "+assistantDecks.get(player));
             sb.append("\ncoins:            "+coinsMap.get(player));
             String playedAssistant = playedAssistantCards.get(player) == null? "none" : Integer.toString(playedAssistantCards.get(player));
@@ -241,7 +221,7 @@ public class GameState implements Serializable, ModelEvent, Identifiable {
                     "|entrance          |prof t. \n" +
                     "|       |dining r. | |towers  \n");
 
-            //sb.append(matrices.get(player) + "\n\n");
+
 
             Matrix matrix = new Matrix(nicknames.size(), numOfTowersUsed.get(player), player, colorPlayersTowers.get(player), entrances.get(player), diningRooms.get(player), professorOwners);
             sb.append(matrix.toString());

@@ -201,21 +201,7 @@ public class GameModel {
             }
         }
 
-        /*
-        for (Integer playedCard : playedCards.values()) {
 
-            boolean noAlternative = true;
-            for (int card : player.getDeck()){
-                if (!playedCards.containsValue(card)) {
-                    noAlternative = false;
-                    break;
-                }
-            }
-            if (playedCard.equals(cardNumber) && !noAlternative) {
-                return true;
-            }
-        }
-        return false;*/
     }
 
     /**

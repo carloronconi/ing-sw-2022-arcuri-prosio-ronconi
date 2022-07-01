@@ -17,6 +17,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.UUID;
 
+/**
+ * Server-side Virtual View
+ */
 public class VirtualView implements EventListener<ModelEvent> , ViewInterface {
     private Socket clientSocket;
     private ObjectOutputStream output;
