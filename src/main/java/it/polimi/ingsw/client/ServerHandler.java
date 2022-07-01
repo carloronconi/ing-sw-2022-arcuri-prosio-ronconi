@@ -97,7 +97,6 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
                 try {
                     while(true){
                         output.writeObject(new Heartbeat());
-                        System.out.println("heartbeat");
                         TimeUnit.SECONDS.sleep(3);
                     }
                 } catch (IOException | InterruptedException e) {
