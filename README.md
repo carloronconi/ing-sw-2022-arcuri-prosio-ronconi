@@ -28,7 +28,7 @@ The following links lead to the initial and final structures of the UML diagram 
 * CLI
 * GUI
 * Advanced functionality
-    * creation of all 12 characters
+  * creation of all 12 characters
 
 ## Tests Coverage
 
@@ -116,9 +116,14 @@ java -jar [absolute path]
 
 ### GUI
 
-#### MacOs/linux
+#### MacOs
 
-3. Open the properties of the [GUI jar file for MacOS/linux](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGui/PSP7.jar)
+Either:
+3. Double-click the [GUI jar file for MacOS](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGui/PSP7.jar)
+
+or:
+
+3. Open the properties of the [GUI jar file for MacOS](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGui/PSP7.jar)
 4. Copy the absolute path of the file
 5. Enter the following command without parentheses
 ```bash
@@ -126,6 +131,11 @@ java -jar [absolute path]
 ```
 
 #### Windows
+
+Either:
+3. Double-click the [GUI jar file for Windows](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGuiWin/PSP7.jar)
+
+or:
 
 3. Open the properties of the [GUI jar file for Windows](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/jar/artifacts/ClientGuiWin/PSP7.jar)
 4. Copy the absolute path of the file
