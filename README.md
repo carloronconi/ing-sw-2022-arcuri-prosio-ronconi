@@ -16,7 +16,7 @@ The project consists of a version of the game board "Eriantys", made by Cranio C
 
 The following links lead to the initial and final structures of the UML diagram and Communication Protocol
 * [initial UML](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/1-initial-UML/UML-model-initial.png)
-* [final UML](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/tree/main/final-UML)
+* [final UML](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/final-UML)
 
 * [Communication Protocol](https://github.com/carloronconi/ing-sw-2022-arcuri-prosio-ronconi/blob/main/deliveries/3-protocol-documentation/protocol-documentation-group7.pdf)
 
