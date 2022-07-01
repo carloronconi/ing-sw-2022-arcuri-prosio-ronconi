@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.networkmessages.viewevents.Heartbeat;
 import it.polimi.ingsw.utilities.EventListener;
 import it.polimi.ingsw.utilities.EventManager;
 import it.polimi.ingsw.utilities.ViewInterface;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A class that represents the server inside the client.
@@ -89,6 +91,21 @@ public class ServerHandler implements Runnable, EventListener<ViewEvent> {
     {
         try {
             output.writeObject(new Handshake());
+
+            // on a separate thread a heartbeat will try to reach the server every 3 seconds, if unreachable game over
+            new Thread(()->{
+                try {
+                    while(true){
+                        output.writeObject(new Heartbeat());
+                        System.out.println("heartbeat");
+                        TimeUnit.SECONDS.sleep(3);
+                    }
+                } catch (IOException | InterruptedException e) {
+                    System.out.println("Server disconnected");
+                    view.gameOver(null);
+                    stopServer();
+                }
+            }).start();
 
             while (!stop) {
                 try {
